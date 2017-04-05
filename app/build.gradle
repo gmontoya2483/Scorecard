@@ -49,7 +49,7 @@ dependencies {
     compile 'com.google.firebase:firebase-ads:10.0.1'
 
 
-    //Ading the FireBaseUI library - Only Authentication
+    //Adding the FireBaseUI library - Only Authentication
     compile 'com.firebaseui:firebase-ui-auth:1.2.0'
 
 }
