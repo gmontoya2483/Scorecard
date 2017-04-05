@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1028272500250",
+    "firebase_url": "https://scorecard-46d32.firebaseio.com",
+    "project_id": "scorecard-46d32",
+    "storage_bucket": "scorecard-46d32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1028272500250:android:53fbd7cebb51da34",
+        "android_client_info": {
+          "package_name": "com.montoya.gabi.scorecard"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1028272500250-hqs47nmvddsjbmbentgr8rqkfh12slbc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.montoya.gabi.scorecard",
+            "certificate_hash": "b39522ef30d751cad921f5c9596ff71c75855038"
+          }
+        },
+        {
+          "client_id": "1028272500250-4ckal5kkbud02mb030hasfhejbmhk2ov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuUjtAawCnGvdl9HaX4BhQ0Y6eX4hQbTo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1028272500250-4ckal5kkbud02mb030hasfhejbmhk2ov.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
