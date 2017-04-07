@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
     private UserAuthentication mUserAuthentication;
 
 
@@ -53,8 +51,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
 
-        //Initialize the UserAuthentication class
+        //Initialize the UserAuthentication class and the listener for log in
         mUserAuthentication=new UserAuthentication(this);
+        mUserAuthentication.initializeAuthenticationStateListener();
 
 
     }
@@ -90,9 +89,15 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==mUserAuthentication.getRC_SIGN_IN()){
             if (resultCode==RESULT_OK){
+
+                onSignedIn();
+
+                //TODO remove the toast after verifying that everything works as expected.
                 Toast.makeText(this,"Signed in!",Toast.LENGTH_SHORT).show();
 
             }else if (resultCode==RESULT_CANCELED){
+
+                //TODO remove the toast after verifying that everything works as expected.
                 Toast.makeText(this,"Sign in canceled!",Toast.LENGTH_SHORT).show();
                 finish();
 
@@ -103,13 +108,19 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        mUserAuthentication.AddAuthStateListener();
+        mUserAuthentication.attachAuthStateListener();//attach the Authorization StateListener
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        mUserAuthentication.RemoveAuthStateListener();
+        mUserAuthentication.detachAuthStateListener(); //dettach the Authorization StateListener
+
+    }
+
+    private void onSignedIn(){
+
+        //TODO add functionality what to do if the user is logged (for example get the user name, show the log out action, etc.... TBD)
 
     }
 }
