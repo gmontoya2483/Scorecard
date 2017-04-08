@@ -60,12 +60,18 @@ It creates an UserAuthentication instance and initialize member Variables.
 
 ### Public constants:
 
-Type     | Description
-    --------------------- | ---------------------
-    ```String``` | ```ANONYMOUS```<P>The user is not logged in.
-    ```String``` | ```NO_EMAIL```<P>The user has not a registered email.
+```java
+    public static final String ANONYMOUS = "anonymous"; //The user is not logged in
+    public static final String NO_EMAIL = "no_email"; //The user has not a registered email
+```
+
 
 ### Public methods:
+
+* ````java public void initializeAuthenticationStateListener()````
+
+    This method is used to initialize the authentication State listener and triggers either the ```onSignedIn()``` or ```onSignedOut()``` private methods.
+
 Return     | Description
     --------------------- | ---------------------
     ```void``` | ```initializeAuthenticationStateListener()```<P>This method is used to initialize the authentication State listener and triggers either the ```onSignedIn()``` or ```onSignedOut()``` private methods.
