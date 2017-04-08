@@ -18,7 +18,7 @@ import java.util.Arrays;
 
 public class UserAuthentication {
 
-    private final int RC_SIGN_IN = 1;
+    private final int RC_SIGN_IN = 1000;
     public static final String ANONYMOUS = "anonymous";
     public static final String NO_EMAIL = "no_email";
 
@@ -98,7 +98,7 @@ public class UserAuthentication {
     }
 
 
-    /*Getter method which return the request Sign In constant*/
+    /*Getter method which return the value of request Sign In constant*/
     public int getRC_SIGN_IN(){
         return RC_SIGN_IN;
     }
