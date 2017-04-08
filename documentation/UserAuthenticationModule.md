@@ -183,5 +183,8 @@ Add the sign out functionality.
 
 ## Reference Documentation
 https://firebase.google.com/docs/auth/
+
 https://github.com/firebase/FirebaseUI-Android
+
 https://github.com/firebase/FirebaseUI-Android/tree/master/auth
+
