@@ -77,18 +77,23 @@ It creates an UserAuthentication instance and initialize member Variables.
     This method is used to attach the authentication State listener into the FirebaseAuth instance.
 
 * ```public void detachAuthStateListener()```
+
     This method is used to dettach the authentication State listener into the FirebaseAuth instance.
 
 * ```public FirebaseUser getUser()```
+
     Getter method which return the current FirebaseUser (```mUser```).
 
 * ```public int getRC_SIGN_IN()```
+
     Getter method which return the value of request Sign In constant (```RC_SIGN_IN```).
 
 * ```public String getUserDisplayName()```
+
     Getter method which return Display Name as String. In case the user is logged out, it will return the ```ANONYMOUS``` constant.
 
 * ```public String getUserEmail()```
+
     Getter method which return the user email. In case the user has not a registered email, it will return the ```NO_EMAIL``` constant.
 
 
