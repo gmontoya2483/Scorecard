@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1028272500250-cqh62obgeoc1nk4mjr633nv4729dsv35.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.montoya.gabi.scorecard",
+            "certificate_hash": "ac5bb9b731efa1cb0d4527f46a2f2ddb5f492a56"
+          }
+        },
+        {
           "client_id": "1028272500250-hqs47nmvddsjbmbentgr8rqkfh12slbc.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

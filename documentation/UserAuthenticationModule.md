@@ -9,8 +9,6 @@ UserAuthentication Module
 * [Reference Documentation](#reference-documentation)
 
 
-
-
 ## Overview
 This module is in charge of managing the Firebase user authentication by using FirebaseAuthentication and FirebaseUI library.
 
@@ -96,6 +94,10 @@ It creates an UserAuthentication instance and initialize member Variables.
 
     Getter method which return the user email. In case the user has not a registered email, it will return the ```NO_EMAIL``` constant.
 
+* ```public void signOut()```
+
+    This method is used for signing out.
+
 
 ## How to implement it
 
@@ -129,7 +131,14 @@ It creates an UserAuthentication instance and initialize member Variables.
 ```
 
 
-3 - Add the following code lines in the ```MainActivity``` within the ```onCreate``` method.
+3 - Declare the member variable within the  ```MainActivity```
+
+```java
+    private UserAuthentication mUserAuthentication;
+```
+
+
+4 - Add the following code lines in the ```MainActivity``` within the ```onCreate``` method.
 
 ```java
     @Override
@@ -152,7 +161,7 @@ It creates an UserAuthentication instance and initialize member Variables.
 ```
 
 
-4 - Add the following code lines in the ```MainActivity``` within the ```onResume``` and ```onPause``` methods.
+5 - Add the following code lines in the ```MainActivity``` within the ```onResume``` and ```onPause``` methods.
 
 ```java
     @Override
@@ -170,7 +179,7 @@ It creates an UserAuthentication instance and initialize member Variables.
 ```
 
 
-5 - Add the following code lines in the ```MainActivity``` within the ```onActivityResult``` method.
+6 - Add the following code lines in the ```MainActivity``` within the ```onActivityResult``` method.
 
 ```java
     @Override
@@ -191,6 +200,32 @@ It creates an UserAuthentication instance and initialize member Variables.
                 }
             }
         }
+```
+
+7 - Call the ```mUserAuthentication.signOut()``` method within the  ```MainActivity``` for signing out from the application. This is an example using a Menu:
+
+```java
+@Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.action_settings:
+                return true;
+            case R.id.action_sign_out:
+                //sign out
+                mUserAuthentication.signOut();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+
+    }
+
 ```
 
 

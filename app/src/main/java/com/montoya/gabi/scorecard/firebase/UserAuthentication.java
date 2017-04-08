@@ -158,5 +158,13 @@ public class UserAuthentication {
     }
 
 
+    /*Method for signing out from the application*/
+    public void signOut(){
+
+        AuthUI.getInstance().signOut(mActivity);
+
+    }
+
+
 
 }
