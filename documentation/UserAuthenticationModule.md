@@ -80,7 +80,8 @@ Return     | Description
 
 1 - Define in the FireBase console the Authentication methods that are allowed.
 
-    <img src="documentation_images/firebase_auth_methods.png" height="400" alt="Authentication Methods"/>
+    <img src="Scorecard/documentation/documentation_images/firebase_auth_methods.png" height="400" alt="Authentication Methods"/>
+    
 
 2 - Add within the ```onSignedOut()``` the selected Authentication methods.
 
