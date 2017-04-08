@@ -72,6 +72,10 @@ It creates an UserAuthentication instance and initialize member Variables.
 
     This method is used to initialize the authentication State listener and triggers either the ```onSignedIn()``` or ```onSignedOut()``` private methods.
 
+* ``` public void attachAuthStateListener()```
+
+    This method is used to attach the authentication State listener into the FirebaseAuth instance.
+
 Return     | Description
     --------------------- | ---------------------
     ```void``` | ```initializeAuthenticationStateListener()```<P>This method is used to initialize the authentication State listener and triggers either the ```onSignedIn()``` or ```onSignedOut()``` private methods.
