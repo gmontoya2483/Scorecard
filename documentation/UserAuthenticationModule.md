@@ -3,7 +3,7 @@ UserAuthentication Module
 
 * [Overview](#overview)
 * [Setup the UserAuthentication Module](#setup-the-userauthentication-module)
-* [firebase.UserAuthentication class](#firebase.userauthentication-class)
+* [firebase.UserAuthentication class](#firebaseuserauthentication-class)
 * [How to implement it](#how-to-implement-it)
 * [To do](#to-do)
 * [Reference Documentation](#reference-documentation)
