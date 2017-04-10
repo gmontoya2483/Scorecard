@@ -110,8 +110,7 @@ It creates an UserAuthentication instance and initialize member Variables.
 2 - Add within the ```onSignedOut()``` the selected Authentication methods.
 
 ```java
-
-    private void onSignedOut(){
+   private void onSignedOut(){
 
         //...
 
@@ -119,6 +118,7 @@ It creates an UserAuthentication instance and initialize member Variables.
         mActivity.startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
+                        .setTheme(R.style.LogInTheme)
                         .setLogo(R.drawable.logo)
                         .setIsSmartLockEnabled(false)
                         .setProviders(Arrays.asList(
@@ -229,10 +229,55 @@ It creates an UserAuthentication instance and initialize member Variables.
 ```
 
 
+8 - UI customization:   
+
+Generate a style whose parent is ```FirebaseUI```   
+
+```xml
+     <!--FirebasiUI customization -->
+        <style name="LogInTheme" parent="FirebaseUI">
+            <item name="colorPrimary">@color/colorPrimary</item>
+            <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+            <item name="colorAccent">@color/colorAccent</item>
+            <item name="colorControlNormal">@color/colorPrimary</item>
+            <item name="colorControlActivated">@color/colorPrimaryDark</item>
+            <item name="colorControlHighlight">@color/colorAccent</item>
+            <item name="android:windowBackground">@color/windowBackground</item>
+        </style>
+```
+
+
+
+
+Add the Theme to the Intent builder:
+
+
+```java
+   private void onSignedOut(){
+
+        //...
+
+
+        mActivity.startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setTheme(R.style.LogInTheme)
+                        .setLogo(R.drawable.logo)
+                        .setIsSmartLockEnabled(false)
+                        .setProviders(Arrays.asList(
+                                new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                                new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build()))
+                        .build(),
+                RC_SIGN_IN);
+    }
+
+```
+
+
 
 ## To do
 
-Add the sign out functionality.
+
 
 
 

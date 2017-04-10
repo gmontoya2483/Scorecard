@@ -1,6 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <!-- App theme colors -->
+    <color name="colorPrimary">#8BC34A</color>
+    <color name="colorPrimaryDark">#558B2F</color>
+    <color name="colorPrimaryLight">#AED581</color>
+    <color name="colorAccent">#F50057</color>
+    <color name="windowBackground">#E8F5E9</color>
+
+    <!-- Font colors -->
+    <color name="font_black_100">@color/black</color>
+    <color name="font_PrimaryText_87">#DE000000</color>
+    <color name="font_SecondaryText_54">#8A000000</color>
+    <color name="font_Disable_38">#61000000</color>
+    <color name="Divider_12">#1F000000</color>
+
+    <!--White and Black -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+
+
 </resources>

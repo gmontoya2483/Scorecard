@@ -148,6 +148,7 @@ public class UserAuthentication {
         mActivity.startActivityForResult(
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
+                        .setTheme(R.style.LogInTheme)
                         .setLogo(R.drawable.logo)
                         .setIsSmartLockEnabled(false)
                         .setProviders(Arrays.asList(
