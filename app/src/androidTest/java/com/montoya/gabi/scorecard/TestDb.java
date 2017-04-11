@@ -3,15 +3,13 @@ package com.montoya.gabi.scorecard;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.test.runner.AndroidJUnit4;
+import android.test.AndroidTestCase;
+import android.test.ProviderTestCase2;
 
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.model.data.ScorecardDbHelper;
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 
 import java.util.HashSet;
 
@@ -19,39 +17,30 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * Created by montoya on 11.04.2017.
+ * Created by Gabriel on 11/04/2017.
  */
 
+public class TestDb extends AndroidTestCase {
 
-
-@RunWith(AndroidJUnit4.class)
-public class TestDb {
-
-    public static final String LOG_TAG = TestDb.class.getSimpleName();
-    MainActivity mMainActivity;
-    Context mContext;
-
-
-    @Before
-    public void setup(){
+    private TestUtils mTestUtils=new TestUtils();
 
 
 
+    @Override
+    protected void setUp() throws Exception {
+        mTestUtils.deleteTheDatabase(mContext);
 
     }
 
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+    }
+
+    public void testCreateDB(){
 
 
-
-
-    @Test
-    public void CreateDB(){
-
-
-        MainActivity mainActivity=new MainActivity();
-        mContext=mainActivity.getApplicationContext();
-
-        deleteTheDatabase(mContext);
+        mTestUtils.deleteTheDatabase(mContext);
 
 
         // Add the table names within the HashSet
@@ -62,7 +51,7 @@ public class TestDb {
 
         //Check if the database is created and Opened correctly
         mContext.deleteDatabase(ScorecardDbHelper.DATABASE_NAME);
-        SQLiteDatabase db=new ScorecardDbHelper(this.mContext).getWritableDatabase();
+        SQLiteDatabase db=new ScorecardDbHelper(mContext).getWritableDatabase();
         assertEquals("Error: Database is not opened correctly",true,db.isOpen());
 
 
@@ -89,12 +78,9 @@ public class TestDb {
 
 
 
-    @Test
-    public void tableGolfFieldStructure(){
 
+    public void testTableGolfFieldStructure(){
 
-        MainActivity mainActivity=new MainActivity();
-        mContext=mainActivity.getApplicationContext();
 
         final HashSet<String> moviesColumnHashSet=new HashSet<String>();
         moviesColumnHashSet.add(ScorecardContract.GolfFieldEntry._ID);
@@ -102,7 +88,7 @@ public class TestDb {
         moviesColumnHashSet.add(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE);
 
 
-        SQLiteDatabase db=new ScorecardDbHelper(this.mContext).getReadableDatabase();
+        SQLiteDatabase db=new ScorecardDbHelper(mContext).getReadableDatabase();
         assertEquals("Error: Database is not opened correctly",true,db.isOpen());
 
         Cursor cursor=db.rawQuery("PRAGMA table_info("+ ScorecardContract.GolfFieldEntry.TABLE_NAME+")",null);
@@ -122,24 +108,6 @@ public class TestDb {
         db.close();
 
     }
-
-
-
-
-
-
-    @After
-    public void tearDown(){
-
-    }
-
-
-    // Since we want each test to start with a clean slate
-    void deleteTheDatabase(Context context) {
-
-        context.deleteDatabase(ScorecardDbHelper.DATABASE_NAME);
-    }
-
 
 
 
