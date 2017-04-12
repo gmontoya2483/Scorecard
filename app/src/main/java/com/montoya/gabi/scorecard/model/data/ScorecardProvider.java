@@ -2,12 +2,15 @@ package com.montoya.gabi.scorecard.model.data;
 
 import android.annotation.TargetApi;
 import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 /**
  * Created by montoya on 10.04.2017.
@@ -24,49 +27,30 @@ public class ScorecardProvider extends ContentProvider{
 
     //Codes for the UriMatcher
     //TODO Define the codes
-    /*
-    public static final int MOVIE=100;
-    public static final int MOVIE_WITH_ID=110;
-    public static final int FAVORITE=200;
-    public static final int FAVORITE_WITH_ID=210;
-    public static final int VIDEO=300;
-    public static final int VIDEO_WITH_MOVIE_ID=320;
-    public static final int VIDEO_WITH_KEY=330;
-    public static final int REVIEW=400;
-    public static final int REVIEW_WITH_ID=410;
-    public static final int REVIEW_WITH_MOVIE_ID=420;
-    */
+    public static final int GOLF_FIELD=100;
+    public static final int GOLF_FIELD_WITH_ID=110;
+    public static final int GOLF_FIELD_FAVORITE=200;
+    public static final int GOLF_FIELD_HOLE=300;
+    public static final int GOLF_FIELD_HOLE_WITH_ID=310;
+    public static final int GOLF_FIELD_HOLE_WITH_GF=400;
+
+
+
 
 
     public static UriMatcher buildUriMatcher() {
-        // I know what you're thinking.  Why create a UriMatcher when you can use regular
-        // expressions instead?  Because you're not crazy, that's why.
 
-        // All paths added to the UriMatcher have a corresponding code to return when a match is
-        // found.  The code passed into the constructor represents the code to return for the root
-        // URI.  It's common to use NO_MATCH as the code for this case.
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = ScorecardContract.CONTENT_AUTHORITY;
 
         // For each type of URI you want to add, create a corresponding code.
+        matcher.addURI(authority, ScorecardContract.PATH_GOLF_FIELD, GOLF_FIELD);
+        matcher.addURI(authority, ScorecardContract.PATH_GOLF_FIELD + "/#", GOLF_FIELD_WITH_ID);
+        matcher.addURI(authority, ScorecardContract.PATH_GOLF_FIELD_FAVORITE, GOLF_FIELD_FAVORITE);
 
-        //TODO add the matchers
-        /*
-        matcher.addURI(authority, PopularMoviesContract.PATH_MOVIES + "/#", MOVIE_WITH_ID);
-        matcher.addURI(authority, PopularMoviesContract.PATH_MOVIES, MOVIE);
-
-        matcher.addURI(authority, PopularMoviesContract.PATH_FAVORITES + "/#",FAVORITE_WITH_ID);
-        matcher.addURI(authority, PopularMoviesContract.PATH_FAVORITES, FAVORITE);
-
-        matcher.addURI(authority, PopularMoviesContract.PATH_VIDEOS + "/*",VIDEO_WITH_KEY);
-        matcher.addURI(authority, PopularMoviesContract.PATH_VIDEOS, VIDEO);
-        matcher.addURI(authority, PopularMoviesContract.PATH_VIDEOS +"_"+PopularMoviesContract.PATH_MOVIES+"/#",VIDEO_WITH_MOVIE_ID);
-
-        matcher.addURI(authority, PopularMoviesContract.PATH_REVIEWS, REVIEW);
-        matcher.addURI(authority, PopularMoviesContract.PATH_REVIEWS +"_"+PopularMoviesContract.PATH_MOVIES+"/#",REVIEW_WITH_MOVIE_ID);
-        matcher.addURI(authority, PopularMoviesContract.PATH_REVIEWS + "/#",REVIEW_WITH_ID);
-        */
-
+        matcher.addURI(authority, ScorecardContract.PATH_GOLF_FIELD_HOLE, GOLF_FIELD_HOLE);
+        matcher.addURI(authority, ScorecardContract.PATH_GOLF_FIELD_HOLE + "/#", GOLF_FIELD_HOLE_WITH_ID);
+        matcher.addURI(authority, ScorecardContract.PATH_GOLF_FIELD_HOLE_FIELD + "/#", GOLF_FIELD_HOLE_WITH_GF);
 
 
 
@@ -88,7 +72,32 @@ public class ScorecardProvider extends ContentProvider{
     @Nullable
     @Override
     public String getType(@NonNull Uri uri) {
-        return null;
+        final int match = mUriMatcher.match(uri);
+
+        switch (match) {
+
+            case GOLF_FIELD:
+                return ScorecardContract.GolfFieldEntry.CONTENT_DIR_TYPE;
+
+            case GOLF_FIELD_WITH_ID:
+                return ScorecardContract.GolfFieldEntry.CONTENT_ITEM_TYPE;
+
+            case GOLF_FIELD_FAVORITE:
+                return ScorecardContract.GolfFieldEntry.CONTENT_DIR_TYPE_FAVORITE;
+
+            case GOLF_FIELD_HOLE:
+                return ScorecardContract.GolfFieldHoleEntry.CONTENT_DIR_TYPE;
+
+            case GOLF_FIELD_HOLE_WITH_ID:
+                return ScorecardContract.GolfFieldHoleEntry.CONTENT_ITEM_TYPE;
+
+            case GOLF_FIELD_HOLE_WITH_GF:
+                return ScorecardContract.GolfFieldHoleEntry.CONTENT_DIR_TYPE_FIELD;
+
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+        }
+
     }
 
 
@@ -96,7 +105,42 @@ public class ScorecardProvider extends ContentProvider{
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] projection, @Nullable String selection, @Nullable String[] selectionArgs, @Nullable String sortOrder) {
-        return null;
+
+        Cursor retCursor=null;
+        final int match=mUriMatcher.match(uri);
+
+        switch(match){
+            case GOLF_FIELD:
+            {
+                retCursor=mScorecardDbHelper.getReadableDatabase().query(
+                        ScorecardContract.GolfFieldHoleEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+
+                break;
+
+            }
+            case GOLF_FIELD_WITH_ID:
+            {
+                String GF_id= String.valueOf(ContentUris.parseId(uri));
+                retCursor=queryGolfFieldById(GF_id);
+                break;
+
+            }
+
+
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+
+        }
+        //Set the notification URI for our Cursor and register a content observer to watch changes to the URI
+        retCursor.setNotificationUri(getContext().getContentResolver(),uri);
+        return retCursor;
     }
 
     @Nullable
@@ -128,5 +172,29 @@ public class ScorecardProvider extends ContentProvider{
         mScorecardDbHelper.close();
         super.shutdown();
     }
+
+
+
+
+    private Cursor queryGolfFieldById(String id){
+
+        Cursor cursor;
+
+        SQLiteDatabase db=mScorecardDbHelper.getReadableDatabase();
+        if (db.isOpen()){
+
+            String SQLStatment="SELECT * from "+ScorecardContract.GolfFieldEntry.TABLE_NAME+" WHERE _id="+id;
+
+            cursor=db.rawQuery(SQLStatment,null);
+
+        }else{
+            cursor=null;
+            Log.e(LOG_TAG,"database could not be opened");
+        }
+        return cursor;
+    }
+
+
+
 
 }

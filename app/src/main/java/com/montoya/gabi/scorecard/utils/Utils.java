@@ -5,4 +5,5 @@ package com.montoya.gabi.scorecard.utils;
  */
 
 public class Utils {
+
 }

@@ -11,6 +11,11 @@ import android.provider.BaseColumns;
 
 public class ScorecardContract {
 
+    //Boolean Constants
+    public static final int TRUE_VALUE=1;
+    public static final int FALSE_VALUE=0;
+
+
     //Content provider fields
     public static final String CONTENT_AUTHORITY = "com.montoya.gabi.scorecard";
     public static final Uri BASE_CONTENT_URI = Uri.parse("content://" + CONTENT_AUTHORITY);
@@ -88,9 +93,9 @@ public class ScorecardContract {
 
         // Columns
         public static final String COLUMN_GOLF_FIELD_HOLE_GF_ID = "gfH_gf_id";
-        public static final String COLUMN_GOLF_FIELD_FAVORITE = "gfH_number";
-        public static final String COLUMN_GOLF_FIELD_LENGTH = "gfH_length";
-        public static final String COLUMN_GOLF_FIELD_PAR = "gfH_par";
+        public static final String COLUMN_GOLF_FIELD_HOLE_NUMBER = "gfH_number";
+        public static final String COLUMN_GOLF_FIELD_HOLE_LENGTH = "gfH_length";
+        public static final String COLUMN_GOLF_FIELD_HOLE_PAR = "gfH_par";
 
 
         // Create content uri for the golf fields

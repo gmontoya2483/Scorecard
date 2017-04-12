@@ -1,20 +1,14 @@
 package com.montoya.gabi.scorecard;
 
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
-import android.test.ProviderTestCase2;
 
+import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.model.data.ScorecardDbHelper;
 
-import org.junit.Test;
-
 import java.util.HashSet;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 /**
  * Created by Gabriel on 11/04/2017.
@@ -26,16 +20,20 @@ public class TestDb extends AndroidTestCase {
 
 
 
+
     @Override
     protected void setUp() throws Exception {
         mTestUtils.deleteTheDatabase(mContext);
 
     }
 
+
+
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
     }
+
 
     public void testCreateDB(){
 
@@ -46,6 +44,7 @@ public class TestDb extends AndroidTestCase {
         // Add the table names within the HashSet
         final HashSet<String> tablenameHasSet= new HashSet<String>();
         tablenameHasSet.add(ScorecardContract.GolfFieldEntry.TABLE_NAME);
+        tablenameHasSet.add(ScorecardContract.GolfFieldHoleEntry.TABLE_NAME);
 
 
 
@@ -82,10 +81,10 @@ public class TestDb extends AndroidTestCase {
     public void testTableGolfFieldStructure(){
 
 
-        final HashSet<String> moviesColumnHashSet=new HashSet<String>();
-        moviesColumnHashSet.add(ScorecardContract.GolfFieldEntry._ID);
-        moviesColumnHashSet.add(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME);
-        moviesColumnHashSet.add(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE);
+        final HashSet<String> GFColumnHashSet=new HashSet<String>();
+        GFColumnHashSet.add(ScorecardContract.GolfFieldEntry._ID);
+        GFColumnHashSet.add(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME);
+        GFColumnHashSet.add(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE);
 
 
         SQLiteDatabase db=new ScorecardDbHelper(mContext).getReadableDatabase();
@@ -99,10 +98,44 @@ public class TestDb extends AndroidTestCase {
 
         do {
             String columnName = cursor.getString(columnNameIndex);
-            moviesColumnHashSet.remove(columnName);
+            GFColumnHashSet.remove(columnName);
         } while(cursor.moveToNext());
 
-        assertTrue("Error: The table "+ScorecardContract.GolfFieldEntry.TABLE_NAME +" doesn't contain all of the required  columns",moviesColumnHashSet.isEmpty());
+        assertTrue("Error: The table "+ScorecardContract.GolfFieldEntry.TABLE_NAME +" doesn't contain all of the required  columns",GFColumnHashSet.isEmpty());
+
+        cursor.close();
+        db.close();
+
+    }
+
+
+
+    public void testTableGolfFieldHoleStructure(){
+
+
+        final HashSet<String> GFHColumnHashSet=new HashSet<String>();
+        GFHColumnHashSet.add(ScorecardContract.GolfFieldHoleEntry._ID);
+        GFHColumnHashSet.add(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_GF_ID);
+        GFHColumnHashSet.add(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_LENGTH);
+        GFHColumnHashSet.add(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_PAR);
+
+
+
+        SQLiteDatabase db=new ScorecardDbHelper(mContext).getReadableDatabase();
+        assertEquals("Error: Database is not opened correctly",true,db.isOpen());
+
+        Cursor cursor=db.rawQuery("PRAGMA table_info("+ ScorecardContract.GolfFieldHoleEntry.TABLE_NAME+")",null);
+        assertTrue("Error: This means that we were unable to query the database for table information.",
+                cursor.moveToFirst());
+
+        int columnNameIndex= cursor.getColumnIndex("name");
+
+        do {
+            String columnName = cursor.getString(columnNameIndex);
+            GFHColumnHashSet.remove(columnName);
+        } while(cursor.moveToNext());
+
+        assertTrue("Error: The table "+ScorecardContract.GolfFieldHoleEntry.TABLE_NAME +" doesn't contain all of the required  columns",GFHColumnHashSet.isEmpty());
 
         cursor.close();
         db.close();
@@ -112,6 +145,64 @@ public class TestDb extends AndroidTestCase {
 
 
 
+    public void testInsertGolfField(){
+
+        long GFRowId;
+        GolfField golfField =new GolfField("Fake name",1);
+
+        SQLiteDatabase db=new ScorecardDbHelper(this.mContext).getWritableDatabase();
+        assertEquals("Error: Database is not opened correctly",true,db.isOpen());
+
+        GFRowId=db.insert(ScorecardContract.GolfFieldEntry.TABLE_NAME,null,golfField.getGolfFieldValues());
+
+        //Verify that the Inserted movie matches with the expected id
+        assertTrue("Error: Expected Movie ID doesn´t match: ", GFRowId>0);
+
+
+
+        Cursor cursor=db.rawQuery("SELECT * FROM "+ScorecardContract.GolfFieldEntry.TABLE_NAME+"" +
+                        " WHERE "+ ScorecardContract.GolfFieldEntry._ID +"=?"
+                , new String []{Long.toString(GFRowId)});
+
+
+        // Verify if the query got records
+        assertTrue( "Error: No Records returned from location query", cursor.moveToFirst() );
+
+
+        // Verify each field
+        int indexId=cursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID);
+        int indexName=cursor.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME);
+        int indexFavorite=cursor.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE);
+
+
+        assertEquals("Error: Golf Field ID doesn´t Match", GFRowId,cursor.getLong(indexId));
+        assertEquals("Error: Golf Field Name doesn´t Match",golfField.getName(),cursor.getString(indexName));
+        assertEquals("Error: Golf Field favorite doesn´t Match",golfField.getFavorite(),cursor.getInt(indexFavorite));
+
+
+
+        // Move the cursor to demonstrate that there is only one record in the database
+        assertFalse( "Error: More than one record returned from location query",cursor.moveToNext() );
+
+
+        //Verify that the inserted record is deleted correctly
+        int qtyOfDeletedRecords=db.delete(ScorecardContract.GolfFieldEntry.TABLE_NAME,ScorecardContract.GolfFieldEntry._ID +"=?",new String []{Long.toString(GFRowId)});
+        assertEquals("Error: record was not deleted correctly",1,qtyOfDeletedRecords);
+
+        cursor=db.rawQuery("SELECT * FROM "+ScorecardContract.GolfFieldEntry.TABLE_NAME+"" +
+                        " WHERE "+ ScorecardContract.GolfFieldEntry._ID +"=?"
+                , new String []{Long.toString(GFRowId)});
+
+        // Verify if the query got records
+        assertFalse( "Error: The fake record was not deleted", cursor.moveToFirst() );
+
+
+        cursor.close();
+        db.close();
+
+
+
+    }
 
 
 
