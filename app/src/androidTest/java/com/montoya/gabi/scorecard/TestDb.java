@@ -145,9 +145,12 @@ public class TestDb extends AndroidTestCase {
 
 
 
-    public void testInsertGolfField(){
+    public void testInsertGolfFieldandHole(){
 
         long GFRowId;
+
+
+
         GolfField golfField =new GolfField("Fake name",1);
 
         SQLiteDatabase db=new ScorecardDbHelper(this.mContext).getWritableDatabase();
