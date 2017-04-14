@@ -1,6 +1,7 @@
 package com.montoya.gabi.scorecard.model;
 
 import android.content.ContentValues;
+import android.database.Cursor;
 
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 
@@ -31,6 +32,33 @@ public class GolfField {
 
 
     }
+
+
+    public GolfField (Cursor golfFieldCursor){
+
+        int indexGFId=golfFieldCursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID);
+        int indexName=golfFieldCursor.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME);
+        int indexFavorite=golfFieldCursor.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE);
+
+        if (golfFieldCursor.getCount()==1){
+
+            golfFieldCursor.moveToFirst();
+
+            this._id=golfFieldCursor.getLong(indexGFId);
+            this.name=golfFieldCursor.getString(indexName);
+            this.favorite=golfFieldCursor.getInt(indexFavorite);
+
+        }else{
+            this._id=-1L;
+            this.name=null;
+            this.favorite=ScorecardContract.FALSE_VALUE;
+
+        }
+
+
+
+    }
+
 
 
     public long getId() {

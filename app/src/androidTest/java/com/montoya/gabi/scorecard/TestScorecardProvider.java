@@ -1,10 +1,15 @@
 package com.montoya.gabi.scorecard;
 
 import android.content.ComponentName;
+import android.content.ContentValues;
+import android.content.UriMatcher;
 import android.content.pm.PackageManager;
 import android.content.pm.ProviderInfo;
+import android.database.Cursor;
+import android.net.Uri;
 import android.test.AndroidTestCase;
 
+import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.model.data.ScorecardProvider;
 
@@ -13,6 +18,18 @@ import com.montoya.gabi.scorecard.model.data.ScorecardProvider;
  */
 
 public class TestScorecardProvider extends AndroidTestCase{
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+       TestUtils.deleteAllGolfFieldrecords(mContext);
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+    }
 
 
 
@@ -40,6 +57,47 @@ public class TestScorecardProvider extends AndroidTestCase{
             assertTrue("Error: ScorecardProvider not registered at " + mContext.getPackageName(),
                     false);
         }
+    }
+
+
+
+
+    public void testInsertGolfField (){
+
+        Uri insertedGFUri=null;
+        UriMatcher testMatcher= ScorecardProvider.buildUriMatcher();
+
+
+        GolfField golfField=new GolfField("Fake Golf Field Name",ScorecardContract.TRUE_VALUE);
+        ContentValues contentValues=golfField.getGolfFieldValues();
+
+        insertedGFUri=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),contentValues);
+
+        //Verify that the returned uri is not null
+        assertNotNull("The returned URI is null",insertedGFUri);
+
+        if(null!=insertedGFUri){
+
+
+            //Verify the GolfFielf_WITH_ID matcher
+            assertEquals("Error: Golf field  by ID URI was matched incorrectly.",testMatcher.match(insertedGFUri), ScorecardProvider.GOLF_FIELD_WITH_ID);
+
+            Cursor cursor=mContext.getContentResolver().query(insertedGFUri,null,null,null,null);
+
+
+            // Verify if the query got records
+            assertEquals( "Error: There are more than 1 records in the query", 1,cursor.getCount() );
+
+
+            TestUtils.VerifyExpectedGolfFieldQueryResult(golfField,cursor);
+
+
+        }else{
+            fail("the returned iserted URI was null");
+        }
+
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+
     }
 
 
