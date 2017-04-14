@@ -66,7 +66,7 @@ public class ScorecardContract {
 
 
         //for building URIs on insertion
-        public static Uri buildGolfFieldUri(long id) {
+        public static Uri buildGolfFieldByIdUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
@@ -122,7 +122,7 @@ public class ScorecardContract {
 
 
         //for building URIs on insertion
-        public static Uri buildGolfFieldHoleUri(long id) {
+        public static Uri buildGolfFieldHoleByIdUri(long id) {
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 

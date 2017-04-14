@@ -1,4 +1,9 @@
 <resources>
+
+
+    <string name="content_authority">com.montoya.gabi.scorecard</string>
+
+
     <string name="app_name">Capstone</string>
 
 

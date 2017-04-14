@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.test.AndroidTestCase;
 
 import com.montoya.gabi.scorecard.model.GolfField;
+import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.model.data.ScorecardDbHelper;
 
@@ -145,67 +146,173 @@ public class TestDb extends AndroidTestCase {
 
 
 
-    public void testInsertGolfFieldandHole(){
+    public void testInsertGolfField(){
 
         long GFRowId;
+        Cursor cursorGF;
 
-
-
-        GolfField golfField =new GolfField("Fake name",1);
-
+        //Verify the is opened vorrectly
         SQLiteDatabase db=new ScorecardDbHelper(this.mContext).getWritableDatabase();
         assertEquals("Error: Database is not opened correctly",true,db.isOpen());
 
+
+
+        /*Golf field test
+        *
+        * */
+
+        GolfField golfField =new GolfField("Fake name",1);
+
         GFRowId=db.insert(ScorecardContract.GolfFieldEntry.TABLE_NAME,null,golfField.getGolfFieldValues());
 
-        //Verify that the Inserted movie matches with the expected id
-        assertTrue("Error: Expected Movie ID doesn´t match: ", GFRowId>0);
+        //Verify that the Inserted GolfField has a correct ID
+        assertTrue("Error: Expected Golf Field ID doesn´t match: ", GFRowId>0);
 
 
 
-        Cursor cursor=db.rawQuery("SELECT * FROM "+ScorecardContract.GolfFieldEntry.TABLE_NAME+"" +
+        cursorGF=db.rawQuery("SELECT * FROM "+ScorecardContract.GolfFieldEntry.TABLE_NAME+"" +
                         " WHERE "+ ScorecardContract.GolfFieldEntry._ID +"=?"
                 , new String []{Long.toString(GFRowId)});
 
 
         // Verify if the query got records
-        assertTrue( "Error: No Records returned from location query", cursor.moveToFirst() );
+        assertTrue( "Error: No Records returned from location query", cursorGF.moveToFirst() );
 
 
         // Verify each field
-        int indexId=cursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID);
-        int indexName=cursor.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME);
-        int indexFavorite=cursor.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE);
+        int indexGFId=cursorGF.getColumnIndex(ScorecardContract.GolfFieldEntry._ID);
+        int indexName=cursorGF.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME);
+        int indexFavorite=cursorGF.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE);
 
 
-        assertEquals("Error: Golf Field ID doesn´t Match", GFRowId,cursor.getLong(indexId));
-        assertEquals("Error: Golf Field Name doesn´t Match",golfField.getName(),cursor.getString(indexName));
-        assertEquals("Error: Golf Field favorite doesn´t Match",golfField.getFavorite(),cursor.getInt(indexFavorite));
+        assertEquals("Error: Golf Field ID doesn´t Match", GFRowId,cursorGF.getLong(indexGFId));
+        assertEquals("Error: Golf Field Name doesn´t Match",golfField.getName(),cursorGF.getString(indexName));
+        assertEquals("Error: Golf Field favorite doesn´t Match",golfField.getFavorite(),cursorGF.getInt(indexFavorite));
 
 
 
         // Move the cursor to demonstrate that there is only one record in the database
-        assertFalse( "Error: More than one record returned from location query",cursor.moveToNext() );
+        assertFalse( "Error: More than one record returned from location query",cursorGF.moveToNext() );
 
 
         //Verify that the inserted record is deleted correctly
         int qtyOfDeletedRecords=db.delete(ScorecardContract.GolfFieldEntry.TABLE_NAME,ScorecardContract.GolfFieldEntry._ID +"=?",new String []{Long.toString(GFRowId)});
         assertEquals("Error: record was not deleted correctly",1,qtyOfDeletedRecords);
 
-        cursor=db.rawQuery("SELECT * FROM "+ScorecardContract.GolfFieldEntry.TABLE_NAME+"" +
+        cursorGF=db.rawQuery("SELECT * FROM "+ScorecardContract.GolfFieldEntry.TABLE_NAME+"" +
                         " WHERE "+ ScorecardContract.GolfFieldEntry._ID +"=?"
                 , new String []{Long.toString(GFRowId)});
 
         // Verify if the query got records
-        assertFalse( "Error: The fake record was not deleted", cursor.moveToFirst() );
+        assertFalse( "Error: The fake record was not deleted", cursorGF.moveToFirst() );
 
-
-        cursor.close();
+        cursorGF.close();
         db.close();
 
 
 
     }
+
+
+
+    public void testInsertGolfFieldHole(){
+
+        long GFRowId;
+        long GFHRowId;
+        Cursor cursorGFH;
+
+
+        /*Golf field Hole test
+        *
+        * */
+
+        //Verify the is opened correctly
+        SQLiteDatabase db=new ScorecardDbHelper(this.mContext).getWritableDatabase();
+        assertEquals("Error: Database is not opened correctly",true,db.isOpen());
+
+
+        //Insert a Golf field (FK on Golf field hole golf field ID)
+        GolfField golfField =new GolfField("Fake name",1);
+        GFRowId=db.insert(ScorecardContract.GolfFieldEntry.TABLE_NAME,null,golfField.getGolfFieldValues());
+        assertTrue("Error: Expected Golf Field ID doesn´t match: ", GFRowId>0);
+
+
+
+
+        GolfFieldHole golfFieldHole =new GolfFieldHole(GFRowId, GolfFieldHole.HoleNumber.HOLE_3,170, GolfFieldHole.Par.PAR_4);
+
+        //Verify the enums
+        assertEquals("Hole 3 value doesnßt match",3, GolfFieldHole.HoleNumber.HOLE_3.getValue());
+        assertEquals("Par 4 value doesnßt match",4, GolfFieldHole.Par.PAR_4.getValue());
+
+
+        GFHRowId=db.insert(ScorecardContract.GolfFieldHoleEntry.TABLE_NAME,null,golfFieldHole.getGolfFieldHoleValues());
+
+        //Verify that the Inserted GolfFieldHole has a correct ID
+        assertTrue("Error: Expected GolfField Hole ID doesn´t match: ", GFHRowId>0);
+
+
+        cursorGFH=db.rawQuery("SELECT * FROM "+ScorecardContract.GolfFieldHoleEntry.TABLE_NAME+"" +
+                        " WHERE "+ ScorecardContract.GolfFieldHoleEntry._ID +"=?"
+                , new String []{Long.toString(GFHRowId)});
+
+
+        // Verify if the query got records
+        assertTrue( "Error: The fake record was not deleted", cursorGFH.moveToFirst() );
+
+
+        // Verify each field
+        int indexGFHI_ID=cursorGFH.getColumnIndex(ScorecardContract.GolfFieldHoleEntry._ID);
+        int indexGFH_GF_ID=cursorGFH.getColumnIndex(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_GF_ID);
+        int indexGFH_NUMBER=cursorGFH.getColumnIndex(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_NUMBER);
+        int indexGFH_LENGTH=cursorGFH.getColumnIndex(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_LENGTH);
+        int indexGFH_PAR=cursorGFH.getColumnIndex(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_PAR);
+
+        assertEquals("Error: Golf Field Hole ID doesn´t Match", GFHRowId,cursorGFH.getLong(indexGFHI_ID));
+        assertEquals("Error: Golf Field Hole _ GF ID doesn´t Match", golfFieldHole.getGolfField_id(),cursorGFH.getLong(indexGFH_GF_ID));
+        assertEquals("Error: Golf Field Hole Number doesn´t Match", golfFieldHole.getNumber().getValue(),cursorGFH.getInt(indexGFH_NUMBER));
+        assertEquals("Error: Golf Field Length doesn´t Match", golfFieldHole.getLength(),cursorGFH.getInt(indexGFH_LENGTH));
+        assertEquals("Error: Golf Field Par doesn´t Match", golfFieldHole.getPar().getValue(),cursorGFH.getInt(indexGFH_PAR));
+
+
+        // Move the cursor to demonstrate that there is only one record in the database
+        assertFalse( "Error: More than one record returned from location query",cursorGFH.moveToNext() );
+
+
+
+
+        //Verify that the inserted record is deleted correctly
+        int qtyOfGFHDeletedRecords=db.delete(ScorecardContract.GolfFieldHoleEntry.TABLE_NAME,ScorecardContract.GolfFieldHoleEntry._ID +"=?",new String []{Long.toString(GFHRowId)});
+        assertEquals("Error: record was not deleted correctly",1,qtyOfGFHDeletedRecords);
+
+        cursorGFH=db.rawQuery("SELECT * FROM "+ScorecardContract.GolfFieldHoleEntry.TABLE_NAME+"" +
+                        " WHERE "+ ScorecardContract.GolfFieldHoleEntry._ID +"=?"
+                , new String []{Long.toString(GFHRowId)});
+
+        // Verify if the query got records
+        assertFalse( "Error: The fake record was not deleted", cursorGFH.moveToFirst() );
+
+
+
+
+        //Verify the FK between GolfField and GolfFieldHole
+        int qtyOfGFDeletedRecords=db.delete(ScorecardContract.GolfFieldEntry.TABLE_NAME,ScorecardContract.GolfFieldEntry._ID +"=?",new String []{Long.toString(GFRowId)});
+        assertEquals("Error: record was not deleted correctly",1,qtyOfGFDeletedRecords);
+
+
+        cursorGFH.close();
+        db.close();
+
+
+
+
+
+    }
+
+
+
+
+
 
 
 
