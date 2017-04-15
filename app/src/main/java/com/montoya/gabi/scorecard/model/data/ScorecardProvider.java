@@ -12,6 +12,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.montoya.gabi.scorecard.model.Scorecard;
+
 /**
  * Created by montoya on 10.04.2017.
  */
@@ -113,7 +115,7 @@ public class ScorecardProvider extends ContentProvider{
             case GOLF_FIELD:
             {
                 retCursor=mScorecardDbHelper.getReadableDatabase().query(
-                        ScorecardContract.GolfFieldHoleEntry.TABLE_NAME,
+                        ScorecardContract.GolfFieldEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -134,11 +136,14 @@ public class ScorecardProvider extends ContentProvider{
             }
             case GOLF_FIELD_FAVORITE:
             {
+                selection= ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE+"=?";
+                String args[]={String.valueOf(ScorecardContract.TRUE_VALUE)};
+
                 retCursor=mScorecardDbHelper.getReadableDatabase().query(
-                        ScorecardContract.GolfFieldHoleEntry.TABLE_NAME,
+                        ScorecardContract.GolfFieldEntry.TABLE_NAME,
                         projection,
                         selection,
-                        selectionArgs,
+                        args,
                         null,
                         null,
                         sortOrder

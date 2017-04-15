@@ -59,7 +59,9 @@ public class GolfField {
 
     }
 
-
+    public void set_id(long _id) {
+        this._id = _id;
+    }
 
     public long getId() {
         return id;

@@ -1,6 +1,7 @@
 package com.montoya.gabi.scorecard;
 
 import android.content.ComponentName;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.content.pm.PackageManager;
@@ -99,6 +100,80 @@ public class TestScorecardProvider extends AndroidTestCase{
         TestUtils.deleteAllGolfFieldrecords(mContext);
 
     }
+
+
+    public void testQueryAllGolfFields(){
+
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+
+        GolfField golfField_1=new GolfField("Fake1",0);
+        Uri golFieldUri_1=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_1.getGolfFieldValues());
+        if (golFieldUri_1!=null){
+             golfField_1.set_id(ContentUris.parseId(golFieldUri_1));
+        }
+
+
+        GolfField golfField_2=new GolfField("Fake2",1);
+        Uri golFieldUri_2=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_2.getGolfFieldValues());
+        if (golFieldUri_2!=null){
+            golfField_2.set_id(ContentUris.parseId(golFieldUri_2));
+        }
+
+
+        GolfField golfField_3=new GolfField("Fake3",1);
+        Uri golFieldUri_3=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_3.getGolfFieldValues());
+        if (golFieldUri_3!=null){
+            golfField_3.set_id(ContentUris.parseId(golFieldUri_3));
+        }
+
+
+        Cursor cursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),null,null,null,null);
+
+        // Verify if the query got records
+        assertEquals( "Error: The quatity of retrive records doens't match", 3,cursor.getCount() );
+
+
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+
+    }
+
+
+    public void testQueryAllGolfFieldsFavorites(){
+
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+
+        GolfField golfField_1=new GolfField("Fake1_Not_Favorite",0);
+        Uri golFieldUri_1=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_1.getGolfFieldValues());
+        if (golFieldUri_1!=null){
+            golfField_1.set_id(ContentUris.parseId(golFieldUri_1));
+        }
+
+
+        GolfField golfField_2=new GolfField("Fake2_Favorite",1);
+        Uri golFieldUri_2=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_2.getGolfFieldValues());
+        if (golFieldUri_2!=null){
+            golfField_2.set_id(ContentUris.parseId(golFieldUri_2));
+        }
+
+
+        GolfField golfField_3=new GolfField("Fake3_Favorite",1);
+        Uri golFieldUri_3=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_3.getGolfFieldValues());
+        if (golFieldUri_3!=null){
+            golfField_3.set_id(ContentUris.parseId(golFieldUri_3));
+        }
+
+
+        Cursor cursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsFavoriteUri(),null,null,null,null);
+
+        // Verify if the query got records
+        assertEquals( "Error: The quatity of retrived favorite golf fields records doens't match", 2,cursor.getCount() );
+
+
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+
+    }
+
+
 
 
 
