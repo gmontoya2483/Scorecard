@@ -31,8 +31,6 @@ public class GolfField {
         this.favorite=favorite.getValue();
         this.active= active.getValue();
 
-
-
     }
 
 
