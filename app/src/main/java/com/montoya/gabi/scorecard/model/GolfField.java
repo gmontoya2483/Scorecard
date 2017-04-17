@@ -22,6 +22,8 @@ public class GolfField {
     private int favorite;
     private int active;
 
+    private GolfFieldHole holes []=new GolfFieldHole[18];
+
 
     public GolfField(String name, ScorecardBoolean favorite, ScorecardBoolean active) {
 
@@ -29,6 +31,18 @@ public class GolfField {
         this.favorite=favorite.getValue();
         this.active= active.getValue();
 
+
+
+    }
+
+
+    public GolfField(String name, ScorecardBoolean favorite, ScorecardBoolean active, GolfFieldHole[] holes) {
+
+        this.name=name;
+        this.favorite=favorite.getValue();
+        this.active= active.getValue();
+
+        setHolesFromArray(holes);
 
     }
 
@@ -118,6 +132,122 @@ public class GolfField {
 
         return values;
 
+    }
+
+
+    public void setHolesFromArray (GolfFieldHole[] holes){
+
+
+        if (holes.length<=18){
+
+            for (int i=0;i<holes.length;i++){
+                int index = addHole(holes[i]);
+            }
+
+        }
+
+    }
+
+
+    public int addHole (GolfFieldHole hole){
+        int index;
+        switch (hole.getNumber()){
+            case HOLE_1:
+                index=0;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_2:
+                index=1;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_3:
+                index=2;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_4:
+                index=3;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_5:
+                index=4;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_6:
+                index=5;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_7:
+                index=6;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_8:
+                index=7;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_9:
+                index=8;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_10:
+                index=9;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_11:
+                index=10;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_12:
+                index=11;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_13:
+                index=12;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_14:
+                index=13;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_15:
+                index=14;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_16:
+                index=15;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_17:
+                index=16;
+                this.holes[index]=hole;
+                break;
+
+            case HOLE_18:
+                index=17;
+                this.holes[index]=hole;
+                break;
+            default:
+                index=-1;
+                break;
+        }
+
+
+        return index;
     }
 
 
