@@ -32,7 +32,8 @@ public class ScorecardDbHelper extends SQLiteOpenHelper{
                         " ("+
                         ScorecardContract.GolfFieldEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "+
                         COLUMN_GOLF_FIELD_NAME+" TEXT UNIQUE NOT NULL, "+
-                        ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE + " INTEGER NOT NULL"+
+                        ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE + " INTEGER NOT NULL, "+
+                        ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_ACTIVE + " INTEGER NOT NULL "+
                         ") ";
 
 

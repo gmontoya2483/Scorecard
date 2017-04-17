@@ -6,14 +6,17 @@ package com.montoya.gabi.scorecard.model;
 
 public abstract class Hole {
 
+    public Hole() {
+
+    }
+
     public static enum Par{
-        PAR_3(3),PAR_4(4),PAR_5(5),PAR_NOT_DEFINED(0);
+        PAR_3(3),PAR_4(4),PAR_5(5),PAR_NOT_DEFINED(0),PAR_INVALID(-1);
         private int value;
 
         private Par (int value){
             this.value=value;
         }
-
 
         public int getValue(){
             return this.value;
@@ -39,7 +42,8 @@ public abstract class Hole {
         HOLE_16(16),
         HOLE_17(17),
         HOLE_18(18),
-        HOLE_NOT_DEFINED(0);
+        HOLE_NOT_DEFINED(0),
+        HOLE_INVALID (-1);
         private int value;
 
         private HoleNumber (int value){
@@ -51,29 +55,91 @@ public abstract class Hole {
         }
     }
 
+    public static Long INVALID_HOLE_ID=-1L;
 
-
-    protected HoleNumber number;
+    protected int number;
     protected int length;
-    protected Par par;
+    protected int par;
 
 
 
     public Hole(HoleNumber number, int length, Par par){
-        this.number=number;
+        this.number=number.getValue();
         this.length=length;
-        this.par=par;
+        this.par=par.getValue();
     }
-
-
 
 
     public HoleNumber getNumber() {
-        return number;
+        HoleNumber holeNumber;
+        switch (this.number){
+            case 0:
+                holeNumber=HoleNumber.HOLE_NOT_DEFINED;
+                break;
+            case 1:
+                holeNumber=HoleNumber.HOLE_1;
+                break;
+            case 2:
+                holeNumber=HoleNumber.HOLE_2;
+                break;
+            case 3:
+                holeNumber=HoleNumber.HOLE_3;
+                break;
+            case 4:
+                holeNumber=HoleNumber.HOLE_4;
+                break;
+            case 5:
+                holeNumber=HoleNumber.HOLE_5;
+                break;
+            case 6:
+                holeNumber=HoleNumber.HOLE_6;
+                break;
+            case 7:
+                holeNumber=HoleNumber.HOLE_7;
+                break;
+            case 8:
+                holeNumber=HoleNumber.HOLE_8;
+                break;
+            case 9:
+                holeNumber=HoleNumber.HOLE_9;
+                break;
+            case 10:
+                holeNumber=HoleNumber.HOLE_10;
+                break;
+            case 11:
+                holeNumber=HoleNumber.HOLE_11;
+                break;
+            case 12:
+                holeNumber=HoleNumber.HOLE_12;
+                break;
+            case 13:
+                holeNumber=HoleNumber.HOLE_13;
+                break;
+            case 14:
+                holeNumber=HoleNumber.HOLE_14;
+                break;
+            case 15:
+                holeNumber=HoleNumber.HOLE_15;
+                break;
+            case 16:
+                holeNumber=HoleNumber.HOLE_16;
+                break;
+            case 17:
+                holeNumber=HoleNumber.HOLE_17;
+                break;
+            case 18:
+                holeNumber=HoleNumber.HOLE_18;
+                break;
+            default:
+                holeNumber=HoleNumber.HOLE_INVALID;
+                break;
+
+        }
+        return holeNumber;
     }
 
     public void setNumber(HoleNumber holeNumber) {
-        this.number = holeNumber;
+        this.number = holeNumber.getValue();
     }
 
 
@@ -87,11 +153,31 @@ public abstract class Hole {
     }
 
     public Par getPar() {
+        Par par;
+        switch (this.par){
+            case 0:
+                par=Par.PAR_NOT_DEFINED;
+                break;
+            case 3:
+                par=Par.PAR_3;
+                break;
+            case 4:
+                par=Par.PAR_4;
+                break;
+            case 5:
+                par=Par.PAR_5;
+                break;
+
+            default:
+                par=Par.PAR_INVALID;
+                break;
+        }
+
         return par;
     }
 
     public void setPar(Par par) {
-        this.par=par;
+        this.par=par.getValue();
     }
 
 

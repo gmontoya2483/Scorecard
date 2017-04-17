@@ -11,9 +11,23 @@ import android.provider.BaseColumns;
 
 public class ScorecardContract {
 
-    //Boolean Constants
-    public static final int TRUE_VALUE=1;
-    public static final int FALSE_VALUE=0;
+
+    public static enum ScorecardBoolean{
+        TRUE(1),FALSE(0);
+        private int value;
+
+        private ScorecardBoolean (int value){
+            this.value=value;
+        }
+
+
+        public int getValue(){
+            return this.value;
+        }
+    }
+
+
+
 
 
     //Content provider fields
@@ -24,9 +38,10 @@ public class ScorecardContract {
     //Content provider Paths
     public static final String PATH_GOLF_FIELD = "golf_field";
     public static final String PATH_GOLF_FIELD_FAVORITE = "golf_field_favorite";
+    public static final String PATH_GOLF_FIELD_ACTIVE = "golf_field_active";
 
     public static final String PATH_GOLF_FIELD_HOLE = "golf_field_hole";
-    public static final String PATH_GOLF_FIELD_HOLE_FIELD = "golf_field_hole-field";
+    public static final String PATH_GOLF_FIELD_HOLE_FIELD = "golf_field_hole_field";
 
     public static final String PATH_SCORECARD = "scorecard";
     public static final String PATH_SCORECARD_HOLE = "scorecard_hole";
@@ -42,6 +57,8 @@ public class ScorecardContract {
         // Columns
         public static final String COLUMN_GOLF_FIELD_NAME = "gf_name";
         public static final String COLUMN_GOLF_FIELD_FAVORITE = "gf_favorite";
+        public static final String COLUMN_GOLF_FIELD_ACTIVE = "gf_active";
+
 
 
         // Create content uri for the golf fields
@@ -54,11 +71,20 @@ public class ScorecardContract {
                 .appendPath(PATH_GOLF_FIELD_FAVORITE)
                 .build();
 
+        // Create content uri for the favorite golf fields
+        public static final Uri CONTENT_URI_ACTIVE = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_GOLF_FIELD_ACTIVE)
+                .build();
+
+
         // create cursor of base type directory for multiples entries (Golf fields)
         public static final String CONTENT_DIR_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_GOLF_FIELD;
 
         // create cursor of base type item for single entry (single golf field)
         public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_GOLF_FIELD;
+
+        // create cursor of base type directory for multiples entries (Golf fields)
+        public static final String CONTENT_DIR_TYPE_ACTIVE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_GOLF_FIELD_ACTIVE;
 
 
         // create cursor of base type directory for multiple entry (favorite golf fields)
@@ -73,6 +99,10 @@ public class ScorecardContract {
 
         public static Uri buildAllGolfFieldsUri() {
             return CONTENT_URI;
+        }
+
+        public static Uri buildAllGolfFieldsActiveUri() {
+            return CONTENT_URI_ACTIVE;
         }
 
 
@@ -136,12 +166,7 @@ public class ScorecardContract {
             return ContentUris.withAppendedId(CONTENT_URI_FIELD, id);
         }
 
-
-
-
-
-
-    }
+   }
 
 
     public static final class ScorecardEntry implements BaseColumns{

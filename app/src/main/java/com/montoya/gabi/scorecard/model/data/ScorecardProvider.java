@@ -31,13 +31,11 @@ public class ScorecardProvider extends ContentProvider{
     //TODO Define the codes
     public static final int GOLF_FIELD=100;
     public static final int GOLF_FIELD_WITH_ID=110;
+    public static final int GOLF_FIELD_ACTIVE=120;
     public static final int GOLF_FIELD_FAVORITE=200;
     public static final int GOLF_FIELD_HOLE=300;
     public static final int GOLF_FIELD_HOLE_WITH_ID=310;
     public static final int GOLF_FIELD_HOLE_WITH_GF=400;
-
-
-
 
 
     public static UriMatcher buildUriMatcher() {
@@ -47,6 +45,7 @@ public class ScorecardProvider extends ContentProvider{
 
         // For each type of URI you want to add, create a corresponding code.
         matcher.addURI(authority, ScorecardContract.PATH_GOLF_FIELD, GOLF_FIELD);
+        matcher.addURI(authority, ScorecardContract.PATH_GOLF_FIELD_ACTIVE, GOLF_FIELD_ACTIVE);
         matcher.addURI(authority, ScorecardContract.PATH_GOLF_FIELD + "/#", GOLF_FIELD_WITH_ID);
         matcher.addURI(authority, ScorecardContract.PATH_GOLF_FIELD_FAVORITE, GOLF_FIELD_FAVORITE);
 
@@ -59,9 +58,6 @@ public class ScorecardProvider extends ContentProvider{
         return matcher;
 
     }
-
-
-
 
     @Override
     public boolean onCreate() {
@@ -83,6 +79,9 @@ public class ScorecardProvider extends ContentProvider{
 
             case GOLF_FIELD_WITH_ID:
                 return ScorecardContract.GolfFieldEntry.CONTENT_ITEM_TYPE;
+
+            case GOLF_FIELD_ACTIVE:
+                return ScorecardContract.GolfFieldEntry.CONTENT_DIR_TYPE_ACTIVE;
 
             case GOLF_FIELD_FAVORITE:
                 return ScorecardContract.GolfFieldEntry.CONTENT_DIR_TYPE_FAVORITE;
@@ -134,10 +133,31 @@ public class ScorecardProvider extends ContentProvider{
                 break;
 
             }
+
+            case GOLF_FIELD_ACTIVE: {
+                selection = ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_ACTIVE + "=?";
+                String args[] = {String.valueOf(ScorecardContract.ScorecardBoolean.TRUE.getValue())};
+
+                retCursor = mScorecardDbHelper.getReadableDatabase().query(
+                        ScorecardContract.GolfFieldEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        args,
+                        null,
+                        null,
+                        sortOrder
+                );
+
+                break;
+            }
+
+
+
             case GOLF_FIELD_FAVORITE:
             {
-                selection= ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE+"=?";
-                String args[]={String.valueOf(ScorecardContract.TRUE_VALUE)};
+                selection= ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE+"=?" +
+                        " AND "+ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_ACTIVE+"=?";
+                String args[]={String.valueOf(ScorecardContract.ScorecardBoolean.TRUE.getValue()),String.valueOf(ScorecardContract.ScorecardBoolean.TRUE.getValue())};
 
                 retCursor=mScorecardDbHelper.getReadableDatabase().query(
                         ScorecardContract.GolfFieldEntry.TABLE_NAME,
@@ -153,7 +173,28 @@ public class ScorecardProvider extends ContentProvider{
 
             }
 
+            /*
+            Golf field holes section
+            */
 
+            case GOLF_FIELD_HOLE_WITH_ID:
+            {
+                String GFH_id= String.valueOf(ContentUris.parseId(uri));
+                retCursor=queryGolfFieldHoleById(GFH_id);
+                break;
+            }
+
+            case GOLF_FIELD_HOLE_WITH_GF:
+            {
+                String GFH_GF_id= String.valueOf(ContentUris.parseId(uri));
+                retCursor=queryGolfFieldHoleByGolfFieldId(GFH_GF_id);
+                break;
+            }
+
+
+            /*
+            Default section
+            */
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
 
@@ -172,6 +213,11 @@ public class ScorecardProvider extends ContentProvider{
             case GOLF_FIELD:
                 insertedUri=insertGolfField(values);
                 break;
+            case GOLF_FIELD_HOLE:
+                insertedUri=insertGolfFieldHole(values);
+                break;
+
+
             default:
                 throw new UnsupportedOperationException("Unknown uri: "+uri);
 
@@ -261,6 +307,77 @@ public class ScorecardProvider extends ContentProvider{
         }
         return cursor;
     }
+
+
+
+    private Cursor queryGolfFieldHoleById(String id){
+        Cursor cursor;
+
+        SQLiteDatabase db=mScorecardDbHelper.getReadableDatabase();
+        if (db.isOpen()){
+
+            String SQLStatment="SELECT * from "+ScorecardContract.GolfFieldHoleEntry.TABLE_NAME+
+                    " WHERE "+ScorecardContract.GolfFieldHoleEntry._ID + "=?";
+
+            cursor=db.rawQuery(SQLStatment,new String[]{id});
+
+        }else{
+            cursor=null;
+            Log.e(LOG_TAG,"database could not be opened");
+        }
+        return cursor;
+
+    }
+
+
+    private Cursor queryGolfFieldHoleByGolfFieldId (String id){
+        Cursor cursor;
+
+        SQLiteDatabase db=mScorecardDbHelper.getReadableDatabase();
+        if (db.isOpen()){
+
+            String SQLStatment="SELECT * from "+ScorecardContract.GolfFieldHoleEntry.TABLE_NAME+" WHERE "+
+                    ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_GF_ID+"=?";
+            cursor=db.rawQuery(SQLStatment,new String[]{id});
+
+        }else{
+            cursor=null;
+            Log.e(LOG_TAG,"database could not be opened");
+        }
+        return cursor;
+
+    }
+
+
+    //Helper Method to insert a new Golf Field in the database
+    private Uri insertGolfFieldHole(ContentValues values) {
+        Uri insertedGolfFieldHoleUri=null;
+        Long insertedGolfFieldHoleId;
+
+        final SQLiteDatabase db = mScorecardDbHelper.getWritableDatabase();
+        if (db.isOpen()){
+            insertedGolfFieldHoleId=db.insert(ScorecardContract.GolfFieldHoleEntry.TABLE_NAME,null,values);
+            if(insertedGolfFieldHoleId!=-1){
+
+                insertedGolfFieldHoleUri=ScorecardContract.GolfFieldHoleEntry.buildGolfFieldHoleByIdUri(insertedGolfFieldHoleId);
+
+            }else{
+                insertedGolfFieldHoleUri=null;
+                Log.e(LOG_TAG,"Golf Field Hole could not be inserted");
+            }
+
+
+        }else{
+            insertedGolfFieldHoleUri=null;
+            Log.e(LOG_TAG,"database could not be opened");
+        }
+
+
+        return insertedGolfFieldHoleUri;
+    }
+
+
+
 
 
 

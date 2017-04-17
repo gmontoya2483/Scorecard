@@ -86,6 +86,7 @@ public class TestDb extends AndroidTestCase {
         GFColumnHashSet.add(ScorecardContract.GolfFieldEntry._ID);
         GFColumnHashSet.add(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME);
         GFColumnHashSet.add(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE);
+        GFColumnHashSet.add(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_ACTIVE);
 
 
         SQLiteDatabase db=new ScorecardDbHelper(mContext).getReadableDatabase();
@@ -161,7 +162,7 @@ public class TestDb extends AndroidTestCase {
         *
         * */
 
-        GolfField golfField =new GolfField("Fake name",1);
+        GolfField golfField =new GolfField("Fake name", ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
 
         GFRowId=db.insert(ScorecardContract.GolfFieldEntry.TABLE_NAME,null,golfField.getGolfFieldValues());
 
@@ -183,11 +184,13 @@ public class TestDb extends AndroidTestCase {
         int indexGFId=cursorGF.getColumnIndex(ScorecardContract.GolfFieldEntry._ID);
         int indexName=cursorGF.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME);
         int indexFavorite=cursorGF.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE);
+        int indexActive=cursorGF.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_ACTIVE);
 
 
         assertEquals("Error: Golf Field ID doesn´t Match", GFRowId,cursorGF.getLong(indexGFId));
         assertEquals("Error: Golf Field Name doesn´t Match",golfField.getName(),cursorGF.getString(indexName));
-        assertEquals("Error: Golf Field favorite doesn´t Match",golfField.getFavorite(),cursorGF.getInt(indexFavorite));
+        assertEquals("Error: Golf Field favorite doesn´t Match",golfField.getFavorite().getValue(),cursorGF.getInt(indexFavorite));
+        assertEquals("Error: Golf Field favorite doesn´t Match",golfField.getFavorite().getValue(),cursorGF.getInt(indexFavorite));
 
 
 
@@ -232,7 +235,7 @@ public class TestDb extends AndroidTestCase {
 
 
         //Insert a Golf field (FK on Golf field hole golf field ID)
-        GolfField golfField =new GolfField("Fake name",1);
+        GolfField golfField =new GolfField("Fake name", ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
         GFRowId=db.insert(ScorecardContract.GolfFieldEntry.TABLE_NAME,null,golfField.getGolfFieldValues());
         assertTrue("Error: Expected Golf Field ID doesn´t match: ", GFRowId>0);
 

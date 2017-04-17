@@ -11,6 +11,8 @@ import android.net.Uri;
 import android.test.AndroidTestCase;
 
 import com.montoya.gabi.scorecard.model.GolfField;
+import com.montoya.gabi.scorecard.model.GolfFieldHole;
+import com.montoya.gabi.scorecard.model.Hole;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.model.data.ScorecardProvider;
 
@@ -69,7 +71,7 @@ public class TestScorecardProvider extends AndroidTestCase{
         UriMatcher testMatcher= ScorecardProvider.buildUriMatcher();
 
 
-        GolfField golfField=new GolfField("Fake Golf Field Name",ScorecardContract.TRUE_VALUE);
+        GolfField golfField=new GolfField("Fake Golf Field Name", ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
         ContentValues contentValues=golfField.getGolfFieldValues();
 
         insertedGFUri=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),contentValues);
@@ -77,7 +79,11 @@ public class TestScorecardProvider extends AndroidTestCase{
         //Verify that the returned uri is not null
         assertNotNull("The returned URI is null",insertedGFUri);
 
+
+
         if(null!=insertedGFUri){
+
+            golfField.set_id(ContentUris.parseId(insertedGFUri));
 
 
             //Verify the GolfFielf_WITH_ID matcher
@@ -87,7 +93,7 @@ public class TestScorecardProvider extends AndroidTestCase{
 
 
             // Verify if the query got records
-            assertEquals( "Error: There are more than 1 records in the query", 1,cursor.getCount() );
+            assertEquals( "Error: There are more than 1 records in the query", cursor.getCount(),1 );
 
 
             TestUtils.VerifyExpectedGolfFieldQueryResult(golfField,cursor);
@@ -106,21 +112,21 @@ public class TestScorecardProvider extends AndroidTestCase{
 
         TestUtils.deleteAllGolfFieldrecords(mContext);
 
-        GolfField golfField_1=new GolfField("Fake1",0);
+        GolfField golfField_1=new GolfField("Fake1",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
         Uri golFieldUri_1=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_1.getGolfFieldValues());
         if (golFieldUri_1!=null){
              golfField_1.set_id(ContentUris.parseId(golFieldUri_1));
         }
 
 
-        GolfField golfField_2=new GolfField("Fake2",1);
+        GolfField golfField_2=new GolfField("Fake2",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.FALSE);
         Uri golFieldUri_2=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_2.getGolfFieldValues());
         if (golFieldUri_2!=null){
             golfField_2.set_id(ContentUris.parseId(golFieldUri_2));
         }
 
 
-        GolfField golfField_3=new GolfField("Fake3",1);
+        GolfField golfField_3=new GolfField("Fake3",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
         Uri golFieldUri_3=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_3.getGolfFieldValues());
         if (golFieldUri_3!=null){
             golfField_3.set_id(ContentUris.parseId(golFieldUri_3));
@@ -142,36 +148,179 @@ public class TestScorecardProvider extends AndroidTestCase{
 
         TestUtils.deleteAllGolfFieldrecords(mContext);
 
-        GolfField golfField_1=new GolfField("Fake1_Not_Favorite",0);
+        GolfField golfField_1=new GolfField("Fake1_Not_Favorite",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
         Uri golFieldUri_1=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_1.getGolfFieldValues());
         if (golFieldUri_1!=null){
             golfField_1.set_id(ContentUris.parseId(golFieldUri_1));
         }
 
 
-        GolfField golfField_2=new GolfField("Fake2_Favorite",1);
+        GolfField golfField_2=new GolfField("Fake2_Favorite",ScorecardContract.ScorecardBoolean.FALSE, ScorecardContract.ScorecardBoolean.TRUE);
         Uri golFieldUri_2=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_2.getGolfFieldValues());
         if (golFieldUri_2!=null){
             golfField_2.set_id(ContentUris.parseId(golFieldUri_2));
         }
 
 
-        GolfField golfField_3=new GolfField("Fake3_Favorite",1);
+        GolfField golfField_3=new GolfField("Fake3_Favorite",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.FALSE);
         Uri golFieldUri_3=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_3.getGolfFieldValues());
         if (golFieldUri_3!=null){
             golfField_3.set_id(ContentUris.parseId(golFieldUri_3));
         }
 
+        GolfField golfField_4=new GolfField("Fake4_Favorite",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
+        Uri golFieldUri_4=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_4.getGolfFieldValues());
+        if (golFieldUri_4!=null){
+            golfField_4.set_id(ContentUris.parseId(golFieldUri_4));
+        }
 
         Cursor cursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsFavoriteUri(),null,null,null,null);
 
         // Verify if the query got records
         assertEquals( "Error: The quatity of retrived favorite golf fields records doens't match", 2,cursor.getCount() );
 
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+
+    }
+
+
+
+    public void testQueryAllGolfFieldsActive(){
+
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+
+        GolfField golfField_1=new GolfField("Fake1_Not_Favorite",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
+        Uri golFieldUri_1=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_1.getGolfFieldValues());
+        if (golFieldUri_1!=null){
+            golfField_1.set_id(ContentUris.parseId(golFieldUri_1));
+        }
+
+
+        GolfField golfField_2=new GolfField("Fake2_Favorite",ScorecardContract.ScorecardBoolean.FALSE, ScorecardContract.ScorecardBoolean.TRUE);
+        Uri golFieldUri_2=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_2.getGolfFieldValues());
+        if (golFieldUri_2!=null){
+            golfField_2.set_id(ContentUris.parseId(golFieldUri_2));
+        }
+
+
+        GolfField golfField_3=new GolfField("Fake3_Favorite",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.FALSE);
+        Uri golFieldUri_3=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_3.getGolfFieldValues());
+        if (golFieldUri_3!=null){
+            golfField_3.set_id(ContentUris.parseId(golFieldUri_3));
+        }
+
+
+        GolfField golfField_4=new GolfField("Fake4_Favorite",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
+        Uri golFieldUri_4=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_4.getGolfFieldValues());
+        if (golFieldUri_4!=null){
+            golfField_4.set_id(ContentUris.parseId(golFieldUri_4));
+        }
+
+
+        Cursor cursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsActiveUri(),null,null,null,null);
+
+        // Verify if the query got records
+        assertEquals( "Error: The quatity of retrived Active golf fields records doens't match", 3,cursor.getCount() );
+
 
         TestUtils.deleteAllGolfFieldrecords(mContext);
 
     }
+
+    public void testQueryGolfFieldHoleByID(){
+
+        TestUtils.deleteAllGolfFieldHoleRecords(mContext);
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+
+
+        GolfField golfField_1=new GolfField("Fake1_Not_Favorite",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
+        Uri golFieldUri_1=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_1.getGolfFieldValues());
+        if (golFieldUri_1!=null){
+            golfField_1.set_id(ContentUris.parseId(golFieldUri_1));
+        }
+
+        GolfFieldHole golfFieldHole=new GolfFieldHole(golfField_1.getId(), Hole.HoleNumber.HOLE_3,153, Hole.Par.PAR_3);
+        Uri golfFieldHoleUri=mContext.getContentResolver().insert(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldHoleUri(),golfFieldHole.getGolfFieldHoleValues());
+        if (golfFieldHoleUri!=null){
+            golfFieldHole.set_id(ContentUris.parseId(golfFieldHoleUri));
+
+            Cursor cursor=mContext.getContentResolver().query(golfFieldHoleUri,null,null,null,null);
+            TestUtils.VerifyExpectedGolfFieldHoleQueryResult(golfFieldHole,cursor);
+
+            cursor.close();
+
+
+        }else{
+            assertNotNull("Returned URI is NULL",golfFieldHoleUri);
+        }
+
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+        TestUtils.deleteAllGolfFieldHoleRecords(mContext);
+
+    }
+
+    public void testQueryAllGolfFieldsHolesByGolfField(){
+
+        TestUtils.deleteAllGolfFieldHoleRecords(mContext);
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+
+
+        GolfField golfField_1=new GolfField("Fake1_Not_Favorite",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
+        Uri golFieldUri_1=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_1.getGolfFieldValues());
+        if (golFieldUri_1!=null){
+            golfField_1.set_id(ContentUris.parseId(golFieldUri_1));
+        }
+
+
+        GolfField golfField_2=new GolfField("Fake2_Favorite",ScorecardContract.ScorecardBoolean.FALSE, ScorecardContract.ScorecardBoolean.TRUE);
+        Uri golFieldUri_2=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_2.getGolfFieldValues());
+        if (golFieldUri_2!=null){
+            golfField_2.set_id(ContentUris.parseId(golFieldUri_2));
+        }
+
+
+
+        GolfFieldHole golfFieldHole_1=new GolfFieldHole(golfField_1.getId(), Hole.HoleNumber.HOLE_1,153, Hole.Par.PAR_3);
+        Uri golfFieldHoleUri_1=mContext.getContentResolver().insert(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldHoleUri(),golfFieldHole_1.getGolfFieldHoleValues());
+        if (golfFieldHoleUri_1!=null){
+            golfFieldHole_1.set_id(ContentUris.parseId(golfFieldHoleUri_1));
+        }
+
+        GolfFieldHole golfFieldHole_2=new GolfFieldHole(golfField_1.getId(), Hole.HoleNumber.HOLE_2,253, Hole.Par.PAR_4);
+        Uri golfFieldHoleUri_2=mContext.getContentResolver().insert(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldHoleUri(),golfFieldHole_2.getGolfFieldHoleValues());
+        if (golfFieldHoleUri_2!=null){
+            golfFieldHole_2.set_id(ContentUris.parseId(golfFieldHoleUri_2));
+        }
+
+        GolfFieldHole golfFieldHole_3=new GolfFieldHole(golfField_2.getId(), Hole.HoleNumber.HOLE_1,350, Hole.Par.PAR_5);
+        Uri golfFieldHoleUri_3=mContext.getContentResolver().insert(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldHoleUri(),golfFieldHole_3.getGolfFieldHoleValues());
+        if (golfFieldHoleUri_3!=null){
+            golfFieldHole_3.set_id(ContentUris.parseId(golfFieldHoleUri_3));
+        }
+
+
+        Cursor cursor_1=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_1.getId()),null,null,null,null);
+        assertEquals( "Error: The quatity of retrived hole records doens't match", 2,cursor_1.getCount() );
+
+
+
+        Cursor cursor_2=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_2.getId()),null,null,null,null);
+        assertEquals( "Error: The quatity of retrived hole records doens't match", 1,cursor_2.getCount() );
+
+        cursor_1.close();
+        cursor_2.close();
+        TestUtils.deleteAllGolfFieldHoleRecords(mContext);
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+
+
+    }
+
+
+
+
+
+
+
 
 
 
