@@ -51,7 +51,7 @@ public class GolfField {
     //Constructor helper methed to setup the att
     private void setGolfFieldAttributes(String name, ScorecardBoolean favorite, ScorecardBoolean active){
 
-        this._id=this.NOT_SAVED_GOLF_FIELD_ID;
+        this._id=NOT_SAVED_GOLF_FIELD_ID;
         this.name=name;
         this.favorite=favorite.getValue();
         this.active= active.getValue();
@@ -239,8 +239,8 @@ public class GolfField {
 
         if (holes.length<=18){
 
-            for (int i=0;i<holes.length;i++){
-                int index = AddHole(holes[i]);
+            for (GolfFieldHole hole : holes) {
+                int index = AddHole(hole);
             }
 
         }
@@ -354,72 +354,92 @@ public class GolfField {
     }
 
 
-    public long saveGolfField(Context context){
+    public boolean InsertGolfField(Context context){
 
-        long saved_gf_id;
+        boolean saved_gf_OK;
 
 
         if (this._id==GolfField.NOT_SAVED_GOLF_FIELD_ID || this._id==GolfField.INVALID_GOLF_FIELD_ID){
-           saved_gf_id=insertGolfFieldWithHoles(context);
+           insertGolfFieldWithHoles(context);
+
+            if (this._id!=GolfField.NOT_SAVED_GOLF_FIELD_ID || this._id!=GolfField.INVALID_GOLF_FIELD_ID){
+
+                saved_gf_OK=true;
+
+            }else{
+
+                saved_gf_OK=false;
+
+            }
 
         }else {
-            //TODO UPDATE
-            saved_gf_id=this._id;
+            saved_gf_OK=false;
         }
 
-        return saved_gf_id;
+        return saved_gf_OK;
 
     }
 
 
 
     //Helper Method to insert a new GolfField
-    private Long insertGolfFieldWithHoles(Context context){
+    private void insertGolfFieldWithHoles(Context context){
 
         Long golfField_id;
         Uri golfFieldUri;
         int qtyInsertedHoles;
+        boolean holes_OK;
+        boolean gf_OK;
 
-        boolean gf_OK=verifyGolfField();
-        boolean holes_OK=verifyHoles();
 
-        if (gf_OK && holes_OK){
+        gf_OK=verifyGolfField();
+
+
+        if (gf_OK){
 
             golfFieldUri=insertGolfField(context);
 
             if (golfFieldUri!=null){
 
-                golfField_id=ContentUris.parseId(golfFieldUri);
+                this._id=ContentUris.parseId(golfFieldUri);
 
-                setGolfField_id_Holes();
+                setGolfField_idToHoles();
+                holes_OK=verifyHoles();
 
-                qtyInsertedHoles=bulkInsertHoles(context);
+                if (holes_OK){
 
-                if (qtyInsertedHoles!=18){
+                    qtyInsertedHoles=bulkInsertHoles(context);
 
-                    //Borrar GolfField y hoyos
+                    if (qtyInsertedHoles!=18){
 
-                    golfField_id=INVALID_GOLF_FIELD_ID;
+                        //TODO Delete Holes and GolfField (Hacer los provider y los metodos
 
+                        this._id=INVALID_GOLF_FIELD_ID;
+
+
+                    }else{
+
+                        //TODO OK!!! DO NOTHING....
+
+                    }
 
                 }else{
+
+                    //TODO Delete GolfField
+                    this._id=INVALID_GOLF_FIELD_ID;
 
                 }
 
 
-
             }else{
-                golfField_id=INVALID_GOLF_FIELD_ID;
+                this._id=INVALID_GOLF_FIELD_ID;
             }
 
 
         }else{
 
-            golfField_id=INVALID_GOLF_FIELD_ID;
+            this._id=INVALID_GOLF_FIELD_ID;
         }
-
-
-        return golfField_id;
 
 
     }
@@ -428,34 +448,203 @@ public class GolfField {
 
 
     private boolean verifyGolfField (){
-        return true;
+
+        boolean golfField_OK=true;
+
+        //Verify the name is not null
+        if (this.name==null){
+            golfField_OK=false;
+        }
+
+        //Verify the favorite flag
+        if (this.favorite!= ScorecardBoolean.TRUE.getValue() && this.favorite!= ScorecardBoolean.FALSE.getValue()){
+            golfField_OK=false;
+        }
+
+        //Verify the active flag
+        if (this.active!= ScorecardBoolean.TRUE.getValue() && this.active!= ScorecardBoolean.FALSE.getValue()){
+            golfField_OK=false;
+        }
+
+
+        return golfField_OK;
     }
 
+
+
     private boolean verifyHoles(){
-        return true;
+        boolean holes_OK=true;
+
+        for (int i=0; i<18;i++){
+
+            if (holes[i]!=null){
+
+                //Verify the golf field ID
+                if (holes[i].getGolfField_id()!=this._id){
+                    holes_OK=false;
+                }
+
+                //Verify the Length Must be bigger than 0
+                if (holes[i].getLength()<=0){
+                    holes_OK=false;
+                }
+
+                //Verify the PAR
+                if (holes[i].getPar()!= Hole.Par.PAR_3 && holes[i].getPar()!= Hole.Par.PAR_4 && holes[i].getPar()!= Hole.Par.PAR_5){
+                    holes_OK=false;
+                }
+
+                //Verify Hole Number
+                switch (i){
+                    case 0:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_1){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 1:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_2){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 2:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_3){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 3:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_4){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 4:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_5){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 5:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_6){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 6:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_7){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 7:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_8){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 8:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_9){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 9:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_10){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 10:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_11){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 11:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_12){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 12:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_13){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 13:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_14){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 14:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_15){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 15:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_16){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 16:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_17){
+                            holes_OK=false;
+                        }
+                        break;
+
+                    case 17:
+                        if (holes[i].getNumber()!= Hole.HoleNumber.HOLE_18){
+                            holes_OK=false;
+                        }
+                        break;
+                }
+
+
+            }else {
+                // If not all the holes were added
+                holes_OK=false;
+            }
+
+        }
+
+
+        return holes_OK;
     }
+
+
 
     private Uri insertGolfField(Context context){
 
         Uri allGolfFieldUri=ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri();
-        Uri insertedGolfField=context.getContentResolver().insert(allGolfFieldUri,getGolfFieldValues());
 
-        return insertedGolfField;
+        return context.getContentResolver().insert(allGolfFieldUri,getGolfFieldValues());
 
     }
 
 
 
+    //TODO PASARLO COMO STATICO A GOLFFIELD HOLE
     private int bulkInsertHoles(Context context){
 
         int quantityOfInsertedHoles=0;
+
+
+        //TODO Finish the Method
 
         return quantityOfInsertedHoles;
 
     }
 
 
-    private void setGolfField_id_Holes(){
+    private void setGolfField_idToHoles(){
+
+        //TODO Finish the Method
 
     }
 
