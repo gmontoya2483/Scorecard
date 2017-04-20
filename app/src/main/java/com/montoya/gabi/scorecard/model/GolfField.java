@@ -1,7 +1,10 @@
 package com.montoya.gabi.scorecard.model;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract.ScorecardBoolean;
@@ -14,6 +17,7 @@ public class GolfField {
 
 
     public static Long INVALID_GOLF_FIELD_ID=-1L;
+    public static Long NOT_SAVED_GOLF_FIELD_ID=0L; //Default id when the golffield whasent been saved into the Database
 
     private long _id;
     private String name;
@@ -26,9 +30,7 @@ public class GolfField {
 
     public GolfField(String name, ScorecardBoolean favorite, ScorecardBoolean active) {
 
-        this.name=name;
-        this.favorite=favorite.getValue();
-        this.active= active.getValue();
+        setGolfFieldAttributes(name, favorite, active);
 
     }
 
@@ -39,9 +41,23 @@ public class GolfField {
         this.favorite=favorite.getValue();
         this.active= active.getValue();
 
+
+
         setHolesFromArray(holes);
 
     }
+
+
+    //Constructor helper methed to setup the att
+    private void setGolfFieldAttributes(String name, ScorecardBoolean favorite, ScorecardBoolean active){
+
+        this._id=this.NOT_SAVED_GOLF_FIELD_ID;
+        this.name=name;
+        this.favorite=favorite.getValue();
+        this.active= active.getValue();
+
+    }
+
 
 
     public GolfField (Cursor golfFieldCursor){
@@ -76,7 +92,7 @@ public class GolfField {
         this._id = _id;
     }
 
-    public long getId() {
+    public long get_id() {
         return _id;
     }
 
@@ -234,6 +250,10 @@ public class GolfField {
 
     public int AddHole (GolfFieldHole hole){
         int index;
+
+        //Ensure the golffield ID will be the one for this field
+        hole.setGolfField_id(this._id);
+
         switch (hole.getNumber()){
             case HOLE_1:
                 index=0;
@@ -332,6 +352,117 @@ public class GolfField {
 
         return index;
     }
+
+
+    public long saveGolfField(Context context){
+
+        long saved_gf_id;
+
+
+        if (this._id==GolfField.NOT_SAVED_GOLF_FIELD_ID || this._id==GolfField.INVALID_GOLF_FIELD_ID){
+           saved_gf_id=insertGolfFieldWithHoles(context);
+
+        }else {
+            //TODO UPDATE
+            saved_gf_id=this._id;
+        }
+
+        return saved_gf_id;
+
+    }
+
+
+
+    //Helper Method to insert a new GolfField
+    private Long insertGolfFieldWithHoles(Context context){
+
+        Long golfField_id;
+        Uri golfFieldUri;
+        int qtyInsertedHoles;
+
+        boolean gf_OK=verifyGolfField();
+        boolean holes_OK=verifyHoles();
+
+        if (gf_OK && holes_OK){
+
+            golfFieldUri=insertGolfField(context);
+
+            if (golfFieldUri!=null){
+
+                golfField_id=ContentUris.parseId(golfFieldUri);
+
+                setGolfField_id_Holes();
+
+                qtyInsertedHoles=bulkInsertHoles(context);
+
+                if (qtyInsertedHoles!=18){
+
+                    //Borrar GolfField y hoyos
+
+                    golfField_id=INVALID_GOLF_FIELD_ID;
+
+
+                }else{
+
+                }
+
+
+
+            }else{
+                golfField_id=INVALID_GOLF_FIELD_ID;
+            }
+
+
+        }else{
+
+            golfField_id=INVALID_GOLF_FIELD_ID;
+        }
+
+
+        return golfField_id;
+
+
+    }
+
+
+
+
+    private boolean verifyGolfField (){
+        return true;
+    }
+
+    private boolean verifyHoles(){
+        return true;
+    }
+
+    private Uri insertGolfField(Context context){
+
+        Uri allGolfFieldUri=ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri();
+        Uri insertedGolfField=context.getContentResolver().insert(allGolfFieldUri,getGolfFieldValues());
+
+        return insertedGolfField;
+
+    }
+
+
+
+    private int bulkInsertHoles(Context context){
+
+        int quantityOfInsertedHoles=0;
+
+        return quantityOfInsertedHoles;
+
+    }
+
+
+    private void setGolfField_id_Holes(){
+
+    }
+
+
+
+
+
 
 
 

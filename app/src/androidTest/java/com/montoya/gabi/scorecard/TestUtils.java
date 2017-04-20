@@ -11,7 +11,6 @@ import com.montoya.gabi.scorecard.model.data.ScorecardDbHelper;
 
 import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.assertTrue;
 
 /**
  * Created by montoya on 11.04.2017.
@@ -54,7 +53,7 @@ public class TestUtils {
 
         GolfField golfFieldFromCursor=new GolfField(cursorGolfField);
 
-        assertEquals("Error: Golf Field ID doesn´t Match", golfField.getId(),golfFieldFromCursor.getId());
+        assertEquals("Error: Golf Field ID doesn´t Match", golfField.get_id(),golfFieldFromCursor.get_id());
         assertEquals("Error: Golf Field Name doesn´t Match",golfField.getName(),golfFieldFromCursor.getName());
         assertEquals("Error: Golf Field favorite doesn´t Match",golfField.getFavorite(),golfFieldFromCursor.getFavorite());
         assertEquals("Error: Golf Field active doesn´t Match",golfField.getActive(),golfFieldFromCursor.getActive());
@@ -94,6 +93,13 @@ public class TestUtils {
         return qtyOfDeletedRecords;
 
 
+
+    }
+
+    public static void deleteAllRecords (Context context){
+
+        TestUtils.deleteAllGolfFieldHoleRecords(context);
+        TestUtils.deleteAllGolfFieldrecords(context);
 
     }
 

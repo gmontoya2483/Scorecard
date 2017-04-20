@@ -24,6 +24,7 @@ public class GolfFieldHole extends Hole{
     public GolfFieldHole(long golfField_id, HoleNumber holeNumber, int holeLength, Par par) {
         super(holeNumber,holeLength,par);
         this.golfField_id = golfField_id;
+        this._id=NOT_SAVED_HOLE_ID;
 
     }
 

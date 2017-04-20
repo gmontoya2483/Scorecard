@@ -25,12 +25,15 @@ public class TestScorecardProvider extends AndroidTestCase{
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-       TestUtils.deleteAllGolfFieldrecords(mContext);
+        TestUtils.deleteAllGolfFieldHoleRecords(mContext);
+        TestUtils.deleteAllGolfFieldrecords(mContext);
+
     }
 
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
+        TestUtils.deleteAllGolfFieldHoleRecords(mContext);
         TestUtils.deleteAllGolfFieldrecords(mContext);
     }
 
@@ -239,7 +242,7 @@ public class TestScorecardProvider extends AndroidTestCase{
             golfField_1.set_id(ContentUris.parseId(golFieldUri_1));
         }
 
-        GolfFieldHole golfFieldHole=new GolfFieldHole(golfField_1.getId(), Hole.HoleNumber.HOLE_3,153, Hole.Par.PAR_3);
+        GolfFieldHole golfFieldHole=new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_3,153, Hole.Par.PAR_3);
         Uri golfFieldHoleUri=mContext.getContentResolver().insert(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldHoleUri(),golfFieldHole.getGolfFieldHoleValues());
         if (golfFieldHoleUri!=null){
             golfFieldHole.set_id(ContentUris.parseId(golfFieldHoleUri));
@@ -280,31 +283,31 @@ public class TestScorecardProvider extends AndroidTestCase{
 
 
 
-        GolfFieldHole golfFieldHole_1=new GolfFieldHole(golfField_1.getId(), Hole.HoleNumber.HOLE_1,153, Hole.Par.PAR_3);
+        GolfFieldHole golfFieldHole_1=new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_1,153, Hole.Par.PAR_3);
         Uri golfFieldHoleUri_1=mContext.getContentResolver().insert(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldHoleUri(),golfFieldHole_1.getGolfFieldHoleValues());
         if (golfFieldHoleUri_1!=null){
             golfFieldHole_1.set_id(ContentUris.parseId(golfFieldHoleUri_1));
         }
 
-        GolfFieldHole golfFieldHole_2=new GolfFieldHole(golfField_1.getId(), Hole.HoleNumber.HOLE_2,253, Hole.Par.PAR_4);
+        GolfFieldHole golfFieldHole_2=new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_2,253, Hole.Par.PAR_4);
         Uri golfFieldHoleUri_2=mContext.getContentResolver().insert(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldHoleUri(),golfFieldHole_2.getGolfFieldHoleValues());
         if (golfFieldHoleUri_2!=null){
             golfFieldHole_2.set_id(ContentUris.parseId(golfFieldHoleUri_2));
         }
 
-        GolfFieldHole golfFieldHole_3=new GolfFieldHole(golfField_2.getId(), Hole.HoleNumber.HOLE_1,350, Hole.Par.PAR_5);
+        GolfFieldHole golfFieldHole_3=new GolfFieldHole(golfField_2.get_id(), Hole.HoleNumber.HOLE_1,350, Hole.Par.PAR_5);
         Uri golfFieldHoleUri_3=mContext.getContentResolver().insert(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldHoleUri(),golfFieldHole_3.getGolfFieldHoleValues());
         if (golfFieldHoleUri_3!=null){
             golfFieldHole_3.set_id(ContentUris.parseId(golfFieldHoleUri_3));
         }
 
 
-        Cursor cursor_1=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_1.getId()),null,null,null,null);
+        Cursor cursor_1=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_1.get_id()),null,null,null,null);
         assertEquals( "Error: The quatity of retrived hole records doens't match", 2,cursor_1.getCount() );
 
 
 
-        Cursor cursor_2=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_2.getId()),null,null,null,null);
+        Cursor cursor_2=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_2.get_id()),null,null,null,null);
         assertEquals( "Error: The quatity of retrived hole records doens't match", 1,cursor_2.getCount() );
 
         cursor_1.close();

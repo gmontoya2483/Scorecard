@@ -56,6 +56,7 @@ public abstract class Hole {
     }
 
     public static Long INVALID_HOLE_ID=-1L;
+    public static Long NOT_SAVED_HOLE_ID=0L; //Default id when the hole hasn't been saved into the Database
 
     protected int number;
     protected int length;
