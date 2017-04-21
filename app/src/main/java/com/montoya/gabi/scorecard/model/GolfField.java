@@ -408,7 +408,7 @@ public class GolfField {
 
                 if (holes_OK){
 
-                    qtyInsertedHoles=bulkInsertHoles(context);
+                    //TODO ADD this row qtyInsertedHoles=bulkInsertHoles(context);
 
                     if (qtyInsertedHoles!=18){
 
@@ -629,17 +629,7 @@ public class GolfField {
 
 
 
-    //TODO PASARLO COMO STATICO A GOLFFIELD HOLE
-    private int bulkInsertHoles(Context context){
 
-        int quantityOfInsertedHoles=0;
-
-
-        //TODO Finish the Method
-
-        return quantityOfInsertedHoles;
-
-    }
 
 
     private void setGolfField_idToHoles(){

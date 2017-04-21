@@ -1,6 +1,7 @@
 package com.montoya.gabi.scorecard.model;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
@@ -94,6 +95,20 @@ public class GolfFieldHole extends Hole{
 
 
         return values;
+
+    }
+
+
+
+
+    public static int bulkInsertGolfFieldHoles(Context context, ContentValues[] holeValues){
+
+        int quantityOfInsertedHoles=0;
+
+
+        //TODO Finish the Method
+
+        return quantityOfInsertedHoles;
 
     }
 
