@@ -13,6 +13,7 @@ import android.test.AndroidTestCase;
 import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.Hole;
+import com.montoya.gabi.scorecard.model.Scorecard;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.model.data.ScorecardProvider;
 
@@ -317,6 +318,177 @@ public class TestScorecardProvider extends AndroidTestCase{
 
 
     }
+
+
+    public void testBulkInsertGolfFieldHoles(){
+
+        TestUtils.deleteAllRecords(mContext);
+        int qtyRecords;
+
+        //Crear un GolfField
+        GolfField golfField_1=new GolfField("Fake1_Favorite",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
+        Uri golFieldUri_1=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_1.getGolfFieldValues());
+        if (golFieldUri_1!=null){
+            golfField_1.set_id(ContentUris.parseId(golFieldUri_1));
+        }
+
+        //Crear Array de GolfFieldHoles
+        GolfFieldHole holes []=new GolfFieldHole[] {
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_1,153, Hole.Par.PAR_3),
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_2,153, Hole.Par.PAR_3),
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_3,153, Hole.Par.PAR_4),
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_4,153, Hole.Par.PAR_3),
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_5,153, Hole.Par.PAR_5),
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_6,153, Hole.Par.PAR_3),
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_7,153, Hole.Par.PAR_4),
+                new GolfFieldHole(1987L, Hole.HoleNumber.HOLE_7,153, Hole.Par.PAR_4)
+        };
+
+
+
+        ContentValues holesValues []=GolfFieldHole.getHolesContentValues(holes);
+        Uri allGolfFieldHolesUri= ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldHoleUri();
+
+
+        qtyRecords=mContext.getContentResolver().bulkInsert(allGolfFieldHolesUri,holesValues);
+        assertEquals("Error: The quatity of retrived hole records doens't match", 8,qtyRecords);
+
+
+        Cursor cursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_1.get_id()),null,null,null,null);
+        assertEquals( "Error: The quatity of retrived hole records doens't match", 7,cursor.getCount() );
+
+
+        cursor.close();
+
+        TestUtils.deleteAllRecords(mContext);
+
+    }
+
+
+
+
+    public void testDeleteGolfField (){
+
+        TestUtils.deleteAllRecords(mContext);
+        int qtyRecords;
+
+
+        //Crear un GolfField
+        GolfField golfField_1=new GolfField("Fake1_Favorite1",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
+        Uri golFieldUri_1=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_1.getGolfFieldValues());
+        if (golFieldUri_1!=null){
+            golfField_1.set_id(ContentUris.parseId(golFieldUri_1));
+        }
+
+
+        //Crear un GolfField
+        GolfField golfField_2=new GolfField("Fake1_Favorite2",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
+        Uri golFieldUri_2=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_2.getGolfFieldValues());
+        if (golFieldUri_2!=null){
+            golfField_2.set_id(ContentUris.parseId(golFieldUri_2));
+        }
+
+
+        Cursor cursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),null,null,null,null);
+      // Verify if the query got records
+        assertEquals( "Error: The quatity of retrive records doens't match", 2,cursor.getCount() );
+
+
+
+        qtyRecords=mContext.getContentResolver().delete(ScorecardContract.GolfFieldEntry.buildGolfFieldByIdUri(golfField_1.get_id()),null,null);
+        assertEquals( "Error: The quatity of deleted records doens't match", 1,qtyRecords );
+
+
+        cursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),null,null,null,null);
+        // Verify if the query got records
+        assertEquals( "Error: The quatity of retrive records doens't match", 1,cursor.getCount() );
+
+
+        TestUtils.VerifyExpectedGolfFieldQueryResult(golfField_2,cursor);
+
+        cursor.close();
+
+        TestUtils.deleteAllRecords(mContext);
+
+    }
+
+
+
+
+    public void testDeleteGolfFieldHolesByGF(){
+
+        TestUtils.deleteAllRecords(mContext);
+        int qtyRecords;
+        int qtyOfDeletedRecords;
+
+        //Crear un GolfField
+        GolfField golfField_1=new GolfField("Fake1_Favorite",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
+        Uri golFieldUri_1=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_1.getGolfFieldValues());
+        if (golFieldUri_1!=null){
+            golfField_1.set_id(ContentUris.parseId(golFieldUri_1));
+        }
+
+
+        //Crear un GolfField
+        GolfField golfField_2=new GolfField("Fake1_Favorite2",ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
+        Uri golFieldUri_2=mContext.getContentResolver().insert(ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri(),golfField_2.getGolfFieldValues());
+        if (golFieldUri_2!=null){
+            golfField_2.set_id(ContentUris.parseId(golFieldUri_2));
+        }
+
+
+
+        //Crear Array de GolfFieldHoles
+        GolfFieldHole holes []=new GolfFieldHole[] {
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_1,153, Hole.Par.PAR_3),
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_2,153, Hole.Par.PAR_3),
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_3,153, Hole.Par.PAR_4),
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_4,153, Hole.Par.PAR_3),
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_5,153, Hole.Par.PAR_5),
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_6,153, Hole.Par.PAR_3),
+                new GolfFieldHole(golfField_1.get_id(), Hole.HoleNumber.HOLE_7,153, Hole.Par.PAR_4),
+                new GolfFieldHole(golfField_2.get_id(), Hole.HoleNumber.HOLE_1,153, Hole.Par.PAR_4),
+                new GolfFieldHole(golfField_2.get_id(), Hole.HoleNumber.HOLE_3,153, Hole.Par.PAR_4),
+                new GolfFieldHole(golfField_2.get_id(), Hole.HoleNumber.HOLE_4,153, Hole.Par.PAR_3),
+                new GolfFieldHole(golfField_2.get_id(), Hole.HoleNumber.HOLE_5,153, Hole.Par.PAR_5)
+        };
+
+
+
+        ContentValues holesValues []=GolfFieldHole.getHolesContentValues(holes);
+        Uri allGolfFieldHolesUri= ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldHoleUri();
+
+
+        qtyRecords=mContext.getContentResolver().bulkInsert(allGolfFieldHolesUri,holesValues);
+        assertEquals("Error: The quatity of retrived hole records doens't match", 11,qtyRecords);
+
+
+        Cursor cursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_1.get_id()),null,null,null,null);
+        assertEquals( "Error: The quatity of retrived hole records for the GF 1 doens't match" , 7,cursor.getCount() );
+
+        cursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_2.get_id()),null,null,null,null);
+        assertEquals( "Error: The quatity of retrived hole records for the GF 2 doens't match" , 4,cursor.getCount() );
+
+
+
+        qtyOfDeletedRecords=mContext.getContentResolver().delete(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_2.get_id()),null,null);
+        assertEquals( "Error: The quatity of deleted hole records for the GF 2 doens't match" , 4, qtyOfDeletedRecords );
+
+        cursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_2.get_id()),null,null,null,null);
+        assertEquals( "Error: The quatity of retrived hole records for the GF 2 doens't match" , 0,cursor.getCount() );
+
+        cursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_1.get_id()),null,null,null,null);
+        assertEquals( "Error: The quatity of retrived hole records for the GF 1 doens't match" , 7,cursor.getCount() );
+
+
+        cursor.close();
+
+        TestUtils.deleteAllRecords(mContext);
+
+    }
+
+
+
 
 
 

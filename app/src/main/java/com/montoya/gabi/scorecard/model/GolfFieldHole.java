@@ -3,6 +3,7 @@ package com.montoya.gabi.scorecard.model;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
 
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 
@@ -100,17 +101,48 @@ public class GolfFieldHole extends Hole{
 
 
 
-
-    public static int bulkInsertGolfFieldHoles(Context context, ContentValues[] holeValues){
+    //Bulk insert GolfFieldHoles usually  called from the GolfField
+    public static int bulkInsertGolfFieldHoles(Context context, GolfFieldHole[] holes){
 
         int quantityOfInsertedHoles=0;
+        Uri allGolfFieldHolesUri=ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldHoleUri();
+        ContentValues[] holesContentValues=getHolesContentValues(holes);
 
-
-        //TODO Finish the Method
+        quantityOfInsertedHoles=context.getContentResolver().bulkInsert(allGolfFieldHolesUri,holesContentValues);
 
         return quantityOfInsertedHoles;
 
     }
+
+
+    public static ContentValues[] getHolesContentValues(GolfFieldHole[] holes){
+
+        ContentValues[] holesValues;
+        int size=holes.length;
+        holesValues=new ContentValues[size];
+
+        for (int i=0; i<size;i++){
+            holesValues[i]=holes[i].getGolfFieldHoleValues();
+
+        }
+        return holesValues;
+
+    }
+
+
+
+
+    public static int deleteGolfFieldHolesByGolfFieldId (Context context, long golfField_id){
+
+        return context.getContentResolver().delete(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField_id),null,null);
+
+    }
+
+
+
+
+
+
 
 
 

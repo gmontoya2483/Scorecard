@@ -226,15 +226,47 @@ public class ScorecardProvider extends ContentProvider{
             getContext().getContentResolver().notifyChange(uri, null);
         }
 
-        return insertedUri;
+       return insertedUri;
     }
 
 
 
     @Override
     public int delete(@NonNull Uri uri, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+
+        final SQLiteDatabase db=mScorecardDbHelper.getWritableDatabase();
+        final int match=mUriMatcher.match(uri);
+        int rowsDeleted=0;
+
+        switch (match){
+
+            case GOLF_FIELD_WITH_ID:
+                String GF_id= String.valueOf(ContentUris.parseId(uri));
+                rowsDeleted=deleteGolfField(GF_id);
+                break;
+
+
+            case GOLF_FIELD_HOLE_WITH_GF:
+                String GFH_GF_id= String.valueOf(ContentUris.parseId(uri));
+                rowsDeleted=deleteGolfFieldHoles(GFH_GF_id);
+                break;
+
+
+
+
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+
+        }
+
+        if (rowsDeleted>0){
+            getContext().getContentResolver().notifyChange(uri, null);
+
+        }
+
+        return rowsDeleted;
     }
+
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
@@ -410,6 +442,61 @@ public class ScorecardProvider extends ContentProvider{
         }
 
         return rowsInserted;
+
+    }
+
+
+    //Delete GOlf Fields
+    private int deleteGolfField(String id){
+        int deletedRecords=-1;
+
+        final SQLiteDatabase db = mScorecardDbHelper.getWritableDatabase();
+        if (db.isOpen()){
+
+            deletedRecords=db.delete(ScorecardContract.GolfFieldEntry.TABLE_NAME, ScorecardContract.GolfFieldEntry._ID+"=?",new String[]{id});
+
+
+            if(deletedRecords!=1){
+
+                Log.e(LOG_TAG,"There was a problem deleting the Golf Field.");
+
+
+            }
+        }else{
+            Log.e(LOG_TAG,"database could not be opened");
+        }
+
+
+
+        return  deletedRecords;
+
+    }
+
+
+
+    //Delete GOlf Fields
+    private int deleteGolfFieldHoles(String id){
+        int deletedRecords=-1;
+
+        final SQLiteDatabase db = mScorecardDbHelper.getWritableDatabase();
+        if (db.isOpen()){
+
+            deletedRecords=db.delete(ScorecardContract.GolfFieldHoleEntry.TABLE_NAME, ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_GF_ID+"=?",new String[]{id});
+
+
+            if(deletedRecords!=1){
+
+                Log.e(LOG_TAG,"There was a problem deleting the Golf Field Holes.");
+
+
+            }
+        }else{
+            Log.e(LOG_TAG,"database could not be opened");
+        }
+
+
+
+        return  deletedRecords;
 
     }
 

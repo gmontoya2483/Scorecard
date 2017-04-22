@@ -1,5 +1,6 @@
 package com.montoya.gabi.scorecard;
 
+import android.database.Cursor;
 import android.test.AndroidTestCase;
 
 import com.montoya.gabi.scorecard.model.GolfField;
@@ -304,28 +305,19 @@ public class TestGolfFielAandHoleClasses extends AndroidTestCase{
         assertEquals("HOLE 18: Par must be equal to PAR_5", Hole.Par.PAR_5, itemHole.getPar());
 
 
+        //Insert the golf Field and its holes into the database
+        boolean insertedOK=golfField.InsertGolfField(mContext);
+        assertTrue("Golf field was not inserted correctly",insertedOK);
 
 
+        Cursor GFcursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldEntry.buildGolfFieldByIdUri(golfField.get_id()),null,null,null,null);
+        assertEquals("The quantity of retrieved golf fields records doesn't match",1, GFcursor.getCount());
+
+        TestUtils.VerifyExpectedGolfFieldQueryResult(golfField,GFcursor);
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        Cursor GFHcursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField.get_id()),null,null,null,null);
+        assertEquals("The quantity of retrieved golf fields holes records doesn't match",18, GFHcursor.getCount());
 
 
         TestUtils.deleteAllRecords(mContext);
@@ -334,6 +326,13 @@ public class TestGolfFielAandHoleClasses extends AndroidTestCase{
 
 
     }
+
+
+
+
+
+
+
 
 
 

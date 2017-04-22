@@ -41,9 +41,7 @@ public class GolfField {
         this.favorite=favorite.getValue();
         this.active= active.getValue();
 
-
-
-        setHolesFromArray(holes);
+       setHolesFromArray(holes);
 
     }
 
@@ -362,7 +360,7 @@ public class GolfField {
         if (this._id==GolfField.NOT_SAVED_GOLF_FIELD_ID || this._id==GolfField.INVALID_GOLF_FIELD_ID){
            insertGolfFieldWithHoles(context);
 
-            if (this._id!=GolfField.NOT_SAVED_GOLF_FIELD_ID || this._id!=GolfField.INVALID_GOLF_FIELD_ID){
+            if (this._id!=GolfField.NOT_SAVED_GOLF_FIELD_ID && this._id!=GolfField.INVALID_GOLF_FIELD_ID){
 
                 saved_gf_OK=true;
 
@@ -408,24 +406,30 @@ public class GolfField {
 
                 if (holes_OK){
 
-                    //TODO ADD this row qtyInsertedHoles=bulkInsertHoles(context);
+                    qtyInsertedHoles=GolfFieldHole.bulkInsertGolfFieldHoles(context,this.holes);
 
                     if (qtyInsertedHoles!=18){
 
-                        //TODO Delete Holes and GolfField (Hacer los provider y los metodos
+                        //if the quantity of inserted holes is not 18, the holes that were inseeted are deleted and the golffield is deleted.
+                        GolfFieldHole.deleteGolfFieldHolesByGolfFieldId(context,this._id);
+                        deleteGolfField(context, this._id);
 
+                        //The golffield id is set as invalid
                         this._id=INVALID_GOLF_FIELD_ID;
 
 
                     }else{
 
-                        //TODO OK!!! DO NOTHING....
+                        // OK!!! DO NOTHING....
 
                     }
 
                 }else{
 
-                    //TODO Delete GolfField
+                    //if the verification of the holes before inserting them is not OK the inserted Golffield is deleted.
+                    deleteGolfField(context, this._id);
+
+                    //The golffield id is set as invalid
                     this._id=INVALID_GOLF_FIELD_ID;
 
                 }
@@ -437,7 +441,7 @@ public class GolfField {
 
 
         }else{
-
+            //if the verification of the GOlfField fields are not OK, The golf field id is set as invalid
             this._id=INVALID_GOLF_FIELD_ID;
         }
 
@@ -446,7 +450,10 @@ public class GolfField {
 
 
 
-
+    //Helper method used during the insert GolfFields it verifies:
+    //Name is not null
+    // Favorite flag have either 1 -> ScorecardBoolean.TRUE or 0 -> ScorecardBoolean.FALSE
+    // Active flag have either 1 -> ScorecardBoolean.TRUE or 0 -> ScorecardBoolean.FALSE
     private boolean verifyGolfField (){
 
         boolean golfField_OK=true;
@@ -471,7 +478,11 @@ public class GolfField {
     }
 
 
-
+    //Helper method used during the insert GolfFields it verifies:
+    //All holes were added (18)
+    //That all holes has a length bigger than 0
+    //That all PAR values are OK (PAR_3 or PAR_4 or PAR_5)
+    //That all the holes have the correct number (hole(0)-> HOLE_1..... hole(17) -> HOLE_18
     private boolean verifyHoles(){
         boolean holes_OK=true;
 
@@ -611,6 +622,9 @@ public class GolfField {
                 holes_OK=false;
             }
 
+
+
+
         }
 
 
@@ -619,24 +633,52 @@ public class GolfField {
 
 
 
+    //Helper Method for inserting a Golf field from the database
     private Uri insertGolfField(Context context){
-
         Uri allGolfFieldUri=ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri();
-
         return context.getContentResolver().insert(allGolfFieldUri,getGolfFieldValues());
-
     }
 
 
-
-
-
-
+    //Helper Method which set the golffield ID to all the holes before saving
     private void setGolfField_idToHoles(){
 
-        //TODO Finish the Method
+        for(int i=0;i<holes.length;i++){
+
+            if (holes[i]!=null){
+                holes[i].setGolfField_id(this._id);
+            }
+
+        }
 
     }
+
+
+    //Helper Method for deleting a Golf field from the database
+    private int deleteGolfField (Context context, long golfField_id){
+       return context.getContentResolver().delete(ScorecardContract.GolfFieldEntry.buildGolfFieldByIdUri(golfField_id),null,null);
+    }
+
+
+
+
+    //TODO hacer este metodo
+    public void DeleteGolfField(){
+
+        //Chequear si existen ScoreCards para este Golfield o si hay una current tarjeta
+
+        //Si hay algo marcarlos como inactivo
+
+
+        //Si no hay nada borrarlo (GolfField holes y el golfField)
+
+    }
+
+
+
+
+
+
 
 
 
