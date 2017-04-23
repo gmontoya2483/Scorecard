@@ -3,6 +3,7 @@ package com.montoya.gabi.scorecard;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
@@ -101,6 +102,23 @@ public class TestUtils {
         TestUtils.deleteAllGolfFieldHoleRecords(context);
         TestUtils.deleteAllGolfFieldrecords(context);
 
+    }
+
+
+    public static Cursor getAllGolfFieldHoles(Context context){
+        Cursor cursor;
+
+        SQLiteDatabase db=new ScorecardDbHelper(context).getWritableDatabase();
+        if (db.isOpen()){
+
+            String SQLStatment="SELECT * from "+ScorecardContract.GolfFieldHoleEntry.TABLE_NAME;
+
+            cursor=db.rawQuery(SQLStatment,null);
+
+        }else{
+            cursor=null;
+        }
+        return cursor;
     }
 
 

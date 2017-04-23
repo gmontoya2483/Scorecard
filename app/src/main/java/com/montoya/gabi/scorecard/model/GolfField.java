@@ -98,6 +98,10 @@ public class GolfField {
         return name;
     }
 
+    public void setName(String name){
+        this.name=name;
+    }
+
     public ScorecardBoolean getFavorite() {
         ScorecardBoolean favorite;
         switch (this.favorite){
@@ -115,6 +119,13 @@ public class GolfField {
         return favorite;
     }
 
+
+    public void setFavorite(ScorecardBoolean favorite){
+
+        this.favorite=favorite.getValue();
+    }
+
+
     public ScorecardBoolean getActive() {
         ScorecardBoolean active;
         switch (this.active){
@@ -130,6 +141,11 @@ public class GolfField {
 
         }
         return active;
+    }
+
+    public void setActive(ScorecardBoolean active){
+
+        this.active=active.getValue();
     }
 
 
