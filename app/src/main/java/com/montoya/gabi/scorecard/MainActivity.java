@@ -1,23 +1,32 @@
 package com.montoya.gabi.scorecard;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.firebase.UserAuthentication;
+import com.montoya.gabi.scorecard.view.FragmentCamera;
+import com.montoya.gabi.scorecard.view.FragmentGaleria;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentCamera.OnFragmentInteractionListener, FragmentGaleria.OnFragmentInteractionListener{
 
 
 
@@ -49,6 +58,20 @@ public class MainActivity extends AppCompatActivity {
 
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.setDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+
+
 
 
         //Initialize the UserAuthentication class and the listener for log in
@@ -127,6 +150,88 @@ public class MainActivity extends AppCompatActivity {
     private void onSignedIn(){
 
         //TODO add functionality what to do if the user is logged (for example get the user name, show the log out action, etc.... TBD)
+
+    }
+
+
+
+    //Navigation Bar interfase Methods
+    //@Override
+    //public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    //    return false;
+    //}
+
+
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        Fragment fragment=null;
+        boolean fragmentTransaction=false;
+
+        if (id == R.id.nav_camera) {
+            // Handle the camera action
+            fragment=new FragmentCamera();
+            fragmentTransaction=true;
+
+
+        } else if (id == R.id.nav_gallery) {
+            fragment=new FragmentGaleria();
+            fragmentTransaction=true;
+
+        } else if (id == R.id.nav_slideshow) {
+
+            Log.i("NavigationDrawer", "Option slideshow");
+
+        } else if (id == R.id.nav_manage) {
+
+            Log.i("NavigationDrawer", "Option nav Manage");
+
+        } else if (id == R.id.nav_share) {
+            Log.i("NavigationDrawer", "Option share");
+
+        } else if (id == R.id.nav_send) {
+
+            Log.i("NavigationDrawer", "nav send");
+
+        }
+
+
+        //manejador de fragment
+
+        if (fragmentTransaction){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_main,fragment)
+                    .commit();
+
+            item.setChecked(true);
+            getSupportActionBar().setTitle(item.getTitle());
+
+        }
+
+
+
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
