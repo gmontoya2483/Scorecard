@@ -21,12 +21,13 @@ import android.widget.Toast;
 import com.montoya.gabi.scorecard.firebase.UserAuthentication;
 import com.montoya.gabi.scorecard.view.FragmentCamera;
 import com.montoya.gabi.scorecard.view.FragmentGaleria;
+import com.montoya.gabi.scorecard.view.PlayerFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, FragmentCamera.OnFragmentInteractionListener, FragmentGaleria.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PlayerFragment.OnFragmentInteractionListener, FragmentCamera.OnFragmentInteractionListener, FragmentGaleria.OnFragmentInteractionListener{
 
 
 
@@ -182,28 +183,28 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Fragment fragment=null;
         boolean fragmentTransaction=false;
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_player_handicap) {
             // Handle the camera action
-            fragment=new FragmentCamera();
+            fragment=new PlayerFragment();
             fragmentTransaction=true;
 
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_scorecards) {
             fragment=new FragmentGaleria();
             fragmentTransaction=true;
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_current_scorecards) {
 
             Log.i("NavigationDrawer", "Option slideshow");
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_golf_fields) {
 
             Log.i("NavigationDrawer", "Option nav Manage");
 
-        } else if (id == R.id.nav_share) {
+        } else if (id == R.id.nav_favorite_golf_fields) {
             Log.i("NavigationDrawer", "Option share");
 
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_settings) {
 
             Log.i("NavigationDrawer", "nav send");
 

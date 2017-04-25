@@ -3,34 +3,39 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+            android:id="@+id/nav_player_handicap"
+            android:icon="@drawable/ic_action_player"
+            android:title="@string/nav_player_handicap" />
         <item
-            android:id="@+id/nav_gallery"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="Gallery" />
+            android:id="@+id/nav_scorecards"
+            android:icon="@drawable/ic_action_scorecards"
+            android:title="@string/nav_scorecards" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-            android:id="@+id/nav_manage"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Tools" />
+            android:id="@+id/nav_current_scorecards"
+            android:icon="@drawable/ic_action_current_scorecard"
+            android:title="@string/nav_current_scorecard" />
     </group>
 
-    <item android:title="Communicate">
-        <menu>
-            <item
-                android:id="@+id/nav_share"
-                android:icon="@drawable/ic_menu_share"
-                android:title="Share" />
-            <item
-                android:id="@+id/nav_send"
-                android:icon="@drawable/ic_menu_send"
-                android:title="Send" />
-        </menu>
-    </item>
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_golf_fields"
+            android:icon="@drawable/ic_action_golf_fields"
+            android:title="@string/nav_golf_fields" />
+
+        <item
+            android:id="@+id/nav_favorite_golf_fields"
+            android:icon="@drawable/ic_action_favorite"
+            android:title="@string/nav_favorite_golf_fields" />
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_action_settings"
+            android:title="@string/nav_settings" />
+
+    </group>
+
+
 
 </menu>
