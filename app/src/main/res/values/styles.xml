@@ -32,6 +32,24 @@
     </style>
 
 
+    <!--Floating button Style -->
+    <style name="Fab_Button">
+        <item name="android:elevation">@dimen/fab_elevation</item>
+        <item name="pressedTranslationZ">@dimen/fab_press_translation_z</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">@dimen/fab_margin</item>
+        <item name="android:stateListAnimator">@anim/fab_state_anim</item>
+
+    </style>
+
+
+
+
+
+
+
+
 
 
 </resources>

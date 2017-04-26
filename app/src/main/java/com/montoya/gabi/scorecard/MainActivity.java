@@ -21,27 +21,28 @@ import android.widget.Toast;
 import com.montoya.gabi.scorecard.firebase.UserAuthentication;
 import com.montoya.gabi.scorecard.view.FragmentCamera;
 import com.montoya.gabi.scorecard.view.FragmentGaleria;
+import com.montoya.gabi.scorecard.view.GolfFieldsFragment;
 import com.montoya.gabi.scorecard.view.PlayerFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, PlayerFragment.OnFragmentInteractionListener, FragmentCamera.OnFragmentInteractionListener, FragmentGaleria.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GolfFieldsFragment.OnFragmentInteractionListener, PlayerFragment.OnFragmentInteractionListener, FragmentCamera.OnFragmentInteractionListener, FragmentGaleria.OnFragmentInteractionListener{
 
 
 
     //Bind Views
-    @BindView(R.id.fab) FloatingActionButton fab;
+    //@BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.toolbar) Toolbar toolbar;
 
 
     //Bind Events
-    @OnClick(R.id.fab)
-    public void click(View view){
-        Snackbar.make(view, "Replace with your own action - BUTTER KNIFE", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+    //@OnClick(R.id.fab)
+    //public void click(View view){
+    //    Snackbar.make(view, "Replace with your own action - BUTTER KNIFE", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
-    }
+    //}
 
 
     private UserAuthentication mUserAuthentication;
@@ -199,7 +200,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_golf_fields) {
 
-            Log.i("NavigationDrawer", "Option nav Manage");
+            fragment=new GolfFieldsFragment();
+            fragmentTransaction=true;
 
         } else if (id == R.id.nav_favorite_golf_fields) {
             Log.i("NavigationDrawer", "Option share");
