@@ -1,5 +1,7 @@
 package com.montoya.gabi.scorecard.view;
 
+import android.content.Context;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,21 @@ import android.view.ViewGroup;
  */
 
 public class GolfFieldAdapter extends RecyclerView.Adapter<GolfFieldAdapter.GolfFieldViewHolder> {
+
+
+    Cursor mCursor;
+    Context mContext;
+
+
+    GolfFieldAdapter (Context context){
+        mContext=context;
+
+    }
+
+    void setCursor(Cursor cursor) {
+        this.mCursor = cursor;
+        notifyDataSetChanged();
+    }
 
 
     @Override
@@ -23,7 +40,11 @@ public class GolfFieldAdapter extends RecyclerView.Adapter<GolfFieldAdapter.Golf
 
     @Override
     public int getItemCount() {
-        return 0;
+        int count = 0;
+        if (mCursor != null) {
+            count = mCursor.getCount();
+        }
+        return count;
     }
 
     class GolfFieldViewHolder extends RecyclerView.ViewHolder{
