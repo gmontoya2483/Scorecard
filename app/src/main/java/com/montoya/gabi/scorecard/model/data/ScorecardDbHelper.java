@@ -63,7 +63,8 @@ public class ScorecardDbHelper extends SQLiteOpenHelper{
         db.execSQL(SQL_CREATE_GOLF_FILED_HOLE_TABLE);
 
 
-        GeneratePreLoadedGolfFields();
+       // GeneratePreLoadedGolfFields();
+        //db.close();
 
     }
 
@@ -84,6 +85,8 @@ public class ScorecardDbHelper extends SQLiteOpenHelper{
 
 
         onCreate(db);
+
+//        db.close();
 
     }
 

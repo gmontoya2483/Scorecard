@@ -1,6 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        >
+
+        <TextView
+            android:id="@+id/txt_golf_field_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/golf_field_fake_name"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical|left"/>
+
+
+        <ImageView
+            android:id="@+id/img_golf_field_favorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="0"
+            android:layout_gravity="center_vertical|right"
+            app:srcCompat="@drawable/ic_action_favorite"
+            android:layout_weight="0.24" />
+
+
+    </LinearLayout>
+
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/Divider_12"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_golf_field_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center"
+                android:text="@string/golf_field_fake_out_value" />
+
+            <TextView
+                android:id="@+id/txt_golf_field_label_out"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center"
+                android:text="@string/golf_field_out_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txt_golf_field_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/golf_field_fake_in_value"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center"/>
+
+            <TextView
+                android:id="@+id/txt_golf_field_label_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center"
+                android:text="@string/golf_field_in_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txt_golf_field_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/golf_field_fake_total_value"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center" />
+
+            <TextView
+                android:id="@+id/txt_golf_field_label_total"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center"
+                android:text="@string/golf_field_total_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txt_golf_field_par"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/golf_field_fake_par_value"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center"/>
+
+            <TextView
+                android:id="@+id/txt_golf_field_label_par"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|center"
+                android:text="@string/golf_field_par_label"
+                android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
 
 </LinearLayout>

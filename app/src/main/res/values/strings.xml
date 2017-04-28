@@ -27,4 +27,26 @@
     <string name="nav_settings">Settings</string>
 
 
+    <!--Error Messages -->
+    <string name="err_no_golf_fields">There are no Golf Fields to display.</string>
+
+
+
+    <!-- Golf fields item -->
+    <string name="golf_field_fake_name" translatable="false">Aranzazú country Club</string>
+    <string name="golf_field_fake_out_value" translatable="false">1234 m</string>
+    <string name="golf_field_fake_in_value" translatable="false">1034 m</string>
+    <string name="golf_field_fake_total_value" translatable="false">2268 m</string>
+    <string name="golf_field_fake_par_value" translatable="false">60</string>
+
+
+    <string name="golf_field_out_label">OUT</string>
+    <string name="golf_field_in_label">IN</string>
+    <string name="golf_field_total_label">TOTAL</string>
+    <string name="golf_field_par_label">PAR</string>
+
+
+
+
+
 </resources>

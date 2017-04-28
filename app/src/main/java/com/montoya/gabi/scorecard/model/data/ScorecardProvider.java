@@ -111,6 +111,7 @@ public class ScorecardProvider extends ContentProvider{
         switch(match){
             case GOLF_FIELD:
             {
+                Log.e(LOG_TAG, "Se fue para el Query!!!!!");
                 retCursor=mScorecardDbHelper.getReadableDatabase().query(
                         ScorecardContract.GolfFieldEntry.TABLE_NAME,
                         projection,
@@ -209,7 +210,9 @@ public class ScorecardProvider extends ContentProvider{
         final int match=mUriMatcher.match(uri);
         switch (match){
             case GOLF_FIELD:
+                Log.e(LOG_TAG, "Se fue para el insert!!!!!");
                 insertedUri=insertGolfField(values);
+
                 break;
             case GOLF_FIELD_HOLE:
                 insertedUri=insertGolfFieldHole(values);
@@ -225,6 +228,7 @@ public class ScorecardProvider extends ContentProvider{
         if (insertedUri!=null){
             getContext().getContentResolver().notifyChange(uri, null);
         }
+
 
        return insertedUri;
     }
@@ -263,7 +267,7 @@ public class ScorecardProvider extends ContentProvider{
             getContext().getContentResolver().notifyChange(uri, null);
 
         }
-
+        getContext().getContentResolver().notifyChange(uri, null);
         return rowsDeleted;
     }
 
@@ -287,7 +291,7 @@ public class ScorecardProvider extends ContentProvider{
         }
 
 
-
+        getContext().getContentResolver().notifyChange(uri, null);
         return rowsInserted;
 
     }
@@ -309,7 +313,7 @@ public class ScorecardProvider extends ContentProvider{
         Uri insertedGolfFieldUri=null;
         Long insertedGolfFieldId;
 
-        final SQLiteDatabase db = mScorecardDbHelper.getWritableDatabase();
+        SQLiteDatabase db = mScorecardDbHelper.getWritableDatabase();
         if (db.isOpen()){
             insertedGolfFieldId=db.insert(ScorecardContract.GolfFieldEntry.TABLE_NAME,null,values);
             if(insertedGolfFieldId!=-1){
@@ -328,6 +332,8 @@ public class ScorecardProvider extends ContentProvider{
             Log.e(LOG_TAG,"database could not be opened");
         }
 
+
+        db.close();
 
         return insertedGolfFieldUri;
     }

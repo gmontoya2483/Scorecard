@@ -1,19 +1,26 @@
 package com.montoya.gabi.scorecard.view;
 
 import android.content.Context;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.montoya.gabi.scorecard.R;
+import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,12 +32,13 @@ import butterknife.OnClick;
  * {@link GolfFieldsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class GolfFieldsFragment extends Fragment {
+public class GolfFieldsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
-
+    private static final int GOLF_FIELDS_LOADER = 0;
     private View mRootView;
-    private RecyclerView.Adapter mAdapter;
+    private GolfFieldAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+
 
 
     //Bind Views
@@ -38,7 +46,12 @@ public class GolfFieldsFragment extends Fragment {
     FloatingActionButton mFabNewGolfField;
 
     @BindView(R.id.recycler_view_golf_fields)
-    RecyclerView mRecyclerViewGolfView;
+    RecyclerView mRecyclerViewGolfFields;
+
+
+
+    @BindView(R.id.error_golf_fields)
+    TextView mError;
 
 
     //Bind Events
@@ -68,17 +81,21 @@ public class GolfFieldsFragment extends Fragment {
         ButterKnife.bind(this,mRootView);
 
         //Recycler View Settings
-        mRecyclerViewGolfView.setHasFixedSize(true);
+        mRecyclerViewGolfFields.setHasFixedSize(true);
 
         // use a linear layout manager
         mLayoutManager = new LinearLayoutManager(getContext());
-        mRecyclerViewGolfView.setLayoutManager(mLayoutManager);
+        mRecyclerViewGolfFields.setLayoutManager(mLayoutManager);
+
+
+        //mEmptyView=getActivity().findViewById(R.id.error_golf_fields);
 
         // specify an adapter (see also next example)
-        //mAdapter = new MyAdapter(myDataset);
-        mRecyclerViewGolfView.setAdapter(mAdapter);
+        mAdapter = new GolfFieldAdapter(getContext());
+        mRecyclerViewGolfFields.setAdapter(mAdapter);
 
 
+        getActivity().getSupportLoaderManager().initLoader(GOLF_FIELDS_LOADER, null, this);
 
 
         return mRootView;
@@ -108,6 +125,10 @@ public class GolfFieldsFragment extends Fragment {
         mListener = null;
     }
 
+
+
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -122,4 +143,54 @@ public class GolfFieldsFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
+    /**
+     * Cursor Loaders Methods.
+     *
+     *
+     *
+     *
+     *
+     * *
+     */
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+        Log.e("On create loader", "antes de creater el curosor loader");
+
+        return new CursorLoader(getActivity(), ScorecardContract.GolfFieldEntry.buildAllGolfFieldsActiveUri(),null,null,null,null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+
+        Log.e ("Curosr has",""+data.getCount());
+
+        if (data.getCount() > 0) {
+            mError.setVisibility(View.GONE);
+            mRecyclerViewGolfFields.setVisibility(View.VISIBLE);
+        }else{
+            Log.e ("Curosr has 0","Entro al else");
+            mError.setVisibility(View.VISIBLE);
+            mRecyclerViewGolfFields.setVisibility(View.GONE);
+
+        }
+        mAdapter.setCursor(data);
+
+
+
+
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+
+        mAdapter.setCursor(null);
+
+    }
+
+
+
 }

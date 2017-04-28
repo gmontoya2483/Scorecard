@@ -46,6 +46,15 @@ public class GolfField {
     }
 
 
+
+    public GolfField (long _id, String name, ScorecardBoolean favorite, ScorecardBoolean active){
+        this._id=_id;
+        this.name=name;
+        this.favorite=favorite.getValue();
+        this.active=active.getValue();
+    }
+
+
     //Constructor helper methed to setup the att
     private void setGolfFieldAttributes(String name, ScorecardBoolean favorite, ScorecardBoolean active){
 

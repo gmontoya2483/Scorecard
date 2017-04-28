@@ -13,6 +13,20 @@
         app:srcCompat="@drawable/ic_action_golf_fields" />
 
 
+
+
+
+    <TextView
+        android:id="@+id/error_golf_fields"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
+        android:visibility="visible"
+        tools:text="@string/err_no_golf_fields" />
+
+
+
     <!-- A RecyclerView with some commonly used attributes -->
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_golf_fields"
