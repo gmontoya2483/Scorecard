@@ -271,6 +271,59 @@ public class GolfField {
     }
 
 
+    public boolean loadHolesFromDB(Context context){
+
+        boolean result=true;
+
+        Uri holesByGolfFielIdUri=ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(this._id);
+        Cursor cursor=context.getContentResolver().query(holesByGolfFielIdUri,null,null,null,null);
+
+        int index_Id=cursor.getColumnIndex(ScorecardContract.GolfFieldHoleEntry._ID);
+        int indexGF_Id=cursor.getColumnIndex(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_GF_ID);
+        int indexNumber=cursor.getColumnIndex(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_NUMBER);
+        int indexLength=cursor.getColumnIndex(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_LENGTH);
+        int indexPar=cursor.getColumnIndex(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_PAR);
+
+        //long _id, long golfField_id, HoleNumber holeNumber, int holeLength, Par par
+
+        long id;
+        long GF_Id;
+        Hole.HoleNumber number;
+        int length;
+        Hole.Par par;
+
+
+        if (cursor.getCount()!=18){
+            while (cursor.moveToNext()){
+
+                id=cursor.getLong(index_Id);
+                GF_Id=cursor.getLong(indexGF_Id);
+                number=Hole.convertIntToHoleNumber(cursor.getInt(indexNumber));
+                length=cursor.getInt(indexLength);
+                par=Hole.convertIntToPar(cursor.getInt(indexPar));
+
+                this.AddHole(new GolfFieldHole(id,GF_Id,number,length,par));
+
+            }
+
+            result=verifyHoles();
+
+
+
+        }else {
+
+            result=false;
+
+        }
+        //If there was a fail blank the holes array
+        if (!result){
+            this.holes= new GolfFieldHole[18];
+        }
+
+        return result;
+   }
+
+
     public int AddHole (GolfFieldHole hole){
         int index;
 
@@ -647,9 +700,6 @@ public class GolfField {
                 holes_OK=false;
             }
 
-
-
-
         }
 
 
@@ -696,6 +746,43 @@ public class GolfField {
 
 
         //Si no hay nada borrarlo (GolfField holes y el golfField)
+
+    }
+
+
+
+    //Helper method to get the quantity of saved golf field (both active and inactive)
+    public static int getQuantityOfGolfFields(Context context){
+
+        int qty;
+        Cursor cursor;
+        Uri allGolfFiedUri=ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri();
+        cursor=context.getContentResolver().query(allGolfFiedUri,null,null,null,null);
+
+        if (cursor!=null){
+            qty=cursor.getCount();
+        }else {
+            qty=0;
+        }
+        return qty;
+
+    }
+
+
+    //Helper method to get the quantity of saved golf field (both active and inactive)
+    public static int getQuantityOfActiveGolfFields(Context context){
+
+        int qty;
+        Cursor cursor;
+        Uri allGolfFiedUri=ScorecardContract.GolfFieldEntry.buildAllGolfFieldsActiveUri();
+        cursor=context.getContentResolver().query(allGolfFiedUri,null,null,null,null);
+
+        if (cursor!=null){
+            qty=cursor.getCount();
+        }else {
+            qty=0;
+        }
+        return qty;
 
     }
 

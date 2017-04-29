@@ -72,8 +72,64 @@ public abstract class Hole {
 
 
     public HoleNumber getNumber() {
+        return convertIntToHoleNumber(this.number);
+    }
+
+    public void setNumber(HoleNumber holeNumber) {
+        this.number = holeNumber.getValue();
+    }
+
+
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int holeLength) {
+        this.length = holeLength;
+    }
+
+    public Par getPar() {
+        return convertIntToPar(this.par);
+    }
+
+    public void setPar(Par par) {
+        this.par=par.getValue();
+    }
+
+
+    public static Par convertIntToPar (int number){
+
+        Par par;
+        switch (number){
+            case 0:
+                par=Par.PAR_NOT_DEFINED;
+                break;
+            case 3:
+                par=Par.PAR_3;
+                break;
+            case 4:
+                par=Par.PAR_4;
+                break;
+            case 5:
+                par=Par.PAR_5;
+                break;
+
+            default:
+                par=Par.PAR_INVALID;
+                break;
+        }
+
+        return par;
+
+    }
+
+
+
+    public static HoleNumber convertIntToHoleNumber(int number){
+
         HoleNumber holeNumber;
-        switch (this.number){
+        switch (number){
             case 0:
                 holeNumber=HoleNumber.HOLE_NOT_DEFINED;
                 break;
@@ -137,48 +193,8 @@ public abstract class Hole {
 
         }
         return holeNumber;
-    }
-
-    public void setNumber(HoleNumber holeNumber) {
-        this.number = holeNumber.getValue();
-    }
 
 
-
-    public int getLength() {
-        return length;
-    }
-
-    public void setLength(int holeLength) {
-        this.length = holeLength;
-    }
-
-    public Par getPar() {
-        Par par;
-        switch (this.par){
-            case 0:
-                par=Par.PAR_NOT_DEFINED;
-                break;
-            case 3:
-                par=Par.PAR_3;
-                break;
-            case 4:
-                par=Par.PAR_4;
-                break;
-            case 5:
-                par=Par.PAR_5;
-                break;
-
-            default:
-                par=Par.PAR_INVALID;
-                break;
-        }
-
-        return par;
-    }
-
-    public void setPar(Par par) {
-        this.par=par.getValue();
     }
 
 

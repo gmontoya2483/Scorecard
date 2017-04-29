@@ -75,12 +75,17 @@ public class GolfFieldAdapter extends RecyclerView.Adapter<GolfFieldAdapter.Golf
 
 
         GolfField golfField=new GolfField(_id,name,favorite,active);
-        //TODO add the methods in golfield to load the holes and to calculate the length in, out, total and the total par
+        if (golfField.loadHolesFromDB(mContext)){
+            //TODO add the method calculate the length in, out, total and the total par
+        }else {
+            //TODO poner todo en -1
+        }
+
 
 
         holder.mGolfFieldName.setText(golfField.getName());
 
-        //TODO ADD the other fields
+        //TODO ADD the remaining fields
 
 
     }

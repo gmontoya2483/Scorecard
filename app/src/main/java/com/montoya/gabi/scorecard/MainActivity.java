@@ -19,6 +19,8 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.firebase.UserAuthentication;
+import com.montoya.gabi.scorecard.model.GolfField;
+import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.view.FragmentCamera;
 import com.montoya.gabi.scorecard.view.FragmentGaleria;
 import com.montoya.gabi.scorecard.view.GolfFieldsFragment;
@@ -72,6 +74,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        //Verific si hay campos de golf cargados y los carga...//TODO borrar cuando se haya terminado de probsar
+        if (GolfField.getQuantityOfGolfFields(getApplicationContext())==0){
+
+            ScorecardContract.GolfFieldEntry.generatePreLoadedGolfFields(getApplicationContext());
+            Log.i ("MAIN", "Se cargaron "+GolfField.getQuantityOfGolfFields(getApplicationContext())+" GolfFields");
+
+        }
 
 
 

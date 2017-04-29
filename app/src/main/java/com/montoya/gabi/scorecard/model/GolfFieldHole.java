@@ -30,6 +30,17 @@ public class GolfFieldHole extends Hole{
 
     }
 
+
+    public GolfFieldHole(long _id, long golfField_id, HoleNumber holeNumber, int holeLength, Par par) {
+        super(holeNumber,holeLength,par);
+        this.golfField_id = golfField_id;
+        this._id=_id;
+
+    }
+
+
+
+
     public GolfFieldHole(Cursor golfFieldHoleCursor) {
         super();
 
