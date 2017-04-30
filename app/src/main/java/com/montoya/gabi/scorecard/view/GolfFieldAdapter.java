@@ -75,17 +75,30 @@ public class GolfFieldAdapter extends RecyclerView.Adapter<GolfFieldAdapter.Golf
 
 
         GolfField golfField=new GolfField(_id,name,favorite,active);
+        holder.mGolfFieldName.setText(golfField.getName());
+
         if (golfField.loadHolesFromDB(mContext)){
-            //TODO add the method calculate the length in, out, total and the total par
+
+            holder.mGolfFieldIn.setText(String.valueOf(golfField.getIn_length()));
+            holder.mGolfFieldOut.setText(String.valueOf(golfField.getOut_length()));
+            holder.mGolfFieldTotal.setText(String.valueOf(golfField.getTotal_length()));
+            holder.mGolfFieldPar.setText(String.valueOf(golfField.getTotal_par()));
+            //TODO: add the favorite
+            //TODO: format the length and convert from m to yards
+
         }else {
-            //TODO poner todo en -1
+
+            String error="-"; //TODO add a string resourse
+
+            holder.mGolfFieldIn.setText(error);
+            holder.mGolfFieldOut.setText(error);
+            holder.mGolfFieldTotal.setText(error);
+            holder.mGolfFieldPar.setText(error);
         }
 
 
 
-        holder.mGolfFieldName.setText(golfField.getName());
 
-        //TODO ADD the remaining fields
 
 
     }

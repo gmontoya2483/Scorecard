@@ -5,9 +5,11 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract.ScorecardBoolean;
+import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 /**
  * Created by montoya on 10.04.2017.
@@ -16,16 +18,23 @@ import com.montoya.gabi.scorecard.model.data.ScorecardContract.ScorecardBoolean;
 public class GolfField {
 
 
-    public static Long INVALID_GOLF_FIELD_ID=-1L;
-    public static Long NOT_SAVED_GOLF_FIELD_ID=0L; //Default id when the golffield whasent been saved into the Database
+    public static final Long INVALID_GOLF_FIELD_ID=-1L;
+    public static final Long NOT_SAVED_GOLF_FIELD_ID=0L; //Default id when the golffield whasent been saved into the Database
+    public static final int INVALID_TOTAL_LENGTH=-1;
+    public static final int INVALID_TOTAL_PAR=-1;
+    public static final int QUANTITY_OF_HOLES=18;
 
     private long _id;
     private String name;
     private int favorite;
     private int active;
 
-
     private GolfFieldHole holes []=new GolfFieldHole[18];
+
+    private int out_length=INVALID_TOTAL_LENGTH;
+    private int in_length=INVALID_TOTAL_LENGTH;
+    private int in_par=INVALID_TOTAL_PAR;
+    private int out_par=INVALID_TOTAL_PAR;
 
 
     public GolfField(String name, ScorecardBoolean favorite, ScorecardBoolean active) {
@@ -171,6 +180,52 @@ public class GolfField {
     }
 
 
+    public int getOut_length() {
+        return out_length;
+    }
+
+    public int getIn_length() {
+        return in_length;
+    }
+
+    public int getIn_par() {
+        return in_par;
+    }
+
+    public int getOut_par() {
+        return out_par;
+    }
+
+    public int getTotal_length() {
+
+        int total;
+
+        if (this.out_length==INVALID_TOTAL_LENGTH || this.in_length==INVALID_TOTAL_LENGTH){
+            total=INVALID_TOTAL_LENGTH;
+        }else{
+            total=this.out_length+this.in_length;
+        }
+
+        return total;
+
+    }
+
+
+    public int getTotal_par() {
+        int par;
+
+        if (this.out_par==INVALID_TOTAL_PAR || this.in_par==INVALID_TOTAL_PAR){
+            par=INVALID_TOTAL_LENGTH;
+        }else{
+            par=this.out_par+this.in_par;
+        }
+
+        return par;
+    }
+
+
+
+
 
     public GolfFieldHole getHole (Hole.HoleNumber holeNumber){
         GolfFieldHole hole;
@@ -260,7 +315,7 @@ public class GolfField {
     public void setHolesFromArray (GolfFieldHole[] holes){
 
 
-        if (holes.length<=18){
+        if (holes.length<=QUANTITY_OF_HOLES){
 
             for (GolfFieldHole hole : holes) {
                 int index = AddHole(hole);
@@ -284,7 +339,6 @@ public class GolfField {
         int indexLength=cursor.getColumnIndex(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_LENGTH);
         int indexPar=cursor.getColumnIndex(ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_PAR);
 
-        //long _id, long golfField_id, HoleNumber holeNumber, int holeLength, Par par
 
         long id;
         long GF_Id;
@@ -292,8 +346,10 @@ public class GolfField {
         int length;
         Hole.Par par;
 
+        if (cursor.getCount()==QUANTITY_OF_HOLES){
 
-        if (cursor.getCount()!=18){
+            this.holes= new GolfFieldHole[QUANTITY_OF_HOLES];//Remove old data from holes to begin from scratch
+
             while (cursor.moveToNext()){
 
                 id=cursor.getLong(index_Id);
@@ -302,22 +358,24 @@ public class GolfField {
                 length=cursor.getInt(indexLength);
                 par=Hole.convertIntToPar(cursor.getInt(indexPar));
 
+                Log.i(ScorecardUtils.APP_LOG_TAG,this.getName()+" - _id: "+id+" GF_ID: "+GF_Id+" Number: "+number+" length: "+length+" Par: "+par);
+
                 this.AddHole(new GolfFieldHole(id,GF_Id,number,length,par));
 
             }
 
             result=verifyHoles();
 
-
-
         }else {
-
             result=false;
 
         }
-        //If there was a fail blank the holes array
-        if (!result){
-            this.holes= new GolfFieldHole[18];
+
+        if (result){
+            calculateTotals(); // if everything is OK calculate the totals from the holes
+
+        }else{
+            this.holes= new GolfFieldHole[QUANTITY_OF_HOLES]; //If there was a fail blank the holes array
         }
 
         return result;
@@ -453,6 +511,36 @@ public class GolfField {
         }
 
         return saved_gf_OK;
+
+    }
+
+
+
+
+    //Helper Method to calculate the totals (par in, par out, length in, length out)
+    private void calculateTotals(){
+
+        this.out_length=0;
+        this.in_length=0;
+        this.in_par=0;
+        this.out_par=0;
+
+        for (int i=0;i<QUANTITY_OF_HOLES;i++){
+
+            if (i<=8){
+                // this is the out
+                this.out_length=this.out_length+holes[i].getLength();
+                this.out_par=this.out_par+holes[i].getPar().getValue();
+
+            }else{
+                // this is the in
+                this.in_length=this.in_length+holes[i].getLength();
+                this.in_par=this.in_par+holes[i].getPar().getValue();
+
+            }
+
+        }
+
 
     }
 

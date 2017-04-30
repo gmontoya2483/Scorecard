@@ -14,10 +14,6 @@ import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 public class GolfFieldHole extends Hole{
 
 
-
-
-
-
     private long _id;
     private long golfField_id;
 

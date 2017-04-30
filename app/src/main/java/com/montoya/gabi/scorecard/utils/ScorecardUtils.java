@@ -4,6 +4,8 @@ package com.montoya.gabi.scorecard.utils;
  * Created by montoya on 10.04.2017.
  */
 
-public class Utils {
+public class ScorecardUtils {
+
+    public static final String APP_LOG_TAG="SCARD";
 
 }
