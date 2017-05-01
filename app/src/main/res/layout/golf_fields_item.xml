@@ -43,7 +43,7 @@
                 android:layout_gravity="center_vertical|end"
                 android:layout_weight="0.24"
                 android:adjustViewBounds="false"
-                app:srcCompat="@drawable/ic_action_player" />
+                app:srcCompat="@drawable/ic_action_favorite" />
 
 
         </LinearLayout>

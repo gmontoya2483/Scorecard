@@ -191,6 +191,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        Bundle args=new Bundle();
 
         Fragment fragment=null;
         boolean fragmentTransaction=false;
@@ -212,10 +213,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.nav_golf_fields) {
 
             fragment=new GolfFieldsFragment();
+            args.putString(GolfFieldsFragment.TYPE_LABEL,GolfFieldsFragment.TYPE_ALL_GOLF_FIELDS);
+            fragment.setArguments(args);
             fragmentTransaction=true;
 
         } else if (id == R.id.nav_favorite_golf_fields) {
-            Log.i("NavigationDrawer", "Option share");
+            fragment=new GolfFieldsFragment();
+            args.putString(GolfFieldsFragment.TYPE_LABEL,GolfFieldsFragment.TYPE_FAVORITE_GOLF_FIELDS);
+            fragment.setArguments(args);
+            fragmentTransaction=true;
 
         } else if (id == R.id.nav_settings) {
 

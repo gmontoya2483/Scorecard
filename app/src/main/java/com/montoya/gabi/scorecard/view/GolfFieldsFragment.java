@@ -34,10 +34,18 @@ import butterknife.OnClick;
  */
 public class GolfFieldsFragment extends Fragment implements LoaderManager.LoaderCallbacks<Cursor>{
 
-    private static final int GOLF_FIELDS_LOADER = 0;
+    public static final String TYPE_LABEL="golf_fields_type";
+    public static final String TYPE_ALL_GOLF_FIELDS="all_golf_fields";
+    public static final String TYPE_FAVORITE_GOLF_FIELDS="favorite_golf_fields";
+
+
+    private static final int ALL_GOLF_FIELDS_LOADER = 0;
+    private static final int FAVORITE_GOLF_FIELDS_LOADER = 1;
+
     private View mRootView;
     private GolfFieldAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
+    private String mType;
 
 
 
@@ -71,6 +79,7 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
     }
 
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -95,7 +104,18 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
         mRecyclerViewGolfFields.setAdapter(mAdapter);
 
 
-        getActivity().getSupportLoaderManager().initLoader(GOLF_FIELDS_LOADER, null, this);
+        //Get the arguments
+        mType= getArguments() != null ? getArguments().getString(TYPE_LABEL) : TYPE_ALL_GOLF_FIELDS;
+
+
+        //Init the cursor loader
+        if (mType.equals(TYPE_FAVORITE_GOLF_FIELDS)){
+            getActivity().getSupportLoaderManager().initLoader(FAVORITE_GOLF_FIELDS_LOADER, null, this);
+            mFabNewGolfField.setVisibility(View.GONE);
+        }else{
+            getActivity().getSupportLoaderManager().initLoader(ALL_GOLF_FIELDS_LOADER, null, this);
+        }
+
 
 
         return mRootView;
@@ -149,37 +169,37 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
     /**
      * Cursor Loaders Methods.
      *
-     *
-     *
-     *
-     *
-     * *
+      * *
      */
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Log.e("On create loader", "antes de creater el curosor loader");
 
-        return new CursorLoader(getActivity(), ScorecardContract.GolfFieldEntry.buildAllGolfFieldsActiveUri(),null,null,null,null);
+        CursorLoader loader;
+
+        if (mType.equals(TYPE_FAVORITE_GOLF_FIELDS)){
+            loader=new CursorLoader(getActivity(), ScorecardContract.GolfFieldEntry.buildAllGolfFieldsFavoriteUri(),null,null,null,null);
+
+        }else{
+            loader=new CursorLoader(getActivity(), ScorecardContract.GolfFieldEntry.buildAllGolfFieldsActiveUri(),null,null,null,null);
+
+        }
+
+        return loader;
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-        Log.e ("Curosr has",""+data.getCount());
-
         if (data.getCount() > 0) {
             mError.setVisibility(View.GONE);
             mRecyclerViewGolfFields.setVisibility(View.VISIBLE);
         }else{
-            Log.e ("Curosr has 0","Entro al else");
             mError.setVisibility(View.VISIBLE);
             mRecyclerViewGolfFields.setVisibility(View.GONE);
 
         }
         mAdapter.setCursor(data);
-
-
 
 
     }

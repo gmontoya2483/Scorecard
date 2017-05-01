@@ -83,7 +83,12 @@ public class GolfFieldAdapter extends RecyclerView.Adapter<GolfFieldAdapter.Golf
             holder.mGolfFieldOut.setText(String.valueOf(golfField.getOut_length()));
             holder.mGolfFieldTotal.setText(String.valueOf(golfField.getTotal_length()));
             holder.mGolfFieldPar.setText(String.valueOf(golfField.getTotal_par()));
-            //TODO: add the favorite
+            if (golfField.getFavorite()== ScorecardContract.ScorecardBoolean.TRUE){
+                holder.mGolfFieldFavorite.setImageResource(R.drawable.ic_action_favorite_color);
+            }else{
+                holder.mGolfFieldFavorite.setImageResource(R.drawable.ic_action_favorite);
+            }
+
             //TODO: format the length and convert from m to yards
 
         }else {
@@ -94,11 +99,8 @@ public class GolfFieldAdapter extends RecyclerView.Adapter<GolfFieldAdapter.Golf
             holder.mGolfFieldOut.setText(error);
             holder.mGolfFieldTotal.setText(error);
             holder.mGolfFieldPar.setText(error);
+            holder.mGolfFieldFavorite.setImageResource(R.drawable.ic_action_favorite);
         }
-
-
-
-
 
 
     }
@@ -111,10 +113,6 @@ public class GolfFieldAdapter extends RecyclerView.Adapter<GolfFieldAdapter.Golf
         }
         return count;
     }
-
-
-
-
 
 
 
