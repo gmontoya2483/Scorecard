@@ -80,9 +80,16 @@ public class GolfFieldActivityFragment extends Fragment {
     }
 
 
+
+
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-        // TODO ADD THE RESTORE OF THE TAB -> host.setCurrentTab(savedInstanceState.getInt(SELECTED_TAB_LABEL));
+
+        if (savedInstanceState!=null && savedInstanceState.containsKey(SELECTED_TAB_LABEL)){
+            host.setCurrentTab(savedInstanceState.getInt(SELECTED_TAB_LABEL));
+        }else{
+            host.setCurrentTab(0);
+        }
         super.onViewStateRestored(savedInstanceState);
     }
 }

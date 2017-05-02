@@ -41,19 +41,11 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hola Mundo 1" />
-
-                    <EditText
-                        android:id="@+id/editText2"
+                    <include
+                        layout="@layout/general_golf_field"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:inputType="textPersonName"
-                        android:text="Name" />
+                        android:layout_height="match_parent" />
+
 
 
                 </LinearLayout>
@@ -64,10 +56,10 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hola Mundo 2" />
+                    <include
+                        layout="@layout/out_golf_field"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 
@@ -77,10 +69,10 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Hola Mundo 3" />
+                    <include
+                        layout="@layout/in_golf_field"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
             </FrameLayout>
