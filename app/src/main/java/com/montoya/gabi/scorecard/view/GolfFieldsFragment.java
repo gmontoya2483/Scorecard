@@ -1,19 +1,17 @@
 package com.montoya.gabi.scorecard.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +41,7 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
     private static final int FAVORITE_GOLF_FIELDS_LOADER = 1;
 
     private View mRootView;
-    private GolfFieldAdapter mAdapter;
+    private GolfFieldsAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private String mType;
 
@@ -65,7 +63,10 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
     //Bind Events
     @OnClick(R.id.fab_new_golf_field)
     public void click(View view){
-        Snackbar.make(view, "Replace with your own action - BUTTER KNIFE", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        Intent newGolfFieldIntent=new Intent(getContext(),GolfFieldActivity.class);
+        startActivity(newGolfFieldIntent);
+
+        //Snackbar.make(view, "Replace with your own action - BUTTER KNIFE", Snackbar.LENGTH_LONG).setAction("Action", null).show();
 
     }
 
@@ -100,7 +101,7 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
         //mEmptyView=getActivity().findViewById(R.id.error_golf_fields);
 
         // specify an adapter (see also next example)
-        mAdapter = new GolfFieldAdapter(getContext());
+        mAdapter = new GolfFieldsAdapter(getContext());
         mRecyclerViewGolfFields.setAdapter(mAdapter);
 
 

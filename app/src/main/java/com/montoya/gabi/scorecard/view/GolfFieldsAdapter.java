@@ -20,7 +20,7 @@ import butterknife.ButterKnife;
  * Created by Gabriel on 26/04/2017.
  */
 
-public class GolfFieldAdapter extends RecyclerView.Adapter<GolfFieldAdapter.GolfFieldViewHolder> {
+public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.GolfFieldViewHolder> {
 
 
     Cursor mCursor;
@@ -28,7 +28,7 @@ public class GolfFieldAdapter extends RecyclerView.Adapter<GolfFieldAdapter.Golf
 
 
 
-    GolfFieldAdapter (Context context){
+    GolfFieldsAdapter(Context context){
         mContext=context;
 
 

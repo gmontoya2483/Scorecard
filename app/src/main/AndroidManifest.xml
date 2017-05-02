@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -21,18 +20,17 @@
             </intent-filter>
         </activity>
 
-
         <provider
-            android:authorities="@string/content_authority"
             android:name=".model.data.ScorecardProvider"
+            android:authorities="@string/content_authority"
             android:exported="false"
-            android:syncable="true"/>
+            android:syncable="true" />
 
-
-
-
-
-
+        <activity
+            android:name=".view.GolfFieldActivity"
+            android:label="@string/title_activity_golf_field"
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
