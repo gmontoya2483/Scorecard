@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/item_golf_field_new_save"
+        android:icon="@drawable/ic_action_golf_fields_black"
+        android:title="@string/golf_field_save"/>
+
+</menu>

@@ -29,39 +29,30 @@
                 android:id="@+id/golf_field_hole_1_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:hint="@string/hint_length"/>
             <TextView
                 android:id="@+id/golf_field_hole_1_length_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/golf_field_length_unit_meter"
-                app:paddingStart="12dp"/>
+                android:paddingStart="6dp"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/golf_field_hole_1_par"
             android:layout_width="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/golf_field_hole_1_par_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/golf_field_par"
-                android:textSize="20dp"
-                android:paddingEnd="12dp"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            />
 
-            <EditText
-                android:id="@+id/golf_field_hole_1_par"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_columnSpan="3"
             android:background="@color/Divider_12" />
+
 
         <TextView
             android:id="@+id/golf_field_hole_2_number"
@@ -80,39 +71,29 @@
                 android:id="@+id/golf_field_hole_2_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:hint="@string/hint_length"/>
             <TextView
                 android:id="@+id/golf_field_hole_2_length_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/golf_field_length_unit_meter"
-                app:paddingStart="12dp"/>
+                android:paddingStart="6dp"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/golf_field_hole_2_par"
             android:layout_width="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/golf_field_hole_2_par_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/golf_field_par"
-                android:textSize="20dp"
-                android:paddingEnd="12dp"/>
-
-            <EditText
-                android:id="@+id/golf_field_hole_2_par"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_columnSpan="3"
             android:background="@color/Divider_12" />
+
 
 
         <TextView
@@ -132,39 +113,29 @@
                 android:id="@+id/golf_field_hole_3_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:hint="@string/hint_length"/>
             <TextView
                 android:id="@+id/golf_field_hole_3_length_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/golf_field_length_unit_meter"
-                app:paddingStart="12dp"/>
+                android:paddingStart="6dp"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/golf_field_hole_3_par"
             android:layout_width="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/golf_field_hole_3_par_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/golf_field_par"
-                android:textSize="20dp"
-                android:paddingEnd="12dp"/>
-
-            <EditText
-                android:id="@+id/golf_field_hole_3_par"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_columnSpan="3"
             android:background="@color/Divider_12" />
+
 
         <TextView
             android:id="@+id/golf_field_hole_4_number"
@@ -183,34 +154,23 @@
                 android:id="@+id/golf_field_hole_4_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:hint="@string/hint_length"/>
             <TextView
                 android:id="@+id/golf_field_hole_4_length_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/golf_field_length_unit_meter"
-                app:paddingStart="12dp"/>
+                android:paddingStart="6dp"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/golf_field_hole_4_par"
             android:layout_width="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/golf_field_hole_4_par_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/golf_field_par"
-                android:textSize="20dp"
-                android:paddingEnd="12dp"/>
-
-            <EditText
-                android:id="@+id/golf_field_hole_4_par"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -234,39 +194,29 @@
                 android:id="@+id/golf_field_hole_5_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:hint="@string/hint_length"/>
             <TextView
                 android:id="@+id/golf_field_hole_5_length_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/golf_field_length_unit_meter"
-                app:paddingStart="12dp"/>
+                android:paddingStart="6dp"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/golf_field_hole_5_par"
             android:layout_width="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/golf_field_hole_5_par_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/golf_field_par"
-                android:textSize="20dp"
-                android:paddingEnd="12dp"/>
-
-            <EditText
-                android:id="@+id/golf_field_hole_5_par"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_columnSpan="3"
             android:background="@color/Divider_12" />
+
 
         <TextView
             android:id="@+id/golf_field_hole_6_number"
@@ -285,34 +235,23 @@
                 android:id="@+id/golf_field_hole_6_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:hint="@string/hint_length"/>
             <TextView
                 android:id="@+id/golf_field_hole_6_length_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/golf_field_length_unit_meter"
-                app:paddingStart="12dp"/>
+                android:paddingStart="6dp"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/golf_field_hole_6_par"
             android:layout_width="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/golf_field_hole_6_par_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/golf_field_par"
-                android:textSize="20dp"
-                android:paddingEnd="12dp"/>
-
-            <EditText
-                android:id="@+id/golf_field_hole_6_par"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -336,34 +275,24 @@
                 android:id="@+id/golf_field_hole_7_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:hint="@string/hint_length"/>
             <TextView
                 android:id="@+id/golf_field_hole_7_length_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/golf_field_length_unit_meter"
-                app:paddingStart="12dp"/>
+                android:paddingStart="6dp"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/golf_field_hole_7_par"
             android:layout_width="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/golf_field_hole_7_par_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/golf_field_par"
-                android:textSize="20dp"
-                android:paddingEnd="12dp"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            />
 
-            <EditText
-                android:id="@+id/golf_field_hole_7_par"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -387,34 +316,24 @@
                 android:id="@+id/golf_field_hole_8_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:hint="@string/hint_length"/>
             <TextView
                 android:id="@+id/golf_field_hole_8_length_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/golf_field_length_unit_meter"
-                app:paddingStart="12dp"/>
+                android:paddingStart="6dp"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/golf_field_hole_8_par"
             android:layout_width="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/golf_field_hole_8_par_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/golf_field_par"
-                android:textSize="20dp"
-                android:paddingEnd="12dp"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            />
 
-            <EditText
-                android:id="@+id/golf_field_hole_8_par"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -438,34 +357,23 @@
                 android:id="@+id/golf_field_hole_9_length"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:inputType="number"/>
+                android:inputType="number"
+                android:hint="@string/hint_length"/>
             <TextView
                 android:id="@+id/golf_field_hole_9_length_unit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/golf_field_length_unit_meter"
-                app:paddingStart="12dp"/>
+                android:paddingStart="6dp"/>
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_height="wrap_content"
+        <Spinner
+            android:id="@+id/golf_field_hole_9_par"
             android:layout_width="wrap_content"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/golf_field_hole_9_par_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/golf_field_par"
-                android:textSize="20dp"
-                android:paddingEnd="12dp"/>
-
-            <EditText
-                android:id="@+id/golf_field_hole_9_par"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:inputType="number"/>
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

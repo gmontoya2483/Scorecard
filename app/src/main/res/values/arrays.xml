@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="pars_array">
+        <item>Enter par</item>
+        <item>PAR 3</item>
+        <item>PAR 4</item>
+        <item>PAR 5</item>
+    </string-array>
+
+
+</resources>

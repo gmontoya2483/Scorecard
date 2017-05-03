@@ -53,7 +53,11 @@
     <string name="golf_field_name_hint">Golf field Name</string>
     <string name="golf_field_length_unit_meter">meters</string>
     <string name="golf_field_length_unit_yards">yards</string>
+    <string name="hint_length">length</string>
     <string name="golf_field_par">Par</string>
+
+
+
 
     <string name="golf_field_text_hole_1">Hole 1</string>
     <string name="golf_field_text_hole_2">Hole 2</string>
@@ -73,8 +77,7 @@
     <string name="golf_field_text_hole_16">Hole 16</string>
     <string name="golf_field_text_hole_17">Hole 17</string>
     <string name="golf_field_text_hole_18">Hole 18</string>
-
-
+    <string name="golf_field_save">Save</string>
 
 
 </resources>
