@@ -59,7 +59,7 @@ public class GolfFieldHole extends Hole{
         }else{
             this._id=INVALID_HOLE_ID;
             this.golfField_id=GolfField.INVALID_GOLF_FIELD_ID;
-            this.length=0;
+            this.length=INVALID_HOLE_LENGTH;
             this.number=HoleNumber.HOLE_INVALID.getValue();
             this.par=Par.PAR_INVALID.getValue();
 

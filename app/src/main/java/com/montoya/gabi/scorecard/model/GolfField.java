@@ -661,8 +661,13 @@ public class GolfField {
                     holes_OK=false;
                 }
 
-                //Verify the Length Must be bigger than 0
-                if (holes[i].getLength()<=0){
+                //Verify the Length is not invalid
+                if (holes[i].getLength()==Hole.INVALID_HOLE_LENGTH){
+                    holes_OK=false;
+                }
+
+                //Verify the Length is not NOT DEFINED
+                if (holes[i].getLength()==Hole.NOT_DEFINED_HOLE_LENGTH){
                     holes_OK=false;
                 }
 

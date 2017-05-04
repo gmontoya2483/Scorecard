@@ -53,7 +53,7 @@
     <string name="golf_field_name_hint">Golf field Name</string>
     <string name="golf_field_length_unit_meter">meters</string>
     <string name="golf_field_length_unit_yards">yards</string>
-    <string name="hint_length">length</string>
+    <string name="hint_length">0</string>
     <string name="golf_field_par">Par</string>
 
 

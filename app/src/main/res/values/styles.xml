@@ -43,4 +43,48 @@
     </style>
 
 
+    <!--Golf Field screen -->
+    <style name="GolfFieldGolfHoleNumber" parent="TextAppearance.AppCompat.Subhead">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:textColor">@color/font_PrimaryText_87</item>
+    </style>
+
+
+    <style name="GolfFieldGolfHoleLength" parent="Base.V12.Widget.AppCompat.EditText">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:inputType">number</item>
+        <item name="android:hint">@string/hint_length</item>
+        <item name="android:textAlignment">textEnd</item>
+        <item name="android:textColor">@color/font_PrimaryText_87</item>
+    </style>
+
+    <style name="GolfFieldGolfHoleLengthUnit" parent="TextAppearance.AppCompat.Small">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingStart">6dp</item>
+        <item name="android:textColor">@color/font_SecondaryText_54</item>
+
+    </style>
+
+    <style name="GolfFieldGolfHolePar">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
 </resources>

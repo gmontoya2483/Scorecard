@@ -57,6 +57,12 @@ public abstract class Hole {
 
     public static Long INVALID_HOLE_ID=-1L;
     public static Long NOT_SAVED_HOLE_ID=0L; //Default id when the hole hasn't been saved into the Database
+    public static int MAX_HOLE_LENGTH=650;
+    public static int MIN_HOLE_LENGTH=10;
+    public static int INVALID_HOLE_LENGTH=-1;
+    public static int NOT_DEFINED_HOLE_LENGTH=0;
+
+
 
 
     protected int number;
@@ -67,7 +73,7 @@ public abstract class Hole {
 
     public Hole(HoleNumber number, int length, Par par){
         this.number=number.getValue();
-        this.length=length;
+        setLength(length);
         this.par=par.getValue();
     }
 
@@ -87,7 +93,18 @@ public abstract class Hole {
     }
 
     public void setLength(int holeLength) {
-        this.length = holeLength;
+
+        if (holeLength==NOT_DEFINED_HOLE_LENGTH) {
+            this.length=NOT_DEFINED_HOLE_LENGTH;
+        }else if (holeLength<MIN_HOLE_LENGTH){
+            this.length=INVALID_HOLE_LENGTH;
+        }else if(holeLength>MAX_HOLE_LENGTH){
+            this.length=INVALID_HOLE_LENGTH;
+        }else{
+            this.length = holeLength;
+        }
+
+
     }
 
     public Par getPar() {
