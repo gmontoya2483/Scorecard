@@ -625,7 +625,7 @@ public class GolfField {
         boolean golfField_OK=true;
 
         //Verify the name is not null
-        if (this.name==null){
+        if (this.name==null || this.name.trim().equals("")){
             golfField_OK=false;
         }
 

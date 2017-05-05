@@ -109,7 +109,6 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
         mType= getArguments() != null ? getArguments().getString(TYPE_LABEL) : TYPE_ALL_GOLF_FIELDS;
 
 
-        //Init the cursor loader
         if (mType.equals(TYPE_FAVORITE_GOLF_FIELDS)){
             getActivity().getSupportLoaderManager().initLoader(FAVORITE_GOLF_FIELDS_LOADER, null, this);
             mFabNewGolfField.setVisibility(View.GONE);
@@ -117,9 +116,23 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
             getActivity().getSupportLoaderManager().initLoader(ALL_GOLF_FIELDS_LOADER, null, this);
         }
 
-
-
         return mRootView;
+    }
+
+
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        //Init the cursor loader
+
+        if (mType.equals(TYPE_FAVORITE_GOLF_FIELDS)){
+            getActivity().getSupportLoaderManager().restartLoader(FAVORITE_GOLF_FIELDS_LOADER, null, this);
+        }else{
+            getActivity().getSupportLoaderManager().restartLoader(ALL_GOLF_FIELDS_LOADER, null, this);
+        }
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -211,7 +224,6 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
         mAdapter.setCursor(null);
 
     }
-
 
 
 }

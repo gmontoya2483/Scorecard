@@ -7,6 +7,10 @@
     tools:context="com.montoya.gabi.scorecard.view.GolfFieldActivityFragment"
     tools:showIn="@layout/activity_golf_field">
 
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
 
     <TabHost
         android:id="@+id/tabHost_golf_field"
@@ -79,7 +83,7 @@
         </LinearLayout>
     </TabHost>
 
-
+    </android.support.v4.widget.NestedScrollView>
 
         <android.support.design.widget.BottomNavigationView
             android:id="@+id/nav_gol_field_new"
