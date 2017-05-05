@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.GolfField;
@@ -143,6 +144,24 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
         public GolfFieldViewHolder(View itemView) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+
+
+            itemView.setOnClickListener(new View.OnClickListener(){
+
+                @Override
+                public void onClick(View v) {
+
+                    mCursor.moveToPosition(getAdapterPosition());
+                    String name= mCursor.getString(mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME));
+
+                    Toast.makeText(mContext,"Elemento "+ name + " clicked.",Toast.LENGTH_LONG).show(); //TODO Trigger the new activity
+
+
+
+                }
+            });
+
+
         }
     }
 
