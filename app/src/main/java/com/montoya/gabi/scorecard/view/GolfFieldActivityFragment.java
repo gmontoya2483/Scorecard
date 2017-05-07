@@ -33,6 +33,16 @@ import butterknife.ButterKnife;
 public class GolfFieldActivityFragment extends Fragment {
 
     View mRootView;
+    GolfField mViewGolfField;
+
+    //bundle information
+    public static final String GOLF_FIELD_ID_LABEL="golf_field_id_label";
+    public static final String ACTION_LABEL="action_label";
+    public static final String ACTION_NEW="new";
+    public static final String ACTION_VIEW="view";
+    private String mAction;
+    private long mGolfField_id;
+
 
     //Bind Views
     @BindView(R.id.tabHost_golf_field)
@@ -190,9 +200,19 @@ public class GolfFieldActivityFragment extends Fragment {
         //Bind the View
         ButterKnife.bind(this,mRootView);
 
+        retrieveArguments();
         createNavigationTabs();
         createBottomNavigationViewListener();
         setParSpinners();
+
+
+
+
+
+
+
+
+
 
         return mRootView;
     }
@@ -504,6 +524,41 @@ public class GolfFieldActivityFragment extends Fragment {
             length=Integer.parseInt(lengthTextView.getText().toString().trim());
         }
        return length;
+    }
+
+
+    private void retrieveArguments(){
+
+        Bundle args;
+        args=getArguments();
+
+        if (args!=null){
+
+            mAction=args.containsKey(ACTION_LABEL)?args.getString(ACTION_LABEL):ACTION_NEW;
+
+            if (mAction.equals(ACTION_VIEW)){
+                if (args.containsKey(GOLF_FIELD_ID_LABEL)){
+                    mGolfField_id= args.getLong(GOLF_FIELD_ID_LABEL);
+
+                }else{
+                    mAction=ACTION_NEW;
+                    mGolfField_id=GolfField.NOT_SAVED_GOLF_FIELD_ID;
+
+                }
+
+            }else{
+                mGolfField_id=GolfField.NOT_SAVED_GOLF_FIELD_ID;
+            }
+
+
+        }else{
+
+            mAction=ACTION_NEW;
+            mGolfField_id=GolfField.NOT_SAVED_GOLF_FIELD_ID;
+
+        }
+
+
     }
 
 

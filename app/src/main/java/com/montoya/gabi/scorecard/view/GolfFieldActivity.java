@@ -1,6 +1,7 @@
 package com.montoya.gabi.scorecard.view;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -18,6 +19,30 @@ public class GolfFieldActivity extends AppCompatActivity {
         //Show the back arrow
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+
+        Fragment fragment=null;
+        boolean fragmentTransaction=false;
+        Bundle args=new Bundle();
+
+
+
+        //TODO Muestra arreglarlo!!! para recicir el bundle y mandar la info al fragment.
+        fragment=new GolfFieldActivityFragment();
+        args.putString("ACTION","New");
+        fragment.setArguments(args);
+        fragmentTransaction=true;
+
+
+        if (fragmentTransaction){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_golf_field,fragment)
+                    .commit();
+
+            //item.setChecked(true);
+            //getSupportActionBar().setTitle(item.getTitle());
+
+        }
 
 
     }
