@@ -1,16 +1,196 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <EditText
-        android:id="@+id/golf_field_name"
+    <android.support.v7.widget.CardView
+        android:id="@+id/golf_field_card_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="@string/golf_field_name_hint"
-        android:inputType="text"
-        android:layout_marginTop="48dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_margin="16dp"
+        android:elevation="8dp"
+        android:visibility="gone">
+
+        <EditText
+            android:id="@+id/golf_field_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/golf_field_name_hint"
+            android:inputType="text"
+            android:layout_marginTop="48dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="48dp"
+            android:visibility="visible"
+            android:layout_gravity="center_vertical"/>
+
+    </android.support.v7.widget.CardView>
+
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/golf_field_card_resume"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:elevation="8dp"
+        android:visibility="visible">
+
+
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:columnCount="3"
+                android:layout_margin="8dp">
+
+                <android.support.v4.widget.Space
+                    android:layout_columnWeight="1"
+                    android:layout_height="16dp" />
+
+                <android.support.v4.widget.Space
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1" />
+
+                <ImageView
+                    android:id="@+id/golf_field_favorite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:layout_margin="8dp"
+                    android:adjustViewBounds="false"
+                    app:srcCompat="@drawable/ic_action_favorite_color"/>
+
+
+
+                <android.support.v4.widget.Space
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1" />
+
+                <LinearLayout android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_gravity="center_horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1516 meters"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="TOTAL"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PAR 60"
+                        android:textSize="20sp"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+
+                <android.support.v4.widget.Space
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1" />
+
+                <android.support.v4.widget.Space
+                    android:layout_columnWeight="1"
+                    android:layout_height="24dp"
+                    android:layout_columnSpan="3"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+
+                <LinearLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="start"
+                    android:layout_marginStart="16dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1516 meters"
+                        android:textSize="16sp"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IN"
+                        android:textSize="16sp"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PAR 30"
+                        android:textSize="16sp"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+                <android.support.v4.widget.Space
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+                <LinearLayout android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_gravity="end"
+                    android:layout_marginEnd="16dp"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1516 meters"
+                        android:textSize="16sp"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="IN"
+                        android:textSize="16sp"
+                        android:layout_gravity="center"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PAR 30"
+                        android:textSize="16sp"
+                        android:layout_gravity="center"/>
+
+                </LinearLayout>
+
+                <android.support.v4.widget.Space
+                    android:layout_columnWeight="1"
+                    android:layout_height="24dp"
+                    android:layout_columnSpan="3"
+                    android:layout_gravity="center_horizontal"
+                    />
+
+
+
+
+
+
+
+            </GridLayout>
+
+
+
+    </android.support.v7.widget.CardView>
+
+
+
+
+
+
+
 </FrameLayout>

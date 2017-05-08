@@ -1,14 +1,15 @@
 package com.montoya.gabi.scorecard.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.GolfField;
@@ -87,7 +88,8 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
             if (golfField.getFavorite()== ScorecardContract.ScorecardBoolean.TRUE){
                 holder.mGolfFieldFavorite.setImageResource(R.drawable.ic_action_favorite_color);
             }else{
-                holder.mGolfFieldFavorite.setImageResource(R.drawable.ic_action_favorite);
+                //holder.mGolfFieldFavorite.setImageResource(R.drawable.ic_action_favorite);
+                holder.mGolfFieldFavorite.setVisibility(View.GONE);
             }
 
             //TODO: format the length and convert from m to yards
@@ -152,11 +154,16 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
                 public void onClick(View v) {
 
                     mCursor.moveToPosition(getAdapterPosition());
-                    String name= mCursor.getString(mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME));
+                    long id=mCursor.getLong(mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID));
 
-                    Toast.makeText(mContext,"Elemento "+ name + " clicked.",Toast.LENGTH_LONG).show(); //TODO Trigger the new activity
+                    Bundle args=new Bundle();
+                    args.putString(GolfFieldActivityFragment.ACTION_LABEL,GolfFieldActivityFragment.ACTION_VIEW);
+                    args.putLong(GolfFieldActivityFragment.GOLF_FIELD_ID_LABEL,id);
 
+                    Intent newGolfFieldIntent=new Intent(mContext,GolfFieldActivity.class);
+                    newGolfFieldIntent.putExtras(args);
 
+                    mContext.startActivity(newGolfFieldIntent);
 
                 }
             });

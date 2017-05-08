@@ -63,10 +63,14 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
     //Bind Events
     @OnClick(R.id.fab_new_golf_field)
     public void click(View view){
-        Intent newGolfFieldIntent=new Intent(getContext(),GolfFieldActivity.class);
-        startActivity(newGolfFieldIntent);
 
-        //Snackbar.make(view, "Replace with your own action - BUTTER KNIFE", Snackbar.LENGTH_LONG).setAction("Action", null).show();
+        Bundle args=new Bundle();
+        args.putString(GolfFieldActivityFragment.ACTION_LABEL,GolfFieldActivityFragment.ACTION_NEW);
+
+        Intent newGolfFieldIntent=new Intent(getContext(),GolfFieldActivity.class);
+        newGolfFieldIntent.putExtras(args);
+
+        startActivity(newGolfFieldIntent);
 
     }
 

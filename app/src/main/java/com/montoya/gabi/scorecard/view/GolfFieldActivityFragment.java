@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -12,9 +13,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.R;
@@ -22,7 +23,6 @@ import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.Hole;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
-import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,12 +44,27 @@ public class GolfFieldActivityFragment extends Fragment {
     private long mGolfField_id;
 
 
+
     //Bind Views
     @BindView(R.id.tabHost_golf_field)
     TabHost mTabHost;
 
     @BindView(R.id.nav_gol_field_new)
     BottomNavigationView mBottomNavigationView;
+
+
+    //Card golf_field_card_name
+    @BindView(R.id.golf_field_card_name)
+    CardView mGolfFieldNameCardView;
+
+
+    //Card golf_field_card_resume
+    @BindView(R.id.golf_field_card_resume)
+    CardView mGolfFieldResumeCardView;
+
+    //Image view golf_field_favorite
+    @BindView (R.id.golf_field_favorite)
+    ImageView mGolfFieldFavoriteImageView;
 
     //Golf Field Name
     @BindView(R.id.golf_field_name)
@@ -201,17 +216,7 @@ public class GolfFieldActivityFragment extends Fragment {
         ButterKnife.bind(this,mRootView);
 
         retrieveArguments();
-        createNavigationTabs();
-        createBottomNavigationViewListener();
-        setParSpinners();
-
-
-
-
-
-
-
-
+        setupFragment();
 
 
         return mRootView;
@@ -291,14 +296,11 @@ public class GolfFieldActivityFragment extends Fragment {
                         GolfField golfField=retrieveEnteredInformation();
                         if (golfField.InsertGolfField(getContext())){
 
-
-                            //Toast.makeText(getContext(),"Se guardo corretamente el golf field: "+golfField.get_id(),Toast.LENGTH_LONG).show();
-
                             getActivity().finish();
 
                         }else{
 
-                            Toast.makeText(getContext(),"Hubo un error al guardar el golf field",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(),R.string.golf_field_err_save,Toast.LENGTH_LONG).show();
 
                         }
 
@@ -556,6 +558,84 @@ public class GolfFieldActivityFragment extends Fragment {
             mAction=ACTION_NEW;
             mGolfField_id=GolfField.NOT_SAVED_GOLF_FIELD_ID;
 
+        }
+
+
+    }
+
+
+
+    private void setupFragment(){
+
+        createNavigationTabs();
+        createBottomNavigationViewListener();//TODO Different mehtods (new, view, Edit,etc)
+        setParSpinners();
+
+        switch (mAction){
+            case ACTION_NEW:
+                setupNewGolfField();
+                break;
+
+            case ACTION_VIEW:
+                setupViewGolfField();
+                break;
+
+            default:
+                setupNewGolfField();
+                break;
+
+        }
+
+
+    }
+
+
+    private void setupNewGolfField(){
+
+        Log.e("NEW","Entro el new golf field");
+
+        getActivity().setTitle(R.string.golf_field_title_new);
+
+        //Enable the name field and disable the resume card
+        mGolfFieldNameCardView.setVisibility(View.VISIBLE);
+        mGolfFieldResumeCardView.setVisibility(View.GONE);
+
+
+
+        mGolfFieldNameEditTextView.setEnabled(true);
+
+
+
+
+    }
+
+
+    private void setupViewGolfField(){
+
+        mViewGolfField=new GolfField(getContext(),mGolfField_id);
+        if (mViewGolfField.get_id()!=GolfField.INVALID_GOLF_FIELD_ID){
+
+            //Load the hole information
+            mViewGolfField.loadHolesFromDB(getContext());
+
+            //set the golf field title
+            getActivity().setTitle(mViewGolfField.getName());
+
+            //Enable the resume cardView and disable the nane one
+            mGolfFieldNameCardView.setVisibility(View.GONE);
+            mGolfFieldResumeCardView.setVisibility(View.VISIBLE);
+
+            //Set the favorite
+            if (mViewGolfField.getFavorite()== ScorecardContract.ScorecardBoolean.TRUE){
+                mGolfFieldFavoriteImageView.setVisibility(View.VISIBLE);
+            }else{
+                mGolfFieldFavoriteImageView.setVisibility(View.GONE);
+            }
+
+
+
+        }else{
+            setupNewGolfField();
         }
 
 

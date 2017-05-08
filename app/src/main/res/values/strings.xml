@@ -46,6 +46,11 @@
 
 
     <!-- Golf field Activity -->
+
+    <string name="golf_field_title_new">New golf field</string>
+    <string name="golf_field_title_view">View golf field</string>
+
+
     <string name="tab_general">GENERAL</string>
     <string name="tab_out">OUT</string>
     <string name="tab_in">IN</string>
@@ -77,7 +82,10 @@
     <string name="golf_field_text_hole_16">Hole 16</string>
     <string name="golf_field_text_hole_17">Hole 17</string>
     <string name="golf_field_text_hole_18">Hole 18</string>
+
+
     <string name="golf_field_save">Save</string>
+    <string name="golf_field_err_save">There was an error while trying to save the golf field. Please verify the entered information and try it again.</string>
 
 
 </resources>

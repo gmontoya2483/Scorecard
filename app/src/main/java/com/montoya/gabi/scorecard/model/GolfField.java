@@ -78,6 +78,22 @@ public class GolfField {
 
     public GolfField (Cursor golfFieldCursor){
 
+        setGolfFieldValuesFromCursor(golfFieldCursor);
+
+    }
+
+
+    public GolfField (Context context, long golfField_id){
+
+        Uri golfFieldByIdUri=ScorecardContract.GolfFieldEntry.buildGolfFieldByIdUri(golfField_id);
+        Cursor cursor=context.getContentResolver().query(golfFieldByIdUri,null,null,null,null);
+        setGolfFieldValuesFromCursor(cursor);
+
+    }
+
+
+    private void setGolfFieldValuesFromCursor(Cursor golfFieldCursor){
+
         int indexGFId=golfFieldCursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID);
         int indexName=golfFieldCursor.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME);
         int indexFavorite=golfFieldCursor.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE);
@@ -100,9 +116,9 @@ public class GolfField {
 
         }
 
-
-
     }
+
+
 
     public void set_id(long _id) {
         this._id = _id;
