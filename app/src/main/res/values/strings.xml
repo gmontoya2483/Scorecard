@@ -53,10 +53,6 @@
     <string name="title_activity_golf_field">New golf field</string>
 
 
-
-
-
-
     <!-- Golf field Activity -->
 
     <string name="golf_field_title_new">New golf field</string>
@@ -105,23 +101,11 @@
     <string name="golf_field_view_fake_in_out_par" translatable="false">PAR 30</string>
 
 
-
-
-
-
-
-
     <!-- Settings Strings -->
 
     <string name="settings_meters_description">meters</string>
     <string name="settings_yards_description">yards</string>
-
-
-
-
-
-
-
+    <string name="title_activity_new_gol_field">New GolField</string>
 
 
 </resources>

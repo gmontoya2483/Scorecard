@@ -81,6 +81,7 @@ public class GolfFieldActivity extends AppCompatActivity {
         Bundle args=new Bundle();
         fragment=new GolfFieldActivityFragment();
 
+
         switch(mAction) {
 
             case  ACTION_NEW:
@@ -101,6 +102,8 @@ public class GolfFieldActivity extends AppCompatActivity {
 
 
         fragment.setArguments(args);
+
+
         getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content_golf_field,fragment)
                     .commit();

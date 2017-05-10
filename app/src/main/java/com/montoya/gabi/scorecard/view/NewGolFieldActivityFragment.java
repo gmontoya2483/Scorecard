@@ -6,17 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.R;
@@ -24,7 +21,6 @@ import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.Hole;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
-import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,19 +28,16 @@ import butterknife.ButterKnife;
 /**
  * A placeholder fragment containing a simple view.
  */
-public class GolfFieldActivityFragment extends Fragment {
+public class NewGolFieldActivityFragment extends Fragment {
+
 
     View mRootView;
-    GolfField mViewGolfField;
 
-    //bundle information
-    public static final String GOLF_FIELD_ID_LABEL="golf_field_id_label";
-    public static final String ACTION_LABEL="action_label";
-    public static final String ACTION_NEW="new";
-    public static final String ACTION_VIEW="view";
-    private String mAction;
-    private long mGolfField_id;
+    private final String TAB_GENERAL_SPEC="general_tab";
+    private final String TAB_OUT_SPEC="out_tab";
+    private final String TAB_IN_SPEC="in_tab";
 
+    private final String SELECTED_TAB_LABEL="selected_tab";
 
 
     //Bind Views
@@ -190,66 +183,23 @@ public class GolfFieldActivityFragment extends Fragment {
     EditText mHole18LengthEditTextView;
 
 
-    /* View golf fields exclusives fields
-    *
-    *
-    * */
-
-    //Card golf_field_card_resume
-    @BindView(R.id.golf_field_card_resume)
-    CardView mGolfFieldResumeCardView;
-
-    //Image view golf_field_favorite
-    @BindView (R.id.golf_field_favorite)
-    ImageView mGolfFieldFavoriteImageView;
-
-    //Text View Total length
-    @BindView(R.id.golf_field_total_length)
-    TextView mGolfFieldTotalLengthTextView;
-
-    //Text View Total par
-    @BindView(R.id.golf_field_total_par)
-    TextView mGolfFieldTotalParTextView;
-
-    //Text View out length
-    @BindView(R.id.golf_field_out_length)
-    TextView mGolfFieldOutLengthTextView;
-
-    //Text View out par
-    @BindView(R.id.golf_field_out_par)
-    TextView mGolfFieldOutParTextView;
-
-    //Text View in length
-    @BindView(R.id.golf_field_in_length)
-    TextView mGolfFieldInLengthTextView;
-
-    //Text View in par
-    @BindView(R.id.golf_field_in_par)
-    TextView mGolfFieldInParTextView;
-
-
-    private final String TAB_GENERAL_SPEC="general_tab";
-    private final String TAB_OUT_SPEC="out_tab";
-    private final String TAB_IN_SPEC="in_tab";
-
-    private final String SELECTED_TAB_LABEL="selected_tab";
-
-    public GolfFieldActivityFragment() {
+    public NewGolFieldActivityFragment() {
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        mRootView= inflater.inflate(R.layout.new_golf_field_fragment, container, false);
 
-        mRootView= inflater.inflate(R.layout.fragment_golf_field, container, false);
 
         //Bind the View
         ButterKnife.bind(this,mRootView);
 
-        retrieveArguments();
-        setupFragment();
+        getActivity().setTitle(R.string.golf_field_title_new);
 
-
+        createNavigationTabs();
+        createBottomNavigationViewListener();//TODO Different mehtods (new, view, Edit,etc)
+        setParSpinners();
 
 
         return mRootView;
@@ -260,12 +210,7 @@ public class GolfFieldActivityFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(SELECTED_TAB_LABEL,mTabHost.getCurrentTab());
-
     }
-
-
-
-
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
@@ -275,35 +220,33 @@ public class GolfFieldActivityFragment extends Fragment {
         }else{
             mTabHost.setCurrentTab(0);
         }
-
     }
 
 
+    private void setParSpinners(){
 
-    private void createNavigationTabs(){
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.pars_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        mTabHost.setup();
+        mHole1ParSpinner.setAdapter(adapter);
+        mHole2ParSpinner.setAdapter(adapter);
+        mHole3ParSpinner.setAdapter(adapter);
+        mHole4ParSpinner.setAdapter(adapter);
+        mHole5ParSpinner.setAdapter(adapter);
+        mHole6ParSpinner.setAdapter(adapter);
+        mHole7ParSpinner.setAdapter(adapter);
+        mHole8ParSpinner.setAdapter(adapter);
+        mHole9ParSpinner.setAdapter(adapter);
 
-        //Tab 1
-        TabHost.TabSpec spec = mTabHost.newTabSpec(TAB_GENERAL_SPEC);
-        spec.setContent(R.id.tab_golf_field_general);
-        spec.setIndicator(getString(R.string.tab_general));
-        mTabHost.addTab(spec);
-
-        //Tab 2
-        spec = mTabHost.newTabSpec(TAB_OUT_SPEC);
-        spec.setContent(R.id.tab_golf_field_out);
-        spec.setIndicator(getString(R.string.tab_out));
-        mTabHost.addTab(spec);
-
-        //Tab 3
-        spec = mTabHost.newTabSpec(TAB_IN_SPEC);
-        spec.setContent(R.id.tab_golf_field_in);
-        spec.setIndicator(getString(R.string.tab_in));
-        mTabHost.addTab(spec);
-
-
-        mTabHost.setCurrentTab(0);
+        mHole10ParSpinner.setAdapter(adapter);
+        mHole11ParSpinner.setAdapter(adapter);
+        mHole12ParSpinner.setAdapter(adapter);
+        mHole13ParSpinner.setAdapter(adapter);
+        mHole14ParSpinner.setAdapter(adapter);
+        mHole15ParSpinner.setAdapter(adapter);
+        mHole16ParSpinner.setAdapter(adapter);
+        mHole17ParSpinner.setAdapter(adapter);
+        mHole18ParSpinner.setAdapter(adapter);
 
     }
 
@@ -338,36 +281,6 @@ public class GolfFieldActivityFragment extends Fragment {
             }
         });
     }
-
-
-    private void setParSpinners(){
-
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.pars_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        mHole1ParSpinner.setAdapter(adapter);
-        mHole2ParSpinner.setAdapter(adapter);
-        mHole3ParSpinner.setAdapter(adapter);
-        mHole4ParSpinner.setAdapter(adapter);
-        mHole5ParSpinner.setAdapter(adapter);
-        mHole6ParSpinner.setAdapter(adapter);
-        mHole7ParSpinner.setAdapter(adapter);
-        mHole8ParSpinner.setAdapter(adapter);
-        mHole9ParSpinner.setAdapter(adapter);
-
-        mHole10ParSpinner.setAdapter(adapter);
-        mHole11ParSpinner.setAdapter(adapter);
-        mHole12ParSpinner.setAdapter(adapter);
-        mHole13ParSpinner.setAdapter(adapter);
-        mHole14ParSpinner.setAdapter(adapter);
-        mHole15ParSpinner.setAdapter(adapter);
-        mHole16ParSpinner.setAdapter(adapter);
-        mHole17ParSpinner.setAdapter(adapter);
-        mHole18ParSpinner.setAdapter(adapter);
-
-    }
-
-
 
 
     private GolfField retrieveEnteredInformation(){
@@ -494,8 +407,6 @@ public class GolfFieldActivityFragment extends Fragment {
 
     }
 
-
-
     private Hole.Par convertIndexToPar(int index){
         Hole.Par par;
 
@@ -521,6 +432,17 @@ public class GolfFieldActivityFragment extends Fragment {
     }
 
 
+    private int convertLengthTextViewToInt(EditText lengthTextView){
+        int length;
+
+        if (lengthTextView.length()==0){
+            length=Hole.NOT_DEFINED_HOLE_LENGTH;
+        }else {
+            length=Integer.parseInt(lengthTextView.getText().toString().trim());
+        }
+        return length;
+    }
+
     private String retrieveGolfFieldName(){
 
         String name;
@@ -538,152 +460,34 @@ public class GolfFieldActivityFragment extends Fragment {
         return name;
     }
 
+    private void createNavigationTabs(){
+
+        mTabHost.setup();
+
+        //Tab 1
+        TabHost.TabSpec spec = mTabHost.newTabSpec(TAB_GENERAL_SPEC);
+        spec.setContent(R.id.tab_golf_field_general);
+        spec.setIndicator(getString(R.string.tab_general));
+        mTabHost.addTab(spec);
+
+        //Tab 2
+        spec = mTabHost.newTabSpec(TAB_OUT_SPEC);
+        spec.setContent(R.id.tab_golf_field_out);
+        spec.setIndicator(getString(R.string.tab_out));
+        mTabHost.addTab(spec);
+
+        //Tab 3
+        spec = mTabHost.newTabSpec(TAB_IN_SPEC);
+        spec.setContent(R.id.tab_golf_field_in);
+        spec.setIndicator(getString(R.string.tab_in));
+        mTabHost.addTab(spec);
 
 
-
-    private int convertLengthTextViewToInt(EditText lengthTextView){
-        int length;
-
-        if (lengthTextView.length()==0){
-            length=Hole.NOT_DEFINED_HOLE_LENGTH;
-        }else {
-            length=Integer.parseInt(lengthTextView.getText().toString().trim());
-        }
-       return length;
-    }
-
-
-    private void retrieveArguments(){
-
-        Bundle args;
-        args=getArguments();
-
-        if (args!=null){
-
-            mAction=args.containsKey(ACTION_LABEL)?args.getString(ACTION_LABEL):ACTION_NEW;
-
-            if (mAction.equals(ACTION_VIEW)){
-                if (args.containsKey(GOLF_FIELD_ID_LABEL)){
-                    mGolfField_id= args.getLong(GOLF_FIELD_ID_LABEL);
-
-                }else{
-                    mAction=ACTION_NEW;
-                    mGolfField_id=GolfField.NOT_SAVED_GOLF_FIELD_ID;
-
-                }
-
-            }else{
-                mGolfField_id=GolfField.NOT_SAVED_GOLF_FIELD_ID;
-            }
-
-
-        }else{
-
-            mAction=ACTION_NEW;
-            mGolfField_id=GolfField.NOT_SAVED_GOLF_FIELD_ID;
-
-        }
-
+        mTabHost.setCurrentTab(0);
 
     }
 
 
-
-    private void setupFragment(){
-
-        createNavigationTabs();
-        createBottomNavigationViewListener();//TODO Different mehtods (new, view, Edit,etc)
-        setParSpinners();
-
-        switch (mAction){
-            case ACTION_NEW:
-                setupNewGolfField();
-                break;
-
-            case ACTION_VIEW:
-                setupViewGolfField();
-                break;
-
-            default:
-                setupNewGolfField();
-                break;
-
-        }
-
-
-    }
-
-
-    private void setupNewGolfField(){
-
-        Log.e("NEW","Entro el new golf field");
-
-        getActivity().setTitle(R.string.golf_field_title_new);
-
-        //Enable the name field and disable the resume card
-        mGolfFieldNameCardView.setVisibility(View.VISIBLE);
-        mGolfFieldResumeCardView.setVisibility(View.GONE);
-
-
-
-        mGolfFieldNameEditTextView.setEnabled(true);
-
-
-
-
-    }
-
-
-    private void setupViewGolfField(){
-
-        mViewGolfField=new GolfField(getContext(),mGolfField_id);
-        if (mViewGolfField.get_id()!=GolfField.INVALID_GOLF_FIELD_ID){
-
-            //Load the hole information
-            mViewGolfField.loadHolesFromDB(getContext());
-
-            //set the golf field title
-            getActivity().setTitle(mViewGolfField.getName());
-
-            //Enable the resume cardView and disable the nane one
-            mGolfFieldNameCardView.setVisibility(View.GONE);
-            mGolfFieldResumeCardView.setVisibility(View.VISIBLE);
-
-            //Set the favorite
-            if (mViewGolfField.getFavorite()== ScorecardContract.ScorecardBoolean.TRUE){
-                mGolfFieldFavoriteImageView.setVisibility(View.VISIBLE);
-            }else{
-                mGolfFieldFavoriteImageView.setVisibility(View.GONE);
-            }
-
-            //set the total length
-            mGolfFieldTotalLengthTextView.setText(ScorecardUtils.getFormattedLength(getContext(),mViewGolfField.getTotal_length()));
-
-            //set the total par
-            mGolfFieldTotalParTextView.setText(ScorecardUtils.getFormattedPar(getContext(),mViewGolfField.getTotal_par()));
-
-            //set the out length
-            mGolfFieldOutLengthTextView.setText(ScorecardUtils.getFormattedLength(getContext(),mViewGolfField.getOut_length()));
-
-            //set the total par
-            mGolfFieldOutParTextView.setText(ScorecardUtils.getFormattedPar(getContext(),mViewGolfField.getOut_par()));
-
-            //set the in length
-            mGolfFieldInLengthTextView.setText(ScorecardUtils.getFormattedLength(getContext(),mViewGolfField.getIn_length()));
-
-            //set the total par
-            mGolfFieldInParTextView.setText(ScorecardUtils.getFormattedPar(getContext(),mViewGolfField.getIn_par()));
-
-            //set the save button as invisible
-            //mBottomNavigationView.getMenu().getItem(R.id.item_golf_field_new_save).setVisible(false);
-
-
-        }else{
-            setupNewGolfField();
-        }
-
-
-    }
 
 
 

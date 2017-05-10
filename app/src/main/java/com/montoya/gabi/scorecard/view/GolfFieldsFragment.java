@@ -64,13 +64,16 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
     @OnClick(R.id.fab_new_golf_field)
     public void click(View view){
 
-        Bundle args=new Bundle();
+        /*Bundle args=new Bundle();
         args.putString(GolfFieldActivityFragment.ACTION_LABEL,GolfFieldActivityFragment.ACTION_NEW);
 
         Intent newGolfFieldIntent=new Intent(getContext(),GolfFieldActivity.class);
-        newGolfFieldIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         newGolfFieldIntent.putExtras(args);
 
+        startActivity(newGolfFieldIntent);
+        */
+
+        Intent newGolfFieldIntent=new Intent(getContext(),NewGolFieldActivity.class);
         startActivity(newGolfFieldIntent);
 
     }

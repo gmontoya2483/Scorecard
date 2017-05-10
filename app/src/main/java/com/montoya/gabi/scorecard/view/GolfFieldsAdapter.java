@@ -161,7 +161,6 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
                     args.putLong(GolfFieldActivityFragment.GOLF_FIELD_ID_LABEL,id);
 
                     Intent newGolfFieldIntent=new Intent(mContext,GolfFieldActivity.class);
-                    newGolfFieldIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                     newGolfFieldIntent.putExtras(args);
 
                     mContext.startActivity(newGolfFieldIntent);

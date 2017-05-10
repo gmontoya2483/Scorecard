@@ -26,7 +26,7 @@
             android:layout_gravity="center">
             <EditText
                 android:id="@+id/golf_field_hole_1_length"
-                style="@style/GolfFieldGolfHoleLength"/>
+                style="@style/GolfFieldGolfHoleLength" />
             <TextView
                 android:id="@+id/golf_field_hole_1_length_unit"
                 style="@style/GolfFieldGolfHoleLengthUnit"
