@@ -3,9 +3,7 @@ package com.montoya.gabi.scorecard;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,12 +13,11 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.firebase.UserAuthentication;
 import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
+import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 import com.montoya.gabi.scorecard.view.FragmentCamera;
 import com.montoya.gabi.scorecard.view.FragmentGaleria;
 import com.montoya.gabi.scorecard.view.GolfFieldsFragment;
@@ -28,7 +25,6 @@ import com.montoya.gabi.scorecard.view.PlayerFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, GolfFieldsFragment.OnFragmentInteractionListener, PlayerFragment.OnFragmentInteractionListener, FragmentCamera.OnFragmentInteractionListener, FragmentGaleria.OnFragmentInteractionListener{
 
@@ -39,15 +35,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @BindView(R.id.toolbar) Toolbar toolbar;
 
 
-    //Bind Events
-    //@OnClick(R.id.fab)
-    //public void click(View view){
-    //    Snackbar.make(view, "Replace with your own action - BUTTER KNIFE", Snackbar.LENGTH_LONG).setAction("Action", null).show();
-
-    //}
-
-
     private UserAuthentication mUserAuthentication;
+
+    private final String SELECTED_MENU_ITEM_LABEL="selected_menu_item_label";
+    private int mSelectedItemMenu;
+
+    private DrawerLayout drawer;
+    private ActionBarDrawerToggle toggle;
+    NavigationView navigationView;
 
 
 
@@ -66,31 +61,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-
 
         //Verific si hay campos de golf cargados y los carga...//TODO borrar cuando se haya terminado de probsar
         if (GolfField.getQuantityOfGolfFields(getApplicationContext())==0){
-
-            ScorecardContract.GolfFieldEntry.generatePreLoadedGolfFields(getApplicationContext());
-            Log.i ("MAIN", "Se cargaron "+GolfField.getQuantityOfGolfFields(getApplicationContext())+" GolfFields");
-
+       ScorecardContract.GolfFieldEntry.generatePreLoadedGolfFields(getApplicationContext());
         }
-
-
-
 
         //Initialize the UserAuthentication class and the listener for log in
         mUserAuthentication=new UserAuthentication(this);
         mUserAuthentication.initializeAuthenticationStateListener();
 
+
+        //set the navigation to the last selected option  when comming back
+        setNavigationInPreviousStatus();
 
     }
 
@@ -103,6 +94,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //ScorecardUtils.RemoveKeyFromSharedPreferences(this,SELECTED_MENU_ITEM_LABEL);
+  }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -134,13 +131,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 onSignedIn();
 
-                //TODO remove the toast after verifying that everything works as expected.
-                Toast.makeText(this,"Signed in!",Toast.LENGTH_SHORT).show();
+
 
             }else if (resultCode==RESULT_CANCELED){
 
-                //TODO remove the toast after verifying that everything works as expected.
-                Toast.makeText(this,"Sign in canceled!",Toast.LENGTH_SHORT).show();
+
                 finish();
 
             }
@@ -151,12 +146,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     protected void onResume() {
         super.onResume();
         mUserAuthentication.attachAuthStateListener();//attach the Authorization StateListener
+        setNavigationInPreviousStatus();
+
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         mUserAuthentication.detachAuthStateListener(); //dettach the Authorization StateListener
+        ScorecardUtils.AddIntToSharedPreferences(this,SELECTED_MENU_ITEM_LABEL,mSelectedItemMenu);
 
     }
 
@@ -225,9 +223,14 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_settings) {
 
-            Log.i("NavigationDrawer", "nav send");
+
+
+
 
         }
+
+
+        mSelectedItemMenu=id;
 
 
         //manejador de fragment
@@ -245,10 +248,45 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+    }
+
+
+
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+
+
+
+    }
+
+
+    private void setNavigationInPreviousStatus(){
+
+       int id=ScorecardUtils.RetrieveIntFromSharedPreferences(this,SELECTED_MENU_ITEM_LABEL);
+
+       if (id==ScorecardUtils.PREFERENCES_INVALID_INT){
+           id=R.id.nav_scorecards;
+       }
+
+       navigationView.setCheckedItem(id);
+       navigationView.getMenu().performIdentifierAction(id,0);
+
+    }
+
 
     @Override
     public void onFragmentInteraction(Uri uri) {

@@ -27,6 +27,14 @@
     <string name="nav_settings">Settings</string>
 
 
+    <!-- Formated general string -->
+
+    <string name="formatted_meters_length"> %1$d meters</string>
+    <string name="formatted_yards_length"> %1$d yards</string>
+
+    <string name="formatted_par">PAR %1$d</string>
+
+
     <!--Error Messages -->
     <string name="err_no_golf_fields">There are no Golf Fields to display.</string>
 
@@ -45,6 +53,10 @@
     <string name="title_activity_golf_field">New golf field</string>
 
 
+
+
+
+
     <!-- Golf field Activity -->
 
     <string name="golf_field_title_new">New golf field</string>
@@ -60,8 +72,6 @@
     <string name="golf_field_length_unit_yards">yards</string>
     <string name="hint_length">0</string>
     <string name="golf_field_par">Par</string>
-
-
 
 
     <string name="golf_field_text_hole_1">Hole 1</string>
@@ -86,6 +96,32 @@
 
     <string name="golf_field_save">Save</string>
     <string name="golf_field_err_save">There was an error while trying to save the golf field. Please verify the entered information and try it again.</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Golf field view mode -->
+    <string name="golf_field_view_fake_total_length" translatable="false">3220 meters</string>
+    <string name="golf_field_view_fake_total_par" translatable="false">PAR 63</string>
+    <string name="golf_field_view_fake_in_out_length" translatable="false">1020 meters</string>
+    <string name="golf_field_view_fake_in_out_par" translatable="false">PAR 30</string>
+
+
+
+
+
+
+
+
+    <!-- Settings Strings -->
+
+    <string name="settings_meters_description">meters</string>
+    <string name="settings_yards_description">yards</string>
+
+
+
+
+
+
+
 
 
 </resources>

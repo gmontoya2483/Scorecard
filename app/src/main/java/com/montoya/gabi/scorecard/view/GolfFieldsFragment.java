@@ -68,6 +68,7 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
         args.putString(GolfFieldActivityFragment.ACTION_LABEL,GolfFieldActivityFragment.ACTION_NEW);
 
         Intent newGolfFieldIntent=new Intent(getContext(),GolfFieldActivity.class);
+        newGolfFieldIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         newGolfFieldIntent.putExtras(args);
 
         startActivity(newGolfFieldIntent);

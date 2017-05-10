@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.R;
@@ -23,6 +24,7 @@ import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.Hole;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
+import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,15 +58,6 @@ public class GolfFieldActivityFragment extends Fragment {
     //Card golf_field_card_name
     @BindView(R.id.golf_field_card_name)
     CardView mGolfFieldNameCardView;
-
-
-    //Card golf_field_card_resume
-    @BindView(R.id.golf_field_card_resume)
-    CardView mGolfFieldResumeCardView;
-
-    //Image view golf_field_favorite
-    @BindView (R.id.golf_field_favorite)
-    ImageView mGolfFieldFavoriteImageView;
 
     //Golf Field Name
     @BindView(R.id.golf_field_name)
@@ -197,6 +190,44 @@ public class GolfFieldActivityFragment extends Fragment {
     EditText mHole18LengthEditTextView;
 
 
+    /* View golf fields exclusives fields
+    *
+    *
+    * */
+
+    //Card golf_field_card_resume
+    @BindView(R.id.golf_field_card_resume)
+    CardView mGolfFieldResumeCardView;
+
+    //Image view golf_field_favorite
+    @BindView (R.id.golf_field_favorite)
+    ImageView mGolfFieldFavoriteImageView;
+
+    //Text View Total length
+    @BindView(R.id.golf_field_total_length)
+    TextView mGolfFieldTotalLengthTextView;
+
+    //Text View Total par
+    @BindView(R.id.golf_field_total_par)
+    TextView mGolfFieldTotalParTextView;
+
+    //Text View out length
+    @BindView(R.id.golf_field_out_length)
+    TextView mGolfFieldOutLengthTextView;
+
+    //Text View out par
+    @BindView(R.id.golf_field_out_par)
+    TextView mGolfFieldOutParTextView;
+
+    //Text View in length
+    @BindView(R.id.golf_field_in_length)
+    TextView mGolfFieldInLengthTextView;
+
+    //Text View in par
+    @BindView(R.id.golf_field_in_par)
+    TextView mGolfFieldInParTextView;
+
+
     private final String TAB_GENERAL_SPEC="general_tab";
     private final String TAB_OUT_SPEC="out_tab";
     private final String TAB_IN_SPEC="in_tab";
@@ -225,33 +256,25 @@ public class GolfFieldActivityFragment extends Fragment {
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
-
-        outState.putInt(SELECTED_TAB_LABEL,mTabHost.getCurrentTab());
         super.onSaveInstanceState(outState);
+        outState.putInt(SELECTED_TAB_LABEL,mTabHost.getCurrentTab());
+
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-    }
 
 
 
 
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
-
+        super.onViewStateRestored(savedInstanceState);
         if (savedInstanceState!=null && savedInstanceState.containsKey(SELECTED_TAB_LABEL)){
             mTabHost.setCurrentTab(savedInstanceState.getInt(SELECTED_TAB_LABEL));
         }else{
+            Log.i("RESTORE", "Entro al else while restoring");
             mTabHost.setCurrentTab(0);
         }
-        super.onViewStateRestored(savedInstanceState);
+
     }
 
 
@@ -632,6 +655,26 @@ public class GolfFieldActivityFragment extends Fragment {
                 mGolfFieldFavoriteImageView.setVisibility(View.GONE);
             }
 
+            //set the total length
+            mGolfFieldTotalLengthTextView.setText(ScorecardUtils.getFormattedLength(getContext(),mViewGolfField.getTotal_length()));
+
+            //set the total par
+            mGolfFieldTotalParTextView.setText(ScorecardUtils.getFormattedPar(getContext(),mViewGolfField.getTotal_par()));
+
+            //set the out length
+            mGolfFieldOutLengthTextView.setText(ScorecardUtils.getFormattedLength(getContext(),mViewGolfField.getOut_length()));
+
+            //set the total par
+            mGolfFieldOutParTextView.setText(ScorecardUtils.getFormattedPar(getContext(),mViewGolfField.getOut_par()));
+
+            //set the in length
+            mGolfFieldInLengthTextView.setText(ScorecardUtils.getFormattedLength(getContext(),mViewGolfField.getIn_length()));
+
+            //set the total par
+            mGolfFieldInParTextView.setText(ScorecardUtils.getFormattedPar(getContext(),mViewGolfField.getIn_par()));
+
+            //set the save button as invisible
+            //mBottomNavigationView.getMenu().getItem(R.id.item_golf_field_new_save).setVisible(false);
 
 
         }else{
