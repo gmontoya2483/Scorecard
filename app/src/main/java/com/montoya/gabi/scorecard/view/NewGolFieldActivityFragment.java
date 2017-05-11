@@ -198,7 +198,7 @@ public class NewGolFieldActivityFragment extends Fragment {
         getActivity().setTitle(R.string.golf_field_title_new);
 
         createNavigationTabs();
-        createBottomNavigationViewListener();//TODO Different mehtods (new, view, Edit,etc)
+        createBottomNavigationViewListener();
         setParSpinners();
 
 
