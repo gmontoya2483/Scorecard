@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/item_view_golf_field_delete"
+        android:icon="@drawable/ic_action_delete"
+        android:title="@string/golf_field_delete"/>
+
+    <item
+        android:id="@+id/item_view_golf_field_favorite"
+        android:icon="@drawable/ic_action_favorite"
+        android:title="@string/golf_field_favorite"/>
+
+    <item
+        android:id="@+id/item_view_golf_field_edit"
+        android:icon="@drawable/ic_action_golf_fields_black"
+        android:title="@string/golf_field_edit"/>
+
+</menu>

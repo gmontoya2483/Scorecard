@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.montoya.gabi.scorecard.view.GolfFieldActivityFragment"
-    tools:showIn="@layout/activity_golf_field">
+    tools:showIn="@layout/new_golf_field_content">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -90,7 +90,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:menu="@menu/menu_golf_field_new"
+        app:menu="@menu/bottom_menu_new_golf_field"
         android:background="@color/windowBackground"
         android:elevation="6dp">
     </android.support.design.widget.BottomNavigationView>

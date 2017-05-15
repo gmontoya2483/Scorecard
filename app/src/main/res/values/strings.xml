@@ -91,6 +91,9 @@
 
 
     <string name="golf_field_save">Save</string>
+    <string name="golf_field_edit">Edit</string>
+    <string name="golf_field_delete">Delete</string>
+    <string name="golf_field_favorite">Favorite</string>
     <string name="golf_field_err_save">There was an error while trying to save the golf field. Please verify the entered information and try it again.</string>
     <string name="title_activity_settings">Settings</string>
 
