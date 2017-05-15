@@ -46,7 +46,7 @@
                         android:orientation="vertical">
 
                         <include
-                            layout="@layout/new_golf_field_general"
+                            layout="@layout/view_golf_field_general"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
 
@@ -61,7 +61,7 @@
                         android:orientation="vertical">
 
                         <include
-                            layout="@layout/new_golf_field_out"
+                            layout="@layout/view_golf_field_out"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
 
@@ -74,7 +74,7 @@
                         android:orientation="vertical">
 
                         <include
-                            layout="@layout/new_golf_field_in"
+                            layout="@layout/view_golf_field_in"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent" />
 
@@ -86,11 +86,11 @@
     </android.support.v4.widget.NestedScrollView>
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/nav_gol_field_new"
+        android:id="@+id/nav_gol_field_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:menu="@menu/bottom_menu_new_golf_field"
+        app:menu="@menu/bottom_menu_view_golf_field"
         android:background="@color/windowBackground"
         android:elevation="6dp">
     </android.support.design.widget.BottomNavigationView>

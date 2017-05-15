@@ -157,6 +157,18 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
                     long id=mCursor.getLong(mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID));
 
                     Bundle args=new Bundle();
+                    args.putLong(ViewGolfFieldActivityFragment.GOLF_FIELD_ID_LABEL,id);
+
+                    Intent viewGolfFieldIntent=new Intent(mContext,ViewGolfFieldActivity.class);
+                    viewGolfFieldIntent.putExtras(args);
+
+                    mContext.startActivity(viewGolfFieldIntent);
+
+                    /*
+                    mCursor.moveToPosition(getAdapterPosition());
+                    long id=mCursor.getLong(mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID));
+
+                    Bundle args=new Bundle();
                     args.putString(GolfFieldActivityFragment.ACTION_LABEL,GolfFieldActivityFragment.ACTION_VIEW);
                     args.putLong(GolfFieldActivityFragment.GOLF_FIELD_ID_LABEL,id);
 
@@ -164,6 +176,7 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
                     newGolfFieldIntent.putExtras(args);
 
                     mContext.startActivity(newGolfFieldIntent);
+                    */
 
                 }
             });

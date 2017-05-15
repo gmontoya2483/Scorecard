@@ -104,6 +104,10 @@
     <string name="golf_field_view_fake_in_out_par" translatable="false">PAR 30</string>
 
 
+    <string name="view_golf_field_invalid_id">Invalid golf field was selected</string>
+
+
+
     <!-- Settings Strings -->
 
     <string name="settings_meters_description">meters</string>
