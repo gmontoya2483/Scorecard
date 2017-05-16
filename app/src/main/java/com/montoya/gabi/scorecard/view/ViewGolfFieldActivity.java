@@ -32,9 +32,11 @@ public class ViewGolfFieldActivity extends AppCompatActivity {
 
 
 
-        retrieveArguments();
+        if (savedInstanceState==null){
+            retrieveArguments();
+            displayGolfFieldFragment();
 
-        displayGolfFieldFragment();
+        }
 
     }
 
