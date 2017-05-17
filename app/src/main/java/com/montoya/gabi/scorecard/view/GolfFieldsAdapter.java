@@ -153,6 +153,7 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
                 @Override
                 public void onClick(View v) {
 
+
                     mCursor.moveToPosition(getAdapterPosition());
                     long id=mCursor.getLong(mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID));
 
@@ -163,6 +164,8 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
                     viewGolfFieldIntent.putExtras(args);
 
                     mContext.startActivity(viewGolfFieldIntent);
+
+
 
                     /*
                     mCursor.moveToPosition(getAdapterPosition());

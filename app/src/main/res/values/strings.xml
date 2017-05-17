@@ -95,6 +95,7 @@
     <string name="golf_field_delete">Delete</string>
     <string name="golf_field_favorite">Favorite</string>
     <string name="golf_field_err_save">There was an error while trying to save the golf field. Please verify the entered information and try it again.</string>
+    <string name="golf_field_err_retrieve_golf_field">There was an error while trying to retrieve the golf field information.</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Golf field view mode -->

@@ -31,9 +31,10 @@ public class GolfFieldActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
-        retrieveArguments();
-
-        displayGolfFieldFragment();
+        if (savedInstanceState==null){
+            retrieveArguments();
+            displayGolfFieldFragment();
+        }
 
 
     }
