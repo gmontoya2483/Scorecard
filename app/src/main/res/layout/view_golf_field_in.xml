@@ -1,6 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
 
-</LinearLayout>
+<GridLayout android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:columnCount="3"
+    android:layout_marginTop="20dp"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/golf_field_hole_10_number"
+        android:text="@string/golf_field_text_hole_10"
+        style="@style/GolfFieldGolfHoleNumber"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <EditText
+            android:id="@+id/golf_field_hole_10_length"
+            style="@style/GolfFieldGolfHoleLength" />
+        <TextView
+            android:id="@+id/golf_field_hole_10_length_unit"
+            style="@style/GolfFieldGolfHoleLengthUnit"
+            android:text="@string/golf_field_length_unit_meter"/>
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/golf_field_hole_10_par"
+        style="@style/GolfFieldGolfHolePar"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_columnSpan="3"
+        android:background="@color/Divider_12" />
+
+
+    <TextView
+        android:id="@+id/golf_field_hole_11_number"
+        android:text="@string/golf_field_text_hole_11"
+        style="@style/GolfFieldGolfHoleNumber"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <EditText
+            android:id="@+id/golf_field_hole_11_length"
+            style="@style/GolfFieldGolfHoleLength"/>
+        <TextView
+            android:id="@+id/golf_field_hole_11_length_unit"
+            style="@style/GolfFieldGolfHoleLengthUnit"
+            android:text="@string/golf_field_length_unit_meter"/>
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/golf_field_hole_11_par"
+        style="@style/GolfFieldGolfHolePar"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_columnSpan="3"
+        android:background="@color/Divider_12" />
+
+
+
+    <TextView
+        android:id="@+id/golf_field_hole_12_number"
+        android:text="@string/golf_field_text_hole_12"
+        style="@style/GolfFieldGolfHoleNumber"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <EditText
+            android:id="@+id/golf_field_hole_12_length"
+            style="@style/GolfFieldGolfHoleLength"/>
+        <TextView
+            android:id="@+id/golf_field_hole_12_length_unit"
+            style="@style/GolfFieldGolfHoleLengthUnit"
+            android:text="@string/golf_field_length_unit_meter"/>
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/golf_field_hole_12_par"
+        style="@style/GolfFieldGolfHolePar"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_columnSpan="3"
+        android:background="@color/Divider_12" />
+
+
+    <TextView
+        android:id="@+id/golf_field_hole_13_number"
+        android:text="@string/golf_field_text_hole_13"
+        style="@style/GolfFieldGolfHoleNumber"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <EditText
+            android:id="@+id/golf_field_hole_13_length"
+            style="@style/GolfFieldGolfHoleLength"/>
+        <TextView
+            android:id="@+id/golf_field_hole_13_length_unit"
+            style="@style/GolfFieldGolfHoleLengthUnit"
+            android:text="@string/golf_field_length_unit_meter"/>
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/golf_field_hole_13_par"
+        style="@style/GolfFieldGolfHolePar"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_columnSpan="3"
+        android:background="@color/Divider_12" />
+
+    <TextView
+        android:id="@+id/golf_field_hole_14_number"
+        android:text="@string/golf_field_text_hole_14"
+        style="@style/GolfFieldGolfHoleNumber"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <EditText
+            android:id="@+id/golf_field_hole_14_length"
+            style="@style/GolfFieldGolfHoleLength"/>
+        <TextView
+            android:id="@+id/golf_field_hole_14_length_unit"
+            style="@style/GolfFieldGolfHoleLengthUnit"
+            android:text="@string/golf_field_length_unit_meter"/>
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/golf_field_hole_14_par"
+        style="@style/GolfFieldGolfHolePar"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_columnSpan="3"
+        android:background="@color/Divider_12" />
+
+
+    <TextView
+        android:id="@+id/golf_field_hole_15_number"
+        android:text="@string/golf_field_text_hole_15"
+        style="@style/GolfFieldGolfHoleNumber"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <EditText
+            android:id="@+id/golf_field_hole_15_length"
+            style="@style/GolfFieldGolfHoleLength"/>
+        <TextView
+            android:id="@+id/golf_field_hole_15_length_unit"
+            style="@style/GolfFieldGolfHoleLengthUnit"
+            android:text="@string/golf_field_length_unit_meter"/>
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/golf_field_hole_15_par"
+        style="@style/GolfFieldGolfHolePar"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_columnSpan="3"
+        android:background="@color/Divider_12" />
+
+    <TextView
+        android:id="@+id/golf_field_hole_16_number"
+        android:text="@string/golf_field_text_hole_16"
+        style="@style/GolfFieldGolfHoleNumber"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <EditText
+            android:id="@+id/golf_field_hole_16_length"
+            style="@style/GolfFieldGolfHoleLength"/>
+        <TextView
+            android:id="@+id/golf_field_hole_16_length_unit"
+            style="@style/GolfFieldGolfHoleLengthUnit"
+            android:text="@string/golf_field_length_unit_meter"/>
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/golf_field_hole_16_par"
+        style="@style/GolfFieldGolfHolePar"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_columnSpan="3"
+        android:background="@color/Divider_12" />
+
+    <TextView
+        android:id="@+id/golf_field_hole_17_number"
+        android:text="@string/golf_field_text_hole_17"
+        style="@style/GolfFieldGolfHoleNumber"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <EditText
+            android:id="@+id/golf_field_hole_17_length"
+            style="@style/GolfFieldGolfHoleLength"/>
+        <TextView
+            android:id="@+id/golf_field_hole_17_length_unit"
+            style="@style/GolfFieldGolfHoleLengthUnit"
+            android:text="@string/golf_field_length_unit_meter"/>
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/golf_field_hole_17_par"
+        style="@style/GolfFieldGolfHolePar"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_columnSpan="3"
+        android:background="@color/Divider_12" />
+
+    <TextView
+        android:id="@+id/golf_field_hole_18_number"
+        android:text="@string/golf_field_text_hole_18"
+        style="@style/GolfFieldGolfHoleNumber"/>
+
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center">
+        <EditText
+            android:id="@+id/golf_field_hole_18_length"
+            style="@style/GolfFieldGolfHoleLength"/>
+        <TextView
+            android:id="@+id/golf_field_hole_18_length_unit"
+            style="@style/GolfFieldGolfHoleLengthUnit"
+            android:text="@string/golf_field_length_unit_meter"/>
+
+    </LinearLayout>
+
+    <Spinner
+        android:id="@+id/golf_field_hole_18_par"
+        style="@style/GolfFieldGolfHolePar"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_columnSpan="3"
+        android:background="@color/Divider_12" />
+
+</GridLayout>

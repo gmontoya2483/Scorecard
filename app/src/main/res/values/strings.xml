@@ -57,6 +57,7 @@
 
     <string name="golf_field_title_new">New golf field</string>
     <string name="golf_field_title_view">View golf field</string>
+    <string name="golf_field_title_edit">Edit golf field</string>
 
 
     <string name="tab_general">GENERAL</string>
@@ -115,6 +116,7 @@
     <string name="settings_yards_description">yards</string>
     <string name="title_activity_new_gol_field">New GolField</string>
     <string name="title_activity_view_golf_field">ViewGolfFieldActivity</string>
+
 
 
 </resources>

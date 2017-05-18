@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.montoya.gabi.scorecard.view.GolfFieldActivityFragment"
-    tools:showIn="@layout/view_golf_field_content">
+    tools:context="com.montoya.gabi.scorecard.view.GolfFieldActivityFragment">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -90,7 +89,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:menu="@menu/bottom_menu_view_golf_field"
         android:background="@color/windowBackground"
         android:elevation="6dp">
     </android.support.design.widget.BottomNavigationView>

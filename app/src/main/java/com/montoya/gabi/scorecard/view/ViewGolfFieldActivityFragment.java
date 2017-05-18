@@ -6,13 +6,14 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +26,7 @@ import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.montoya.gabi.scorecard.R.id.item_golf_field_edit_save;
 import static com.montoya.gabi.scorecard.R.id.item_view_golf_field_edit;
 
 /**
@@ -55,6 +57,14 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     TabHost mTabHost;
 
     //Bind general information
+
+    //Card golf_field_card_name
+    @BindView(R.id.golf_field_card_name)
+    CardView mGolfFieldNameCardView;
+
+    //Golf Field Name
+    @BindView(R.id.golf_field_name)
+    EditText mGolfFieldNameEditTextView;
 
     //Card golf_field_card_resume
     @BindView(R.id.golf_field_card_resume)
@@ -90,16 +100,140 @@ public class ViewGolfFieldActivityFragment extends Fragment {
 
 
 
+    //Bind out information
+    //Hole 1
+    @BindView(R.id.golf_field_hole_1_par)
+    Spinner mHole1ParSpinner;
 
-    //Bind Navigation Tool bars
+    @BindView(R.id.golf_field_hole_1_length)
+    EditText mHole1LengthEditTextView;
+
+    //Hole 2
+    @BindView(R.id.golf_field_hole_2_par)
+    Spinner mHole2ParSpinner;
+
+    @BindView(R.id.golf_field_hole_2_length)
+    EditText mHole2LengthEditTextView;
+
+    //Hole 3
+    @BindView(R.id.golf_field_hole_3_par)
+    Spinner mHole3ParSpinner;
+
+    @BindView(R.id.golf_field_hole_3_length)
+    EditText mHole3LengthEditTextView;
+
+    //Hole 4
+    @BindView(R.id.golf_field_hole_4_par)
+    Spinner mHole4ParSpinner;
+
+    @BindView(R.id.golf_field_hole_4_length)
+    EditText mHole4LengthEditTextView;
+
+    //Hole 5
+    @BindView(R.id.golf_field_hole_5_par)
+    Spinner mHole5ParSpinner;
+
+    @BindView(R.id.golf_field_hole_5_length)
+    EditText mHole5LengthEditTextView;
+
+    //Hole 6
+    @BindView(R.id.golf_field_hole_6_par)
+    Spinner mHole6ParSpinner;
+
+    @BindView(R.id.golf_field_hole_6_length)
+    EditText mHole6LengthEditTextView;
+
+    //Hole 7
+    @BindView(R.id.golf_field_hole_7_par)
+    Spinner mHole7ParSpinner;
+
+    @BindView(R.id.golf_field_hole_7_length)
+    EditText mHole7LengthEditTextView;
+
+    //Hole 8
+    @BindView(R.id.golf_field_hole_8_par)
+    Spinner mHole8ParSpinner;
+
+    @BindView(R.id.golf_field_hole_8_length)
+    EditText mHole8LengthEditTextView;
+
+    //Hole 9
+    @BindView(R.id.golf_field_hole_9_par)
+    Spinner mHole9ParSpinner;
+
+    @BindView(R.id.golf_field_hole_9_length)
+    EditText mHole9LengthEditTextView;
+
+
+    //Bind in Information
+    //Hole 10
+    @BindView(R.id.golf_field_hole_10_par)
+    Spinner mHole10ParSpinner;
+
+    @BindView(R.id.golf_field_hole_10_length)
+    EditText mHole10LengthEditTextView;
+
+    //Hole 11
+    @BindView(R.id.golf_field_hole_11_par)
+    Spinner mHole11ParSpinner;
+
+    @BindView(R.id.golf_field_hole_11_length)
+    EditText mHole11LengthEditTextView;
+
+    //Hole 12
+    @BindView(R.id.golf_field_hole_12_par)
+    Spinner mHole12ParSpinner;
+
+    @BindView(R.id.golf_field_hole_12_length)
+    EditText mHole12LengthEditTextView;
+
+    //Hole 13
+    @BindView(R.id.golf_field_hole_13_par)
+    Spinner mHole13ParSpinner;
+
+    @BindView(R.id.golf_field_hole_13_length)
+    EditText mHole13LengthEditTextView;
+
+    //Hole 14
+    @BindView(R.id.golf_field_hole_14_par)
+    Spinner mHole14ParSpinner;
+
+    @BindView(R.id.golf_field_hole_14_length)
+    EditText mHole14LengthEditTextView;
+
+    //Hole 15
+    @BindView(R.id.golf_field_hole_15_par)
+    Spinner mHole15ParSpinner;
+
+    @BindView(R.id.golf_field_hole_15_length)
+    EditText mHole15LengthEditTextView;
+
+    //Hole 16
+    @BindView(R.id.golf_field_hole_16_par)
+    Spinner mHole16ParSpinner;
+
+    @BindView(R.id.golf_field_hole_16_length)
+    EditText mHole16LengthEditTextView;
+
+    //Hole 17
+    @BindView(R.id.golf_field_hole_17_par)
+    Spinner mHole17ParSpinner;
+
+    @BindView(R.id.golf_field_hole_17_length)
+    EditText mHole17LengthEditTextView;
+
+    //Hole 18
+    @BindView(R.id.golf_field_hole_18_par)
+    Spinner mHole18ParSpinner;
+
+    @BindView(R.id.golf_field_hole_18_length)
+    EditText mHole18LengthEditTextView;
+
+
+    //Bind Bottom Navigation Tool bars
 
     @BindView(R.id.nav_gol_field_view)
     BottomNavigationView mBottomNavigationView;
-
-
-
-
-
 
 
 
@@ -127,9 +261,6 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(SELECTED_TAB_LABEL,mTabHost.getCurrentTab());
-
-        Log.i("RESTORE", "saved: " + outState.getInt(SELECTED_TAB_LABEL));
-
     }
 
 
@@ -139,10 +270,8 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         super.onViewStateRestored(savedInstanceState);
 
         if (savedInstanceState!=null && savedInstanceState.containsKey(SELECTED_TAB_LABEL)){
-            Log.i("RESTORE", "restored: " + savedInstanceState.getInt(SELECTED_TAB_LABEL));
             mTabHost.setCurrentTab(savedInstanceState.getInt(SELECTED_TAB_LABEL));
         }else{
-            Log.i("RESTORE", "restored: Nothing");
             mTabHost.setCurrentTab(0);
         }
 
@@ -194,12 +323,13 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     private void setupFragment(){
 
         createNavigationTabs();
-        createBottomNavigationViewListener();//TODO Different mehtods (new, view, Edit,etc)
+        createBottomNavigationViewListener();
         setParSpinners();
 
         if(mGolfField_id!=GolfField.INVALID_GOLF_FIELD_ID){
 
             retrieveGolfFieldData();
+            setViewMode();;
 
         }else{
             Toast.makeText(getContext(),R.string.golf_field_err_retrieve_golf_field,Toast.LENGTH_LONG).show();
@@ -208,6 +338,106 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         }
 
     }
+
+
+
+    private void setViewMode(){
+
+        //set the resume card as visible and set as gone the name one
+        mGolfFieldResumeCardView.setVisibility(View.VISIBLE);
+        mGolfFieldNameCardView.setVisibility(View.GONE);
+
+        //Inflate the bottom_menu_view
+        mBottomNavigationView.getMenu().clear();
+        mBottomNavigationView.inflateMenu(R.menu.bottom_menu_view_golf_field);
+
+        //set the golf field title
+        getActivity().setTitle(mViewGolfField.getName());
+
+
+
+        //set the fields as enabled=false
+        setFieldsEnabled(false);
+
+
+
+    }
+
+
+    private void setEditMode(){
+
+
+        //set the resume card as visible and set as gone the name one
+        mGolfFieldResumeCardView.setVisibility(View.GONE);
+        mGolfFieldNameCardView.setVisibility(View.VISIBLE);
+
+        //Inflate the bottom_menu_edit
+        mBottomNavigationView.getMenu().clear();
+        mBottomNavigationView.inflateMenu(R.menu.bottom_menu_edit_golf_field);
+
+
+        //set the golf field title
+        getActivity().setTitle(getContext().getString(R.string.golf_field_title_edit));
+
+        //set the fields as enabled=true
+        setFieldsEnabled(true);
+
+
+
+    }
+
+
+
+
+    private void setFieldsEnabled(boolean enable){
+
+        //Length
+        mHole1LengthEditTextView.setEnabled(enable);
+        mHole2LengthEditTextView.setEnabled(enable);
+        mHole3LengthEditTextView.setEnabled(enable);
+        mHole4LengthEditTextView.setEnabled(enable);
+        mHole5LengthEditTextView.setEnabled(enable);
+        mHole6LengthEditTextView.setEnabled(enable);
+        mHole7LengthEditTextView.setEnabled(enable);
+        mHole8LengthEditTextView.setEnabled(enable);
+        mHole9LengthEditTextView.setEnabled(enable);
+
+        mHole10LengthEditTextView.setEnabled(enable);
+        mHole11LengthEditTextView.setEnabled(enable);
+        mHole12LengthEditTextView.setEnabled(enable);
+        mHole13LengthEditTextView.setEnabled(enable);
+        mHole14LengthEditTextView.setEnabled(enable);
+        mHole15LengthEditTextView.setEnabled(enable);
+        mHole16LengthEditTextView.setEnabled(enable);
+        mHole17LengthEditTextView.setEnabled(enable);
+        mHole18LengthEditTextView.setEnabled(enable);
+
+        //Par
+        mHole1ParSpinner.setEnabled(enable);
+        mHole2ParSpinner.setEnabled(enable);
+        mHole3ParSpinner.setEnabled(enable);
+        mHole4ParSpinner.setEnabled(enable);
+        mHole5ParSpinner.setEnabled(enable);
+        mHole6ParSpinner.setEnabled(enable);
+        mHole7ParSpinner.setEnabled(enable);
+        mHole8ParSpinner.setEnabled(enable);
+        mHole9ParSpinner.setEnabled(enable);
+
+        mHole10ParSpinner.setEnabled(enable);
+        mHole11ParSpinner.setEnabled(enable);
+        mHole12ParSpinner.setEnabled(enable);
+        mHole13ParSpinner.setEnabled(enable);
+        mHole14ParSpinner.setEnabled(enable);
+        mHole15ParSpinner.setEnabled(enable);
+        mHole16ParSpinner.setEnabled(enable);
+        mHole17ParSpinner.setEnabled(enable);
+        mHole18ParSpinner.setEnabled(enable);
+
+    }
+
+
+
+
 
     private void createBottomNavigationViewListener(){
         mBottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -231,8 +461,15 @@ public class ViewGolfFieldActivityFragment extends Fragment {
                     case item_view_golf_field_edit:
                         //TODO CHANGE TO THE CORRECT FUNCTIONALITY
                         Toast.makeText(getContext(),"Selected: edit",Toast.LENGTH_LONG).show();
+                        setEditMode();
                         //getActivity().finish();
                         break;
+
+                    case item_golf_field_edit_save:
+                        //TODO CHANGE TO THE CORRECT FUNCTIONALITY
+                        Toast.makeText(getContext(),"Selected: edit Save",Toast.LENGTH_LONG).show();
+                        getActivity().finish();
+
 
                     default:
                         break;
@@ -253,7 +490,7 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.pars_array, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        /*
+
         mHole1ParSpinner.setAdapter(adapter);
         mHole2ParSpinner.setAdapter(adapter);
         mHole3ParSpinner.setAdapter(adapter);
@@ -264,6 +501,7 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         mHole8ParSpinner.setAdapter(adapter);
         mHole9ParSpinner.setAdapter(adapter);
 
+
         mHole10ParSpinner.setAdapter(adapter);
         mHole11ParSpinner.setAdapter(adapter);
         mHole12ParSpinner.setAdapter(adapter);
@@ -273,7 +511,7 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         mHole16ParSpinner.setAdapter(adapter);
         mHole17ParSpinner.setAdapter(adapter);
         mHole18ParSpinner.setAdapter(adapter);
-        */
+
 
     }
 
@@ -286,10 +524,6 @@ public class ViewGolfFieldActivityFragment extends Fragment {
             //Load the hole information
             mViewGolfField.loadHolesFromDB(getContext());
 
-            //set the golf field title
-            getActivity().setTitle(mViewGolfField.getName());
-
-            mGolfFieldResumeCardView.setVisibility(View.VISIBLE);
 
             //Set the favorite
             if (mViewGolfField.getFavorite()== ScorecardContract.ScorecardBoolean.TRUE){
@@ -316,9 +550,17 @@ public class ViewGolfFieldActivityFragment extends Fragment {
             //set the total par
             mGolfFieldInParTextView.setText(ScorecardUtils.getFormattedPar(getContext(),mViewGolfField.getIn_par()));
 
+            //set the name
+            mGolfFieldNameEditTextView.setText(mViewGolfField.getName());
+
+
+
+
 
             //TODO ADD THE HOLE INFORMATION
-            //TODO SET VIEW MODE (all field disabled)
+
+
+
 
 
 
