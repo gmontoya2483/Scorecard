@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.R;
@@ -21,9 +22,11 @@ import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.Hole;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
+import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 
 /**
  * A placeholder fragment containing a simple view.
@@ -56,12 +59,16 @@ public class NewGolFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_name)
     EditText mGolfFieldNameEditTextView;
 
+    //Bind out information
     //Hole 1
     @BindView(R.id.golf_field_hole_1_par)
     Spinner mHole1ParSpinner;
 
     @BindView(R.id.golf_field_hole_1_length)
     EditText mHole1LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_1_length_unit)
+    TextView mHole1LengthUnit;
 
     //Hole 2
     @BindView(R.id.golf_field_hole_2_par)
@@ -70,9 +77,15 @@ public class NewGolFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_2_length)
     EditText mHole2LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_2_length_unit)
+    TextView mHole2LengthUnit;
+
     //Hole 3
     @BindView(R.id.golf_field_hole_3_par)
     Spinner mHole3ParSpinner;
+
+    @BindView(R.id.golf_field_hole_3_length_unit)
+    TextView mHole3LengthUnit;
 
     @BindView(R.id.golf_field_hole_3_length)
     EditText mHole3LengthEditTextView;
@@ -84,12 +97,18 @@ public class NewGolFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_4_length)
     EditText mHole4LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_4_length_unit)
+    TextView mHole4LengthUnit;
+
     //Hole 5
     @BindView(R.id.golf_field_hole_5_par)
     Spinner mHole5ParSpinner;
 
     @BindView(R.id.golf_field_hole_5_length)
     EditText mHole5LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_5_length_unit)
+    TextView mHole5LengthUnit;
 
     //Hole 6
     @BindView(R.id.golf_field_hole_6_par)
@@ -98,12 +117,18 @@ public class NewGolFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_6_length)
     EditText mHole6LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_6_length_unit)
+    TextView mHole6LengthUnit;
+
     //Hole 7
     @BindView(R.id.golf_field_hole_7_par)
     Spinner mHole7ParSpinner;
 
     @BindView(R.id.golf_field_hole_7_length)
     EditText mHole7LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_7_length_unit)
+    TextView mHole7LengthUnit;
 
     //Hole 8
     @BindView(R.id.golf_field_hole_8_par)
@@ -112,6 +137,9 @@ public class NewGolFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_8_length)
     EditText mHole8LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_8_length_unit)
+    TextView mHole8LengthUnit;
+
     //Hole 9
     @BindView(R.id.golf_field_hole_9_par)
     Spinner mHole9ParSpinner;
@@ -119,12 +147,20 @@ public class NewGolFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_9_length)
     EditText mHole9LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_9_length_unit)
+    TextView mHole9LengthUnit;
+
+
+    //Bind in Information
     //Hole 10
     @BindView(R.id.golf_field_hole_10_par)
     Spinner mHole10ParSpinner;
 
     @BindView(R.id.golf_field_hole_10_length)
     EditText mHole10LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_10_length_unit)
+    TextView mHole10LengthUnit;
 
     //Hole 11
     @BindView(R.id.golf_field_hole_11_par)
@@ -133,12 +169,20 @@ public class NewGolFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_11_length)
     EditText mHole11LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_11_length_unit)
+    TextView mHole11LengthUnit;
+
+
     //Hole 12
     @BindView(R.id.golf_field_hole_12_par)
     Spinner mHole12ParSpinner;
 
     @BindView(R.id.golf_field_hole_12_length)
     EditText mHole12LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_12_length_unit)
+    TextView mHole12LengthUnit;
+
 
     //Hole 13
     @BindView(R.id.golf_field_hole_13_par)
@@ -147,12 +191,20 @@ public class NewGolFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_13_length)
     EditText mHole13LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_13_length_unit)
+    TextView mHole13LengthUnit;
+
+
     //Hole 14
     @BindView(R.id.golf_field_hole_14_par)
     Spinner mHole14ParSpinner;
 
     @BindView(R.id.golf_field_hole_14_length)
     EditText mHole14LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_14_length_unit)
+    TextView mHole14LengthUnit;
+
 
     //Hole 15
     @BindView(R.id.golf_field_hole_15_par)
@@ -161,12 +213,20 @@ public class NewGolFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_15_length)
     EditText mHole15LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_15_length_unit)
+    TextView mHole15LengthUnit;
+
+
     //Hole 16
     @BindView(R.id.golf_field_hole_16_par)
     Spinner mHole16ParSpinner;
 
     @BindView(R.id.golf_field_hole_16_length)
     EditText mHole16LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_16_length_unit)
+    TextView mHole16LengthUnit;
+
 
     //Hole 17
     @BindView(R.id.golf_field_hole_17_par)
@@ -175,12 +235,19 @@ public class NewGolFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_17_length)
     EditText mHole17LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_17_length_unit)
+    TextView mHole17LengthUnit;
+
+
     //Hole 18
     @BindView(R.id.golf_field_hole_18_par)
     Spinner mHole18ParSpinner;
 
     @BindView(R.id.golf_field_hole_18_length)
     EditText mHole18LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_18_length_unit)
+    TextView mHole18LengthUnit;
 
 
     public NewGolFieldActivityFragment() {
@@ -200,6 +267,7 @@ public class NewGolFieldActivityFragment extends Fragment {
         createNavigationTabs();
         createBottomNavigationViewListener();
         setParSpinners();
+        setLengthUnits();
 
 
         return mRootView;
@@ -297,151 +365,117 @@ public class NewGolFieldActivityFragment extends Fragment {
         //Add hole 1
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_1,
-                convertLengthTextViewToInt(mHole1LengthEditTextView),
-                convertIndexToPar((int)mHole1ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole1LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole1ParSpinner.getSelectedItemId())));
 
         //Add hole 2
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_2,
-                convertLengthTextViewToInt(mHole2LengthEditTextView),
-                convertIndexToPar((int)mHole2ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole2LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole2ParSpinner.getSelectedItemId())));
 
         //Add hole 3
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_3,
-                convertLengthTextViewToInt(mHole3LengthEditTextView),
-                convertIndexToPar((int)mHole3ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole3LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole3ParSpinner.getSelectedItemId())));
 
         //Add hole 4
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_4,
-                convertLengthTextViewToInt(mHole4LengthEditTextView),
-                convertIndexToPar((int)mHole4ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole4LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole4ParSpinner.getSelectedItemId())));
 
         //Add hole 5
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_5,
-                convertLengthTextViewToInt(mHole5LengthEditTextView),
-                convertIndexToPar((int)mHole5ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole5LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole5ParSpinner.getSelectedItemId())));
 
         //Add hole 6
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_6,
-                convertLengthTextViewToInt(mHole6LengthEditTextView),
-                convertIndexToPar((int)mHole6ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole6LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole6ParSpinner.getSelectedItemId())));
 
         //Add hole 7
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_7,
-                convertLengthTextViewToInt(mHole7LengthEditTextView),
-                convertIndexToPar((int)mHole7ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole7LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole7ParSpinner.getSelectedItemId())));
 
         //Add hole 8
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_8,
-                convertLengthTextViewToInt(mHole8LengthEditTextView),
-                convertIndexToPar((int)mHole8ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole8LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole8ParSpinner.getSelectedItemId())));
 
         //Add hole 9
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_9,
-                convertLengthTextViewToInt(mHole9LengthEditTextView),
-                convertIndexToPar((int)mHole9ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole9LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole9ParSpinner.getSelectedItemId())));
 
 
         //Add hole 10
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_10,
-                convertLengthTextViewToInt(mHole10LengthEditTextView),
-                convertIndexToPar((int)mHole10ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole10LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole10ParSpinner.getSelectedItemId())));
 
         //Add hole 11
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_11,
-                convertLengthTextViewToInt(mHole11LengthEditTextView),
-                convertIndexToPar((int)mHole11ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole11LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole11ParSpinner.getSelectedItemId())));
 
         //Add hole 12
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_12,
-                convertLengthTextViewToInt(mHole12LengthEditTextView),
-                convertIndexToPar((int)mHole12ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole12LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole12ParSpinner.getSelectedItemId())));
 
         //Add hole 13
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_13,
-                convertLengthTextViewToInt(mHole13LengthEditTextView),
-                convertIndexToPar((int)mHole13ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole13LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole13ParSpinner.getSelectedItemId())));
 
         //Add hole 14
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_14,
-                convertLengthTextViewToInt(mHole14LengthEditTextView),
-                convertIndexToPar((int)mHole14ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole14LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole14ParSpinner.getSelectedItemId())));
 
         //Add hole 15
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_15,
-                convertLengthTextViewToInt(mHole15LengthEditTextView),
-                convertIndexToPar((int)mHole15ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole15LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole15ParSpinner.getSelectedItemId())));
 
         //Add hole 16
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_16,
-                convertLengthTextViewToInt(mHole16LengthEditTextView),
-                convertIndexToPar((int)mHole16ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole16LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole16ParSpinner.getSelectedItemId())));
 
         //Add hole 17
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_17,
-                convertLengthTextViewToInt(mHole17LengthEditTextView),
-                convertIndexToPar((int)mHole17ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole17LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole17ParSpinner.getSelectedItemId())));
 
         //Add hole 18
         golfField.AddHole(new GolfFieldHole(GolfField.NOT_SAVED_GOLF_FIELD_ID,
                 Hole.HoleNumber.HOLE_18,
-                convertLengthTextViewToInt(mHole18LengthEditTextView),
-                convertIndexToPar((int)mHole18ParSpinner.getSelectedItemId())));
+                ScorecardUtils.getLengthInMeters(getContext(),ScorecardUtils.convertLengthTextViewToInt(mHole18LengthEditTextView)),
+                ScorecardUtils.convertIndexToPar((int)mHole18ParSpinner.getSelectedItemId())));
 
         return golfField;
 
     }
 
-    private Hole.Par convertIndexToPar(int index){
-        Hole.Par par;
 
-        switch (index){
-            case 0:
-                par= Hole.Par.PAR_NOT_DEFINED;
-                break;
-            case 1:
-                par= Hole.Par.PAR_3;
-                break;
-            case 2:
-                par= Hole.Par.PAR_4;
-                break;
-            case 3:
-                par= Hole.Par.PAR_5;
-                break;
-            default:
-                par= Hole.Par.PAR_INVALID;
-                break;
-        }
-
-        return par;
-    }
-
-
-    private int convertLengthTextViewToInt(EditText lengthTextView){
-        int length;
-
-        if (lengthTextView.length()==0){
-            length=Hole.NOT_DEFINED_HOLE_LENGTH;
-        }else {
-            length=Integer.parseInt(lengthTextView.getText().toString().trim());
-        }
-        return length;
-    }
 
     private String retrieveGolfFieldName(){
 
@@ -484,6 +518,30 @@ public class NewGolFieldActivityFragment extends Fragment {
 
 
         mTabHost.setCurrentTab(0);
+
+    }
+
+    private void setLengthUnits(){
+
+        mHole1LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole2LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole3LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole4LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole5LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole6LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole7LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole8LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole9LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+
+        mHole10LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole11LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole12LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole13LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole14LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole15LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole16LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole17LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole18LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
 
     }
 

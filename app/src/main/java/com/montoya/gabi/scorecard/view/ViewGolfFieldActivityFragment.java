@@ -108,6 +108,9 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_1_length)
     EditText mHole1LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_1_length_unit)
+    TextView mHole1LengthUnit;
+
     //Hole 2
     @BindView(R.id.golf_field_hole_2_par)
     Spinner mHole2ParSpinner;
@@ -115,9 +118,15 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_2_length)
     EditText mHole2LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_2_length_unit)
+    TextView mHole2LengthUnit;
+
     //Hole 3
     @BindView(R.id.golf_field_hole_3_par)
     Spinner mHole3ParSpinner;
+
+    @BindView(R.id.golf_field_hole_3_length_unit)
+    TextView mHole3LengthUnit;
 
     @BindView(R.id.golf_field_hole_3_length)
     EditText mHole3LengthEditTextView;
@@ -129,12 +138,18 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_4_length)
     EditText mHole4LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_4_length_unit)
+    TextView mHole4LengthUnit;
+
     //Hole 5
     @BindView(R.id.golf_field_hole_5_par)
     Spinner mHole5ParSpinner;
 
     @BindView(R.id.golf_field_hole_5_length)
     EditText mHole5LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_5_length_unit)
+    TextView mHole5LengthUnit;
 
     //Hole 6
     @BindView(R.id.golf_field_hole_6_par)
@@ -143,12 +158,18 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_6_length)
     EditText mHole6LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_6_length_unit)
+    TextView mHole6LengthUnit;
+
     //Hole 7
     @BindView(R.id.golf_field_hole_7_par)
     Spinner mHole7ParSpinner;
 
     @BindView(R.id.golf_field_hole_7_length)
     EditText mHole7LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_7_length_unit)
+    TextView mHole7LengthUnit;
 
     //Hole 8
     @BindView(R.id.golf_field_hole_8_par)
@@ -157,12 +178,18 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_8_length)
     EditText mHole8LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_8_length_unit)
+    TextView mHole8LengthUnit;
+
     //Hole 9
     @BindView(R.id.golf_field_hole_9_par)
     Spinner mHole9ParSpinner;
 
     @BindView(R.id.golf_field_hole_9_length)
     EditText mHole9LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_9_length_unit)
+    TextView mHole9LengthUnit;
 
 
     //Bind in Information
@@ -173,12 +200,19 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_10_length)
     EditText mHole10LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_10_length_unit)
+    TextView mHole10LengthUnit;
+
     //Hole 11
     @BindView(R.id.golf_field_hole_11_par)
     Spinner mHole11ParSpinner;
 
     @BindView(R.id.golf_field_hole_11_length)
     EditText mHole11LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_11_length_unit)
+    TextView mHole11LengthUnit;
+
 
     //Hole 12
     @BindView(R.id.golf_field_hole_12_par)
@@ -187,12 +221,20 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_12_length)
     EditText mHole12LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_12_length_unit)
+    TextView mHole12LengthUnit;
+
+
     //Hole 13
     @BindView(R.id.golf_field_hole_13_par)
     Spinner mHole13ParSpinner;
 
     @BindView(R.id.golf_field_hole_13_length)
     EditText mHole13LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_13_length_unit)
+    TextView mHole13LengthUnit;
+
 
     //Hole 14
     @BindView(R.id.golf_field_hole_14_par)
@@ -201,12 +243,20 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_14_length)
     EditText mHole14LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_14_length_unit)
+    TextView mHole14LengthUnit;
+
+
     //Hole 15
     @BindView(R.id.golf_field_hole_15_par)
     Spinner mHole15ParSpinner;
 
     @BindView(R.id.golf_field_hole_15_length)
     EditText mHole15LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_15_length_unit)
+    TextView mHole15LengthUnit;
+
 
     //Hole 16
     @BindView(R.id.golf_field_hole_16_par)
@@ -215,6 +265,10 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_16_length)
     EditText mHole16LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_16_length_unit)
+    TextView mHole16LengthUnit;
+
+
     //Hole 17
     @BindView(R.id.golf_field_hole_17_par)
     Spinner mHole17ParSpinner;
@@ -222,12 +276,20 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     @BindView(R.id.golf_field_hole_17_length)
     EditText mHole17LengthEditTextView;
 
+    @BindView(R.id.golf_field_hole_17_length_unit)
+    TextView mHole17LengthUnit;
+
+
     //Hole 18
     @BindView(R.id.golf_field_hole_18_par)
     Spinner mHole18ParSpinner;
 
     @BindView(R.id.golf_field_hole_18_length)
     EditText mHole18LengthEditTextView;
+
+    @BindView(R.id.golf_field_hole_18_length_unit)
+    TextView mHole18LengthUnit;
+
 
 
     //Bind Bottom Navigation Tool bars
@@ -325,6 +387,8 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         createNavigationTabs();
         createBottomNavigationViewListener();
         setParSpinners();
+        setLengthUnits();
+
 
         if(mGolfField_id!=GolfField.INVALID_GOLF_FIELD_ID){
 
@@ -354,12 +418,8 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         //set the golf field title
         getActivity().setTitle(mViewGolfField.getName());
 
-
-
         //set the fields as enabled=false
         setFieldsEnabled(false);
-
-
 
     }
 
@@ -383,6 +443,31 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         setFieldsEnabled(true);
 
 
+
+    }
+
+
+    private void setLengthUnits(){
+
+        mHole1LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole2LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole3LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole4LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole5LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole6LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole7LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole8LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole9LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+
+        mHole10LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole11LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole12LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole13LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole14LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole15LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole16LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole17LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
+        mHole18LengthUnit.setText(ScorecardUtils.getFormattedCurrentLengthUnit(getContext()));
 
     }
 
