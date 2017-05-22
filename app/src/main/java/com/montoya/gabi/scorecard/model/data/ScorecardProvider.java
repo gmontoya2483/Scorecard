@@ -111,7 +111,7 @@ public class ScorecardProvider extends ContentProvider{
         switch(match){
             case GOLF_FIELD:
             {
-                Log.e(LOG_TAG, "Se fue para el Query!!!!!");
+
                 retCursor=mScorecardDbHelper.getReadableDatabase().query(
                         ScorecardContract.GolfFieldEntry.TABLE_NAME,
                         projection,
@@ -210,9 +210,7 @@ public class ScorecardProvider extends ContentProvider{
         final int match=mUriMatcher.match(uri);
         switch (match){
             case GOLF_FIELD:
-                Log.e(LOG_TAG, "Se fue para el insert!!!!!");
                 insertedUri=insertGolfField(values);
-
                 break;
             case GOLF_FIELD_HOLE:
                 insertedUri=insertGolfFieldHole(values);
@@ -267,14 +265,39 @@ public class ScorecardProvider extends ContentProvider{
             getContext().getContentResolver().notifyChange(uri, null);
 
         }
-        getContext().getContentResolver().notifyChange(uri, null);
+        //getContext().getContentResolver().notifyChange(uri, null);
         return rowsDeleted;
     }
 
 
     @Override
     public int update(@NonNull Uri uri, @Nullable ContentValues values, @Nullable String selection, @Nullable String[] selectionArgs) {
-        return 0;
+        int rowsUpdated= 0;
+        final int match=mUriMatcher.match(uri);
+        switch (match){
+            case GOLF_FIELD:
+                rowsUpdated=mScorecardDbHelper.getWritableDatabase().update(
+                        ScorecardContract.GolfFieldEntry.TABLE_NAME,
+                        values,
+                        selection,
+                        selectionArgs);
+
+                break;
+
+            default:
+                throw new UnsupportedOperationException("Unknown uri: " + uri);
+
+
+
+        }
+
+        if (rowsUpdated>0){
+            getContext().getContentResolver().notifyChange(uri, null);
+
+        }
+
+
+        return rowsUpdated;
     }
 
     @Override

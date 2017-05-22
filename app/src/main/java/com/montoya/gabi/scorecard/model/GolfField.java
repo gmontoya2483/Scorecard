@@ -531,6 +531,46 @@ public class GolfField {
     }
 
 
+    public boolean updateGolfFieldGeneralInformation (Context context){
+        boolean saved_gf_OK;
+
+        if (this._id!=GolfField.NOT_SAVED_GOLF_FIELD_ID && this._id!=GolfField.INVALID_GOLF_FIELD_ID){
+
+            if (verifyGolfField()){
+
+
+                if (updateGolfField(context)==1){
+                    saved_gf_OK=true;
+                }else{
+                    saved_gf_OK=false;
+                }
+
+            }else{
+                saved_gf_OK=false;
+            }
+
+
+
+        }else{
+            saved_gf_OK=false;
+
+        }
+       return saved_gf_OK;
+
+    }
+
+
+    private int updateGolfField (Context context){
+        int updatedRows;
+        ContentValues updateValues=this.getGolfFieldValues();
+        String selectionClause=ScorecardContract.GolfFieldEntry._ID+"= ?";
+        String[] selectionArgs={String.valueOf(_id)};
+        Uri allGolfFieldUri=ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri();
+
+        updatedRows= context.getContentResolver().update(allGolfFieldUri,updateValues,selectionClause,selectionArgs);
+
+        return updatedRows;
+    }
 
 
     //Helper Method to calculate the totals (par in, par out, length in, length out)
