@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.GolfField;
+import com.montoya.gabi.scorecard.model.Hole;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
@@ -640,12 +641,50 @@ public class ViewGolfFieldActivityFragment extends Fragment {
 
 
 
+            //Set the length of the OUT holes (1-9)
+            mHole1LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_1)));
+            mHole2LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_2)));
+            mHole3LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_3)));
+            mHole4LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_4)));
+            mHole5LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_5)));
+            mHole6LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_6)));
+            mHole7LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_7)));
+            mHole8LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_8)));
+            mHole9LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_9)));
+
+            //Set the length of the IN holes (10-18)
+            mHole10LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_10)));
+            mHole11LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_11)));
+            mHole12LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_12)));
+            mHole13LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_13)));
+            mHole14LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_14)));
+            mHole15LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_15)));
+            mHole16LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_16)));
+            mHole17LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_17)));
+            mHole18LengthEditTextView.setText(ScorecardUtils.getConvertedHoleLengthString(getContext(),mViewGolfField.getHole(Hole.HoleNumber.HOLE_18)));
 
 
-            //TODO ADD THE HOLE INFORMATION
+            //Set the Par of the OUT holes
+            mHole1ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_1)));
+            mHole2ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_2)));
+            mHole3ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_3)));
+            mHole4ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_4)));
+            mHole5ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_5)));
+            mHole6ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_6)));
+            mHole7ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_7)));
+            mHole8ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_8)));
+            mHole9ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_9)));
 
-
-
+            //Set the PAR of the in Holes
+            mHole10ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_10)));
+            mHole11ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_11)));
+            mHole12ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_12)));
+            mHole13ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_13)));
+            mHole14ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_14)));
+            mHole15ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_15)));
+            mHole16ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_16)));
+            mHole17ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_17)));
+            mHole18ParSpinner.setSelection(ScorecardUtils.convertParToIndex(mViewGolfField.getHole(Hole.HoleNumber.HOLE_18)));
 
 
 

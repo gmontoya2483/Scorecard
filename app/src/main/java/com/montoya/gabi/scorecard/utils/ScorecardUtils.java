@@ -3,9 +3,11 @@ package com.montoya.gabi.scorecard.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+import android.support.annotation.NonNull;
 import android.widget.EditText;
 
 import com.montoya.gabi.scorecard.R;
+import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.Hole;
 
 /**
@@ -186,6 +188,30 @@ public class ScorecardUtils {
     }
 
 
+    public static int convertParToIndex(GolfFieldHole hole){
+        int index=0;
+
+        switch (hole.getPar()){
+            case PAR_3:
+                index=1;
+                break;
+            case PAR_4:
+                index=2;
+                break;
+            case PAR_5:
+                index=3;
+                break;
+            default:
+                index=0;
+                break;
+        }
+
+        return index;
+
+    }
+
+
+
     public static int convertLengthTextViewToInt(EditText lengthTextView){
         int length;
 
@@ -196,6 +222,13 @@ public class ScorecardUtils {
         }
 
         return length;
+    }
+
+
+
+    @NonNull
+    public static String getConvertedHoleLengthString (Context context, GolfFieldHole hole){
+        return String.valueOf(getConvertedLength(context,hole.getLength()));
     }
 
 
