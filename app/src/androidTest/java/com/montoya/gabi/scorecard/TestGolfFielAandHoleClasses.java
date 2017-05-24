@@ -2980,8 +2980,112 @@ public class TestGolfFielAandHoleClasses extends AndroidTestCase{
     }
 
 
-    //TODO VERIFY THE UPDATE of A GOLF FIELD!!!!!!!!
 
+    public void testUpdateGolfField_OK() {
+
+        TestUtils.deleteAllRecords(mContext);
+
+
+
+        String gf_name="Fake Golf name";
+        ScorecardContract.ScorecardBoolean gf_favorite= ScorecardContract.ScorecardBoolean.FALSE;
+        ScorecardContract.ScorecardBoolean gf_active= ScorecardContract.ScorecardBoolean.TRUE;
+
+
+        GolfField golfField=TestUtils.insertFakeGolfField(mContext,gf_name,gf_favorite,gf_active);
+
+
+        //Verify the GolfField was inserted correctly
+        Cursor GFCursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldEntry.buildGolfFieldByIdUri(golfField.get_id()),null,null,null,null);
+        assertEquals("The quantity of retrieved golf fields records doesn't match",1, GFCursor.getCount());
+
+        TestUtils.VerifyExpectedGolfFieldQueryResult(golfField,GFCursor);
+
+        Cursor GFHcursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField.get_id()),null,null,null,null);
+        assertEquals("The quantity of retrieved golf fields holes records doesn't match",18, GFHcursor.getCount());
+
+
+        //Modify the GolfField
+        golfField.setName("Updated name");
+        golfField.setFavorite(ScorecardContract.ScorecardBoolean.TRUE);
+        golfField.setActive(ScorecardContract.ScorecardBoolean.TRUE);
+
+        assertTrue("The golf field was not updated correctly",golfField.updateGolfFieldGeneralInformation(mContext));
+
+        //Verify the update
+        GFCursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldEntry.buildGolfFieldByIdUri(golfField.get_id()),null,null,null,null);
+        assertEquals("The quantity of retrieved golf fields records doesn't match",1, GFCursor.getCount());
+
+        TestUtils.VerifyExpectedGolfFieldQueryResult(golfField,GFCursor);
+
+        GFHcursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField.get_id()),null,null,null,null);
+        assertEquals("The quantity of retrieved golf fields holes records doesn't match",18, GFHcursor.getCount());
+
+        TestUtils.deleteAllRecords(mContext);
+
+
+    }
+
+
+
+    public void testUpdateGolfField_INVALID_ID() {
+
+        TestUtils.deleteAllRecords(mContext);
+
+
+
+        String gf_name="Fake Golf name";
+        ScorecardContract.ScorecardBoolean gf_favorite= ScorecardContract.ScorecardBoolean.FALSE;
+        ScorecardContract.ScorecardBoolean gf_active= ScorecardContract.ScorecardBoolean.TRUE;
+
+
+        GolfField golfField=TestUtils.insertFakeGolfField(mContext,gf_name,gf_favorite,gf_active);
+
+
+        //Verify the GolfField was inserted correctly
+        Cursor GFCursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldEntry.buildGolfFieldByIdUri(golfField.get_id()),null,null,null,null);
+        assertEquals("The quantity of retrieved golf fields records doesn't match",1, GFCursor.getCount());
+
+        TestUtils.VerifyExpectedGolfFieldQueryResult(golfField,GFCursor);
+
+        Cursor GFHcursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField.get_id()),null,null,null,null);
+        assertEquals("The quantity of retrieved golf fields holes records doesn't match",18, GFHcursor.getCount());
+
+
+        //Modify the GolfField
+        long SavedGF_id=golfField.get_id();//the correct id id is stored to fix the problem
+        golfField.set_id(GolfField.INVALID_GOLF_FIELD_ID);
+        golfField.setName("Updated name");
+        golfField.setFavorite(ScorecardContract.ScorecardBoolean.TRUE);
+        golfField.setActive(ScorecardContract.ScorecardBoolean.TRUE);
+
+        assertFalse("The golf field was updated correctly and it shouldn't be",golfField.updateGolfFieldGeneralInformation(mContext));
+
+
+        //Fix the golffieldID
+        golfField.set_id(SavedGF_id);
+        golfField.setName("Updated name");
+        golfField.setFavorite(ScorecardContract.ScorecardBoolean.TRUE);
+        golfField.setActive(ScorecardContract.ScorecardBoolean.TRUE);
+
+        assertTrue("The golf field was not updated correctly",golfField.updateGolfFieldGeneralInformation(mContext));
+
+        //Verify the update
+        GFCursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldEntry.buildGolfFieldByIdUri(golfField.get_id()),null,null,null,null);
+        assertEquals("The quantity of retrieved golf fields records doesn't match",1, GFCursor.getCount());
+
+        TestUtils.VerifyExpectedGolfFieldQueryResult(golfField,GFCursor);
+
+        GFHcursor=mContext.getContentResolver().query(ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldsHolesByFieldUri(golfField.get_id()),null,null,null,null);
+        assertEquals("The quantity of retrieved golf fields holes records doesn't match",18, GFHcursor.getCount());
+
+        TestUtils.deleteAllRecords(mContext);
+
+
+    }
+
+
+    //TODO ADD NOT_SAVED_ID, INVALID NAME, INVALID FAVORITE and INVALID ACTIVE
 
 
 

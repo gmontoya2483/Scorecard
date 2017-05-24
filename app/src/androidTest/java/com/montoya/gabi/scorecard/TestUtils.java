@@ -3,15 +3,16 @@ package com.montoya.gabi.scorecard;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.util.Log;
 
 import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
+import com.montoya.gabi.scorecard.model.Hole;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.model.data.ScorecardDbHelper;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertFalse;
+import static com.montoya.gabi.scorecard.model.GolfField.NOT_SAVED_GOLF_FIELD_ID;
+import static junit.framework.Assert.*;
+
 
 /**
  * Created by montoya on 11.04.2017.
@@ -123,8 +124,108 @@ public class TestUtils {
 
 
 
+    public static GolfField insertFakeGolfField(Context context, String golfFieldName, ScorecardContract.ScorecardBoolean isFavorite, ScorecardContract.ScorecardBoolean isActive) {
 
 
+        String gf_name=golfFieldName;
+        ScorecardContract.ScorecardBoolean gf_favorite= isFavorite;
+        ScorecardContract.ScorecardBoolean gf_active= isActive;
+
+        GolfField golfField=new GolfField(gf_name,gf_favorite,gf_active);
+
+        /*
+        * Add the Holes
+         */
+
+        //Hole 1:
+        GolfFieldHole hole_1=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_1,120, Hole.Par.PAR_3);
+        golfField.AddHole(hole_1);
+
+        //Hole 2:
+        GolfFieldHole hole_2=new GolfFieldHole(235L, Hole.HoleNumber.HOLE_2,220, Hole.Par.PAR_4);
+        golfField.AddHole(hole_2);
+
+        //Hole 3:
+        GolfFieldHole hole_3=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_3,250, Hole.Par.PAR_4);
+        golfField.AddHole(hole_3);
+
+
+        //Hole 4:
+        GolfFieldHole hole_4=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_4,350, Hole.Par.PAR_5);
+        golfField.AddHole(hole_4);
+
+
+        //Hole 5:
+        GolfFieldHole hole_5=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_5,370, Hole.Par.PAR_5);
+        golfField.AddHole(hole_5);
+
+
+        //Hole 6:
+        GolfFieldHole hole_6=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_6,265, Hole.Par.PAR_4);
+        golfField.AddHole(hole_6);
+
+
+        //Hole 7:
+        GolfFieldHole hole_7=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_7,265, Hole.Par.PAR_4);
+        golfField.AddHole(hole_7);
+
+        //Hole 8:
+        GolfFieldHole hole_8=new GolfFieldHole(235L, Hole.HoleNumber.HOLE_8,220, Hole.Par.PAR_4);
+        golfField.AddHole(hole_8);
+
+        //Hole 9:
+        GolfFieldHole hole_9=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_9,250, Hole.Par.PAR_4);
+        golfField.AddHole(hole_9);
+
+        //Hole 10:
+        GolfFieldHole hole_10=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_10,350, Hole.Par.PAR_5);
+        golfField.AddHole(hole_10);
+
+        //Hole 11:
+        GolfFieldHole hole_11=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_11,250, Hole.Par.PAR_4);
+        golfField.AddHole(hole_11);
+
+        //Hole 12:
+        GolfFieldHole hole_12=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_12,250, Hole.Par.PAR_4);
+        golfField.AddHole(hole_12);
+
+        //Hole 13:
+        GolfFieldHole hole_13=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_13,350, Hole.Par.PAR_5);
+        golfField.AddHole(hole_13);
+
+        //Hole 14:
+        GolfFieldHole hole_14=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_14,250, Hole.Par.PAR_4);
+        golfField.AddHole(hole_14);
+
+        //Hole 15:
+        GolfFieldHole hole_15=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_15,350, Hole.Par.PAR_5);
+        golfField.AddHole(hole_15);
+
+
+        //Hole 16:
+        GolfFieldHole hole_16=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_16,250, Hole.Par.PAR_4);
+        golfField.AddHole(hole_16);
+
+
+        //Hole 17:
+        GolfFieldHole hole_17=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_17,250, Hole.Par.PAR_4);
+        golfField.AddHole(hole_17);
+
+        //Hole 18:
+        GolfFieldHole hole_18=new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_18,350, Hole.Par.PAR_5);
+        golfField.AddHole(hole_18);
+
+
+        boolean insertedOK=golfField.InsertGolfField(context);
+
+        if (insertedOK){
+            return golfField;
+        }else{
+            assertTrue("Golf field was not inserted correctly",insertedOK);
+            return null;
+        }
+
+    }
 
 
 }
