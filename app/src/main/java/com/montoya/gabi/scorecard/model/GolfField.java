@@ -937,6 +937,35 @@ public class GolfField {
 
 
 
+    //Compares if two golf fields are equals (just id, nome, active and favorite)
+    public static boolean areEqual(GolfField golfField_1, GolfField golfField_2){
+        Boolean equals=true;
+
+        //Verify the id
+        if (golfField_1.get_id()!=golfField_2.get_id()){
+            equals=false;
+        }
+
+        //Verify the name
+        if (!golfField_1.getName().equals(golfField_2.getName())){
+            equals=false;
+        }
+
+        //Verify favorite
+        if (golfField_1.getFavorite()!=golfField_2.getFavorite()){
+            equals=false;
+        }
+
+        //Verify Active
+        if (golfField_1.getActive()!=golfField_2.getActive()){
+            equals=false;
+        }
+
+        return equals;
+    }
+
+
+
 
 
 
