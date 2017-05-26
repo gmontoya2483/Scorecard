@@ -240,10 +240,15 @@ public class GolfField {
     }
 
 
+    public  GolfFieldHole[] getAllHoles(){
+        return holes;
+    }
 
+    public  GolfFieldHole getHole(int index){
+        return holes[index];
+    }
 
-
-    public GolfFieldHole getHole (Hole.HoleNumber holeNumber){
+   public GolfFieldHole getHole (Hole.HoleNumber holeNumber){
         GolfFieldHole hole;
         switch (holeNumber){
             case HOLE_1:
@@ -539,7 +544,7 @@ public class GolfField {
             if (verifyGolfField()){
 
 
-                if (updateGolfField(context)==1){
+                if (updateGolfField(context,getGolfFieldValues())==1){
                     saved_gf_OK=true;
                 }else{
                     saved_gf_OK=false;
@@ -560,14 +565,13 @@ public class GolfField {
     }
 
 
-    private int updateGolfField (Context context){
+    private int updateGolfField (Context context, ContentValues values){
         int updatedRows;
-        ContentValues updateValues=this.getGolfFieldValues();
+
         String selectionClause=ScorecardContract.GolfFieldEntry._ID+"= ?";
         String[] selectionArgs={String.valueOf(_id)};
         Uri allGolfFieldUri=ScorecardContract.GolfFieldEntry.buildAllGolfFieldsUri();
-
-        updatedRows= context.getContentResolver().update(allGolfFieldUri,updateValues,selectionClause,selectionArgs);
+        updatedRows= context.getContentResolver().update(allGolfFieldUri,values,selectionClause,selectionArgs);
 
         return updatedRows;
     }
@@ -676,7 +680,7 @@ public class GolfField {
     //Name is not null
     // Favorite flag have either 1 -> ScorecardBoolean.TRUE or 0 -> ScorecardBoolean.FALSE
     // Active flag have either 1 -> ScorecardBoolean.TRUE or 0 -> ScorecardBoolean.FALSE
-    private boolean verifyGolfField (){
+    public boolean verifyGolfField (){
 
         boolean golfField_OK=true;
 
@@ -705,7 +709,7 @@ public class GolfField {
     //That all holes has a length bigger than 0
     //That all PAR values are OK (PAR_3 or PAR_4 or PAR_5)
     //That all the holes have the correct number (hole(0)-> HOLE_1..... hole(17) -> HOLE_18
-    private boolean verifyHoles(){
+    public boolean verifyHoles(){
         boolean holes_OK=true;
 
         for (int i=0; i<18;i++){
@@ -962,6 +966,30 @@ public class GolfField {
         }
 
         return equals;
+    }
+
+
+    public boolean changeFavoriteStatus(Context context){
+
+        boolean changed_favorite_OK;
+        ContentValues values=new ContentValues();
+
+        if (this.favorite==1){
+            values.put(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE,0);
+
+        }else{
+            values.put(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_FAVORITE,1);
+        }
+
+        if (updateGolfField(context,values)==1){
+            changed_favorite_OK=true;
+        }else{
+            changed_favorite_OK=false;
+        }
+
+
+        return changed_favorite_OK;
+
     }
 
 

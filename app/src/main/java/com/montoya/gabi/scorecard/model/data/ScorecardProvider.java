@@ -284,6 +284,15 @@ public class ScorecardProvider extends ContentProvider{
 
                 break;
 
+            case GOLF_FIELD_HOLE:
+                rowsUpdated=mScorecardDbHelper.getWritableDatabase().update(
+                        ScorecardContract.GolfFieldHoleEntry.TABLE_NAME,
+                        values,
+                        selection,
+                        selectionArgs);
+
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);
 

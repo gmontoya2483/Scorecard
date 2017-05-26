@@ -541,16 +541,16 @@ public class ViewGolfFieldActivityFragment extends Fragment {
                         break;
 
                     case R.id.item_view_golf_field_favorite:
-                        //TODO CHANGE TO THE CORRECT FUNCTIONALITY
-                        Toast.makeText(getContext(),"Selected: favorite",Toast.LENGTH_LONG).show();
-                        getActivity().finish();
+
+                        if (mViewGolfField.changeFavoriteStatus(getContext())){
+                            getActivity().finish();
+                        }else{
+                            Toast.makeText(getContext(),R.string.golf_field_err_save,Toast.LENGTH_LONG).show();
+                        }
                         break;
 
                     case item_view_golf_field_edit:
-                        //TODO CHANGE TO THE CORRECT FUNCTIONALITY
-                        Toast.makeText(getContext(),"Selected: edit",Toast.LENGTH_LONG).show();
                         setEditMode();
-                        //getActivity().finish();
                         break;
 
                     case item_golf_field_edit_save:
@@ -575,23 +575,45 @@ public class ViewGolfFieldActivityFragment extends Fragment {
 
 
 
+
+
+
+
     private Boolean updateGolfField(){
 
         Boolean update_OK=true;
         mEditGolfField=retrieveEnteredInformation();
 
-        //Update Golf field information
-        if (!GolfField.areEqual(mViewGolfField,mEditGolfField)){
-            if (!mEditGolfField.updateGolfFieldGeneralInformation(getContext())){
-                update_OK=false;
+
+        if (mEditGolfField.verifyGolfField() && mEditGolfField.verifyHoles()){
+
+            //Update Golf field information
+            if (!GolfField.areEqual(mViewGolfField,mEditGolfField)){
+                if (!mEditGolfField.updateGolfFieldGeneralInformation(getContext())){
+                    update_OK=false;
+                }
             }
 
+            //Update the Golf Field Holes
+            if (update_OK){
+
+                for (int i=0; i<18;i++){
+
+                    if (!GolfFieldHole.areEqual(mViewGolfField.getHole(i),mEditGolfField.getHole(i))){
+                        if (!mEditGolfField.getHole(i).updateGolfFieldHoleInformation(getContext())){
+                            update_OK=false;
+                        }
+                    }
+
+                }
+            }
+
+
+        }else{
+
+            update_OK=false;
+
         }
-
-
-        //TODO Update the holes
-
-
 
         return update_OK;
 
@@ -907,25 +929,6 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         return golfField;
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

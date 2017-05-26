@@ -68,10 +68,6 @@ public class GolfFieldHole extends Hole{
     }
 
 
-
-
-
-
     public long get_id() {
         return _id;
     }
@@ -146,13 +142,72 @@ public class GolfFieldHole extends Hole{
     }
 
 
+    //Compares if two golf fields are equals (just id, nome, active and favorite)
+    public static boolean areEqual(GolfFieldHole golfFieldHole_1, GolfFieldHole golfFieldHole_2){
+        Boolean equals=true;
+
+
+        //Verify the id
+        if (golfFieldHole_1.get_id()!=golfFieldHole_2.get_id()){
+            equals=false;
+        }
+
+        //Verify the golf field id
+        if (golfFieldHole_1.getGolfField_id()!=golfFieldHole_2.getGolfField_id()){
+            equals=false;
+        }
+
+        //Verify the hole Number
+        if (golfFieldHole_1.getNumber()!=golfFieldHole_2.getNumber()){
+            equals=false;
+        }
+
+        //Verify the hole Par
+        if (golfFieldHole_1.getPar()!=golfFieldHole_2.getPar()){
+            equals=false;
+        }
+
+        //Verify the length
+        if (golfFieldHole_1.getLength()!=golfFieldHole_2.getLength()){
+            equals=false;
+        }
+
+        return equals;
+    }
 
 
 
+    public boolean updateGolfFieldHoleInformation (Context context){
+        boolean saved_gf_OK;
+
+        if (this._id!=GolfFieldHole.NOT_SAVED_HOLE_ID && this._id!=GolfFieldHole.INVALID_HOLE_ID){
+
+            if (updateGolfFieldHole(context)==1){
+                saved_gf_OK=true;
+            }else{
+                saved_gf_OK=false;
+            }
+
+        }else{
+            saved_gf_OK=false;
+
+        }
+        return saved_gf_OK;
+
+    }
 
 
+    private int updateGolfFieldHole (Context context){
+        int updatedRows;
+        ContentValues updateValues=this.getGolfFieldHoleValues();
+        String selectionClause=ScorecardContract.GolfFieldHoleEntry._ID+"= ?";
+        String[] selectionArgs={String.valueOf(_id)};
+        Uri allGolfFieldHoleUri=ScorecardContract.GolfFieldHoleEntry.buildAllGolfFieldHoleUri();
 
+        updatedRows= context.getContentResolver().update(allGolfFieldHoleUri,updateValues,selectionClause,selectionArgs);
 
+        return updatedRows;
+    }
 
 
 
