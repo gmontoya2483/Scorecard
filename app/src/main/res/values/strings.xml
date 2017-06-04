@@ -119,4 +119,22 @@
 
 
 
+    <!-- Player Fragment -->
+    <string name="player_handicap_empty">Current handicap</string>
+    <string name="player_save_button">save</string>
+
+
+    <string name="player_err_saving_handicap">There was an error while trying to save the current Handicap. Please verify the entered value and try to save it again.</string>
+    <string name="player_save_confirmation">The entered Handicap was successful saved. Current Handicap is %1$d</string>
+
+
+    <!--A11y -->
+    <string name="a11y_current_handicap_empty">Enter your current handicap</string>
+    <string name="a11y_save_button">save</string>
+    <string name="a11y_current_handicap"> Current handicap %1$d</string>
+    <string name="a11y_add_a_new_golf_field">Add a new golf field</string>
+    <string name="a11y_golf_field_description">Golf field %1$s, %2$s out, %3$s in, %4$s total, par %5$d</string>
+    <string name="a11y_golf_field_description_favorite">This golf field is flagged as favorite.</string>
+
+
 </resources>

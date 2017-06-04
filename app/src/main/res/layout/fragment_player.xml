@@ -18,7 +18,7 @@
             android:layout_gravity="center_horizontal|center_vertical">
 
             <EditText
-                android:id="@+id/editText"
+                android:id="@+id/player_handicap_Edit_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -26,18 +26,20 @@
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginBottom="24dp"
                 android:layout_marginTop="24dp"
-                android:hint="Current handicap"
+                android:hint="@string/player_handicap_empty"
                 android:textAlignment="center"
+
                 />
 
             <Button
-                android:id="@+id/button2"
+                android:id="@+id/player_save_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="save"
+                android:text="@string/player_save_button"
                 android:layout_gravity="center_horizontal|center_vertical"
                 android:layout_marginBottom="24dp"
                 android:layout_marginTop="24dp"
+                android:contentDescription="@string/a11y_save_button"
                 />
 
 

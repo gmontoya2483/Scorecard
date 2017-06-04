@@ -10,7 +10,8 @@
         style="@style/Fab_Button"
         android:layout_gravity="bottom|end"
         app:fabSize="normal"
-        app:srcCompat="@drawable/ic_action_golf_fields" />
+        app:srcCompat="@drawable/ic_action_golf_fields"
+        android:contentDescription="@string/a11y_add_a_new_golf_field"/>
 
 
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
+import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +44,7 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
     }
 
     long getGolfField_idAtPosition(int position){
-        //TODO VER SI NO ES MEJOR DEVOLVER EL Objeto
+
 
         mCursor.moveToPosition(position);
         return mCursor.getLong(mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID));
@@ -63,6 +65,7 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
     public void onBindViewHolder(GolfFieldViewHolder holder, int position) {
 
         mCursor.moveToPosition(position);
+        String contentDescription;
 
         int indexGFId=mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID);
         int indexName=mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME);
@@ -81,32 +84,54 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
 
         if (golfField.loadHolesFromDB(mContext)){
 
-            holder.mGolfFieldIn.setText(String.valueOf(golfField.getIn_length()));
-            holder.mGolfFieldOut.setText(String.valueOf(golfField.getOut_length()));
-            holder.mGolfFieldTotal.setText(String.valueOf(golfField.getTotal_length()));
+            holder.mGolfFieldIn.setText(ScorecardUtils.getFormattedLength(mContext,golfField.getIn_length()));
+            holder.mGolfFieldOut.setText(ScorecardUtils.getFormattedLength(mContext,golfField.getOut_length()));
+            holder.mGolfFieldTotal.setText(ScorecardUtils.getFormattedLength(mContext,golfField.getTotal_length()));
             holder.mGolfFieldPar.setText(String.valueOf(golfField.getTotal_par()));
             if (golfField.getFavorite()== ScorecardContract.ScorecardBoolean.TRUE){
                 holder.mGolfFieldFavorite.setImageResource(R.drawable.ic_action_favorite_color);
             }else{
-                //holder.mGolfFieldFavorite.setImageResource(R.drawable.ic_action_favorite);
+
                 holder.mGolfFieldFavorite.setVisibility(View.GONE);
             }
 
-            //TODO: format the length and convert from m to yards
+            holder.mGolfFieldCard.setContentDescription(buildContentDescription(golfField));
+
 
         }else {
 
-            String error="-"; //TODO add a string resourse
+            String error="-";
 
             holder.mGolfFieldIn.setText(error);
             holder.mGolfFieldOut.setText(error);
             holder.mGolfFieldTotal.setText(error);
             holder.mGolfFieldPar.setText(error);
             holder.mGolfFieldFavorite.setImageResource(R.drawable.ic_action_favorite);
+
         }
 
 
     }
+
+
+    private String buildContentDescription(GolfField golfField){
+
+        String description=String.format(mContext.getString(R.string.a11y_golf_field_description),
+                golfField.getName(),
+                ScorecardUtils.getFormattedLength(mContext,golfField.getOut_length()),
+                ScorecardUtils.getFormattedLength(mContext,golfField.getIn_length()),
+                ScorecardUtils.getFormattedLength(mContext,golfField.getTotal_length()),
+                golfField.getTotal_par()
+                );
+
+
+        if (golfField.getFavorite()== ScorecardContract.ScorecardBoolean.TRUE){
+            description= description+ mContext.getString(R.string.a11y_golf_field_description_favorite);
+        }
+
+        return description;
+    }
+
 
     @Override
     public int getItemCount() {
@@ -140,6 +165,9 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
         @BindView(R.id.img_golf_field_favorite)
         ImageView mGolfFieldFavorite;
 
+        @BindView(R.id.card_golf_field)
+        CardView mGolfFieldCard;
+
 
 
 
@@ -167,19 +195,6 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
 
 
 
-                    /*
-                    mCursor.moveToPosition(getAdapterPosition());
-                    long id=mCursor.getLong(mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID));
-
-                    Bundle args=new Bundle();
-                    args.putString(GolfFieldActivityFragment.ACTION_LABEL,GolfFieldActivityFragment.ACTION_VIEW);
-                    args.putLong(GolfFieldActivityFragment.GOLF_FIELD_ID_LABEL,id);
-
-                    Intent newGolfFieldIntent=new Intent(mContext,GolfFieldActivity.class);
-                    newGolfFieldIntent.putExtras(args);
-
-                    mContext.startActivity(newGolfFieldIntent);
-                    */
 
                 }
             });

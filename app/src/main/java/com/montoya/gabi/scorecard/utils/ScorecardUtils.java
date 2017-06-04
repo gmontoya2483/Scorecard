@@ -132,6 +132,14 @@ public class ScorecardUtils {
     }
 
 
+    public static int RetrieveIntFromSharedPreferences(Context context,String key, int defaultValue){
+
+        SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getInt(key,defaultValue);
+
+    }
+
+
     public static void AddStringToSharedPreferences(Context context,String key, String value){
 
         SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(context);

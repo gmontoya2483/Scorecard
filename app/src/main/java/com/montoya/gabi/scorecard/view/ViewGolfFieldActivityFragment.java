@@ -652,6 +652,25 @@ public class ViewGolfFieldActivityFragment extends Fragment {
 
     }
 
+    private String buildResumeCardContentDescription(GolfField golfField){
+
+        String description=String.format(getContext().getString(R.string.a11y_golf_field_description),
+                golfField.getName(),
+                ScorecardUtils.getFormattedLength(getContext(),golfField.getOut_length()),
+                ScorecardUtils.getFormattedLength(getContext(),golfField.getIn_length()),
+                ScorecardUtils.getFormattedLength(getContext(),golfField.getTotal_length()),
+                golfField.getTotal_par()
+        );
+
+
+        if (golfField.getFavorite()== ScorecardContract.ScorecardBoolean.TRUE){
+            description= description+ getContext().getString(R.string.a11y_golf_field_description_favorite);
+        }
+
+        return description;
+    }
+
+
 
     private void retrieveGolfFieldData(){
 
@@ -690,6 +709,9 @@ public class ViewGolfFieldActivityFragment extends Fragment {
             //set the name
             mGolfFieldNameEditTextView.setText(mViewGolfField.getName());
 
+
+            //Set the a11y information for the Resume Tab
+            mGolfFieldResumeCardView.setContentDescription(buildResumeCardContentDescription(mViewGolfField));
 
 
             //Set the length of the OUT holes (1-9)
