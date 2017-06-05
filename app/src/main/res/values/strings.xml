@@ -136,5 +136,8 @@
     <string name="a11y_golf_field_description">Golf field %1$s, %2$s out, %3$s in, %4$s total, par %5$d</string>
     <string name="a11y_golf_field_description_favorite">This golf field is flagged as favorite.</string>
 
+    <!--AdMob -->
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+
 
 </resources>
