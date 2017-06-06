@@ -69,13 +69,13 @@
         </activity>
 
 
-        <!-- Activity requiered to show ad overlays.
+        <!-- Activity requiered to show ad overlays. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
-        <activity android:name=".BannerActivity"></activity>
 
-        -->
+
+
 
 
 

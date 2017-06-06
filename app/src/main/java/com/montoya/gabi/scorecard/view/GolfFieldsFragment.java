@@ -17,7 +17,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.montoya.gabi.scorecard.R;
+import com.montoya.gabi.scorecard.firebase.AdMobListener;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 
 import butterknife.BindView;
@@ -58,6 +61,10 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
 
     @BindView(R.id.error_golf_fields)
     TextView mError;
+
+    @BindView(R.id.adView)
+    AdView mAdView;
+
 
 
     //Bind Events
@@ -126,7 +133,20 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
             getActivity().getSupportLoaderManager().initLoader(ALL_GOLF_FIELDS_LOADER, null, this);
         }
 
+
+        showAdBanner();
+
         return mRootView;
+    }
+
+
+    private void showAdBanner(){
+
+        mAdView.setAdListener(new AdMobListener(getContext()));
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
+
     }
 
 
@@ -234,6 +254,9 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
         mAdapter.setCursor(null);
 
     }
+
+
+
 
 
 }

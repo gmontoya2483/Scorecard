@@ -1,7 +1,6 @@
 package com.montoya.gabi.scorecard.view;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,12 +12,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
 import com.montoya.gabi.scorecard.R;
+import com.montoya.gabi.scorecard.firebase.AdMobListener;
 import com.montoya.gabi.scorecard.model.Player;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,6 +40,10 @@ public class PlayerFragment extends Fragment {
 
     @BindView(R.id.player_save_button)
     Button mPlayerSaveButton;
+
+
+    @BindView(R.id.adView)
+    AdView mAdView;
 
 
     //Bind Events
@@ -84,6 +91,9 @@ public class PlayerFragment extends Fragment {
 
         mPlayer=new Player();
         setupCurrentHandicap();
+
+
+        showAdBanner();
 
         return mRootView;
     }
@@ -159,6 +169,17 @@ public class PlayerFragment extends Fragment {
         }
 
         mPlayerHandicapTextView.setSelection(mPlayerHandicapTextView.length(),mPlayerHandicapTextView.length()); //Move the cursor to the last position
+
+    }
+
+
+
+    private void showAdBanner(){
+
+        mAdView.setAdListener(new AdMobListener(getContext()));
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
+
 
     }
 

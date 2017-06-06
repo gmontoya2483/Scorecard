@@ -137,7 +137,8 @@
     <string name="a11y_golf_field_description_favorite">This golf field is flagged as favorite.</string>
 
     <!--AdMob -->
-    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id_handicap">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="banner_ad_unit_id_golf_fields">ca-app-pub-3940256099942544/6300978111</string>
 
 
 </resources>

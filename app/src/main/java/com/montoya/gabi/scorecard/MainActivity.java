@@ -14,8 +14,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.google.android.gms.ads.AdView;
-import com.montoya.gabi.scorecard.firebase.AdMobListener;
 import com.montoya.gabi.scorecard.firebase.UserAuthentication;
 import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
@@ -33,11 +31,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     //Bind Views
-    //@BindView(R.id.fab) FloatingActionButton fab;
     @BindView(R.id.toolbar) Toolbar toolbar;
 
-    @BindView(R.id.adView)
-    AdView mAdView;
+
 
 
     private UserAuthentication mUserAuthentication;
@@ -85,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mUserAuthentication.initializeAuthenticationStateListener();
 
 
-        //
+
+
 
         //set the navigation to the last selected option  when comming back
         setNavigationInPreviousStatus();
@@ -296,10 +293,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-
-    private void showBannerAd(){
-        mAdView.setAdListener(new AdMobListener(getApplicationContext()));
-    }
 
 
     @Override
