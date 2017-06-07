@@ -22,6 +22,7 @@ import com.montoya.gabi.scorecard.view.FragmentCamera;
 import com.montoya.gabi.scorecard.view.FragmentGaleria;
 import com.montoya.gabi.scorecard.view.GolfFieldsFragment;
 import com.montoya.gabi.scorecard.view.PlayerFragment;
+import com.montoya.gabi.scorecard.view.SettingsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -227,10 +228,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction=true;
 
         } else if (id == R.id.nav_settings) {
-
-
-
-
+            fragment=new SettingsFragment();
+            fragmentTransaction=true;
 
         }
 

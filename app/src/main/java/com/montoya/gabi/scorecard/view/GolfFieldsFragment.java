@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.firebase.AdMobListener;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
@@ -49,6 +50,10 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
     private String mType;
 
 
+    private InterstitialAd mInterstitial;
+    private boolean adError=false;
+
+
 
     //Bind Views
     @BindView(R.id.fab_new_golf_field)
@@ -71,24 +76,15 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
     @OnClick(R.id.fab_new_golf_field)
     public void click(View view){
 
-        /*
-        Bundle args=new Bundle();
+        if (adError){
+            Intent newGolfFieldIntent=new Intent(getContext(),NewGolFieldActivity.class);
+            startActivity(newGolfFieldIntent);
 
-        args.putString(GolfFieldActivityFragment.ACTION_LABEL,GolfFieldActivityFragment.ACTION_NEW);
-
-        Intent newGolfFieldIntent=new Intent(getContext(),GolfFieldActivity.class);
-        newGolfFieldIntent.putExtras(args);
-
-        startActivity(newGolfFieldIntent);
-        */
-
-        Intent newGolfFieldIntent=new Intent(getContext(),NewGolFieldActivity.class);
-        startActivity(newGolfFieldIntent);
+        }else if (mInterstitial.isLoaded()){
+            mInterstitial.show();
+        }
 
     }
-
-
-
 
     private OnFragmentInteractionListener mListener;
 
@@ -115,7 +111,6 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
         mRecyclerViewGolfFields.setLayoutManager(mLayoutManager);
 
 
-        //mEmptyView=getActivity().findViewById(R.id.error_golf_fields);
 
         // specify an adapter (see also next example)
         mAdapter = new GolfFieldsAdapter(getContext());
@@ -131,6 +126,38 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
             mFabNewGolfField.setVisibility(View.GONE);
         }else{
             getActivity().getSupportLoaderManager().initLoader(ALL_GOLF_FIELDS_LOADER, null, this);
+            mFabNewGolfField.setVisibility(View.GONE);
+
+            adError=false;
+            mInterstitial=new InterstitialAd(getContext());
+            mInterstitial.setAdUnitId(getString(R.string.interstitial_ad_unit_id_new_golf_field));
+            mInterstitial.setAdListener(new AdMobListener(getContext()){
+
+                @Override
+                public void onAdFailedToLoad(int i) {
+                    super.onAdFailedToLoad(i);
+                    mFabNewGolfField.setVisibility(View.VISIBLE);
+                    adError=true;
+
+                }
+
+                @Override
+                public void onAdLoaded() {
+                    super.onAdLoaded();
+                    mFabNewGolfField.setVisibility(View.VISIBLE);
+            }
+
+                @Override
+                public void onAdClosed() {
+                    super.onAdClosed();
+                    Intent newGolfFieldIntent=new Intent(getContext(),NewGolFieldActivity.class);
+                    startActivity(newGolfFieldIntent);
+                }
+            });
+
+            AdRequest adRequest=new AdRequest.Builder().build();
+            mInterstitial.loadAd(adRequest);
+
         }
 
 
@@ -165,7 +192,7 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -204,7 +231,6 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 

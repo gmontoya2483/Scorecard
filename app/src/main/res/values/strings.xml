@@ -109,14 +109,12 @@
     <string name="view_golf_field_invalid_id">Invalid golf field was selected</string>
 
 
-
     <!-- Settings Strings -->
 
     <string name="settings_meters_description">meters</string>
     <string name="settings_yards_description">yards</string>
     <string name="title_activity_new_gol_field">New GolField</string>
     <string name="title_activity_view_golf_field">ViewGolfFieldActivity</string>
-
 
 
     <!-- Player Fragment -->
@@ -139,6 +137,8 @@
     <!--AdMob -->
     <string name="banner_ad_unit_id_handicap">ca-app-pub-3940256099942544/6300978111</string>
     <string name="banner_ad_unit_id_golf_fields">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="interstitial_ad_unit_id_new_golf_field">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="ad_error_load">There was an error while trying to load the Ad: %1$s</string>
 
 
 </resources>
