@@ -109,12 +109,14 @@
     <string name="view_golf_field_invalid_id">Invalid golf field was selected</string>
 
 
-    <!-- Settings Strings -->
-
-    <string name="settings_meters_description">meters</string>
-    <string name="settings_yards_description">yards</string>
-    <string name="title_activity_new_gol_field">New GolField</string>
+    <!-- Title Strings -->
+   <string name="title_activity_new_gol_field">New GolField</string>
     <string name="title_activity_view_golf_field">ViewGolfFieldActivity</string>
+
+    <!-- Setting Fragment -->
+    <string name="settings_unit_length_label">Unit of length</string>
+    <string name="settings_meters_description">Meters</string>
+    <string name="settings_yards_description">Yards</string>
 
 
     <!-- Player Fragment -->
@@ -124,6 +126,9 @@
 
     <string name="player_err_saving_handicap">There was an error while trying to save the current Handicap. Please verify the entered value and try to save it again.</string>
     <string name="player_save_confirmation">The entered Handicap was successful saved. Current Handicap is %1$d</string>
+
+
+
 
 
     <!--A11y -->
