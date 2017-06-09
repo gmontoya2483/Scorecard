@@ -196,6 +196,7 @@ public class ScorecardUtils {
     }
 
 
+
     public static int convertParToIndex(GolfFieldHole hole){
         int index=0;
 
@@ -217,6 +218,33 @@ public class ScorecardUtils {
         return index;
 
     }
+
+
+    public static int convertUnitLengthToIndex (String unitLength){
+        int index;
+
+        switch (unitLength){
+            case ScorecardUtils.SHARED_UNIT_LENGTH_METERS:
+                index=0;
+                break;
+
+            case ScorecardUtils.SHARED_UNIT_LENGTH_YARDS:
+                index=1;
+                break;
+
+            default:
+                if (ScorecardUtils.SHARED_UNIT_LENGTH_DEFAULT==ScorecardUtils.SHARED_UNIT_LENGTH_METERS){
+                    index=0;
+                }else{
+                    index=1;
+                }
+
+                break;
+        }
+
+        return index;
+    }
+
 
 
 

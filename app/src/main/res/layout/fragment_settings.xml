@@ -13,20 +13,24 @@
             android:layout_height="wrap_content"
             android:padding="16dp"
             android:orientation="vertical"
-            android:layout_margin="16dp"
-            android:layout_gravity="center_horizontal|center_vertical">
+            android:layout_gravity="center_horizontal|center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="14dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
+                android:layout_gravity="start"
                 android:text="@string/settings_unit_length_label"/>
 
             <Spinner
-                android:id="@+id/setting_length_spinner"
+                android:id="@+id/setting_unit_length_spinner"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"/>
+                android:layout_gravity="start"/>
 
 
         </LinearLayout>

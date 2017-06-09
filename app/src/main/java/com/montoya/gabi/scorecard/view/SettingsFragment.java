@@ -4,12 +4,22 @@ package com.montoya.gabi.scorecard.view;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.google.android.gms.ads.AdView;
 import com.montoya.gabi.scorecard.R;
+import com.montoya.gabi.scorecard.utils.ScorecardUtils;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -20,6 +30,17 @@ import com.montoya.gabi.scorecard.R;
 
 
 public class SettingsFragment extends Fragment {
+
+
+    private View mRootView;
+
+    @BindView(R.id.setting_unit_length_spinner)
+    Spinner mUnitLengthSpinner;
+
+    @BindView(R.id.adView)
+    AdView mAdView;
+
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -33,7 +54,40 @@ public class SettingsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false);
+        mRootView =inflater.inflate(R.layout.fragment_settings, container, false);
+
+        //Bind the View
+        ButterKnife.bind(this,mRootView);
+
+        //Set the adapter values
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),R.array.unit_length_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mUnitLengthSpinner.setAdapter(adapter);
+
+        //set the current UnitOfLength
+        this.setCurrentUnitOfLength();
+
+
+        mUnitLengthSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                //TODO cambiar por guardar el valor
+                Toast.makeText(getContext(), "Selected position -> "+ position, Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
+
+
+        return mRootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -62,6 +116,23 @@ public class SettingsFragment extends Fragment {
     }
 
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+    }
+
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+
+        super.onViewStateRestored(savedInstanceState);
+        setCurrentUnitOfLength();
+
+
+    }
+
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -75,6 +146,15 @@ public class SettingsFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+
+    private void setCurrentUnitOfLength(){
+
+        String currentLengthUnitCode=ScorecardUtils.getCurrentLengthUnit(getContext());
+        mUnitLengthSpinner.setSelection(ScorecardUtils.convertUnitLengthToIndex(currentLengthUnitCode));
+
     }
 
 }
