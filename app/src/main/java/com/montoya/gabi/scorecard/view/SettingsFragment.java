@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdView;
 import com.montoya.gabi.scorecard.R;
+import com.montoya.gabi.scorecard.model.Scorecard;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 import butterknife.BindView;
@@ -33,6 +34,7 @@ public class SettingsFragment extends Fragment {
 
 
     private View mRootView;
+    private String mCurrentUnitLength;
 
     @BindView(R.id.setting_unit_length_spinner)
     Spinner mUnitLengthSpinner;
@@ -72,8 +74,13 @@ public class SettingsFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                //TODO cambiar por guardar el valor
-                Toast.makeText(getContext(), "Selected position -> "+ position, Toast.LENGTH_SHORT).show();
+                if (!mCurrentUnitLength.equals(ScorecardUtils.convertIndexToUnitLength(position))){
+
+                    ScorecardUtils.setCurrentLengthUnit(getContext(),ScorecardUtils.convertIndexToUnitLength(position));
+
+                }
+
+
 
             }
 
@@ -152,8 +159,8 @@ public class SettingsFragment extends Fragment {
 
     private void setCurrentUnitOfLength(){
 
-        String currentLengthUnitCode=ScorecardUtils.getCurrentLengthUnit(getContext());
-        mUnitLengthSpinner.setSelection(ScorecardUtils.convertUnitLengthToIndex(currentLengthUnitCode));
+        mCurrentUnitLength=ScorecardUtils.getCurrentLengthUnit(getContext());
+        mUnitLengthSpinner.setSelection(ScorecardUtils.convertUnitLengthToIndex(mCurrentUnitLength));
 
     }
 

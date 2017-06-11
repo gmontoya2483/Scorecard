@@ -83,6 +83,8 @@ public class ScorecardUtils {
     }
 
 
+
+
     public static void setCurrentLengthUnit (Context context, String sharedUnitLength){
         AddStringToSharedPreferences(context,SHARED_UNIT_LENGTH_KEY,sharedUnitLength);
     }
@@ -193,6 +195,25 @@ public class ScorecardUtils {
         }
 
         return par;
+    }
+
+
+    public static String convertIndexToUnitLength(int index){
+        String UnitLength;
+        switch(index){
+            case 0:
+                UnitLength= SHARED_UNIT_LENGTH_METERS;
+                break;
+            case 1:
+                UnitLength= SHARED_UNIT_LENGTH_YARDS;
+                break;
+            default:
+                UnitLength= SHARED_UNIT_LENGTH_DEFAULT;
+                break;
+        }
+
+
+        return UnitLength;
     }
 
 
