@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.GolfField;
+import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 public class ViewGolfFieldActivity extends AppCompatActivity {
 
@@ -88,12 +89,6 @@ public class ViewGolfFieldActivity extends AppCompatActivity {
         }
 
     }
-
-
-
-
-
-
 
 
 

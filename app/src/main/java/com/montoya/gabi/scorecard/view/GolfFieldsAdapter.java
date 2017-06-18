@@ -190,6 +190,7 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
 
                     Intent viewGolfFieldIntent=new Intent(mContext,ViewGolfFieldActivity.class);
                     viewGolfFieldIntent.putExtras(args);
+                    ScorecardUtils.AddStringToSharedPreferences(mContext,ViewGolfFieldActivityFragment.CURRENT_MODE_KEY,ViewGolfFieldActivityFragment.CURRENT_MODE_VIEW);
 
                     mContext.startActivity(viewGolfFieldIntent);
 

@@ -1,5 +1,6 @@
 package com.montoya.gabi.scorecard.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -36,10 +37,16 @@ import static com.montoya.gabi.scorecard.R.id.item_view_golf_field_edit;
  */
 public class ViewGolfFieldActivityFragment extends Fragment {
 
+    public static String CURRENT_MODE_KEY="current_mode";
+    public static String CURRENT_MODE_EDIT="mode_edit";
+    public static String CURRENT_MODE_VIEW="mode_view";
+
 
     View mRootView;
     GolfField mViewGolfField;
     GolfField mEditGolfField;
+
+
 
     //bundle information
     public static final String GOLF_FIELD_ID_LABEL="golf_field_id_label";
@@ -396,7 +403,13 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         if(mGolfField_id!=GolfField.INVALID_GOLF_FIELD_ID){
 
             retrieveGolfFieldData();
-            setViewMode();;
+
+            if (ScorecardUtils.RetrieveStringFromSharedPreferences(getContext(),CURRENT_MODE_KEY,CURRENT_MODE_VIEW).equals(CURRENT_MODE_EDIT)){
+                setEditMode();
+            }else{
+                setViewMode();
+            }
+
 
         }else{
             Toast.makeText(getContext(),R.string.golf_field_err_retrieve_golf_field,Toast.LENGTH_LONG).show();
@@ -424,6 +437,8 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         //set the fields as enabled=false
         setFieldsEnabled(false);
 
+
+
     }
 
 
@@ -444,6 +459,8 @@ public class ViewGolfFieldActivityFragment extends Fragment {
 
         //set the fields as enabled=true
         setFieldsEnabled(true);
+
+
 
 
 
@@ -550,6 +567,7 @@ public class ViewGolfFieldActivityFragment extends Fragment {
                         break;
 
                     case item_view_golf_field_edit:
+                        ScorecardUtils.AddStringToSharedPreferences(getContext(),CURRENT_MODE_KEY,CURRENT_MODE_EDIT);
                         setEditMode();
                         break;
 
@@ -951,7 +969,6 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         return golfField;
 
     }
-
 
 
 }
