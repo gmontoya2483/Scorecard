@@ -90,7 +90,7 @@
     <string name="golf_field_text_hole_17">Hole 17</string>
     <string name="golf_field_text_hole_18">Hole 18</string>
 
-
+    <string name="golf_field_new_scorecard">New Scorecard</string>
     <string name="golf_field_save">Save</string>
     <string name="golf_field_edit">Edit</string>
     <string name="golf_field_delete">Delete</string>

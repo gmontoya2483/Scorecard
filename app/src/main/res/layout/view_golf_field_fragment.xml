@@ -82,7 +82,11 @@
             </LinearLayout>
         </TabHost>
 
+
+
+
     </android.support.v4.widget.NestedScrollView>
+
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/nav_gol_field_view"
@@ -92,6 +96,7 @@
         android:background="@color/windowBackground"
         android:elevation="6dp">
     </android.support.design.widget.BottomNavigationView>
+
 
 
 

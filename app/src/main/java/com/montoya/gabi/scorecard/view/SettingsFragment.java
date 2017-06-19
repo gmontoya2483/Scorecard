@@ -12,11 +12,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
-import com.google.android.gms.ads.AdView;
 import com.montoya.gabi.scorecard.R;
-import com.montoya.gabi.scorecard.model.Scorecard;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 import butterknife.BindView;
@@ -39,8 +36,6 @@ public class SettingsFragment extends Fragment {
     @BindView(R.id.setting_unit_length_spinner)
     Spinner mUnitLengthSpinner;
 
-    @BindView(R.id.adView)
-    AdView mAdView;
 
 
 
