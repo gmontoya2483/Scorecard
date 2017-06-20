@@ -110,7 +110,7 @@
 
 
     <!-- Title Strings -->
-   <string name="title_activity_new_gol_field">New GolField</string>
+    <string name="title_activity_new_gol_field">New GolField</string>
     <string name="title_activity_view_golf_field">ViewGolfFieldActivity</string>
 
     <!-- Setting Fragment -->
@@ -128,9 +128,6 @@
     <string name="player_save_confirmation">The entered Handicap was successful saved. Current Handicap is %1$d</string>
 
 
-
-
-
     <!--A11y -->
     <string name="a11y_current_handicap_empty">Enter your current handicap</string>
     <string name="a11y_save_button">save</string>
@@ -143,7 +140,9 @@
     <string name="banner_ad_unit_id_handicap">ca-app-pub-3940256099942544/6300978111</string>
     <string name="banner_ad_unit_id_golf_fields">ca-app-pub-3940256099942544/6300978111</string>
     <string name="interstitial_ad_unit_id_new_golf_field">ca-app-pub-3940256099942544/1033173712</string>
+    <string name="interstitial_ad_unit_id_new_scorecard">ca-app-pub-3940256099942544/1033173712</string>
     <string name="ad_error_load">There was an error while trying to load the Ad: %1$s</string>
+    <string name="title_activity_current_scorecard">CurrentScorecardActivity</string>
 
 
 </resources>

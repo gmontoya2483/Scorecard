@@ -13,14 +13,14 @@ import com.montoya.gabi.scorecard.R;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link FragmentCamera.OnFragmentInteractionListener} interface
+ * {@link CurrentScorecardFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
  */
-public class FragmentCamera extends Fragment {
+public class CurrentScorecardFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public FragmentCamera() {
+    public CurrentScorecardFragment() {
         // Required empty public constructor
     }
 
@@ -29,7 +29,7 @@ public class FragmentCamera extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_fragament_camera, container, false);
+        return inflater.inflate(R.layout.fragment_current_scorecard, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

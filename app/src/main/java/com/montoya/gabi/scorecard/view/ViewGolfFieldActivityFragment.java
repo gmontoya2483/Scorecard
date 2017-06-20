@@ -19,7 +19,10 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
 import com.montoya.gabi.scorecard.R;
+import com.montoya.gabi.scorecard.firebase.AdMobListener;
 import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.Hole;
@@ -29,8 +32,10 @@ import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.montoya.gabi.scorecard.MainActivity.SELECTED_MENU_ITEM_LABEL;
 import static com.montoya.gabi.scorecard.R.id.item_golf_field_edit_save;
 import static com.montoya.gabi.scorecard.R.id.item_view_golf_field_edit;
+import static com.montoya.gabi.scorecard.R.id.item_view_golf_field_new_scorecard;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -59,6 +64,13 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     private final String TAB_IN_SPEC="in_tab";
 
     private final String SELECTED_TAB_LABEL="selected_tab";
+
+
+    //Add the add for the new scorecard
+    private InterstitialAd mInterstitial;
+    private boolean mAdError=false;
+    private boolean mAdLoaded=false;
+
 
 
 
@@ -322,6 +334,7 @@ public class ViewGolfFieldActivityFragment extends Fragment {
 
         retrieveArguments();
         setupFragment();
+        setupAd();
 
 
 
@@ -392,6 +405,42 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     }
 
 
+    private void setupAd(){
+
+        mAdError=false;
+        mAdLoaded=false;
+        mInterstitial=new InterstitialAd(getContext());
+        mInterstitial.setAdUnitId(getString(R.string.interstitial_ad_unit_id_new_scorecard));
+
+        mInterstitial.setAdListener(new AdMobListener(getContext()){
+
+            @Override
+            public void onAdFailedToLoad(int i) {
+                super.onAdFailedToLoad(i);
+                mAdError=true;
+
+            }
+
+            @Override
+            public void onAdLoaded() {
+                super.onAdLoaded();
+                mAdLoaded=true;
+            }
+
+            @Override
+            public void onAdClosed() {
+                super.onAdClosed();
+                GenerateNewScorecard();
+            }
+        });
+
+        AdRequest adRequest=new AdRequest.Builder().build();
+        mInterstitial.loadAd(adRequest);
+
+
+    }
+
+
     private void setupFragment(){
 
         createNavigationTabs();
@@ -405,6 +454,7 @@ public class ViewGolfFieldActivityFragment extends Fragment {
             retrieveGolfFieldData();
 
             if (ScorecardUtils.RetrieveStringFromSharedPreferences(getContext(),CURRENT_MODE_KEY,CURRENT_MODE_VIEW).equals(CURRENT_MODE_EDIT)){
+
                 setEditMode();
             }else{
                 setViewMode();
@@ -550,6 +600,16 @@ public class ViewGolfFieldActivityFragment extends Fragment {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
                 switch (item.getItemId()){
+
+                    case item_view_golf_field_new_scorecard:
+
+                        if (mAdLoaded){
+                            mInterstitial.show();
+                        }else{
+                            GenerateNewScorecard();
+                         }
+
+                        break;
 
                     case R.id.item_view_golf_field_delete:
                         //TODO CHANGE TO THE CORRECT FUNCTIONALITY
@@ -968,6 +1028,14 @@ public class ViewGolfFieldActivityFragment extends Fragment {
 
         return golfField;
 
+    }
+
+
+
+    private void GenerateNewScorecard(){
+
+        ScorecardUtils.AddIntToSharedPreferences(getContext(),SELECTED_MENU_ITEM_LABEL,R.id.nav_current_scorecards);
+        getActivity().finish();
     }
 
 

@@ -18,7 +18,7 @@ import com.montoya.gabi.scorecard.firebase.UserAuthentication;
 import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
-import com.montoya.gabi.scorecard.view.FragmentCamera;
+import com.montoya.gabi.scorecard.view.CurrentScorecardFragment;
 import com.montoya.gabi.scorecard.view.FragmentGaleria;
 import com.montoya.gabi.scorecard.view.GolfFieldsFragment;
 import com.montoya.gabi.scorecard.view.PlayerFragment;
@@ -27,7 +27,7 @@ import com.montoya.gabi.scorecard.view.SettingsFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SettingsFragment.OnFragmentInteractionListener,GolfFieldsFragment.OnFragmentInteractionListener, PlayerFragment.OnFragmentInteractionListener, FragmentCamera.OnFragmentInteractionListener, FragmentGaleria.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SettingsFragment.OnFragmentInteractionListener,GolfFieldsFragment.OnFragmentInteractionListener, PlayerFragment.OnFragmentInteractionListener, CurrentScorecardFragment.OnFragmentInteractionListener, FragmentGaleria.OnFragmentInteractionListener{
 
 
 
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private UserAuthentication mUserAuthentication;
 
-    private final String SELECTED_MENU_ITEM_LABEL="selected_menu_item_label";
+    public static final String SELECTED_MENU_ITEM_LABEL="selected_menu_item_label";
     private int mSelectedItemMenu;
 
     private DrawerLayout drawer;
@@ -212,7 +212,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_current_scorecards) {
 
-            Log.i("NavigationDrawer", "Option slideshow");
+            fragment=new CurrentScorecardFragment();
+            fragmentTransaction=true;
 
         } else if (id == R.id.nav_golf_fields) {
 
