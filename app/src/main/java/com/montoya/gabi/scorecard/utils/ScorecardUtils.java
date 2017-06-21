@@ -126,6 +126,8 @@ public class ScorecardUtils {
 
     }
 
+
+
     public static int RetrieveIntFromSharedPreferences(Context context,String key){
 
         SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(context);
@@ -160,6 +162,39 @@ public class ScorecardUtils {
 
     }
 
+
+    public static void AddLongToSharedPreferences(Context context,String key, Long value){
+
+        SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor edit= preferences.edit();
+        edit.putLong(key,value);
+        edit.apply();
+
+    }
+
+
+    public static Long RetrieveLongFromSharedPreferences(Context context,String key, Long defaultValue){
+
+        SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getLong(key,defaultValue);
+
+    }
+
+    public static void AddBooleanToSharedPreferences(Context context,String key, boolean value){
+
+        SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(context);
+        SharedPreferences.Editor edit= preferences.edit();
+        edit.putBoolean(key,value);
+        edit.apply();
+
+    }
+
+    public static boolean RetrieveBooleanFromSharedPreferences(Context context,String key, boolean defaultValue){
+
+        SharedPreferences preferences= PreferenceManager.getDefaultSharedPreferences(context);
+        return preferences.getBoolean(key,defaultValue);
+
+    }
 
 
     public static void RemoveKeyFromSharedPreferences (Context context,String key){

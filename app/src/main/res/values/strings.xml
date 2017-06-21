@@ -145,4 +145,12 @@
     <string name="title_activity_current_scorecard">CurrentScorecardActivity</string>
 
 
+
+
+
+    <!--Current Scorecard -->
+    <string name="current_scorecard_not_defined_name">Golf Field name not defined</string>
+
+
+
 </resources>
