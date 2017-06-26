@@ -86,6 +86,7 @@ public class CurrentScorecard {
     public static String CURRENT_SCORECARD_GOLF_FIELD_NOT_DEFINED_NAME;
     public static Long CURRENT_SCORECARD_INVALID_GOLF_FIELD_ID;
     public static int CURRENT_SCORECARD_INVALID_LENGTH;
+    public static int CURRENT_SCORECARD_INVALID_PAR;
 
     private Context mContext;
 
@@ -95,6 +96,7 @@ public class CurrentScorecard {
         CURRENT_SCORECARD_GOLF_FIELD_NOT_DEFINED_NAME=mContext.getString(R.string.current_scorecard_not_defined_name);
         CURRENT_SCORECARD_INVALID_GOLF_FIELD_ID=GolfField.INVALID_GOLF_FIELD_ID;
         CURRENT_SCORECARD_INVALID_LENGTH=GolfField.INVALID_TOTAL_LENGTH;
+        CURRENT_SCORECARD_INVALID_PAR=GolfField.INVALID_TOTAL_PAR;
     }
 
 
@@ -133,8 +135,8 @@ public class CurrentScorecard {
 
     public int getGolfFieldTotalLength(){
         int total;
-        int inLength= ScorecardUtils.RetrieveIntFromSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_IN_LENGTH_KEY, CURRENT_SCORECARD_INVALID_LENGTH);
-        int outLength= RetrieveIntFromSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_OUT_LENGTH_KEY, CURRENT_SCORECARD_INVALID_LENGTH);
+        int inLength= getGolfFieldInLength();
+        int outLength= getGolfFieldOutLength();
 
         if (inLength==CURRENT_SCORECARD_INVALID_LENGTH || outLength==CURRENT_SCORECARD_INVALID_LENGTH){
             total=CURRENT_SCORECARD_INVALID_LENGTH;
@@ -144,6 +146,40 @@ public class CurrentScorecard {
 
         return total;
     }
+
+
+    public void setGolfFieldOutPar(int golfFieldOutPar){
+
+        ScorecardUtils.AddIntToSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_OUT_PAR_KEY,golfFieldOutPar);
+    }
+
+    public int getGolfFieldOutPar(){
+        return RetrieveIntFromSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_OUT_PAR_KEY, CURRENT_SCORECARD_INVALID_PAR);
+    }
+
+    public void setGolfFieldInPar(int golfFieldInPar){
+
+        ScorecardUtils.AddIntToSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_IN_PAR_KEY,golfFieldInPar);
+    }
+
+    public int getGolfFieldInPar(){
+        return RetrieveIntFromSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_IN_PAR_KEY, CURRENT_SCORECARD_INVALID_PAR);
+    }
+
+    public int getGolfFieldTotalPar(){
+        int total;
+        int inPar= getGolfFieldInPar();
+        int outPar= getGolfFieldOutPar();
+
+        if (inPar==CURRENT_SCORECARD_INVALID_PAR || outPar==CURRENT_SCORECARD_INVALID_PAR){
+            total=CURRENT_SCORECARD_INVALID_PAR;
+        }else{
+            total=inPar+outPar;
+        }
+
+        return total;
+    }
+
 
 
 
