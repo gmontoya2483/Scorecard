@@ -63,6 +63,7 @@
     <string name="tab_general">GENERAL</string>
     <string name="tab_out">OUT</string>
     <string name="tab_in">IN</string>
+    <string name="tab_score">SCORE</string>
 
     <string name="golf_field_name_hint">Golf field Name</string>
     <string name="golf_field_length_unit_meter">meters</string>

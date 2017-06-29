@@ -7,8 +7,14 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TabHost;
+import android.widget.TextView;
 
 import com.montoya.gabi.scorecard.R;
+import com.montoya.gabi.scorecard.model.CurrentScorecard;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +23,50 @@ import com.montoya.gabi.scorecard.R;
  * to handle interaction events.
  */
 public class CurrentScorecardFragment extends Fragment {
+
+
+    View mRootView;
+    CurrentScorecard mCurrentScorecard;
+
+
+    private final String TAB_GENERAL_SPEC="general_tab";
+    private final String TAB_OUT_SPEC="out_tab";
+    private final String TAB_IN_SPEC="in_tab";
+    private final String TAB_SCORE_SPEC="score_tab";
+
+    private final String SELECTED_TAB_LABEL="selected_tab";
+
+
+
+    @BindView(R.id.tabHost_current_scorecard)
+    TabHost mTabHost;
+
+    @BindView(R.id.current_scorecard_gf_name_text)
+    TextView mCurrentScorecardGFName;
+
+    @BindView(R.id.current_scorecard_date_text)
+    TextView mCurrentScorecardDate;
+
+
+    @BindView(R.id.current_scorecard_total_length_text)
+    TextView getmCurrentScorecardGFTotalLength;
+
+    @BindView(R.id.current_scorecard_total_par_text)
+    TextView getmCurrentScorecardGFTotalPar;
+
+    @BindView(R.id.current_scorecard_out_length_text)
+    TextView getmCurrentScorecardGFOutLength;
+
+    @BindView(R.id.current_scorecard_out_par_text)
+    TextView getmCurrentScorecardGFOutPar;
+
+
+    @BindView(R.id.current_scorecard_in_length_text)
+    TextView getmCurrentScorecardGFInLength;
+
+    @BindView(R.id.current_scorecard_in_par_text)
+    TextView getmCurrentScorecardGFInPar;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -29,7 +79,20 @@ public class CurrentScorecardFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_current_scorecard, container, false);
+        mRootView= inflater.inflate(R.layout.current_scorecard_fragment, container, false);
+
+        //Bind the View
+        ButterKnife.bind(this,mRootView);
+
+        createNavigationTabs();
+
+        mCurrentScorecard=new CurrentScorecard(getContext());
+
+        mCurrentScorecardGFName.setText(mCurrentScorecard.getGolfFieldName());
+
+
+
+        return mRootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -70,4 +133,42 @@ public class CurrentScorecardFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+    private void createNavigationTabs(){
+
+        mTabHost.setup();
+
+        //Tab 1
+        TabHost.TabSpec spec = mTabHost.newTabSpec(TAB_GENERAL_SPEC);
+        spec.setContent(R.id.tab_current_scorecard_general);
+        spec.setIndicator(getString(R.string.tab_general));
+        mTabHost.addTab(spec);
+
+        //Tab 2
+        spec = mTabHost.newTabSpec(TAB_OUT_SPEC);
+        spec.setContent(R.id.tab_current_scorecard_out);
+        spec.setIndicator(getString(R.string.tab_out));
+        mTabHost.addTab(spec);
+
+        //Tab 3
+        spec = mTabHost.newTabSpec(TAB_IN_SPEC);
+        spec.setContent(R.id.tab_current_scorecard_in);
+        spec.setIndicator(getString(R.string.tab_in));
+        mTabHost.addTab(spec);
+
+        //Tab 4
+        spec = mTabHost.newTabSpec(TAB_IN_SPEC);
+        spec.setContent(R.id.tab_current_scorecard_score);
+        spec.setIndicator(getString(R.string.tab_score));
+        mTabHost.addTab(spec);
+
+
+
+
+        mTabHost.setCurrentTab(0);
+
+    }
+
+
 }

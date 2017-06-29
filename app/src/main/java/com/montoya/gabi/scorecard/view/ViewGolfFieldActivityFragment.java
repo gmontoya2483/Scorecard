@@ -1,6 +1,5 @@
 package com.montoya.gabi.scorecard.view;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -23,6 +22,7 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.firebase.AdMobListener;
+import com.montoya.gabi.scorecard.model.CurrentScorecard;
 import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.Hole;
@@ -327,7 +327,7 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View mRootView= inflater.inflate(R.layout.view_golf_field_fragment, container, false);
+        mRootView= inflater.inflate(R.layout.view_golf_field_fragment, container, false);
 
         //Bind the View
         ButterKnife.bind(this,mRootView);
@@ -1035,6 +1035,15 @@ public class ViewGolfFieldActivityFragment extends Fragment {
     private void GenerateNewScorecard(){
 
         ScorecardUtils.AddIntToSharedPreferences(getContext(),SELECTED_MENU_ITEM_LABEL,R.id.nav_current_scorecards);
+
+
+        CurrentScorecard currentScorecard=new CurrentScorecard(getContext());
+
+        currentScorecard.setGolfFieldName(mViewGolfField.getName());
+
+
+
+
         getActivity().finish();
     }
 
