@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.CurrentScorecard;
+import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,23 +50,23 @@ public class CurrentScorecardFragment extends Fragment {
 
 
     @BindView(R.id.current_scorecard_total_length_text)
-    TextView getmCurrentScorecardGFTotalLength;
+    TextView mCurrentScorecardGFTotalLength;
 
     @BindView(R.id.current_scorecard_total_par_text)
-    TextView getmCurrentScorecardGFTotalPar;
+    TextView mCurrentScorecardGFTotalPar;
 
     @BindView(R.id.current_scorecard_out_length_text)
-    TextView getmCurrentScorecardGFOutLength;
+    TextView mCurrentScorecardGFOutLength;
 
     @BindView(R.id.current_scorecard_out_par_text)
-    TextView getmCurrentScorecardGFOutPar;
+    TextView mCurrentScorecardGFOutPar;
 
 
     @BindView(R.id.current_scorecard_in_length_text)
-    TextView getmCurrentScorecardGFInLength;
+    TextView mCurrentScorecardGFInLength;
 
     @BindView(R.id.current_scorecard_in_par_text)
-    TextView getmCurrentScorecardGFInPar;
+    TextView mCurrentScorecardGFInPar;
 
 
     private OnFragmentInteractionListener mListener;
@@ -86,9 +87,7 @@ public class CurrentScorecardFragment extends Fragment {
 
         createNavigationTabs();
 
-        mCurrentScorecard=new CurrentScorecard(getContext());
-
-        mCurrentScorecardGFName.setText(mCurrentScorecard.getGolfFieldName());
+        setupFragment();
 
 
 
@@ -167,6 +166,20 @@ public class CurrentScorecardFragment extends Fragment {
 
 
         mTabHost.setCurrentTab(0);
+
+    }
+
+
+
+    private void setupFragment(){
+
+        mCurrentScorecard=new CurrentScorecard(getContext());
+
+        //General Screen
+        mCurrentScorecardGFName.setText(mCurrentScorecard.getGolfFieldName());
+        mCurrentScorecardGFTotalLength.setText(ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldTotalLength()));
+        mCurrentScorecardGFOutLength.setText(ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldOutLength()));
+        mCurrentScorecardGFInLength.setText(ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldInLength()));
 
     }
 
