@@ -23,7 +23,7 @@ public class CurrentScorecard {
     public static String CURRENT_SCORECARD_GOLF_FIELD_IN_PAR_KEY="current_scorecard_golf_field_in_par";
 
     public static String CURRENT_SCORECARD_DATE_KEY="current_scorecard_date";
-    public static String CURRENT_SCORECARD_HANDICAP_KEY="current_scorecard_date";
+    public static String CURRENT_SCORECARD_HANDICAP_KEY="current_scorecard_handicap";
 
     public static String CURRENT_SCORECARD_HOLE_1_LENGTH_KEY="current_scorecard_hole_1_length";
     public static String CURRENT_SCORECARD_HOLE_2_LENGTH_KEY="current_scorecard_hole_2_length";
@@ -87,6 +87,7 @@ public class CurrentScorecard {
     public static Long CURRENT_SCORECARD_INVALID_GOLF_FIELD_ID;
     public static int CURRENT_SCORECARD_INVALID_LENGTH;
     public static int CURRENT_SCORECARD_INVALID_PAR;
+    public static Long CURRENT_SCORECARD_INVALID_DATE;
 
     private Context mContext;
 
@@ -97,6 +98,16 @@ public class CurrentScorecard {
         CURRENT_SCORECARD_INVALID_GOLF_FIELD_ID=GolfField.INVALID_GOLF_FIELD_ID;
         CURRENT_SCORECARD_INVALID_LENGTH=GolfField.INVALID_TOTAL_LENGTH;
         CURRENT_SCORECARD_INVALID_PAR=GolfField.INVALID_TOTAL_PAR;
+        CURRENT_SCORECARD_INVALID_DATE=-1L;
+    }
+
+
+    public void setExistCurrentScorecard(){
+        ScorecardUtils.AddBooleanToSharedPreferences(mContext,CURRENT_SCORECARD_EXIST_KEY,true);
+    }
+
+    public static boolean getExistCurrentScorecard(Context context){
+        return ScorecardUtils.RetrieveBooleanFromSharedPreferences(context,CURRENT_SCORECARD_EXIST_KEY,false);
     }
 
 
@@ -179,6 +190,19 @@ public class CurrentScorecard {
 
         return total;
     }
+
+
+    public void setDate(Long currentDate){
+        ScorecardUtils.AddLongToSharedPreferences(mContext,CURRENT_SCORECARD_DATE_KEY,currentDate);
+    }
+
+
+    public Long getDate(){
+        return ScorecardUtils.RetrieveLongFromSharedPreferences(mContext,CURRENT_SCORECARD_DATE_KEY,CURRENT_SCORECARD_INVALID_DATE);
+    }
+
+
+
 
 
 

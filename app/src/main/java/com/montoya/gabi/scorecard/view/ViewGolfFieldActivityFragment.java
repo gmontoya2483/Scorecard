@@ -1043,6 +1043,18 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         currentScorecard.setGolfFieldOutLength(mViewGolfField.getOut_length());
         currentScorecard.setGolfFieldInLength(mViewGolfField.getIn_length());
 
+        currentScorecard.setGolfFieldOutPar(mViewGolfField.getOut_par());
+        currentScorecard.setGolfFieldInPar(mViewGolfField.getIn_par());
+
+        currentScorecard.setDate(System.currentTimeMillis());
+
+
+
+
+
+
+        currentScorecard.setExistCurrentScorecard();
+
 
 
 

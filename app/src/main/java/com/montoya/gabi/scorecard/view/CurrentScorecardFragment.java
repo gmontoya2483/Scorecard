@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.CurrentScorecard;
+import com.montoya.gabi.scorecard.utils.CalendarUtils;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 import butterknife.BindView;
@@ -181,7 +182,18 @@ public class CurrentScorecardFragment extends Fragment {
         mCurrentScorecardGFOutLength.setText(ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldOutLength()));
         mCurrentScorecardGFInLength.setText(ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldInLength()));
 
+        //set the total par
+        mCurrentScorecardGFTotalPar.setText(ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getGolfFieldTotalPar()));
+        mCurrentScorecardGFOutPar.setText(ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getGolfFieldOutPar()));
+        mCurrentScorecardGFInPar.setText(ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getGolfFieldInPar()));
+
+
+        mCurrentScorecardDate.setText(CalendarUtils.getFormattedDate(mCurrentScorecard.getDate(),getString(R.string.date_format)));
+
     }
+
+
+
 
 
 }

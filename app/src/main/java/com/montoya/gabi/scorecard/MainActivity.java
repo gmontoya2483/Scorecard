@@ -15,9 +15,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.montoya.gabi.scorecard.firebase.UserAuthentication;
+import com.montoya.gabi.scorecard.model.CurrentScorecard;
 import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
+import com.montoya.gabi.scorecard.view.CurrentScorecardEmptyFragment;
 import com.montoya.gabi.scorecard.view.CurrentScorecardFragment;
 import com.montoya.gabi.scorecard.view.FragmentGaleria;
 import com.montoya.gabi.scorecard.view.GolfFieldsFragment;
@@ -27,7 +29,13 @@ import com.montoya.gabi.scorecard.view.SettingsFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, SettingsFragment.OnFragmentInteractionListener,GolfFieldsFragment.OnFragmentInteractionListener, PlayerFragment.OnFragmentInteractionListener, CurrentScorecardFragment.OnFragmentInteractionListener, FragmentGaleria.OnFragmentInteractionListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
+        SettingsFragment.OnFragmentInteractionListener,
+        GolfFieldsFragment.OnFragmentInteractionListener,
+        PlayerFragment.OnFragmentInteractionListener,
+        CurrentScorecardFragment.OnFragmentInteractionListener,
+        FragmentGaleria.OnFragmentInteractionListener,
+        CurrentScorecardEmptyFragment.OnFragmentInteractionListener{
 
 
 
@@ -212,7 +220,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         } else if (id == R.id.nav_current_scorecards) {
 
-            fragment=new CurrentScorecardFragment();
+            if (CurrentScorecard.getExistCurrentScorecard(getApplicationContext())){
+                fragment=new CurrentScorecardFragment();
+            }else{
+                fragment=new CurrentScorecardEmptyFragment();
+            }
+
             fragmentTransaction=true;
 
         } else if (id == R.id.nav_golf_fields) {

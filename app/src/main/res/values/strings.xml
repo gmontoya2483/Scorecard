@@ -28,10 +28,9 @@
 
 
     <!-- Formated general string -->
-
+    <string name="date_format">EEE d MMM yyyy</string>
     <string name="formatted_meters_length"> %1$d meters</string>
     <string name="formatted_yards_length"> %1$d yards</string>
-
     <string name="formatted_par">PAR %1$d</string>
 
 
@@ -146,9 +145,6 @@
     <string name="title_activity_current_scorecard">CurrentScorecardActivity</string>
 
 
-
-
-
     <!--Current Scorecard -->
     <string name="current_scorecard_not_defined_name">Golf Field name not defined</string>
     <string name="current_scorecard_fake_gf_name">Club de Campo Aranzazu</string>
@@ -158,6 +154,12 @@
     <string name="current_scorecard_fake_par">PAR 60</string>
     <string name="current_scorecard_out">OUT</string>
     <string name="current_scorecard_in">IN</string>
+    <string name="current_scorecard_no_scorecard">There is no Current Scorecard</string>
+
+    <!--A11Y Current Scorecard -->
+    <string name="current_scorecard_a11y_no_scorecard">Currently there is no active Scorecard</string>
+    <string name="current_scorecard_a11y_general_card">Golf field %1$s, %2$s out, %3$s in, %4$s total, par %5$d</string>
+
 
 
 </resources>
