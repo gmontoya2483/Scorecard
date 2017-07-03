@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.CurrentScorecard;
+import com.montoya.gabi.scorecard.model.GolfField;
+import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.utils.CalendarUtils;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
@@ -42,6 +45,9 @@ public class CurrentScorecardFragment extends Fragment {
 
     @BindView(R.id.tabHost_current_scorecard)
     TabHost mTabHost;
+
+    @BindView(R.id.current_scorecard_general_card)
+    CardView mCurrentScorecardGeneralCard;
 
     @BindView(R.id.current_scorecard_gf_name_text)
     TextView mCurrentScorecardGFName;
@@ -177,19 +183,53 @@ public class CurrentScorecardFragment extends Fragment {
         mCurrentScorecard=new CurrentScorecard(getContext());
 
         //General Screen
-        mCurrentScorecardGFName.setText(mCurrentScorecard.getGolfFieldName());
-        mCurrentScorecardGFTotalLength.setText(ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldTotalLength()));
-        mCurrentScorecardGFOutLength.setText(ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldOutLength()));
-        mCurrentScorecardGFInLength.setText(ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldInLength()));
+        String golfFieldName=mCurrentScorecard.getGolfFieldName();
+        String totalLength=ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldTotalLength());
+        String outLength=ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldOutLength());
+        String inLength=ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldInLength());
+
+        mCurrentScorecardGFName.setText(golfFieldName);
+        mCurrentScorecardGFTotalLength.setText(totalLength);
+        mCurrentScorecardGFOutLength.setText(outLength);
+        mCurrentScorecardGFInLength.setText(inLength);
 
         //set the total par
-        mCurrentScorecardGFTotalPar.setText(ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getGolfFieldTotalPar()));
-        mCurrentScorecardGFOutPar.setText(ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getGolfFieldOutPar()));
-        mCurrentScorecardGFInPar.setText(ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getGolfFieldInPar()));
+        String totalPar=ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getGolfFieldTotalPar());
+        String outPar=ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getGolfFieldOutPar());
+        String inPar=ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getGolfFieldInPar());
+
+        mCurrentScorecardGFTotalPar.setText(totalPar);
+        mCurrentScorecardGFOutPar.setText(outPar);
+        mCurrentScorecardGFInPar.setText(inPar);
 
 
-        mCurrentScorecardDate.setText(CalendarUtils.getFormattedDate(mCurrentScorecard.getDate(),getString(R.string.date_format)));
+        String date=CalendarUtils.getFormattedDate(mCurrentScorecard.getDate(),getString(R.string.date_format));
+        mCurrentScorecardDate.setText(date);
 
+
+
+        mCurrentScorecardGeneralCard.setContentDescription(buildGeneralTabContentDescription(golfFieldName,date,totalLength,outLength,inLength,totalPar,outPar,inPar));
+
+
+    }
+
+
+
+    private String buildGeneralTabContentDescription(String name, String date, String totalLength, String outLength, String inLength, String totalPar, String outPar, String inPar){
+
+        Context context=getContext();
+
+        String description=String.format(context.getString(R.string.current_scorecard_a11y_general_card),
+                name,
+                date,
+                totalLength,
+                totalPar,
+                outLength,
+                outPar,
+                inLength,
+                inPar);
+
+        return description;
     }
 
 
