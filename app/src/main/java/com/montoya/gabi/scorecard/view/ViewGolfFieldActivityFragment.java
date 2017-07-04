@@ -26,6 +26,7 @@ import com.montoya.gabi.scorecard.model.CurrentScorecard;
 import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.Hole;
+import com.montoya.gabi.scorecard.model.Player;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
@@ -1039,13 +1040,19 @@ public class ViewGolfFieldActivityFragment extends Fragment {
 
         CurrentScorecard currentScorecard=new CurrentScorecard(getContext());
 
-        //send
+        //send resume part
         currentScorecard.setGolfFieldName(mViewGolfField.getName());
         currentScorecard.setGolfFieldOutLength(mViewGolfField.getOut_length());
         currentScorecard.setGolfFieldInLength(mViewGolfField.getIn_length());
         currentScorecard.setGolfFieldOutPar(mViewGolfField.getOut_par());
         currentScorecard.setGolfFieldInPar(mViewGolfField.getIn_par());
         currentScorecard.setDate(System.currentTimeMillis());
+
+
+        //send score part
+        currentScorecard.setCurrentHandicap(new Player().getHandicap(getContext()));
+
+
 
 
 

@@ -11,6 +11,7 @@
         android:layout_height="wrap_content">
 
 
+
         <TabHost
             android:id="@+id/tabHost_current_scorecard"
             android:layout_width="match_parent"
@@ -97,22 +98,16 @@
         </TabHost>
 
 
-
-
     </android.support.v4.widget.NestedScrollView>
 
-    <!--
-
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/nav_gol_field_view"
+        android:id="@+id/current_scorecard_bottom_nav"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:background="@color/windowBackground"
         android:elevation="6dp">
     </android.support.design.widget.BottomNavigationView>
-
--->
 
 
 </android.support.design.widget.CoordinatorLayout>

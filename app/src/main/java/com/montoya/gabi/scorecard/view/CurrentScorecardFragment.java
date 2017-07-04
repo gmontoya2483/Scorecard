@@ -3,13 +3,18 @@ package com.montoya.gabi.scorecard.view;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.CurrentScorecard;
@@ -39,9 +44,11 @@ public class CurrentScorecardFragment extends Fragment {
     private final String TAB_IN_SPEC="in_tab";
     private final String TAB_SCORE_SPEC="score_tab";
 
-    private final String SELECTED_TAB_LABEL="selected_tab";
+    private  final String CURRENT_SCORE_CARD_SELECTED_TAB_LABEL="current_scorecard_tab";
+    private final int CURRENT_SCORE_NOT_SELECTED_TAB_LABEL=0;
 
-
+    @BindView(R.id.current_scorecard_bottom_nav)
+    BottomNavigationView mBottomNavigation;
 
     @BindView(R.id.tabHost_current_scorecard)
     TabHost mTabHost;
@@ -94,6 +101,8 @@ public class CurrentScorecardFragment extends Fragment {
 
         createNavigationTabs();
 
+        createBottomNavigation();
+
         setupFragment();
 
 
@@ -136,9 +145,52 @@ public class CurrentScorecardFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onFragmentInteraction(Uri uri);
     }
+
+
+    private void createBottomNavigation(){
+
+        mBottomNavigation.getMenu().clear();
+        mBottomNavigation.inflateMenu(R.menu.bottom_menu_current_scorecard);
+
+        mBottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                switch (item.getItemId()){
+                    case R.id.item_current_scorecard_delete:
+
+                        Toast.makeText(getContext(),"Delete",Toast.LENGTH_LONG).show();
+                        break;
+
+                    case R.id.item_current_scorecard_confirm:
+                        Toast.makeText(getContext(),"Confirm",Toast.LENGTH_LONG).show();
+                        break;
+                    default:
+                        break;
+
+                }
+                return true;
+            }
+        });
+
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        ScorecardUtils.AddIntToSharedPreferences(getContext(),CURRENT_SCORE_CARD_SELECTED_TAB_LABEL,mTabHost.getCurrentTab());
+    }
+
+    @Override
+    public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
+
+        super.onViewStateRestored(savedInstanceState);
+        mTabHost.setCurrentTab(ScorecardUtils.RetrieveIntFromSharedPreferences(getContext(),CURRENT_SCORE_CARD_SELECTED_TAB_LABEL,CURRENT_SCORE_NOT_SELECTED_TAB_LABEL));
+    }
+
 
 
     private void createNavigationTabs(){
@@ -172,7 +224,7 @@ public class CurrentScorecardFragment extends Fragment {
 
 
 
-        mTabHost.setCurrentTab(0);
+        mTabHost.setCurrentTab(CURRENT_SCORE_NOT_SELECTED_TAB_LABEL);
 
     }
 

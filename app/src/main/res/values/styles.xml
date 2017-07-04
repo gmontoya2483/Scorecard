@@ -75,5 +75,45 @@
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
+    <!-- Scorecard -->
+    <style name="ScorecardGrid">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:columnCount">5</item>
+        <item name="android:orientation">horizontal</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
+    </style>
+
+    <style name="ScorecardGridSpace">
+        <item name="android:layout_height">12dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="ScorecardGridText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:textAlignment">center</item>
+
+
+    </style>
+
+    <style name="ScorecardGridText.Hole">
+        <item name="android:textSize">18sp</item>
+
+    </style>
+
+    <style name="ScorecardGridText.score">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_columnWeight">1</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+
+
+
 
 </resources>

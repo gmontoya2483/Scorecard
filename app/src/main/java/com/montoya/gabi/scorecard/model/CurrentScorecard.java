@@ -88,6 +88,7 @@ public class CurrentScorecard {
     public static int CURRENT_SCORECARD_INVALID_LENGTH;
     public static int CURRENT_SCORECARD_INVALID_PAR;
     public static Long CURRENT_SCORECARD_INVALID_DATE;
+    public static int CURRENT_SCORECARD_INVALID_HANDICAP;
 
     private Context mContext;
 
@@ -99,6 +100,7 @@ public class CurrentScorecard {
         CURRENT_SCORECARD_INVALID_LENGTH=GolfField.INVALID_TOTAL_LENGTH;
         CURRENT_SCORECARD_INVALID_PAR=GolfField.INVALID_TOTAL_PAR;
         CURRENT_SCORECARD_INVALID_DATE=-1L;
+        CURRENT_SCORECARD_INVALID_HANDICAP=Player.INVALID_HANDICAP;
     }
 
 
@@ -199,6 +201,17 @@ public class CurrentScorecard {
 
     public Long getDate(){
         return ScorecardUtils.RetrieveLongFromSharedPreferences(mContext,CURRENT_SCORECARD_DATE_KEY,CURRENT_SCORECARD_INVALID_DATE);
+    }
+
+
+
+    public void setCurrentHandicap(int currentHandicap){
+        ScorecardUtils.AddIntToSharedPreferences(mContext,CURRENT_SCORECARD_HANDICAP_KEY,currentHandicap);
+
+    }
+
+    public int getCurrentHandicap (){
+        return ScorecardUtils.RetrieveIntFromSharedPreferences(mContext,CURRENT_SCORECARD_HANDICAP_KEY,CURRENT_SCORECARD_INVALID_HANDICAP);
     }
 
 

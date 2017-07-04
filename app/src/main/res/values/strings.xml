@@ -147,14 +147,22 @@
 
     <!--Current Scorecard -->
     <string name="current_scorecard_not_defined_name">Golf Field name not defined</string>
-    <string name="current_scorecard_fake_gf_name">Club de Campo Aranzazu</string>
-    <string name="current_scorecard_fake_date">SUN 23 JUL 2017</string>
-    <string name="current_scorecard_fake_length">1516 Yards</string>
     <string name="current_scorecard_total">TOTAL</string>
-    <string name="current_scorecard_fake_par">PAR 60</string>
     <string name="current_scorecard_out">OUT</string>
     <string name="current_scorecard_in">IN</string>
     <string name="current_scorecard_no_scorecard">There is no Current Scorecard</string>
+    <string name="current_scorecard_item_delete">Delete</string>
+    <string name="current_scorecard_item_confirm">Confirm</string>
+
+    <string name="current_scorecard_fake_yards">425 yards</string>
+    <string name="current_scorecard_fake_par_4">Par 4</string>
+    <string name="current_scorecard_fake_score_5">5</string>
+    <string name="current_scorecard_fake_mas_1">+1</string>
+    <string name="current_scorecard_fake_gf_name">Club de Campo Aranzazu</string>
+    <string name="current_scorecard_fake_date">SUN 23 JUL 2017</string>
+    <string name="current_scorecard_fake_length">1516 Yards</string>
+    <string name="current_scorecard_fake_par">PAR 60</string>
+
 
     <!--A11Y Current Scorecard -->
     <string name="current_scorecard_a11y_no_scorecard">Currently there is no active Scorecard</string>
