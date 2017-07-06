@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.widget.EditText;
 
 import com.montoya.gabi.scorecard.R;
+import com.montoya.gabi.scorecard.model.CurrentScorecard;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.Hole;
 
@@ -112,6 +113,33 @@ public class ScorecardUtils {
 
     public static String getFormattedPar (Context context, int par){
         return String.format(context.getString(R.string.formatted_par),par);
+    }
+
+    public static String getFormattedScore(int score){
+        String formattedScore;
+        if (score== CurrentScorecard.CURRENT_SCORECARD_INVALID_SCORE || score==CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE){
+            formattedScore="";
+        }else{
+            formattedScore=Integer.toString(score);
+        }
+
+        return formattedScore;
+    }
+
+
+    public static String getFormattedScoreDif (int scoreDif){
+        String formattedScoreDif;
+        if (scoreDif == CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE_DIF){
+            formattedScoreDif="";
+        }else if (scoreDif>CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE_DIF){
+
+
+            formattedScoreDif="+ "+Integer.toString(scoreDif);
+        }else{
+            formattedScoreDif=Integer.toString(scoreDif);
+        }
+
+        return formattedScoreDif;
     }
 
 

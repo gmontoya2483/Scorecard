@@ -19,6 +19,8 @@ import android.widget.Toast;
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.CurrentScorecard;
 import com.montoya.gabi.scorecard.model.GolfField;
+import com.montoya.gabi.scorecard.model.Hole;
+import com.montoya.gabi.scorecard.model.Scorecard;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.utils.CalendarUtils;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
@@ -81,6 +83,24 @@ public class CurrentScorecardFragment extends Fragment {
 
     @BindView(R.id.current_scorecard_in_par_text)
     TextView mCurrentScorecardGFInPar;
+
+
+    //Hole 1
+    @BindView (R.id.current_scorecard_hole_1_card)
+    CardView mCurrentScorecardHole_1_Card;
+    @BindView (R.id.current_scorecard_hole_1_lenght_text)
+    TextView mCurrentScorecardHole_1_Length;
+    @BindView (R.id.current_scorecard_hole_1_par_text)
+    TextView mCurrentScorecardHole_1_par;
+    @BindView (R.id.current_scorecard_hole_1_score_text)
+    TextView mCurrentScorecardHole_1_score;
+    @BindView (R.id.current_scorecard_hole_1_dif_text)
+    TextView mCurrentScorecardHole_1_dif;
+
+
+
+
+
 
 
     private OnFragmentInteractionListener mListener;
@@ -239,28 +259,49 @@ public class CurrentScorecardFragment extends Fragment {
         String totalLength=ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldTotalLength());
         String outLength=ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldOutLength());
         String inLength=ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getGolfFieldInLength());
-
         mCurrentScorecardGFName.setText(golfFieldName);
         mCurrentScorecardGFTotalLength.setText(totalLength);
         mCurrentScorecardGFOutLength.setText(outLength);
         mCurrentScorecardGFInLength.setText(inLength);
 
-        //set the total par
         String totalPar=ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getGolfFieldTotalPar());
         String outPar=ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getGolfFieldOutPar());
         String inPar=ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getGolfFieldInPar());
-
         mCurrentScorecardGFTotalPar.setText(totalPar);
         mCurrentScorecardGFOutPar.setText(outPar);
         mCurrentScorecardGFInPar.setText(inPar);
 
-
         String date=CalendarUtils.getFormattedDate(mCurrentScorecard.getDate(),getString(R.string.date_format));
         mCurrentScorecardDate.setText(date);
 
-
-
         mCurrentScorecardGeneralCard.setContentDescription(buildGeneralTabContentDescription(golfFieldName,date,totalLength,outLength,inLength,totalPar,outPar,inPar));
+
+
+
+
+        //Out Tab
+
+        //Hole 1
+        mCurrentScorecard.setHoleScore(Hole.HoleNumber.HOLE_1,2);
+
+
+        String hole_1_length= ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getHoleLength(Hole.HoleNumber.HOLE_1));
+        String hole_1_par= ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getHolePar(Hole.HoleNumber.HOLE_1).getValue());
+        String hole_1_score= ScorecardUtils.getFormattedScore(mCurrentScorecard.getHoleScore(Hole.HoleNumber.HOLE_1));
+        String hole_1_score_dif= ScorecardUtils.getFormattedScoreDif(mCurrentScorecard.getHoleScoreDif(Hole.HoleNumber.HOLE_1));
+        mCurrentScorecardHole_1_Length.setText(hole_1_length);
+        mCurrentScorecardHole_1_par.setText(hole_1_par);
+        mCurrentScorecardHole_1_score.setText(hole_1_score);
+        mCurrentScorecardHole_1_dif.setText(hole_1_score_dif);
+
+        mCurrentScorecardHole_1_Card.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getContext(),"Hizo click en el card del Hoyo 1",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
 
 
     }

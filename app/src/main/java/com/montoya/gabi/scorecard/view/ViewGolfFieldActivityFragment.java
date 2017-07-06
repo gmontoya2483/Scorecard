@@ -1053,6 +1053,11 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         currentScorecard.setCurrentHandicap(new Player().getHandicap(getContext()));
 
 
+        //send out part
+        currentScorecard.setHoleLength(Hole.HoleNumber.HOLE_1,mViewGolfField.getHole(Hole.HoleNumber.HOLE_1).getLength());
+        currentScorecard.setHolePar(Hole.HoleNumber.HOLE_1,mViewGolfField.getHole(Hole.HoleNumber.HOLE_1).getPar());
+
+
 
 
 
