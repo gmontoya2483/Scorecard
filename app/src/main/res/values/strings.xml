@@ -32,6 +32,7 @@
     <string name="formatted_meters_length"> %1$d meters</string>
     <string name="formatted_yards_length"> %1$d yards</string>
     <string name="formatted_par">PAR %1$d</string>
+    <string name="formatted_hole">Hole %1$d</string>
 
 
     <!--Error Messages -->
@@ -162,11 +163,15 @@
     <string name="current_scorecard_fake_date">SUN 23 JUL 2017</string>
     <string name="current_scorecard_fake_length">1516 Yards</string>
     <string name="current_scorecard_fake_par">PAR 60</string>
+    <string name="current_scorecard_set_score_score">Score</string>
+    <string name="current_scorecard_set_score_confirm">confirm</string>
 
 
     <!--A11Y Current Scorecard -->
     <string name="current_scorecard_a11y_no_scorecard">Currently there is no active Scorecard</string>
     <string name="current_scorecard_a11y_general_card">Current Scorecard General tab, Golf field %1$s, date %2$s, Total length %3$s %4$s, out %5$s %6$s, in %7$s %8$s</string>
+    <string name="current_scorecard_a11y_hole_card">%1$s, length %2$s, %3$s, score %4$s %5$s</string>
+
 
 
 </resources>

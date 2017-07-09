@@ -115,6 +115,12 @@ public class ScorecardUtils {
         return String.format(context.getString(R.string.formatted_par),par);
     }
 
+    public static String getFormattedHoleNumber (Context context, Hole.HoleNumber holeNumber){
+        return String.format(context.getString(R.string.formatted_hole),holeNumber.getValue());
+    }
+
+
+
     public static String getFormattedScore(int score){
         String formattedScore;
         if (score== CurrentScorecard.CURRENT_SCORECARD_INVALID_SCORE || score==CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE){

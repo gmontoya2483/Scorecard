@@ -29,6 +29,16 @@ import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_1;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_2;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_3;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_4;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_5;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_6;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_7;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_8;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_9;
+
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
@@ -97,10 +107,94 @@ public class CurrentScorecardFragment extends Fragment {
     TextView mCurrentScorecardHole_1_score;
     @BindView (R.id.current_scorecard_hole_1_dif_text)
     TextView mCurrentScorecardHole_1_dif;
-
-
-
-
+    //Hole 2
+    @BindView (R.id.current_scorecard_hole_2_card)
+    CardView mCurrentScorecardHole_2_Card;
+    @BindView (R.id.current_scorecard_hole_2_lenght_text)
+    TextView mCurrentScorecardHole_2_Length;
+    @BindView (R.id.current_scorecard_hole_2_par_text)
+    TextView mCurrentScorecardHole_2_par;
+    @BindView (R.id.current_scorecard_hole_2_score_text)
+    TextView mCurrentScorecardHole_2_score;
+    @BindView (R.id.current_scorecard_hole_2_dif_text)
+    TextView mCurrentScorecardHole_2_dif;
+    //Hole 3
+    @BindView (R.id.current_scorecard_hole_3_card)
+    CardView mCurrentScorecardHole_3_Card;
+    @BindView (R.id.current_scorecard_hole_3_lenght_text)
+    TextView mCurrentScorecardHole_3_Length;
+    @BindView (R.id.current_scorecard_hole_3_par_text)
+    TextView mCurrentScorecardHole_3_par;
+    @BindView (R.id.current_scorecard_hole_3_score_text)
+    TextView mCurrentScorecardHole_3_score;
+    @BindView (R.id.current_scorecard_hole_3_dif_text)
+    TextView mCurrentScorecardHole_3_dif;
+    //Hole 4
+    @BindView (R.id.current_scorecard_hole_4_card)
+    CardView mCurrentScorecardHole_4_Card;
+    @BindView (R.id.current_scorecard_hole_4_lenght_text)
+    TextView mCurrentScorecardHole_4_Length;
+    @BindView (R.id.current_scorecard_hole_4_par_text)
+    TextView mCurrentScorecardHole_4_par;
+    @BindView (R.id.current_scorecard_hole_4_score_text)
+    TextView mCurrentScorecardHole_4_score;
+    @BindView (R.id.current_scorecard_hole_4_dif_text)
+    TextView mCurrentScorecardHole_4_dif;
+    //Hole 5
+    @BindView (R.id.current_scorecard_hole_5_card)
+    CardView mCurrentScorecardHole_5_Card;
+    @BindView (R.id.current_scorecard_hole_5_lenght_text)
+    TextView mCurrentScorecardHole_5_Length;
+    @BindView (R.id.current_scorecard_hole_5_par_text)
+    TextView mCurrentScorecardHole_5_par;
+    @BindView (R.id.current_scorecard_hole_5_score_text)
+    TextView mCurrentScorecardHole_5_score;
+    @BindView (R.id.current_scorecard_hole_5_dif_text)
+    TextView mCurrentScorecardHole_5_dif;
+    //Hole 6
+    @BindView (R.id.current_scorecard_hole_6_card)
+    CardView mCurrentScorecardHole_6_Card;
+    @BindView (R.id.current_scorecard_hole_6_lenght_text)
+    TextView mCurrentScorecardHole_6_Length;
+    @BindView (R.id.current_scorecard_hole_6_par_text)
+    TextView mCurrentScorecardHole_6_par;
+    @BindView (R.id.current_scorecard_hole_6_score_text)
+    TextView mCurrentScorecardHole_6_score;
+    @BindView (R.id.current_scorecard_hole_6_dif_text)
+    TextView mCurrentScorecardHole_6_dif;
+    //Hole 7
+    @BindView (R.id.current_scorecard_hole_7_card)
+    CardView mCurrentScorecardHole_7_Card;
+    @BindView (R.id.current_scorecard_hole_7_lenght_text)
+    TextView mCurrentScorecardHole_7_Length;
+    @BindView (R.id.current_scorecard_hole_7_par_text)
+    TextView mCurrentScorecardHole_7_par;
+    @BindView (R.id.current_scorecard_hole_7_score_text)
+    TextView mCurrentScorecardHole_7_score;
+    @BindView (R.id.current_scorecard_hole_7_dif_text)
+    TextView mCurrentScorecardHole_7_dif;
+    //Hole 8
+    @BindView (R.id.current_scorecard_hole_8_card)
+    CardView mCurrentScorecardHole_8_Card;
+    @BindView (R.id.current_scorecard_hole_8_lenght_text)
+    TextView mCurrentScorecardHole_8_Length;
+    @BindView (R.id.current_scorecard_hole_8_par_text)
+    TextView mCurrentScorecardHole_8_par;
+    @BindView (R.id.current_scorecard_hole_8_score_text)
+    TextView mCurrentScorecardHole_8_score;
+    @BindView (R.id.current_scorecard_hole_8_dif_text)
+    TextView mCurrentScorecardHole_8_dif;
+    //Hole 2
+    @BindView (R.id.current_scorecard_hole_9_card)
+    CardView mCurrentScorecardHole_9_Card;
+    @BindView (R.id.current_scorecard_hole_9_lenght_text)
+    TextView mCurrentScorecardHole_9_Length;
+    @BindView (R.id.current_scorecard_hole_9_par_text)
+    TextView mCurrentScorecardHole_9_par;
+    @BindView (R.id.current_scorecard_hole_9_score_text)
+    TextView mCurrentScorecardHole_9_score;
+    @BindView (R.id.current_scorecard_hole_9_dif_text)
+    TextView mCurrentScorecardHole_9_dif;
 
 
 
@@ -131,7 +225,7 @@ public class CurrentScorecardFragment extends Fragment {
         return mRootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
+
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -281,28 +375,15 @@ public class CurrentScorecardFragment extends Fragment {
 
 
         //Out Tab
-
-        //Hole 1
-        mCurrentScorecard.setHoleScore(Hole.HoleNumber.HOLE_1,2);
-
-
-        String hole_1_length= ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getHoleLength(Hole.HoleNumber.HOLE_1));
-        String hole_1_par= ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getHolePar(Hole.HoleNumber.HOLE_1).getValue());
-        String hole_1_score= ScorecardUtils.getFormattedScore(mCurrentScorecard.getHoleScore(Hole.HoleNumber.HOLE_1));
-        String hole_1_score_dif= ScorecardUtils.getFormattedScoreDif(mCurrentScorecard.getHoleScoreDif(Hole.HoleNumber.HOLE_1));
-        mCurrentScorecardHole_1_Length.setText(hole_1_length);
-        mCurrentScorecardHole_1_par.setText(hole_1_par);
-        mCurrentScorecardHole_1_score.setText(hole_1_score);
-        mCurrentScorecardHole_1_dif.setText(hole_1_score_dif);
-
-        mCurrentScorecardHole_1_Card.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               setScore(Hole.HoleNumber.HOLE_1);
-
-
-            }
-        });
+        setHole(HOLE_1);
+        setHole(HOLE_2);
+        setHole(HOLE_3);
+        setHole(HOLE_4);
+        setHole(HOLE_5);
+        setHole(HOLE_6);
+        setHole(HOLE_7);
+        setHole(HOLE_8);
+        setHole(HOLE_9);
 
 
 
@@ -329,6 +410,21 @@ public class CurrentScorecardFragment extends Fragment {
     }
 
 
+    private String buildHoleCardContentDescription(String hole, String length, String par, String score, String dif){
+
+        Context context=getContext();
+
+        String description=String.format(context.getString(R.string.current_scorecard_a11y_hole_card),
+                hole,
+                length,
+                par,
+                score,
+                dif);
+
+        return description;
+    }
+
+
 
 
     private void setScore (Hole.HoleNumber holeNumber){
@@ -338,6 +434,223 @@ public class CurrentScorecardFragment extends Fragment {
         startActivity(setScoreIntent);
 
     }
+
+
+
+    private void setHole(final Hole.HoleNumber hole){
+
+        String holeNumber=ScorecardUtils.getFormattedHoleNumber(getContext(), hole);
+        String holeLength= ScorecardUtils.getFormattedLength(getContext(),mCurrentScorecard.getHoleLength(hole));
+        String holePar= ScorecardUtils.getFormattedPar(getContext(),mCurrentScorecard.getHolePar(hole).getValue());
+        String holeScore= ScorecardUtils.getFormattedScore(mCurrentScorecard.getHoleScore(hole));
+        String holeScore_dif= ScorecardUtils.getFormattedScoreDif(mCurrentScorecard.getHoleScoreDif(hole));
+
+        switch (hole){
+            case HOLE_1:
+                mCurrentScorecardHole_1_Length.setText(holeLength);
+                mCurrentScorecardHole_1_par.setText(holePar);
+                mCurrentScorecardHole_1_score.setText(holeScore);
+                mCurrentScorecardHole_1_dif.setText(holeScore_dif);
+
+
+                mCurrentScorecardHole_1_Card.setContentDescription(buildHoleCardContentDescription(
+                        holeNumber,
+                        holeLength,
+                        holePar,
+                        holeScore,
+                        holeScore_dif));
+
+                mCurrentScorecardHole_1_Card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setScore(hole);
+                    }
+                });
+                break;
+
+            case HOLE_2:
+                mCurrentScorecardHole_2_Length.setText(holeLength);
+                mCurrentScorecardHole_2_par.setText(holePar);
+                mCurrentScorecardHole_2_score.setText(holeScore);
+                mCurrentScorecardHole_2_dif.setText(holeScore_dif);
+
+
+                mCurrentScorecardHole_2_Card.setContentDescription(buildHoleCardContentDescription(
+                        holeNumber,
+                        holeLength,
+                        holePar,
+                        holeScore,
+                        holeScore_dif));
+
+                mCurrentScorecardHole_2_Card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setScore(hole);
+                    }
+                });
+              break;
+
+            case HOLE_3:
+                mCurrentScorecardHole_3_Length.setText(holeLength);
+                mCurrentScorecardHole_3_par.setText(holePar);
+                mCurrentScorecardHole_3_score.setText(holeScore);
+                mCurrentScorecardHole_3_dif.setText(holeScore_dif);
+
+
+                mCurrentScorecardHole_3_Card.setContentDescription(buildHoleCardContentDescription(
+                        holeNumber,
+                        holeLength,
+                        holePar,
+                        holeScore,
+                        holeScore_dif));
+
+                mCurrentScorecardHole_3_Card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setScore(hole);
+                    }
+                });
+                break;
+            case HOLE_4:
+                mCurrentScorecardHole_4_Length.setText(holeLength);
+                mCurrentScorecardHole_4_par.setText(holePar);
+                mCurrentScorecardHole_4_score.setText(holeScore);
+                mCurrentScorecardHole_4_dif.setText(holeScore_dif);
+
+
+                mCurrentScorecardHole_4_Card.setContentDescription(buildHoleCardContentDescription(
+                        holeNumber,
+                        holeLength,
+                        holePar,
+                        holeScore,
+                        holeScore_dif));
+
+                mCurrentScorecardHole_4_Card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setScore(hole);
+                    }
+                });
+                break;
+
+            case HOLE_5:
+                mCurrentScorecardHole_5_Length.setText(holeLength);
+                mCurrentScorecardHole_5_par.setText(holePar);
+                mCurrentScorecardHole_5_score.setText(holeScore);
+                mCurrentScorecardHole_5_dif.setText(holeScore_dif);
+
+
+                mCurrentScorecardHole_5_Card.setContentDescription(buildHoleCardContentDescription(
+                        holeNumber,
+                        holeLength,
+                        holePar,
+                        holeScore,
+                        holeScore_dif));
+
+                mCurrentScorecardHole_5_Card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setScore(hole);
+                    }
+                });
+                break;
+
+            case HOLE_6:
+                mCurrentScorecardHole_6_Length.setText(holeLength);
+                mCurrentScorecardHole_6_par.setText(holePar);
+                mCurrentScorecardHole_6_score.setText(holeScore);
+                mCurrentScorecardHole_6_dif.setText(holeScore_dif);
+
+
+                mCurrentScorecardHole_6_Card.setContentDescription(buildHoleCardContentDescription(
+                        holeNumber,
+                        holeLength,
+                        holePar,
+                        holeScore,
+                        holeScore_dif));
+
+                mCurrentScorecardHole_6_Card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setScore(hole);
+                    }
+                });
+                break;
+
+            case HOLE_7:
+                mCurrentScorecardHole_7_Length.setText(holeLength);
+                mCurrentScorecardHole_7_par.setText(holePar);
+                mCurrentScorecardHole_7_score.setText(holeScore);
+                mCurrentScorecardHole_7_dif.setText(holeScore_dif);
+
+
+                mCurrentScorecardHole_7_Card.setContentDescription(buildHoleCardContentDescription(
+                        holeNumber,
+                        holeLength,
+                        holePar,
+                        holeScore,
+                        holeScore_dif));
+
+                mCurrentScorecardHole_7_Card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setScore(hole);
+                    }
+                });
+                break;
+
+            case HOLE_8:
+                mCurrentScorecardHole_8_Length.setText(holeLength);
+                mCurrentScorecardHole_8_par.setText(holePar);
+                mCurrentScorecardHole_8_score.setText(holeScore);
+                mCurrentScorecardHole_8_dif.setText(holeScore_dif);
+
+
+                mCurrentScorecardHole_8_Card.setContentDescription(buildHoleCardContentDescription(
+                        holeNumber,
+                        holeLength,
+                        holePar,
+                        holeScore,
+                        holeScore_dif));
+
+                mCurrentScorecardHole_8_Card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setScore(hole);
+                    }
+                });
+                break;
+
+            case HOLE_9:
+                mCurrentScorecardHole_9_Length.setText(holeLength);
+                mCurrentScorecardHole_9_par.setText(holePar);
+                mCurrentScorecardHole_9_score.setText(holeScore);
+                mCurrentScorecardHole_9_dif.setText(holeScore_dif);
+
+
+                mCurrentScorecardHole_9_Card.setContentDescription(buildHoleCardContentDescription(
+                        holeNumber,
+                        holeLength,
+                        holePar,
+                        holeScore,
+                        holeScore_dif));
+
+                mCurrentScorecardHole_9_Card.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setScore(hole);
+                    }
+                });
+                break;
+
+
+            default:
+                break;
+        }
+
+     }
+
+
 
 
 
