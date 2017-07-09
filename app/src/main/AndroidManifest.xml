@@ -64,6 +64,10 @@
                 android:value="com.montoya.gabi.scorecard.MainActivity" />
         </activity>
 
+        <activity android:name=".view.CurrentScorecardSetScoreActivity"
+            android:theme="@style/Theme.AppCompat.Light.Dialog.Alert"
+            ></activity>
+
         <!-- Activity requiered to show ad overlays. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"

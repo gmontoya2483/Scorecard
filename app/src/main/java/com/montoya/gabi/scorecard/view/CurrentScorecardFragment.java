@@ -1,6 +1,7 @@
 package com.montoya.gabi.scorecard.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -297,7 +298,9 @@ public class CurrentScorecardFragment extends Fragment {
         mCurrentScorecardHole_1_Card.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getContext(),"Hizo click en el card del Hoyo 1",Toast.LENGTH_LONG).show();
+               setScore(Hole.HoleNumber.HOLE_1);
+
+
             }
         });
 
@@ -325,6 +328,16 @@ public class CurrentScorecardFragment extends Fragment {
         return description;
     }
 
+
+
+
+    private void setScore (Hole.HoleNumber holeNumber){
+
+        Intent setScoreIntent=new Intent(getContext(),CurrentScorecardSetScoreActivity.class);
+        setScoreIntent.putExtra(CurrentScorecardSetScoreActivity.HOLE_NUMBER_PARAMETER_KEY,holeNumber.getValue());
+        startActivity(setScoreIntent);
+
+    }
 
 
 
