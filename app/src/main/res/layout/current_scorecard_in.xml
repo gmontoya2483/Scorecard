@@ -3,9 +3,403 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <android.support.v7.widget.CardView
+        android:id="@+id/current_scorecard_hole_10_card"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="IN"/>
+        android:layout_height="wrap_content">
+
+        <GridLayout
+            style="@style/ScorecardGrid">
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_10_text"
+                android:text="@string/golf_field_text_hole_10"
+                style="@style/ScorecardGridText.Hole" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_10_lenght_text"
+                android:text="@string/current_scorecard_fake_yards"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_10_par_text"
+                android:text="@string/current_scorecard_fake_par_4"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_10_score_text"
+                android:text="@string/current_scorecard_fake_score_5"
+                style="@style/ScorecardGridText.score"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_10_dif_text"
+                android:text="@string/current_scorecard_fake_mas_1"
+                style="@style/ScorecardGridText.score"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/current_scorecard_hole_11_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <GridLayout
+            style="@style/ScorecardGrid">
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_11_text"
+                android:text="@string/golf_field_text_hole_11"
+                style="@style/ScorecardGridText.Hole" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_11_lenght_text"
+                android:text="@string/current_scorecard_fake_yards"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_11_par_text"
+                android:text="@string/current_scorecard_fake_par_4"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_11_score_text"
+                android:text="@string/current_scorecard_fake_score_5"
+                style="@style/ScorecardGridText.score"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_11_dif_text"
+                android:text="@string/current_scorecard_fake_mas_1"
+                style="@style/ScorecardGridText.score"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/current_scorecard_hole_12_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <GridLayout
+            style="@style/ScorecardGrid">
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_12_text"
+                android:text="@string/golf_field_text_hole_12"
+                style="@style/ScorecardGridText.Hole" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_12_lenght_text"
+                android:text="@string/current_scorecard_fake_yards"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_12_par_text"
+                android:text="@string/current_scorecard_fake_par_4"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_12_score_text"
+                android:text="@string/current_scorecard_fake_score_5"
+                style="@style/ScorecardGridText.score"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_12_dif_text"
+                android:text="@string/current_scorecard_fake_mas_1"
+                style="@style/ScorecardGridText.score"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/current_scorecard_hole_13_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <GridLayout
+            style="@style/ScorecardGrid">
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_13_text"
+                android:text="@string/golf_field_text_hole_13"
+                style="@style/ScorecardGridText.Hole" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_13_lenght_text"
+                android:text="@string/current_scorecard_fake_yards"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_13_par_text"
+                android:text="@string/current_scorecard_fake_par_4"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_13_score_text"
+                android:text="@string/current_scorecard_fake_score_5"
+                style="@style/ScorecardGridText.score"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_13_dif_text"
+                android:text="@string/current_scorecard_fake_mas_1"
+                style="@style/ScorecardGridText.score"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/current_scorecard_hole_14_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <GridLayout
+            style="@style/ScorecardGrid">
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_14_text"
+                android:text="@string/golf_field_text_hole_14"
+                style="@style/ScorecardGridText.Hole" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_14_lenght_text"
+                android:text="@string/current_scorecard_fake_yards"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_14_par_text"
+                android:text="@string/current_scorecard_fake_par_4"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_14_score_text"
+                android:text="@string/current_scorecard_fake_score_5"
+                style="@style/ScorecardGridText.score"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_14_dif_text"
+                android:text="@string/current_scorecard_fake_mas_1"
+                style="@style/ScorecardGridText.score"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/current_scorecard_hole_15_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <GridLayout
+            style="@style/ScorecardGrid">
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_15_text"
+                android:text="@string/golf_field_text_hole_15"
+                style="@style/ScorecardGridText.Hole" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_15_lenght_text"
+                android:text="@string/current_scorecard_fake_yards"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_15_par_text"
+                android:text="@string/current_scorecard_fake_par_4"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_15_score_text"
+                android:text="@string/current_scorecard_fake_score_5"
+                style="@style/ScorecardGridText.score"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_15_dif_text"
+                android:text="@string/current_scorecard_fake_mas_1"
+                style="@style/ScorecardGridText.score"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/current_scorecard_hole_16_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <GridLayout
+            style="@style/ScorecardGrid">
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_16_text"
+                android:text="@string/golf_field_text_hole_16"
+                style="@style/ScorecardGridText.Hole" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_16_lenght_text"
+                android:text="@string/current_scorecard_fake_yards"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_16_par_text"
+                android:text="@string/current_scorecard_fake_par_4"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_16_score_text"
+                android:text="@string/current_scorecard_fake_score_5"
+                style="@style/ScorecardGridText.score"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_16_dif_text"
+                android:text="@string/current_scorecard_fake_mas_1"
+                style="@style/ScorecardGridText.score"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/current_scorecard_hole_17_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <GridLayout
+            style="@style/ScorecardGrid">
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_17_text"
+                android:text="@string/golf_field_text_hole_17"
+                style="@style/ScorecardGridText.Hole" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_17_lenght_text"
+                android:text="@string/current_scorecard_fake_yards"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_17_par_text"
+                android:text="@string/current_scorecard_fake_par_4"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_17_score_text"
+                android:text="@string/current_scorecard_fake_score_5"
+                style="@style/ScorecardGridText.score"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_17_dif_text"
+                android:text="@string/current_scorecard_fake_mas_1"
+                style="@style/ScorecardGridText.score"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/current_scorecard_hole_18_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <GridLayout
+            style="@style/ScorecardGrid">
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_18_text"
+                android:text="@string/golf_field_text_hole_18"
+                style="@style/ScorecardGridText.Hole" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_18_lenght_text"
+                android:text="@string/current_scorecard_fake_yards"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_18_par_text"
+                android:text="@string/current_scorecard_fake_par_4"
+                style="@style/ScorecardGridText" />
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_18_score_text"
+                android:text="@string/current_scorecard_fake_score_5"
+                style="@style/ScorecardGridText.score"/>
+
+            <TextView
+                android:id="@+id/current_scorecard_hole_18_dif_text"
+                android:text="@string/current_scorecard_fake_mas_1"
+                style="@style/ScorecardGridText.score"
+                />
+
+            <android.support.v4.widget.Space
+                android:layout_columnSpan="5"
+                style="@style/ScorecardGridSpace"/>
+        </GridLayout>
+    </android.support.v7.widget.CardView>
+
+
+
 
 </LinearLayout>

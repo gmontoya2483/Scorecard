@@ -1090,6 +1090,42 @@ public class ViewGolfFieldActivityFragment extends Fragment {
         currentScorecard.setHolePar(Hole.HoleNumber.HOLE_9,mViewGolfField.getHole(Hole.HoleNumber.HOLE_9).getPar());
         currentScorecard.setHoleScore(Hole.HoleNumber.HOLE_9,CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE);
 
+        //send in part
+        currentScorecard.setHoleLength(Hole.HoleNumber.HOLE_10,mViewGolfField.getHole(Hole.HoleNumber.HOLE_10).getLength());
+        currentScorecard.setHolePar(Hole.HoleNumber.HOLE_10,mViewGolfField.getHole(Hole.HoleNumber.HOLE_10).getPar());
+        currentScorecard.setHoleScore(Hole.HoleNumber.HOLE_10,CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE);
+
+        currentScorecard.setHoleLength(Hole.HoleNumber.HOLE_11,mViewGolfField.getHole(Hole.HoleNumber.HOLE_11).getLength());
+        currentScorecard.setHolePar(Hole.HoleNumber.HOLE_11,mViewGolfField.getHole(Hole.HoleNumber.HOLE_11).getPar());
+        currentScorecard.setHoleScore(Hole.HoleNumber.HOLE_11,CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE);
+
+        currentScorecard.setHoleLength(Hole.HoleNumber.HOLE_12,mViewGolfField.getHole(Hole.HoleNumber.HOLE_12).getLength());
+        currentScorecard.setHolePar(Hole.HoleNumber.HOLE_12,mViewGolfField.getHole(Hole.HoleNumber.HOLE_12).getPar());
+        currentScorecard.setHoleScore(Hole.HoleNumber.HOLE_12,CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE);
+
+        currentScorecard.setHoleLength(Hole.HoleNumber.HOLE_13,mViewGolfField.getHole(Hole.HoleNumber.HOLE_13).getLength());
+        currentScorecard.setHolePar(Hole.HoleNumber.HOLE_13,mViewGolfField.getHole(Hole.HoleNumber.HOLE_13).getPar());
+        currentScorecard.setHoleScore(Hole.HoleNumber.HOLE_13,CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE);
+
+        currentScorecard.setHoleLength(Hole.HoleNumber.HOLE_14,mViewGolfField.getHole(Hole.HoleNumber.HOLE_14).getLength());
+        currentScorecard.setHolePar(Hole.HoleNumber.HOLE_14,mViewGolfField.getHole(Hole.HoleNumber.HOLE_14).getPar());
+        currentScorecard.setHoleScore(Hole.HoleNumber.HOLE_14,CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE);
+
+        currentScorecard.setHoleLength(Hole.HoleNumber.HOLE_15,mViewGolfField.getHole(Hole.HoleNumber.HOLE_15).getLength());
+        currentScorecard.setHolePar(Hole.HoleNumber.HOLE_15,mViewGolfField.getHole(Hole.HoleNumber.HOLE_15).getPar());
+        currentScorecard.setHoleScore(Hole.HoleNumber.HOLE_15,CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE);
+
+        currentScorecard.setHoleLength(Hole.HoleNumber.HOLE_16,mViewGolfField.getHole(Hole.HoleNumber.HOLE_16).getLength());
+        currentScorecard.setHolePar(Hole.HoleNumber.HOLE_16,mViewGolfField.getHole(Hole.HoleNumber.HOLE_16).getPar());
+        currentScorecard.setHoleScore(Hole.HoleNumber.HOLE_16,CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE);
+
+        currentScorecard.setHoleLength(Hole.HoleNumber.HOLE_17,mViewGolfField.getHole(Hole.HoleNumber.HOLE_17).getLength());
+        currentScorecard.setHolePar(Hole.HoleNumber.HOLE_17,mViewGolfField.getHole(Hole.HoleNumber.HOLE_17).getPar());
+        currentScorecard.setHoleScore(Hole.HoleNumber.HOLE_17,CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE);
+
+        currentScorecard.setHoleLength(Hole.HoleNumber.HOLE_18,mViewGolfField.getHole(Hole.HoleNumber.HOLE_18).getLength());
+        currentScorecard.setHolePar(Hole.HoleNumber.HOLE_18,mViewGolfField.getHole(Hole.HoleNumber.HOLE_18).getPar());
+        currentScorecard.setHoleScore(Hole.HoleNumber.HOLE_18,CurrentScorecard.CURRENT_SCORECARD_NOT_DEFINED_SCORE);
 
 
 
