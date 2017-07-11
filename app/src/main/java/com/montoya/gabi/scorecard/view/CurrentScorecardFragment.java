@@ -69,6 +69,7 @@ public class CurrentScorecardFragment extends Fragment {
     private  final String CURRENT_SCORE_CARD_SELECTED_TAB_LABEL="current_scorecard_tab";
     private final int CURRENT_SCORE_NOT_SELECTED_TAB_LABEL=0;
 
+    //General
     @BindView(R.id.current_scorecard_bottom_nav)
     BottomNavigationView mBottomNavigation;
 
@@ -313,6 +314,34 @@ public class CurrentScorecardFragment extends Fragment {
     TextView mCurrentScorecardHole_18_score;
     @BindView (R.id.current_scorecard_hole_18_dif_text)
     TextView mCurrentScorecardHole_18_dif;
+
+
+    //Score
+    @BindView (R.id.current_scorecard_score_card)
+    CardView mCurrentScorecardScore_Card;
+
+    @BindView (R.id.current_scorecard_out_score_text)
+    TextView mCurrentScorecardOutScore;
+    @BindView (R.id.current_scorecard_out_dif_text)
+    TextView mCurrentScorecardOutDif;
+
+    @BindView (R.id.current_scorecard_in_score_text)
+    TextView mCurrentScorecardInScore;
+    @BindView (R.id.current_scorecard_in_dif_text)
+    TextView mCurrentScorecardInDif;
+
+    @BindView (R.id.current_scorecard_gross_score_text)
+    TextView mCurrentScorecardGrossScore;
+    @BindView (R.id.current_scorecard_gross_dif_text)
+    TextView mCurrentScorecardGrossDif;
+
+    @BindView (R.id.current_scorecard_handicap_text)
+    TextView mCurrentScorecardHandicap;
+
+    @BindView (R.id.current_scorecard_net_score_text)
+    TextView mCurrentScorecardNetScore;
+    @BindView (R.id.current_scorecard_net_dif_text)
+    TextView mCurrentScorecardNetDif;
 
 
 

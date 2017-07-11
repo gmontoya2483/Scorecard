@@ -154,6 +154,13 @@
     <string name="current_scorecard_no_scorecard">There is no Current Scorecard</string>
     <string name="current_scorecard_item_delete">Delete</string>
     <string name="current_scorecard_item_confirm">Confirm</string>
+    <string name="current_scorecard_set_score_score">Score</string>
+    <string name="current_scorecard_set_score_confirm">confirm</string>
+    <string name="current_scorecard_out_score">Out score</string>
+    <string name="current_scorecard_in_score">In score</string>
+    <string name="current_scorecard_gross_score">Gross score</string>
+    <string name="current_scorecard_handicap">Handicap</string>
+    <string name="current_scorecard_net_score">Net score</string>
 
     <string name="current_scorecard_fake_yards">425 yards</string>
     <string name="current_scorecard_fake_par_4">Par 4</string>
@@ -163,8 +170,14 @@
     <string name="current_scorecard_fake_date">SUN 23 JUL 2017</string>
     <string name="current_scorecard_fake_length">1516 Yards</string>
     <string name="current_scorecard_fake_par">PAR 60</string>
-    <string name="current_scorecard_set_score_score">Score</string>
-    <string name="current_scorecard_set_score_confirm">confirm</string>
+    <string name="current_scorecard_fake_score_35">35</string>
+    <string name="current_scorecard_fake_score_70">70</string>
+    <string name="current_scorecard_fake_dif_4">+4</string>
+    <string name="current_scorecard_fake_handicap">5</string>
+    <string name="current_scorecard_fake_score_65">65</string>
+    <string name="current_scorecard_fake_dif_2">+2</string>
+
+
 
 
     <!--A11Y Current Scorecard -->
