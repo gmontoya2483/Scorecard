@@ -184,6 +184,9 @@
     <string name="current_scorecard_a11y_no_scorecard">Currently there is no active Scorecard</string>
     <string name="current_scorecard_a11y_general_card">Current Scorecard General tab, Golf field %1$s, date %2$s, Total length %3$s %4$s, out %5$s %6$s, in %7$s %8$s</string>
     <string name="current_scorecard_a11y_hole_card">%1$s, length %2$s, %3$s, score %4$s %5$s</string>
+    <string name="current_scorecard_a11y_score_card">Out score %1$s %2$s, In Score %3$s %4$s, Gross score %5$s %6$s, Handicap %7$s, Net score %8$s %9$s </string>
+
+
 
 
 

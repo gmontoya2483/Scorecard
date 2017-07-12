@@ -286,7 +286,108 @@ public class CurrentScorecard {
          return dif;
     }
 
+    public int  getOutScore(){
+        int score=0;
 
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_1);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_2);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_3);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_4);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_5);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_6);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_7);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_8);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_9);
+
+        return score;
+    }
+
+
+    public int  getOutDif(){
+        int dif=0;
+
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_1);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_2);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_3);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_4);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_5);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_6);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_7);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_8);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_9);
+
+        return dif;
+    }
+
+
+    public int  getInScore(){
+        int score=0;
+
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_10);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_11);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_12);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_13);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_14);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_15);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_16);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_17);
+        score=score+getHoleScore(Hole.HoleNumber.HOLE_18);
+
+        return score;
+    }
+
+
+    public int  getInDif(){
+        int dif=0;
+
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_10);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_11);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_12);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_13);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_14);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_15);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_16);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_17);
+        dif=dif+getHoleScoreDif(Hole.HoleNumber.HOLE_18);
+
+        return dif;
+    }
+
+
+
+    public int getGrossScore(){
+        return getOutScore()+getInScore();
+    }
+
+
+    public int getGrossDif(){
+        return getOutDif()+getInDif();
+    }
+
+
+    public int getNetScore(){
+        return getGrossScore()-getCurrentHandicap();
+    }
+
+    public int getNetDif(){
+        return getGrossDif()-getCurrentHandicap();
+    }
+
+
+    public void deleteCurrentScorecard(){
+
+        //TODO BORRAR TODAS LAS SHARED PROFERENCES DE CURRENT SCORECARD
+
+
+    }
+
+
+    public Boolean confirmCurrentScorecard(){
+
+        //TODO Guardar la info de current SCORECARD
+
+        return true;
+    }
 
 
     private String getCurrentScorecardHolePrefixKey(Hole.HoleNumber holeNumber){
@@ -353,9 +454,6 @@ public class CurrentScorecard {
                 holePrefixKey=CURRENT_SCORECARD_HOLE_INVALID_KEY;
                 break;
         }
-
-
-
 
         return holePrefixKey;
 

@@ -17,6 +17,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.montoya.gabi.scorecard.MainActivity;
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.CurrentScorecard;
 import com.montoya.gabi.scorecard.model.GolfField;
@@ -59,6 +60,7 @@ public class CurrentScorecardFragment extends Fragment {
 
     View mRootView;
     CurrentScorecard mCurrentScorecard;
+    private MainActivity.CurrentScorecardInterface mCurrentScorecardInterface;
 
 
     private final String TAB_GENERAL_SPEC="general_tab";
@@ -424,11 +426,24 @@ public class CurrentScorecardFragment extends Fragment {
                 switch (item.getItemId()){
                     case R.id.item_current_scorecard_delete:
 
-                        Toast.makeText(getContext(),"Delete",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getContext(),"Delete",Toast.LENGTH_LONG).show(); //TODO REMOVE THIS LINE
+                        mCurrentScorecard.deleteCurrentScorecard();
+                        mCurrentScorecardInterface.setDefaultMenuItem();
+
                         break;
 
                     case R.id.item_current_scorecard_confirm:
-                        Toast.makeText(getContext(),"Confirm",Toast.LENGTH_LONG).show();
+
+                        if (mCurrentScorecard.confirmCurrentScorecard()){
+                            Toast.makeText(getContext(),"Confirm",Toast.LENGTH_LONG).show(); //TODO REMOVE THIS LINE
+                            mCurrentScorecard.deleteCurrentScorecard();
+                            mCurrentScorecardInterface.setDefaultMenuItem();
+
+                        }else {
+                            Toast.makeText(getContext(),"There was a problem while trying to confirm and save the current scorecard. Please verify that you have set the score in all the holes",Toast.LENGTH_LONG).show();
+
+                        }
+
                         break;
                     default:
                         break;
@@ -540,6 +555,38 @@ public class CurrentScorecardFragment extends Fragment {
         setHole(HOLE_17);
         setHole(HOLE_18);
 
+        //Score
+        String outScore=ScorecardUtils.getFormattedScore(mCurrentScorecard.getOutScore());
+        String outDif=ScorecardUtils.getFormattedScoreDif(mCurrentScorecard.getOutDif());
+        String inScore=ScorecardUtils.getFormattedScore(mCurrentScorecard.getInScore());
+        String inDif=ScorecardUtils.getFormattedScoreDif(mCurrentScorecard.getInDif());
+        String grossScore=ScorecardUtils.getFormattedScore(mCurrentScorecard.getGrossScore());
+        String grossDif=ScorecardUtils.getFormattedScoreDif(mCurrentScorecard.getGrossDif());
+        String handicap=ScorecardUtils.getFormattedHandicap(mCurrentScorecard.getCurrentHandicap());
+        String netScore=ScorecardUtils.getFormattedScore(mCurrentScorecard.getNetScore());
+        String netDif=ScorecardUtils.getFormattedScoreDif(mCurrentScorecard.getNetDif());
+
+        mCurrentScorecardOutScore.setText(outScore);
+        mCurrentScorecardOutDif.setText(outDif);
+        mCurrentScorecardInScore.setText(inScore);
+        mCurrentScorecardInDif.setText(inDif);
+        mCurrentScorecardGrossScore.setText(grossScore);
+        mCurrentScorecardGrossDif.setText(grossDif);
+        mCurrentScorecardHandicap.setText(handicap);
+        mCurrentScorecardNetScore.setText(netScore);
+        mCurrentScorecardNetDif.setText(netDif);
+
+        mCurrentScorecardScore_Card.setContentDescription(buildScoreCardContentDescription(
+                outScore,
+                outDif,
+                inScore,
+                inDif,
+                grossScore,
+                grossDif,
+                handicap,
+                netScore,
+                netDif));
+
 
     }
 
@@ -575,6 +622,24 @@ public class CurrentScorecardFragment extends Fragment {
                 dif);
 
         return description;
+    }
+
+
+    private String buildScoreCardContentDescription(String outScore, String outDif, String inScore, String inDif, String grossScore, String grossDif, String handicap, String netScore, String netDif){
+        Context context=getContext();
+        String description=String.format(context.getString(R.string.current_scorecard_a11y_score_card),
+                outScore,
+                outDif,
+                inScore,
+                inDif,
+                grossScore,
+                grossDif,
+                handicap,
+                netScore,
+                netDif);
+
+        return description;
+
     }
 
 
@@ -983,8 +1048,7 @@ public class CurrentScorecardFragment extends Fragment {
      }
 
 
-
-
-
-
+    public void setCurrentScorecardInterface(MainActivity.CurrentScorecardInterface mInterface) {
+        this.mCurrentScorecardInterface = mInterface;
+    }
 }

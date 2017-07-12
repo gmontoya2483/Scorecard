@@ -149,6 +149,11 @@ public class ScorecardUtils {
     }
 
 
+    public static String getFormattedHandicap(int handicap){
+            return Integer.toString(handicap);
+    }
+
+
 
     public static void AddIntToSharedPreferences(Context context,String key, int value){
 

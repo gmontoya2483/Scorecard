@@ -10,7 +10,6 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -35,7 +34,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         PlayerFragment.OnFragmentInteractionListener,
         CurrentScorecardFragment.OnFragmentInteractionListener,
         FragmentGaleria.OnFragmentInteractionListener,
-        CurrentScorecardEmptyFragment.OnFragmentInteractionListener{
+        CurrentScorecardEmptyFragment.OnFragmentInteractionListener {
 
 
 
@@ -48,11 +47,25 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private UserAuthentication mUserAuthentication;
 
     public static final String SELECTED_MENU_ITEM_LABEL="selected_menu_item_label";
+    public static final int SELECTED_MENU_ITEM_DEFAULT=R.id.nav_scorecards;
+
     private int mSelectedItemMenu;
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     NavigationView navigationView;
+
+    private CurrentScorecardInterface mCurrentScorecardInterface=new CurrentScorecardInterface() {
+        @Override
+        public void setDefaultMenuItem() {
+
+                int id=SELECTED_MENU_ITEM_DEFAULT;
+                navigationView.setCheckedItem(id);
+                navigationView.getMenu().performIdentifierAction(id,0);
+
+        }
+    };
+
 
 
 
@@ -167,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onPause() {
         super.onPause();
-        mUserAuthentication.detachAuthStateListener(); //dettach the Authorization StateListener
+        mUserAuthentication.detachAuthStateListener(); //detach the Authorization StateListener
         ScorecardUtils.AddIntToSharedPreferences(this,SELECTED_MENU_ITEM_LABEL,mSelectedItemMenu);
 
     }
@@ -205,44 +218,76 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         int id = item.getItemId();
         Bundle args=new Bundle();
 
-        Fragment fragment=null;
+        // Fragment fragment=null;
         boolean fragmentTransaction=false;
 
         if (id == R.id.nav_player_handicap) {
             // Handle the camera action
-            fragment=new PlayerFragment();
+            PlayerFragment fragment=new PlayerFragment();
             fragmentTransaction=true;
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_main,fragment)
+                    .commit();
 
 
         } else if (id == R.id.nav_scorecards) {
-            fragment=new FragmentGaleria();
+            FragmentGaleria fragment=new FragmentGaleria();
             fragmentTransaction=true;
+
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_main,fragment)
+                    .commit();
+
 
         } else if (id == R.id.nav_current_scorecards) {
 
             if (CurrentScorecard.getExistCurrentScorecard(getApplicationContext())){
-                fragment=new CurrentScorecardFragment();
+
+                CurrentScorecardFragment fragment=new CurrentScorecardFragment();
+                fragment.setCurrentScorecardInterface(mCurrentScorecardInterface);
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_main,fragment)
+                        .commit();
+
+
+
             }else{
-                fragment=new CurrentScorecardEmptyFragment();
+                CurrentScorecardEmptyFragment fragment=new CurrentScorecardEmptyFragment();
+                getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.content_main,fragment)
+                        .commit();
             }
 
             fragmentTransaction=true;
 
         } else if (id == R.id.nav_golf_fields) {
 
-            fragment=new GolfFieldsFragment();
+            GolfFieldsFragment fragment=new GolfFieldsFragment();
             args.putString(GolfFieldsFragment.TYPE_LABEL,GolfFieldsFragment.TYPE_ALL_GOLF_FIELDS);
             fragment.setArguments(args);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_main,fragment)
+                    .commit();
+
             fragmentTransaction=true;
 
         } else if (id == R.id.nav_favorite_golf_fields) {
-            fragment=new GolfFieldsFragment();
+            GolfFieldsFragment fragment=new GolfFieldsFragment();
             args.putString(GolfFieldsFragment.TYPE_LABEL,GolfFieldsFragment.TYPE_FAVORITE_GOLF_FIELDS);
             fragment.setArguments(args);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_main,fragment)
+                    .commit();
+
             fragmentTransaction=true;
 
         } else if (id == R.id.nav_settings) {
-            fragment=new SettingsFragment();
+            SettingsFragment fragment=new SettingsFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.content_main,fragment)
+                    .commit();
+
             fragmentTransaction=true;
 
         }
@@ -254,17 +299,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //manejador de fragment
 
         if (fragmentTransaction){
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.content_main,fragment)
-                    .commit();
 
             item.setChecked(true);
             getSupportActionBar().setTitle(item.getTitle());
 
-        }
-
-
-
+       }
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
@@ -297,7 +336,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        int id=ScorecardUtils.RetrieveIntFromSharedPreferences(this,SELECTED_MENU_ITEM_LABEL);
 
        if (id==ScorecardUtils.PREFERENCES_INVALID_INT){
-           id=R.id.nav_scorecards;
+           id=SELECTED_MENU_ITEM_DEFAULT;
        }
 
        navigationView.setCheckedItem(id);
@@ -312,4 +351,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
+    public interface CurrentScorecardInterface{
+        void setDefaultMenuItem();
+    }
+
+
+
 }
