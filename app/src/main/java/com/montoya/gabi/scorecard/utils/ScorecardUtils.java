@@ -4,12 +4,17 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.widget.EditText;
 
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.CurrentScorecard;
+import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.Hole;
+import com.montoya.gabi.scorecard.model.data.ScorecardContract;
+
+import static com.montoya.gabi.scorecard.model.GolfField.NOT_SAVED_GOLF_FIELD_ID;
 
 /**
  * Created by montoya on 10.04.2017.
@@ -360,6 +365,119 @@ public class ScorecardUtils {
     @NonNull
     public static String getConvertedHoleLengthString (Context context, GolfFieldHole hole){
         return String.valueOf(getConvertedLength(context,hole.getLength()));
+    }
+
+
+    public static void generatePreLoadedGolfFields(Context mContext){
+
+        GolfField golfField;
+
+        //Insert Golf field 1
+        golfField=new GolfField("Aranzazu Country Club", ScorecardContract.ScorecardBoolean.FALSE, ScorecardContract.ScorecardBoolean.TRUE);
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_1,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_2,220, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_3,320, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_4,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_5,220, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_6,320, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_7,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_8,220, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_9,320, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_10,120, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_11,220, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_12,120, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_13,223, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_14,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_15,148, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_16,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_17,110, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_18,120, Hole.Par.PAR_3) );
+
+        if (!golfField.InsertGolfField(mContext)){
+            Log.e(APP_LOG_TAG,"The golf field was not inserted");
+        }
+
+
+        //Insert Golf Field 2
+        golfField=new GolfField("Circulo Policial Argentino", ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_1,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_2,220, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_3,320, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_4,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_5,220, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_6,320, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_7,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_8,220, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_9,320, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_10,120, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_11,220, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_12,120, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_13,223, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_14,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_15,148, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_16,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_17,110, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_18,120, Hole.Par.PAR_3) );
+
+        if (!golfField.InsertGolfField(mContext)){
+            Log.e(APP_LOG_TAG,"The golf field was not inserted");
+        }
+
+
+        //Insert Golf Field 2
+        golfField=new GolfField("Olivos golf", ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_1,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_2,220, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_3,320, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_4,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_5,220, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_6,320, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_7,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_8,220, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_9,320, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_10,120, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_11,220, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_12,120, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_13,223, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_14,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_15,148, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_16,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_17,110, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_18,120, Hole.Par.PAR_3) );
+
+        if (!golfField.InsertGolfField(mContext)){
+            Log.e(APP_LOG_TAG,"The golf field was not inserted");
+        }
+
+
+        //Insert Golf Field 2
+        golfField=new GolfField("Golfers", ScorecardContract.ScorecardBoolean.FALSE, ScorecardContract.ScorecardBoolean.TRUE);
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_1,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_2,220, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_3,320, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_4,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_5,220, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_6,320, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_7,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_8,220, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_9,320, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_10,120, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_11,220, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_12,120, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_13,223, Hole.Par.PAR_5) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_14,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_15,148, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_16,120, Hole.Par.PAR_3) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_17,110, Hole.Par.PAR_4) );
+        golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_18,120, Hole.Par.PAR_3) );
+
+        if (!golfField.InsertGolfField(mContext)){
+            Log.e(APP_LOG_TAG,"The golf field was not inserted");
+        }
+
+
+
+
     }
 
 

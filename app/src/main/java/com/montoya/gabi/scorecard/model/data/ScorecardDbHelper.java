@@ -11,6 +11,7 @@ import com.montoya.gabi.scorecard.model.Hole;
 
 import static com.montoya.gabi.scorecard.model.GolfField.NOT_SAVED_GOLF_FIELD_ID;
 import static com.montoya.gabi.scorecard.model.data.ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME;
+import static com.montoya.gabi.scorecard.model.data.ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_NAME;
 
 /**
  * Created by montoya on 10.04.2017.
@@ -59,13 +60,49 @@ public class ScorecardDbHelper extends SQLiteOpenHelper{
 
 
 
+        final String SQL_CREATE_SCORECARD_TABLE=
+                "CREATE TABLE "+ ScorecardContract.ScorecardEntry.TABLE_NAME +
+                        " ("+
+                        ScorecardContract.ScorecardEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_ID+"  INTEGER NOT NULL,"+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_NAME+" TEXT NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_TOTAL_LENGTH+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_TOTAL_PAR+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_OUT_LENGTH+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_OUT_PAR+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_IN_LENGTH+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_IN_PAR+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_HANDICAP+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_DATE+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_OUT_SCORE+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_OUT_DIF+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_IN_SCORE+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_IN_DIF+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GROSS_SCORE+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GROSS_DIF+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_NET_SCORE+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_NET_DIF+" INTEGER NOT NULL "+
+                        ") ";
+
+
+        final String SQL_CREATE_SCORECARD_HOLE_TABLE=
+                "CREATE TABLE "+ ScorecardContract.ScorecardHoleEntry.TABLE_NAME +
+                        " ("+
+                        ScorecardContract.ScorecardHoleEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "+
+                        ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_NUMBER+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_LENGTH+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_PAR+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_SCORE+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_DIF+" INTEGER NOT NULL, "+
+                        ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_SC_ID +" INTEGER NOT NULL, "+
+                        "FOREIGN KEY("+ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_SC_ID+") REFERENCES "+ScorecardContract.ScorecardEntry.TABLE_NAME+"("+ScorecardContract.ScorecardEntry._ID+")"+
+                        ") ";
+
+
         db.execSQL(SQL_CREATE_GOLF_FILED_TABLE);
         db.execSQL(SQL_CREATE_GOLF_FILED_HOLE_TABLE);
-
-
-       // GeneratePreLoadedGolfFields();
-        //db.close();
-
+        db.execSQL(SQL_CREATE_SCORECARD_TABLE);
+        db.execSQL(SQL_CREATE_SCORECARD_HOLE_TABLE);
     }
 
     @Override
@@ -77,14 +114,17 @@ public class ScorecardDbHelper extends SQLiteOpenHelper{
         //DROP TABLES
         db.execSQL("DROP TABLE IF EXISTS " + ScorecardContract.GolfFieldHoleEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + ScorecardContract.GolfFieldEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ScorecardContract.ScorecardHoleEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + ScorecardContract.ScorecardEntry.TABLE_NAME);
 
 
         //RESET TABLES COUNTERS
         db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '"+ScorecardContract.GolfFieldHoleEntry.TABLE_NAME+"'");
         db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '"+ScorecardContract.GolfFieldEntry.TABLE_NAME+"'");
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '"+ScorecardContract.ScorecardHoleEntry.TABLE_NAME+"'");
+        db.execSQL("DELETE FROM SQLITE_SEQUENCE WHERE NAME = '"+ScorecardContract.ScorecardEntry.TABLE_NAME+"'");
 
-
-        onCreate(db);
+       onCreate(db);
 
 //        db.close();
 

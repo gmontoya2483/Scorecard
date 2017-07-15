@@ -52,14 +52,14 @@ public class ScorecardContract {
     public static final String PATH_GOLF_FIELD_HOLE_FIELD = "golf_field_hole_field";
 
     public static final String PATH_SCORECARD = "scorecard";
+    public static final String PATH_SCORECARD_GROSS = "scorecard_gross";
+    public static final String PATH_SCORECARD_NET = "scorecard_net";
+
     public static final String PATH_SCORECARD_HOLE = "scorecard_hole";
 
 
 
     public static final class GolfFieldEntry implements BaseColumns{
-
-
-        private static final String LOG_TAG= GolfFieldEntry.class.getSimpleName();
 
 
         // Table name
@@ -119,121 +119,6 @@ public class ScorecardContract {
 
         public static Uri buildAllGolfFieldsFavoriteUri() {
             return CONTENT_URI_FAVORITE;
-        }
-
-
-
-
-        public static void generatePreLoadedGolfFields(Context mContext){
-
-            GolfField golfField;
-
-            //Insert Golf field 1
-            golfField=new GolfField("Aranzazu Country Club", ScorecardContract.ScorecardBoolean.FALSE, ScorecardContract.ScorecardBoolean.TRUE);
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_1,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_2,220, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_3,320, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_4,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_5,220, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_6,320, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_7,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_8,220, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_9,320, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_10,120, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_11,220, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_12,120, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_13,223, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_14,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_15,148, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_16,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_17,110, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_18,120, Hole.Par.PAR_3) );
-
-            if (!golfField.InsertGolfField(mContext)){
-                Log.e(LOG_TAG,"The golf field was not inserted");
-            }
-
-
-            //Insert Golf Field 2
-            golfField=new GolfField("Circulo Policial Argentino", ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_1,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_2,220, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_3,320, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_4,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_5,220, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_6,320, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_7,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_8,220, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_9,320, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_10,120, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_11,220, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_12,120, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_13,223, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_14,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_15,148, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_16,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_17,110, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_18,120, Hole.Par.PAR_3) );
-
-            if (!golfField.InsertGolfField(mContext)){
-                Log.e(LOG_TAG,"The golf field was not inserted");
-            }
-
-
-            //Insert Golf Field 2
-            golfField=new GolfField("Olivos golf", ScorecardContract.ScorecardBoolean.TRUE, ScorecardContract.ScorecardBoolean.TRUE);
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_1,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_2,220, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_3,320, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_4,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_5,220, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_6,320, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_7,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_8,220, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_9,320, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_10,120, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_11,220, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_12,120, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_13,223, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_14,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_15,148, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_16,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_17,110, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_18,120, Hole.Par.PAR_3) );
-
-            if (!golfField.InsertGolfField(mContext)){
-                Log.e(LOG_TAG,"The golf field was not inserted");
-            }
-
-
-            //Insert Golf Field 2
-            golfField=new GolfField("Golfers", ScorecardContract.ScorecardBoolean.FALSE, ScorecardContract.ScorecardBoolean.TRUE);
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_1,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_2,220, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_3,320, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_4,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_5,220, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_6,320, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_7,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_8,220, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_9,320, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_10,120, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_11,220, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_12,120, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_13,223, Hole.Par.PAR_5) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_14,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_15,148, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_16,120, Hole.Par.PAR_3) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_17,110, Hole.Par.PAR_4) );
-            golfField.AddHole(new GolfFieldHole(NOT_SAVED_GOLF_FIELD_ID, Hole.HoleNumber.HOLE_18,120, Hole.Par.PAR_3) );
-
-            if (!golfField.InsertGolfField(mContext)){
-                Log.e(LOG_TAG,"The golf field was not inserted");
-            }
-
-
-
-
         }
 
 
@@ -297,10 +182,85 @@ public class ScorecardContract {
 
     public static final class ScorecardEntry implements BaseColumns{
 
+        private static final String LOG_TAG= GolfFieldEntry.class.getSimpleName();
+
+
+        // Table name
+        public static final String TABLE_NAME = "Scorecard";
+
+        // Columns
+        public static final String COLUMN_SCORECARD_GF_ID = "scorecard_gf_id";
+        public static final String COLUMN_SCORECARD_GF_NAME = "scorecard_gf_name";
+        public static final String COLUMN_SCORECARD_GF_TOTAL_LENGTH = "scorecard_gf_total_length";
+        public static final String COLUMN_SCORECARD_GF_TOTAL_PAR = "scorecard_gf_total_par";
+        public static final String COLUMN_SCORECARD_GF_OUT_LENGTH = "scorecard_gf_out_length";
+        public static final String COLUMN_SCORECARD_GF_OUT_PAR = "scorecard_gf_out_par";
+        public static final String COLUMN_SCORECARD_GF_IN_LENGTH = "scorecard_gf_in_length";
+        public static final String COLUMN_SCORECARD_GF_IN_PAR = "scorecard_gf_in_par";
+
+        public static final String COLUMN_SCORECARD_DATE="scorecard_date";
+        public static final String COLUMN_SCORECARD_HANDICAP="scorecard_handicap";
+
+        public static final String COLUMN_SCORECARD_OUT_SCORE="scorecard_out_score";
+        public static final String COLUMN_SCORECARD_OUT_DIF="scorecard_out_dif";
+        public static final String COLUMN_SCORECARD_IN_SCORE="scorecard_in_score";
+        public static final String COLUMN_SCORECARD_IN_DIF="scorecard_in_dif";
+        public static final String COLUMN_SCORECARD_GROSS_SCORE="scorecard_gross_score";
+        public static final String COLUMN_SCORECARD_GROSS_DIF="scorecard_gross_dif";
+        public static final String COLUMN_SCORECARD_NET_SCORE="scorecard_net_score";
+        public static final String COLUMN_SCORECARD_NET_DIF="scorecard_net_dif";
+
+
+
+        // Create content uri for the scorecard
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_SCORECARD)
+                .build();
+
+        // Create content uri for the scorecard_gross
+        public static final Uri CONTENT_URI_GROSS = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_SCORECARD_GROSS)
+                .build();
+
+        // Create content uri for the scorecard_net
+        public static final Uri CONTENT_URI_NET = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_SCORECARD_NET)
+                .build();
+
+        // create cursor of base type directory for multiples entries (scorecards)
+        public static final String CONTENT_DIR_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD;
+        // create cursor of base type item for single entry (scorecard)
+        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD;
+
+
+        // create cursor of base type directory for multiples entries (scorecards_gross)
+        public static final String CONTENT_DIR_TYPE_GROSS = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_GROSS;
+        // create cursor of base type item for single entry (scorecard_gross)
+        public static final String CONTENT_ITEM_TYPE_GROSS = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_GROSS;
+
+        // create cursor of base type directory for multiples entries (scorecards_net)
+        public static final String CONTENT_DIR_TYPE_NET = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_NET;
+        // create cursor of base type item for single entry (scorecard_net)
+        public static final String CONTENT_ITEM_TYPE_NET = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_NET;
+
+
+
     }
 
 
     public static final class ScorecardHoleEntry implements BaseColumns{
+
+        // Table name
+        public static final String TABLE_NAME = "Scorecard_hole";
+
+        // Columns
+        public static final String COLUMN_SCORECARD_HOLE_SC_ID = "scorecard_hole_sc_id";
+        public static final String COLUMN_SCORECARD_HOLE_NUMBER = "scorecard_hole_number";
+        public static final String COLUMN_SCORECARD_HOLE_LENGTH = "scorecard_hole_length";
+        public static final String COLUMN_SCORECARD_HOLE_PAR = "scorecard_hole_par";
+        public static final String COLUMN_SCORECARD_HOLE_SCORE = "scorecard_hole_score";
+        public static final String COLUMN_SCORECARD_HOLE_DIF = "scorecard_hole_dif";
+
 
     }
 

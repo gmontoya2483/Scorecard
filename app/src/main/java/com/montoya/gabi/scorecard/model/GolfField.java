@@ -29,7 +29,7 @@ public class GolfField {
     private int favorite;
     private int active;
 
-    private GolfFieldHole holes []=new GolfFieldHole[18];
+    private GolfFieldHole holes []=new GolfFieldHole[QUANTITY_OF_HOLES];
 
     private int out_length=INVALID_TOTAL_LENGTH;
     private int in_length=INVALID_TOTAL_LENGTH;

@@ -425,19 +425,14 @@ public class CurrentScorecardFragment extends Fragment {
 
                 switch (item.getItemId()){
                     case R.id.item_current_scorecard_delete:
-
-                        Toast.makeText(getContext(),"Delete",Toast.LENGTH_LONG).show(); //TODO REMOVE THIS LINE
-                        mCurrentScorecard.deleteCurrentScorecard();
-                        mCurrentScorecardInterface.setDefaultMenuItem();
-
+                        removeCurrentScorecard();
                         break;
 
                     case R.id.item_current_scorecard_confirm:
-
                         if (mCurrentScorecard.confirmCurrentScorecard()){
-                            Toast.makeText(getContext(),"Confirm",Toast.LENGTH_LONG).show(); //TODO REMOVE THIS LINE
-                            mCurrentScorecard.deleteCurrentScorecard();
-                            mCurrentScorecardInterface.setDefaultMenuItem();
+
+                            Toast.makeText(getContext(),"Confirm",Toast.LENGTH_LONG).show(); //TODO REMOVE THIS LINE when the save functionallity is finished
+                            removeCurrentScorecard();
 
                         }else {
                             Toast.makeText(getContext(),"There was a problem while trying to confirm and save the current scorecard. Please verify that you have set the score in all the holes",Toast.LENGTH_LONG).show();
@@ -1048,6 +1043,16 @@ public class CurrentScorecardFragment extends Fragment {
      }
 
 
+
+     private void removeCurrentScorecard(){
+
+         mCurrentScorecard.deleteCurrentScorecard();
+         ScorecardUtils.RemoveKeyFromSharedPreferences(getContext(),CURRENT_SCORE_CARD_SELECTED_TAB_LABEL);
+         mCurrentScorecardInterface.setDefaultMenuItem();
+
+     }
+
+     //Interface to return a value to the main activity
     public void setCurrentScorecardInterface(MainActivity.CurrentScorecardInterface mInterface) {
         this.mCurrentScorecardInterface = mInterface;
     }

@@ -376,8 +376,36 @@ public class CurrentScorecard {
 
     public void deleteCurrentScorecard(){
 
-        //TODO BORRAR TODAS LAS SHARED PROFERENCES DE CURRENT SCORECARD
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_EXIST_KEY);
 
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_NAME_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_OUT_LENGTH_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_IN_LENGTH_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_OUT_PAR_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_IN_PAR_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_DATE_KEY);
+
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HANDICAP_KEY);
+
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_1_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_2_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_3_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_4_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_5_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_6_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_7_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_8_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_9_KEY);
+
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_10_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_11_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_12_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_13_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_14_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_15_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_16_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_17_KEY);
+        ScorecardUtils.RemoveKeyFromSharedPreferences(mContext,CURRENT_SCORECARD_HOLE_18_KEY);
 
     }
 

@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         //Verific si hay campos de golf cargados y los carga...//TODO borrar cuando se haya terminado de probsar
         if (GolfField.getQuantityOfGolfFields(getApplicationContext())==0){
-       ScorecardContract.GolfFieldEntry.generatePreLoadedGolfFields(getApplicationContext());
+       ScorecardUtils.generatePreLoadedGolfFields(getApplicationContext());
         }
 
         //Initialize the UserAuthentication class and the listener for log in
