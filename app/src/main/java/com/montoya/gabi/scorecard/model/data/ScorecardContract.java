@@ -52,6 +52,7 @@ public class ScorecardContract {
     public static final String PATH_GOLF_FIELD_HOLE_FIELD = "golf_field_hole_field";
 
     public static final String PATH_SCORECARD = "scorecard";
+    public static final String PATH_SCORECARD_GOLF_FIELD = "scorecard_golf_field";
     public static final String PATH_SCORECARD_GROSS = "scorecard_gross";
     public static final String PATH_SCORECARD_NET = "scorecard_net";
 
@@ -217,6 +218,12 @@ public class ScorecardContract {
                 .appendPath(PATH_SCORECARD)
                 .build();
 
+        // Create content uri for the scorecard
+        public static final Uri CONTENT_URI_WITH_GOLF_FIELD_ID = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_SCORECARD_GOLF_FIELD)
+                .build();
+
+
         // Create content uri for the scorecard_gross
         public static final Uri CONTENT_URI_GROSS = BASE_CONTENT_URI.buildUpon()
                 .appendPath(PATH_SCORECARD_GROSS)
@@ -231,17 +238,42 @@ public class ScorecardContract {
         public static final String CONTENT_DIR_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD;
         // create cursor of base type item for single entry (scorecard)
         public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD;
+        // create cursor of base type directory for multiples entries (scorecards by golf field)
+        public static final String CONTENT_DIR_TYPE_GOLF_FIELD = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_GOLF_FIELD;
 
 
         // create cursor of base type directory for multiples entries (scorecards_gross)
-        public static final String CONTENT_DIR_TYPE_GROSS = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_GROSS;
-        // create cursor of base type item for single entry (scorecard_gross)
         public static final String CONTENT_ITEM_TYPE_GROSS = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_GROSS;
 
-        // create cursor of base type directory for multiples entries (scorecards_net)
-        public static final String CONTENT_DIR_TYPE_NET = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_NET;
+
         // create cursor of base type item for single entry (scorecard_net)
         public static final String CONTENT_ITEM_TYPE_NET = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_NET;
+
+
+
+
+        //Build the Uris
+
+        public static Uri buildAllScoreCardUri() {
+            return CONTENT_URI;
+        }
+
+        public static Uri buildScoreCardByIdUri(long ScorecardId) {
+            return ContentUris.withAppendedId(CONTENT_URI, ScorecardId);
+        }
+
+        public static Uri buildScoreCardByGolfFieldIdUri(long GolfFieldId) {
+            return ContentUris.withAppendedId(CONTENT_URI_WITH_GOLF_FIELD_ID, GolfFieldId);
+        }
+
+        public static Uri buildScoreCardBestGrossUri(long GolfFieldId) {
+            return ContentUris.withAppendedId(CONTENT_URI_GROSS, GolfFieldId);
+        }
+
+
+        public static Uri buildScoreCardBestNetUri(long GolfFieldId) {
+            return ContentUris.withAppendedId(CONTENT_URI_NET, GolfFieldId);
+        }
 
 
 

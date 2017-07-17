@@ -12,6 +12,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.montoya.gabi.scorecard.model.Scorecard;
+
 /**
  * Created by montoya on 10.04.2017.
  */
@@ -30,10 +32,18 @@ public class ScorecardProvider extends ContentProvider{
     public static final int GOLF_FIELD=100;
     public static final int GOLF_FIELD_WITH_ID=110;
     public static final int GOLF_FIELD_ACTIVE=120;
-    public static final int GOLF_FIELD_FAVORITE=200;
+    public static final int GOLF_FIELD_FAVORITE=130;//200
+
     public static final int GOLF_FIELD_HOLE=300;
     public static final int GOLF_FIELD_HOLE_WITH_ID=310;
-    public static final int GOLF_FIELD_HOLE_WITH_GF=400;
+    public static final int GOLF_FIELD_HOLE_WITH_GF=320;//400
+
+    public static final int SCORECARD=400;
+    public static final int SCORECARD_WITH_ID=410;
+    public static final int SCORECARD_WITH_GF_ID=420;
+    public static final int SCORECARD_GROSS=430;
+    public static final int SCORECARD_NET=440;
+
 
 
     public static UriMatcher buildUriMatcher() {
@@ -51,7 +61,11 @@ public class ScorecardProvider extends ContentProvider{
         matcher.addURI(authority, ScorecardContract.PATH_GOLF_FIELD_HOLE + "/#", GOLF_FIELD_HOLE_WITH_ID);
         matcher.addURI(authority, ScorecardContract.PATH_GOLF_FIELD_HOLE_FIELD + "/#", GOLF_FIELD_HOLE_WITH_GF);
 
-
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD, SCORECARD);
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD+"/#", SCORECARD_WITH_ID);
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_GOLF_FIELD+"/#", SCORECARD_WITH_GF_ID);
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_GROSS+"/#", SCORECARD_GROSS);
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_NET+"/#", SCORECARD_NET);
 
         return matcher;
 
@@ -92,6 +106,23 @@ public class ScorecardProvider extends ContentProvider{
 
             case GOLF_FIELD_HOLE_WITH_GF:
                 return ScorecardContract.GolfFieldHoleEntry.CONTENT_DIR_TYPE_FIELD;
+
+            case SCORECARD:
+                return ScorecardContract.ScorecardEntry.CONTENT_DIR_TYPE;
+
+            case SCORECARD_WITH_ID:
+                return ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE;
+
+            case SCORECARD_WITH_GF_ID:
+                return ScorecardContract.ScorecardEntry.CONTENT_DIR_TYPE_GOLF_FIELD;
+
+            case SCORECARD_GROSS:
+                return ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_GROSS;
+
+            case SCORECARD_NET:
+                return ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_NET;
+
+
 
             default:
                 throw new UnsupportedOperationException("Unknown uri: " + uri);

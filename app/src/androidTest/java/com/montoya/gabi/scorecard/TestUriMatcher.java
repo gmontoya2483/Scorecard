@@ -110,4 +110,63 @@ public class TestUriMatcher extends AndroidTestCase {
     }
 
 
+    public void testScorecardUriMatcherAndTypes(){
+
+        String type;
+
+        final Uri TEST_SCORECARD= ScorecardContract.ScorecardEntry.buildAllScoreCardUri();
+        final Uri TEST_SCORECARD_WITH_ID= ScorecardContract.ScorecardEntry.buildScoreCardByIdUri(456L);
+        final Uri TEST_SCORECARD_WITH_GOLF_FIELD_ID= ScorecardContract.ScorecardEntry.buildScoreCardByGolfFieldIdUri(5L);
+        final Uri TEST_SCORECARD_GROSS= ScorecardContract.ScorecardEntry.buildScoreCardBestGrossUri(125L);
+        final Uri TEST_SCORECARD_NET= ScorecardContract.ScorecardEntry.buildScoreCardBestNetUri(225L);
+
+        UriMatcher testMatcher = ScorecardProvider.buildUriMatcher();
+
+        //Test all Scorecards
+        assertEquals("Error: The ScoreCard URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD), ScorecardProvider.SCORECARD);
+        Log.i("SCORECARD URI ",TEST_SCORECARD.toString());
+
+        type = mContext.getContentResolver().getType(TEST_SCORECARD);
+        assertEquals("Error: the SCORECARD CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardEntry.CONTENT_DIR_TYPE, type);
+        Log.i("CONTENT_DIR_TYPE",type);
+
+
+
+        assertEquals("Error: The ScoreCard with ID URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_WITH_ID), ScorecardProvider.SCORECARD_WITH_ID);
+        Log.i("SCORECARD_WITH_ID URI ",TEST_SCORECARD_WITH_ID.toString());
+
+        type = mContext.getContentResolver().getType(TEST_SCORECARD_WITH_ID);
+        assertEquals("Error: the SCORECARD WITH CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE, type);
+        Log.i("CONTENT_ITEM_TYPE",type);
+
+
+
+        assertEquals("Error: The ScoreCard with Golf Field id URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_WITH_GOLF_FIELD_ID), ScorecardProvider.SCORECARD_WITH_GF_ID);
+        Log.i("SCORECARD_WITH_GF_URI ",TEST_SCORECARD_WITH_GOLF_FIELD_ID.toString());
+
+        type = mContext.getContentResolver().getType(TEST_SCORECARD_WITH_GOLF_FIELD_ID);
+        assertEquals("Error: the TEST_SCORECARD_WITH_GOLF_FIELD_ID  CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardEntry.CONTENT_DIR_TYPE_GOLF_FIELD, type);
+        Log.i("CONTENT_DIR_TYPE",type);
+
+
+
+        assertEquals("Error: The ScoreCard Best Gross URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_GROSS), ScorecardProvider.SCORECARD_GROSS);
+        Log.i("SCORECARD_GROSS_URI ",TEST_SCORECARD_GROSS.toString());
+
+        type = mContext.getContentResolver().getType(TEST_SCORECARD_GROSS);
+        assertEquals("Error: the TEST_SCORECARD_GROSS  CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_GROSS, type);
+        Log.i("CONTENT_ITEM_TYPE",type);
+
+
+
+        assertEquals("Error: The ScoreCard Best NET URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_NET), ScorecardProvider.SCORECARD_NET);
+        Log.i("SCORECARD_NET_URI ",TEST_SCORECARD_NET.toString());
+
+        type = mContext.getContentResolver().getType(TEST_SCORECARD_NET);
+        assertEquals("Error: the TEST_SCORECARD_NET  CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_NET, type);
+        Log.i("CONTENT_ITEM_TYPE",type);
+
+    }
+
+
 }
