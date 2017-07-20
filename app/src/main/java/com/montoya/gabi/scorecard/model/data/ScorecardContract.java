@@ -53,8 +53,8 @@ public class ScorecardContract {
 
     public static final String PATH_SCORECARD = "scorecard";
     public static final String PATH_SCORECARD_GOLF_FIELD = "scorecard_golf_field";
-    public static final String PATH_SCORECARD_GROSS = "scorecard_gross";
-    public static final String PATH_SCORECARD_NET = "scorecard_net";
+    public static final String PATH_SCORECARD_BEST_GROSS_DIF = "scorecard_best_gross_dif";
+    public static final String PATH_SCORECARD_BEST_NET_DIF = "scorecard_best_net_dif";
 
     public static final String PATH_SCORECARD_HOLE = "scorecard_hole";
 
@@ -214,24 +214,24 @@ public class ScorecardContract {
 
 
         // Create content uri for the scorecard
-        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+        private static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
                 .appendPath(PATH_SCORECARD)
                 .build();
 
         // Create content uri for the scorecard
-        public static final Uri CONTENT_URI_WITH_GOLF_FIELD_ID = BASE_CONTENT_URI.buildUpon()
+        private static final Uri CONTENT_URI_WITH_GOLF_FIELD_ID = BASE_CONTENT_URI.buildUpon()
                 .appendPath(PATH_SCORECARD_GOLF_FIELD)
                 .build();
 
 
         // Create content uri for the scorecard_gross
-        public static final Uri CONTENT_URI_GROSS = BASE_CONTENT_URI.buildUpon()
-                .appendPath(PATH_SCORECARD_GROSS)
+        private static final Uri CONTENT_URI_BEST_GROSS_DIF = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_SCORECARD_BEST_GROSS_DIF)
                 .build();
 
         // Create content uri for the scorecard_net
-        public static final Uri CONTENT_URI_NET = BASE_CONTENT_URI.buildUpon()
-                .appendPath(PATH_SCORECARD_NET)
+        private static final Uri CONTENT_URI_BEST_NET_DIF = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_SCORECARD_BEST_NET_DIF)
                 .build();
 
         // create cursor of base type directory for multiples entries (scorecards)
@@ -242,12 +242,15 @@ public class ScorecardContract {
         public static final String CONTENT_DIR_TYPE_GOLF_FIELD = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_GOLF_FIELD;
 
 
-        // create cursor of base type directory for multiples entries (scorecards_gross)
-        public static final String CONTENT_ITEM_TYPE_GROSS = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_GROSS;
+        // create cursor of base type item (scorecards_best_gross)
+        public static final String CONTENT_ITEM_TYPE_BEST_GROSS_DIF = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_BEST_GROSS_DIF;
+        public static final String CONTENT_ITEM_TYPE_BEST_GROSS_DIF_GOLF_FIELD = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_BEST_GROSS_DIF;
 
 
-        // create cursor of base type item for single entry (scorecard_net)
-        public static final String CONTENT_ITEM_TYPE_NET = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_NET;
+        // create cursor of base type item (scorecards_best_net)
+        public static final String CONTENT_ITEM_TYPE_BEST_NET_DIF = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_BEST_NET_DIF;
+        public static final String CONTENT_ITEM_TYPE_BEST_NET_DIF_GOLF_FIELD = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_BEST_NET_DIF;
+
 
 
 
@@ -266,13 +269,23 @@ public class ScorecardContract {
             return ContentUris.withAppendedId(CONTENT_URI_WITH_GOLF_FIELD_ID, GolfFieldId);
         }
 
-        public static Uri buildScoreCardBestGrossUri(long GolfFieldId) {
-            return ContentUris.withAppendedId(CONTENT_URI_GROSS, GolfFieldId);
+
+        public static Uri buildScoreCardBestGrossDifUri() {
+            return CONTENT_URI_BEST_GROSS_DIF;
+        }
+
+        public static Uri buildScoreCardBestGrossDifByGolfFieldIdUri(long GolfFieldId) {
+            return ContentUris.withAppendedId(CONTENT_URI_BEST_GROSS_DIF, GolfFieldId);
         }
 
 
-        public static Uri buildScoreCardBestNetUri(long GolfFieldId) {
-            return ContentUris.withAppendedId(CONTENT_URI_NET, GolfFieldId);
+        public static Uri buildScoreCardBestNetDifUri() {
+            return CONTENT_URI_BEST_NET_DIF;
+        }
+
+
+        public static Uri buildScoreCardBestNetDifByGolfFieldIdUri(long GolfFieldId) {
+            return ContentUris.withAppendedId(CONTENT_URI_BEST_NET_DIF, GolfFieldId);
         }
 
 

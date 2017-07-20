@@ -38,11 +38,15 @@ public class ScorecardProvider extends ContentProvider{
     public static final int GOLF_FIELD_HOLE_WITH_ID=310;
     public static final int GOLF_FIELD_HOLE_WITH_GF=320;//400
 
-    public static final int SCORECARD=400;
-    public static final int SCORECARD_WITH_ID=410;
-    public static final int SCORECARD_WITH_GF_ID=420;
-    public static final int SCORECARD_GROSS=430;
-    public static final int SCORECARD_NET=440;
+    public static final int SCORECARD=400; //List all the scorecards
+    public static final int SCORECARD_WITH_ID=410; //Retrieve the scorecard by ID
+    public static final int SCORECARD_WITH_GF_ID=420; //Retrieve all the scorecards for a specific GF ID
+
+
+    public static final int SCORECARD_BEST_GROSS_DIF=500;  //Retrieve the best GROSS Dif Score
+    public static final int SCORECARD_BEST_GROSS_DIF_WITH_GF_ID=510; //Retrieve the best GROSS Dif Score for a particular golf field
+    public static final int SCORECARD_BEST_NET_DIF=520;  //Retrieve the best NET Dif Score
+    public static final int SCORECARD_BEST_NET_DIF_WITH_GF_ID=530; //Retrieve the best NET Dif Score for a particular Golf Field
 
 
 
@@ -64,8 +68,11 @@ public class ScorecardProvider extends ContentProvider{
         matcher.addURI(authority, ScorecardContract.PATH_SCORECARD, SCORECARD);
         matcher.addURI(authority, ScorecardContract.PATH_SCORECARD+"/#", SCORECARD_WITH_ID);
         matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_GOLF_FIELD+"/#", SCORECARD_WITH_GF_ID);
-        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_GROSS+"/#", SCORECARD_GROSS);
-        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_NET+"/#", SCORECARD_NET);
+
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_BEST_GROSS_DIF, SCORECARD_BEST_GROSS_DIF);
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_BEST_GROSS_DIF+"/#", SCORECARD_BEST_GROSS_DIF_WITH_GF_ID);
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_BEST_NET_DIF, SCORECARD_BEST_NET_DIF);
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_BEST_NET_DIF+"/#", SCORECARD_BEST_NET_DIF_WITH_GF_ID);
 
         return matcher;
 
@@ -116,11 +123,17 @@ public class ScorecardProvider extends ContentProvider{
             case SCORECARD_WITH_GF_ID:
                 return ScorecardContract.ScorecardEntry.CONTENT_DIR_TYPE_GOLF_FIELD;
 
-            case SCORECARD_GROSS:
-                return ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_GROSS;
+            case SCORECARD_BEST_GROSS_DIF:
+                return ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_BEST_GROSS_DIF;
 
-            case SCORECARD_NET:
-                return ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_NET;
+            case SCORECARD_BEST_GROSS_DIF_WITH_GF_ID:
+                return ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_BEST_GROSS_DIF_GOLF_FIELD;
+
+            case SCORECARD_BEST_NET_DIF:
+                return ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_BEST_NET_DIF;
+
+            case SCORECARD_BEST_NET_DIF_WITH_GF_ID:
+                return ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_BEST_NET_DIF_GOLF_FIELD;
 
 
 

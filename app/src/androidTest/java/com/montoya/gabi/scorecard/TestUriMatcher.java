@@ -117,8 +117,10 @@ public class TestUriMatcher extends AndroidTestCase {
         final Uri TEST_SCORECARD= ScorecardContract.ScorecardEntry.buildAllScoreCardUri();
         final Uri TEST_SCORECARD_WITH_ID= ScorecardContract.ScorecardEntry.buildScoreCardByIdUri(456L);
         final Uri TEST_SCORECARD_WITH_GOLF_FIELD_ID= ScorecardContract.ScorecardEntry.buildScoreCardByGolfFieldIdUri(5L);
-        final Uri TEST_SCORECARD_GROSS= ScorecardContract.ScorecardEntry.buildScoreCardBestGrossUri(125L);
-        final Uri TEST_SCORECARD_NET= ScorecardContract.ScorecardEntry.buildScoreCardBestNetUri(225L);
+        final Uri TEST_SCORECARD_BEST_GROSS_DIF= ScorecardContract.ScorecardEntry.buildScoreCardBestGrossDifUri();
+        final Uri TEST_SCORECARD_BEST_GROSS_DIF_GOLF_FIELD_ID= ScorecardContract.ScorecardEntry.buildScoreCardBestGrossDifByGolfFieldIdUri(125L);
+        final Uri TEST_SCORECARD_BEST_NET_DIF= ScorecardContract.ScorecardEntry.buildScoreCardBestNetDifUri();
+        final Uri TEST_SCORECARD_BEST_NET_DIF_GOLF_FIELD_ID= ScorecardContract.ScorecardEntry.buildScoreCardBestNetDifByGolfFieldIdUri(125L);
 
         UriMatcher testMatcher = ScorecardProvider.buildUriMatcher();
 
@@ -150,20 +152,37 @@ public class TestUriMatcher extends AndroidTestCase {
 
 
 
-        assertEquals("Error: The ScoreCard Best Gross URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_GROSS), ScorecardProvider.SCORECARD_GROSS);
-        Log.i("SCORECARD_GROSS_URI ",TEST_SCORECARD_GROSS.toString());
+        assertEquals("Error: The ScoreCard Best Gross Dif URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_BEST_GROSS_DIF), ScorecardProvider.SCORECARD_BEST_GROSS_DIF);
+        Log.i("SCORECARD_GROSS_URI ",TEST_SCORECARD_BEST_GROSS_DIF.toString());
 
-        type = mContext.getContentResolver().getType(TEST_SCORECARD_GROSS);
-        assertEquals("Error: the TEST_SCORECARD_GROSS  CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_GROSS, type);
+        type = mContext.getContentResolver().getType(TEST_SCORECARD_BEST_GROSS_DIF);
+        assertEquals("Error: the TEST_SCORECARD_BEST_GROSS_DIF  CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_BEST_GROSS_DIF, type);
+        Log.i("CONTENT_ITEM_TYPE",type);
+
+
+        assertEquals("Error: The ScoreCard Best Gross Dif URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_BEST_GROSS_DIF_GOLF_FIELD_ID), ScorecardProvider.SCORECARD_BEST_GROSS_DIF_WITH_GF_ID);
+        Log.i("SCORECARD_GROSS_URI ",TEST_SCORECARD_BEST_GROSS_DIF_GOLF_FIELD_ID.toString());
+
+        type = mContext.getContentResolver().getType(TEST_SCORECARD_BEST_GROSS_DIF_GOLF_FIELD_ID);
+        assertEquals("Error: the TEST_SCORECARD_GROSS_DIF_GF_ID  CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_BEST_GROSS_DIF_GOLF_FIELD, type);
         Log.i("CONTENT_ITEM_TYPE",type);
 
 
 
-        assertEquals("Error: The ScoreCard Best NET URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_NET), ScorecardProvider.SCORECARD_NET);
-        Log.i("SCORECARD_NET_URI ",TEST_SCORECARD_NET.toString());
 
-        type = mContext.getContentResolver().getType(TEST_SCORECARD_NET);
-        assertEquals("Error: the TEST_SCORECARD_NET  CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_NET, type);
+        assertEquals("Error: The ScoreCard Best Net Dif URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_BEST_NET_DIF), ScorecardProvider.SCORECARD_BEST_NET_DIF);
+        Log.i("SCORECARD_NET_URI ",TEST_SCORECARD_BEST_NET_DIF.toString());
+
+        type = mContext.getContentResolver().getType(TEST_SCORECARD_BEST_NET_DIF);
+        assertEquals("Error: the TEST_SCORECARD_BEST_NET_DIF  CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_BEST_NET_DIF, type);
+        Log.i("CONTENT_ITEM_TYPE",type);
+
+
+        assertEquals("Error: The ScoreCard Best <net Dif URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_BEST_NET_DIF_GOLF_FIELD_ID), ScorecardProvider.SCORECARD_BEST_NET_DIF_WITH_GF_ID);
+        Log.i("SCORECARD_NET_URI ",TEST_SCORECARD_BEST_NET_DIF_GOLF_FIELD_ID.toString());
+
+        type = mContext.getContentResolver().getType(TEST_SCORECARD_BEST_NET_DIF_GOLF_FIELD_ID);
+        assertEquals("Error: the TEST_SCORECARD_NET_DIF_GF_ID  CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_BEST_NET_DIF_GOLF_FIELD, type);
         Log.i("CONTENT_ITEM_TYPE",type);
 
     }
