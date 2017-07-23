@@ -1,6 +1,10 @@
 package com.montoya.gabi.scorecard.model;
 
+import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 
@@ -12,27 +16,38 @@ import java.util.Date;
 
 public class Scorecard {
 
+    public static final long SCORECARD_INVALID_ID=-1L;
+    public static final long SCORECARD_INVALID_DATE=-1L;
+    public static final int SCORECARD_INVALID_HANDICAP=Player.INVALID_HANDICAP;
+    public static final long SCORECARD_INVALID_GOLF_FIELD_ID=-GolfField.INVALID_GOLF_FIELD_ID;
+    public static final String SCORECARD_INVALID_GOLF_FILED_NAME=null;
+    public static final int SCORECARD_INVALID_LENGTH=GolfField.INVALID_TOTAL_LENGTH;
+    public static final int SCORECARD_INVALID_PAR=GolfField.INVALID_TOTAL_PAR;
+    public static final int SCORECARD_INVALID_SCORE=-1;
+    public static final int SCORECARD_INVALID_DIF=-99;
+
+
     private long _id;
-    private long date;
-    private int handicap;
+    private long date=SCORECARD_INVALID_DATE;
+    private int handicap=SCORECARD_INVALID_HANDICAP;
 
-    private long golfField_id;
-    private String golfFieldName;
-    private int golfFieldTotalLength;
-    private int golfFieldTotalPar;
-    private int golfFieldOutLength;
-    private int golfFieldOutPar;
-    private int golfFieldInLength;
-    private int golfFieldInPar;
+    private long golfField_id=SCORECARD_INVALID_GOLF_FIELD_ID;
+    private String golfFieldName=SCORECARD_INVALID_GOLF_FILED_NAME;
+    private int golfFieldTotalLength=SCORECARD_INVALID_LENGTH;
+    private int golfFieldTotalPar=SCORECARD_INVALID_PAR;
+    private int golfFieldOutLength=SCORECARD_INVALID_LENGTH;
+    private int golfFieldOutPar=SCORECARD_INVALID_PAR;
+    private int golfFieldInLength=SCORECARD_INVALID_LENGTH;
+    private int golfFieldInPar=SCORECARD_INVALID_PAR;
 
-    private int outScore;
-    private int outDif;
-    private int inScore;
-    private int inDif;
-    private int grossScore;
-    private int grossDif;
-    private int netScore;
-    private int netDif;
+    private int outScore=SCORECARD_INVALID_SCORE;
+    private int outDif=SCORECARD_INVALID_DIF;
+    private int inScore=SCORECARD_INVALID_SCORE;
+    private int inDif=SCORECARD_INVALID_DIF;
+    private int grossScore=SCORECARD_INVALID_SCORE;
+    private int grossDif=SCORECARD_INVALID_DIF;
+    private int netScore=SCORECARD_INVALID_SCORE;
+    private int netDif=SCORECARD_INVALID_DIF;
 
 
     public Scorecard(long date, int handicap, long golfField_id, String golfFieldName, int golfFieldTotalLength, int golfFieldTotalPar, int golfFieldOutLength, int golfFieldOutPar, int golfFieldInLength, int golfFieldInPar, int outScore, int outDif, int inScore, int inDif, int grossScore, int grossDif, int netScore, int netDif) {
@@ -55,6 +70,17 @@ public class Scorecard {
         this.netScore = netScore;
         this.netDif = netDif;
     }
+
+
+    public Scorecard (Context context, long scorecardId){
+
+        Uri scorecardByIdUri=ScorecardContract.ScorecardEntry.buildScoreCardByIdUri(scorecardId);
+        Cursor cursor=context.getContentResolver().query(scorecardByIdUri,null,null,null,null);
+        setScorecardValuesFromCursor(cursor);
+        cursor.close();;
+
+    }
+
 
 
     public long get_id() {
@@ -210,8 +236,86 @@ public class Scorecard {
     }
 
 
+
+    private void setScorecardValuesFromCursor(Cursor scorecardCursor){
+
+        int index_id=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry._ID);
+        int indexDate=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_DATE);
+        int indexHandicap= scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_HANDICAP);
+        int indexGolfField_id=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_ID);
+        int indexGolfFieldName=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_NAME);
+        int indexGolfFieldTotalLength=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_TOTAL_LENGTH);
+        int indexGolfFieldTotalPar=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_TOTAL_PAR);
+        int indexGolfFieldOutLength=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_OUT_LENGTH);
+        int indexGolfFieldOutPar=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_OUT_PAR);
+        int indexGolfFieldInLength=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_IN_LENGTH);
+        int indexGolfFieldInPar=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_IN_PAR);
+        int indexOutScore=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_OUT_SCORE);
+        int indexOutDif=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_OUT_DIF);
+        int indexInScore=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_IN_SCORE);
+        int indexInDif=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_IN_DIF);
+        int indexGrossScore=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GROSS_SCORE);
+        int indexGrossDif=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GROSS_DIF);
+        int indexNetScore=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_NET_SCORE);
+        int indexNetDif=scorecardCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_NET_DIF);
+
+
+        if (scorecardCursor.getCount()==1){
+
+            scorecardCursor.moveToFirst();
+
+            this._id=scorecardCursor.getLong(index_id);
+            this.date=scorecardCursor.getLong(indexDate);
+            this.handicap = scorecardCursor.getInt(indexHandicap);
+            this.golfField_id=scorecardCursor.getLong(indexGolfField_id);
+            this.golfFieldName = scorecardCursor.getString(indexGolfFieldName);
+            this.golfFieldTotalLength = scorecardCursor.getInt(indexGolfFieldTotalLength);
+            this.golfFieldTotalPar = scorecardCursor.getInt(indexGolfFieldTotalPar);
+            this.golfFieldOutLength = scorecardCursor.getInt(indexGolfFieldOutLength);
+            this.golfFieldOutPar = scorecardCursor.getInt(indexGolfFieldOutPar);
+            this.golfFieldInLength = scorecardCursor.getInt(indexGolfFieldInLength);
+            this.golfFieldInPar = scorecardCursor.getInt(indexGolfFieldInPar);
+            this.outScore = scorecardCursor.getInt(indexOutScore);
+            this.outDif = scorecardCursor.getInt(indexOutDif);
+            this.inScore = scorecardCursor.getInt(indexInScore);
+            this.inDif = scorecardCursor.getInt(indexInDif);
+            this.grossScore = scorecardCursor.getInt(indexGrossScore);
+            this.grossDif = scorecardCursor.getInt(indexGrossDif);
+            this.netScore = scorecardCursor.getInt(indexNetScore);
+            this.netDif = scorecardCursor.getInt(indexNetDif);
+
+
+        }else{
+
+            this._id=SCORECARD_INVALID_ID;
+            this.date = SCORECARD_INVALID_DATE;
+            this.handicap = SCORECARD_INVALID_HANDICAP;
+            this.golfField_id = SCORECARD_INVALID_GOLF_FIELD_ID;
+            this.golfFieldName = SCORECARD_INVALID_GOLF_FILED_NAME;
+            this.golfFieldTotalLength = SCORECARD_INVALID_LENGTH;
+            this.golfFieldTotalPar = SCORECARD_INVALID_PAR;
+            this.golfFieldOutLength = SCORECARD_INVALID_LENGTH;
+            this.golfFieldOutPar = SCORECARD_INVALID_PAR;
+            this.golfFieldInLength = SCORECARD_INVALID_LENGTH;
+            this.golfFieldInPar = SCORECARD_INVALID_PAR;
+            this.outScore = SCORECARD_INVALID_SCORE;
+            this.outDif = SCORECARD_INVALID_DIF;
+            this.inScore = SCORECARD_INVALID_SCORE;
+            this.inDif = SCORECARD_INVALID_DIF;
+            this.grossScore = SCORECARD_INVALID_SCORE;
+            this.grossDif = SCORECARD_INVALID_DIF;
+            this.netScore = SCORECARD_INVALID_SCORE;
+            this.netDif = SCORECARD_INVALID_DIF;
+
+
+        }
+
+    }
+
+
+
     //Get the content values without the _ID
-    public ContentValues getGolfFieldValues (){
+    public ContentValues getScorecardValues (){
 
         ContentValues values=new ContentValues();
         values.put(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_ID,this.golfField_id);
@@ -235,6 +339,123 @@ public class Scorecard {
 
         return values;
 
+    }
+
+
+    public boolean insertScorecard(Context context){
+
+        boolean insertedScorecardOK=true;
+        Uri scorecardUri;
+
+        if (validateScorecard() && validateScorecardHoles()){
+            scorecardUri=insertScorecardHeader(context);
+            if (scorecardUri!=null){
+                this._id= ContentUris.parseId(scorecardUri);
+
+            }else{
+
+                this._id=SCORECARD_INVALID_ID;
+
+            }
+
+        }else{
+            insertedScorecardOK=false;
+        }
+
+
+        return insertedScorecardOK;
+    }
+
+
+    private boolean validateScorecard(){
+
+        boolean validationOK=true;
+
+
+        if (this.date == SCORECARD_INVALID_DATE){
+            validationOK=false;
+        }
+
+        if (this.handicap == SCORECARD_INVALID_HANDICAP){
+            validationOK=false;
+        }
+
+        if(this.golfField_id == SCORECARD_INVALID_GOLF_FIELD_ID){
+            validationOK=false;
+        }
+
+        if (this.golfFieldName == SCORECARD_INVALID_GOLF_FILED_NAME){
+            validationOK=false;
+        }
+
+        if (this.golfFieldTotalLength == SCORECARD_INVALID_LENGTH){
+            validationOK=false;
+        }
+
+        if (this.golfFieldTotalPar == SCORECARD_INVALID_PAR){
+            validationOK=false;
+        }
+        if (this.golfFieldOutLength == SCORECARD_INVALID_LENGTH){
+            validationOK=false;
+        }
+        if (this.golfFieldOutPar == SCORECARD_INVALID_PAR){
+            validationOK=false;
+        }
+        if (this.golfFieldInLength == SCORECARD_INVALID_LENGTH){
+            validationOK=false;
+        }
+        if (this.golfFieldInPar == SCORECARD_INVALID_PAR){
+            validationOK=false;
+        }
+        if (this.outScore == SCORECARD_INVALID_SCORE){
+            validationOK=false;
+        }
+        if (this.outDif == SCORECARD_INVALID_DIF){
+            validationOK=false;
+        }
+        if (this.inScore == SCORECARD_INVALID_SCORE){
+            validationOK=false;
+        }
+        if (this.inDif == SCORECARD_INVALID_DIF){
+            validationOK=false;
+        }
+        if (this.grossScore == SCORECARD_INVALID_SCORE){
+            validationOK=false;
+        }
+        if (this.grossDif == SCORECARD_INVALID_DIF){
+            validationOK=false;
+        }
+        if (this.netScore == SCORECARD_INVALID_SCORE){
+            validationOK=false;
+        }
+        if (this.netDif == SCORECARD_INVALID_DIF){
+            validationOK=false;
+        }
+
+        return validationOK;
+    }
+
+
+    private boolean validateScorecardHoles(){
+        return true; //TODO hacer la validacion
+    }
+
+
+    private Uri insertScorecardHeader(Context context){
+
+        Uri allScorecardUri=ScorecardContract.ScorecardEntry.buildAllScoreCardUri();
+        return context.getContentResolver().insert(allScorecardUri,getScorecardValues());
+
+    }
+
+    public static Cursor getAllScorecards(Context context){
+        Uri allScorecardsUri=ScorecardContract.ScorecardEntry.buildAllScoreCardUri();
+        return context.getContentResolver().query(allScorecardsUri,null,null,null,null);
+    }
+
+    public static Cursor getAllScorecardsByGolfField(Context context, long golfField_id){
+        Uri scorecardsByGolfFieldUri=ScorecardContract.ScorecardEntry.buildScoreCardByGolfFieldIdUri(golfField_id);
+        return context.getContentResolver().query(scorecardsByGolfFieldUri,null,null,null,null);
     }
 
 

@@ -12,6 +12,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
 
+import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.Scorecard;
 
 /**
@@ -28,7 +29,6 @@ public class ScorecardProvider extends ContentProvider{
 
 
     //Codes for the UriMatcher
-    //TODO Define the codes
     public static final int GOLF_FIELD=100;
     public static final int GOLF_FIELD_WITH_ID=110;
     public static final int GOLF_FIELD_ACTIVE=120;
@@ -138,7 +138,7 @@ public class ScorecardProvider extends ContentProvider{
 
 
             default:
-                throw new UnsupportedOperationException("Unknown uri: " + uri);
+                throw new UnsupportedOperationException(getContext().getString(R.string.provider_error_unknow_uri) + uri);
         }
 
     }
@@ -233,13 +233,46 @@ public class ScorecardProvider extends ContentProvider{
                 retCursor=queryGolfFieldHoleByGolfFieldId(GFH_GF_id);
                 break;
             }
+            /*
+            Scorecard Section
+             */
+
+            case SCORECARD:
+            {
+                retCursor=mScorecardDbHelper.getReadableDatabase().query(
+                        ScorecardContract.ScorecardEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+
+                break;
+            }
+
+            case SCORECARD_WITH_ID:
+            {
+                String Scorecard_id= String.valueOf(ContentUris.parseId(uri));
+                retCursor=queryScorecardById(Scorecard_id);
+                break;
+            }
+
+            case SCORECARD_WITH_GF_ID:
+            {
+                String Scorecard_id= String.valueOf(ContentUris.parseId(uri));
+                retCursor=queryScorecardByGolfFieldId(Scorecard_id);
+                break;
+
+            }
 
 
             /*
             Default section
             */
             default:
-                throw new UnsupportedOperationException("Unknown uri: " + uri);
+                throw new UnsupportedOperationException(getContext().getString(R.string.provider_error_unknow_uri) + uri);
 
         }
         //Set the notification URI for our Cursor and register a content observer to watch changes to the URI
@@ -259,10 +292,13 @@ public class ScorecardProvider extends ContentProvider{
             case GOLF_FIELD_HOLE:
                 insertedUri=insertGolfFieldHole(values);
                 break;
+            case SCORECARD:
+                insertedUri=insertScorecard(values);
+                break;
 
 
             default:
-                throw new UnsupportedOperationException("Unknown uri: "+uri);
+                throw new UnsupportedOperationException(getContext().getString(R.string.provider_error_unknow_uri)+uri);
 
         }
 
@@ -274,6 +310,7 @@ public class ScorecardProvider extends ContentProvider{
 
        return insertedUri;
     }
+
 
 
 
@@ -301,7 +338,7 @@ public class ScorecardProvider extends ContentProvider{
 
 
             default:
-                throw new UnsupportedOperationException("Unknown uri: " + uri);
+                throw new UnsupportedOperationException(getContext().getString(R.string.provider_error_unknow_uri) + uri);
 
         }
 
@@ -338,7 +375,7 @@ public class ScorecardProvider extends ContentProvider{
                 break;
 
             default:
-                throw new UnsupportedOperationException("Unknown uri: " + uri);
+                throw new UnsupportedOperationException(getContext().getString(R.string.provider_error_unknow_uri) + uri);
 
 
 
@@ -363,7 +400,7 @@ public class ScorecardProvider extends ContentProvider{
                 rowsInserted=bulkInsertGolfFieldHoles(values);
                 break;
             default:
-                throw new UnsupportedOperationException("Unknown uri: " + uri);
+                throw new UnsupportedOperationException(getContext().getString(R.string.provider_error_unknow_uri) + uri);
         }
 
 
@@ -373,7 +410,7 @@ public class ScorecardProvider extends ContentProvider{
     }
 
 
-    //TODO check if it is necessary.
+
     @Override
     @TargetApi(11)
     public void shutdown() {
@@ -399,13 +436,13 @@ public class ScorecardProvider extends ContentProvider{
 
             }else{
                 insertedGolfFieldUri=null;
-                Log.e(LOG_TAG,"Golf Field could not be inserted");
+                Log.e(LOG_TAG,getContext().getString(R.string.provider_golf_field_not_inserted));
             }
 
 
         }else{
             insertedGolfFieldUri=null;
-            Log.e(LOG_TAG,"database could not be opened");
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
         }
 
 
@@ -429,7 +466,7 @@ public class ScorecardProvider extends ContentProvider{
 
         }else{
             cursor=null;
-            Log.e(LOG_TAG,"database could not be opened");
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
         }
         return cursor;
     }
@@ -449,7 +486,7 @@ public class ScorecardProvider extends ContentProvider{
 
         }else{
             cursor=null;
-            Log.e(LOG_TAG,"database could not be opened");
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
         }
         return cursor;
 
@@ -468,11 +505,13 @@ public class ScorecardProvider extends ContentProvider{
 
         }else{
             cursor=null;
-            Log.e(LOG_TAG,"database could not be opened");
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
         }
         return cursor;
 
     }
+
+
 
 
     //Helper Method to insert a new Golf Field in the database
@@ -489,13 +528,13 @@ public class ScorecardProvider extends ContentProvider{
 
             }else{
                 insertedGolfFieldHoleUri=null;
-                Log.e(LOG_TAG,"Golf Field Hole could not be inserted");
+                Log.e(LOG_TAG,getContext().getString(R.string.provider_golf_field_hole_not_inserted));
             }
 
 
         }else{
             insertedGolfFieldHoleUri=null;
-            Log.e(LOG_TAG,"database could not be opened");
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
         }
 
 
@@ -540,12 +579,12 @@ public class ScorecardProvider extends ContentProvider{
 
             if(deletedRecords!=1){
 
-                Log.e(LOG_TAG,"There was a problem deleting the Golf Field.");
+                Log.e(LOG_TAG,getContext().getString(R.string.provider_log_golf_field_delete_problem));
 
 
             }
         }else{
-            Log.e(LOG_TAG,"database could not be opened");
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
         }
 
 
@@ -568,12 +607,12 @@ public class ScorecardProvider extends ContentProvider{
 
             if(deletedRecords!=1){
 
-                Log.e(LOG_TAG,"There was a problem deleting the Golf Field Holes.");
+                Log.e(LOG_TAG,getContext().getString(R.string.provider_log_golf_field_hole_delete_problem));
 
 
             }
         }else{
-            Log.e(LOG_TAG,"database could not be opened");
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
         }
 
 
@@ -584,8 +623,76 @@ public class ScorecardProvider extends ContentProvider{
 
 
 
+    // Helper method to insert a new Scorecard
+    private Uri insertScorecard(ContentValues values) {
+
+        Uri insertedScorecardUri=null;
+        Long insertedScorecardId;
+
+        SQLiteDatabase db = mScorecardDbHelper.getWritableDatabase();
+        if (db.isOpen()){
+            insertedScorecardId=db.insert(ScorecardContract.ScorecardEntry.TABLE_NAME,null,values);
+            if(insertedScorecardId!=-1){
+
+                insertedScorecardUri=ScorecardContract.ScorecardEntry.buildScoreCardByIdUri(insertedScorecardId);
+
+
+            }else{
+                insertedScorecardUri=null;
+                Log.e(LOG_TAG,getContext().getString(R.string.provider_log_scorecard_not_inserted));
+            }
+
+
+        }else{
+            insertedScorecardUri=null;
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
+        }
+
+
+        db.close();
+
+        return insertedScorecardUri;
+    }
+
+
+   // Helper method to retrieve a Scorecard by ID
+    private Cursor queryScorecardById(String id){
+
+        Cursor cursor;
+
+        SQLiteDatabase db=mScorecardDbHelper.getReadableDatabase();
+        if (db.isOpen()){
+
+            String SQLStatment="SELECT * from "+ScorecardContract.ScorecardEntry.TABLE_NAME+" WHERE "+ScorecardContract.ScorecardEntry._ID+"="+id;
+
+            cursor=db.rawQuery(SQLStatment,null);
+
+        }else{
+            cursor=null;
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
+        }
+        return cursor;
+    }
 
 
 
+    // Helper method to retrieve the Scorecards by GF
+    private Cursor queryScorecardByGolfFieldId(String id){
+
+        Cursor cursor;
+
+        SQLiteDatabase db=mScorecardDbHelper.getReadableDatabase();
+        if (db.isOpen()){
+
+            String SQLStatment="SELECT * from "+ScorecardContract.ScorecardEntry.TABLE_NAME+" WHERE "+ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_ID+"="+id;
+
+            cursor=db.rawQuery(SQLStatment,null);
+
+        }else{
+            cursor=null;
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
+        }
+        return cursor;
+    }
 
 }

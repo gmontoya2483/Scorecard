@@ -7,6 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.GolfFieldHole;
 import com.montoya.gabi.scorecard.model.Hole;
+import com.montoya.gabi.scorecard.model.Scorecard;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.model.data.ScorecardDbHelper;
 
@@ -93,15 +94,32 @@ public class TestUtils {
         cursor.close();
 
         return qtyOfDeletedRecords;
-
-
-
     }
+
+
+
+    public static int deleteAllScorecardRecords(Context context){
+
+        Cursor cursor;
+        SQLiteDatabase db=new ScorecardDbHelper(context).getWritableDatabase();
+        int qtyOfDeletedRecords=db.delete(ScorecardContract.ScorecardEntry.TABLE_NAME,null,null);
+
+        cursor=db.rawQuery("SELECT "+ScorecardContract.ScorecardEntry._ID+" FROM "+ScorecardContract.ScorecardEntry.TABLE_NAME,null);
+        assertFalse("Error: deleteAllScorecards - Not all records were deleted",cursor.moveToFirst());
+
+        db.close();
+        cursor.close();
+
+        return qtyOfDeletedRecords;
+    }
+
+
 
     public static void deleteAllRecords (Context context){
 
         TestUtils.deleteAllGolfFieldHoleRecords(context);
         TestUtils.deleteAllGolfFieldrecords(context);
+        TestUtils.deleteAllScorecardRecords(context);
 
     }
 
@@ -226,6 +244,12 @@ public class TestUtils {
         }
 
     }
+
+
+
+
+
+
 
 
 }

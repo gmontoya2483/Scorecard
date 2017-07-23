@@ -342,7 +342,7 @@ public class TestDb extends AndroidTestCase {
 
 
 
-        SCRowId=db.insert(ScorecardContract.ScorecardEntry.TABLE_NAME,null,scorecard.getGolfFieldValues());
+        SCRowId=db.insert(ScorecardContract.ScorecardEntry.TABLE_NAME,null,scorecard.getScorecardValues());
 
         //Verify that the Inserted GolfField has a correct ID
         assertTrue("Error: Expected Golf Field ID doesn´t match: ", SCRowId>0);
@@ -558,7 +558,7 @@ public class TestDb extends AndroidTestCase {
 
 
 
-        SCRowId=db.insert(ScorecardContract.ScorecardEntry.TABLE_NAME,null,scorecard.getGolfFieldValues());
+        SCRowId=db.insert(ScorecardContract.ScorecardEntry.TABLE_NAME,null,scorecard.getScorecardValues());
         assertTrue("Error: Expected Scorecard ID doesn´t match: ", SCRowId>0);
 
 
