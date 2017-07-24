@@ -458,6 +458,76 @@ public class Scorecard {
         return context.getContentResolver().query(scorecardsByGolfFieldUri,null,null,null,null);
     }
 
+    public static int getBestGrossScoreDif(Context context){
+        int bestGrossDif;
+        Uri ScorecardBestGrossDifUri=ScorecardContract.ScorecardEntry.buildScoreCardBestGrossDifUri();
+        Cursor cursor= context.getContentResolver().query(ScorecardBestGrossDifUri,null,null,null,null);
+        if (cursor.getCount()==1){
+            cursor.moveToFirst();
+            bestGrossDif=cursor.getInt(cursor.getColumnIndex(ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_GROSS_DIF));
+
+        }else{
+            bestGrossDif=SCORECARD_INVALID_DIF;
+        }
+
+        cursor.close();
+        return bestGrossDif;
+
+    }
+
+
+    public static int getBestGrossScoreDif(Context context, long golfField_id){
+        int bestGrossDif;
+        Uri ScorecardBestGrossDifByGolfFieldIdUri=ScorecardContract.ScorecardEntry.buildScoreCardBestGrossDifByGolfFieldIdUri(golfField_id);
+        Cursor cursor= context.getContentResolver().query(ScorecardBestGrossDifByGolfFieldIdUri,null,null,null,null);
+        if (cursor.getCount()==1){
+            cursor.moveToFirst();
+            bestGrossDif=cursor.getInt(cursor.getColumnIndex(ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_GROSS_DIF));
+
+        }else{
+            bestGrossDif=SCORECARD_INVALID_DIF;
+        }
+
+        cursor.close();
+        return bestGrossDif;
+
+    }
+
+
+    public static int getBestNetScoreDif(Context context){
+        int bestNetDif;
+        Uri ScorecardBestNetDifUri=ScorecardContract.ScorecardEntry.buildScoreCardBestNetDifUri();
+        Cursor cursor= context.getContentResolver().query(ScorecardBestNetDifUri,null,null,null,null);
+        if (cursor.getCount()==1){
+            cursor.moveToFirst();
+            bestNetDif=cursor.getInt(cursor.getColumnIndex(ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_NET_DIF));
+
+        }else{
+            bestNetDif=SCORECARD_INVALID_DIF;
+        }
+
+        cursor.close();
+        return bestNetDif;
+
+    }
+
+    public static int getBestNetScoreDif(Context context, long golfField_id){
+        int bestNetDif;
+        Uri ScorecardBestNetDifByGolfFieldIdUri=ScorecardContract.ScorecardEntry.buildScoreCardBestNetDifByGolfFieldIdUri(golfField_id);
+        Cursor cursor= context.getContentResolver().query(ScorecardBestNetDifByGolfFieldIdUri,null,null,null,null);
+        if (cursor.getCount()==1){
+            cursor.moveToFirst();
+            bestNetDif=cursor.getInt(cursor.getColumnIndex(ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_NET_DIF));
+
+        }else{
+            bestNetDif=SCORECARD_INVALID_DIF;
+        }
+
+        cursor.close();
+        return bestNetDif;
+
+    }
+
 
 
 

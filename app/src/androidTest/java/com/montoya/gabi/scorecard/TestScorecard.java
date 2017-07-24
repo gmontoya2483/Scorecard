@@ -164,20 +164,20 @@ public class TestScorecard extends AndroidTestCase {
         TestUtils.deleteAllRecords(mContext);
 
 
-        Scorecard scorecard_1=new Scorecard(123456, 25, 119L, "fake name", 1234, 70, 456,33,800,37,45,12,47,13,92,20,74,4);
+        Scorecard scorecard_1=new Scorecard(123456, 25, 119L, "fake name", 1234, 70, 456,33,800,37,45,12,47,13,92,17,74,4);
        //Verify the scorecard was inserted correctly
         assertTrue("The scorecard was not inserted correctly",scorecard_1.insertScorecard(mContext));
 
 
-        Scorecard scorecard_2=new Scorecard(123456, 25, 120L, "fake name", 1234, 70, 456,33,800,37,45,12,47,13,92,20,74,4);
+        Scorecard scorecard_2=new Scorecard(123456, 25, 120L, "fake name", 1234, 70, 456,33,800,37,45,12,47,13,15,15,74,-4);
         //Verify the scorecard was inserted correctly
         assertTrue("The scorecard was not inserted correctly",scorecard_2.insertScorecard(mContext));
 
-        Scorecard scorecard_3=new Scorecard(123456, 25, 121L, "fake name", 1234, 70, 456,33,800,37,45,12,47,13,92,20,74,4);
+        Scorecard scorecard_3=new Scorecard(123456, 25, 121L, "fake name", 1234, 70, 456,33,800,37,45,12,47,13,73,18,74,2);
         //Verify the scorecard was inserted correctly
         assertTrue("The scorecard was not inserted correctly",scorecard_3.insertScorecard(mContext));
 
-        Scorecard scorecard_4=new Scorecard(123456, 25, 120L, "fake name", 1234, 70, 456,33,800,37,45,12,47,13,92,20,74,4);
+        Scorecard scorecard_4=new Scorecard(123456, 25, 121L, "fake name", 1234, 70, 456,33,800,37,45,12,47,13,78,20,74,-1);
         //Verify the scorecard was inserted correctly
         assertTrue("The scorecard was not inserted correctly",scorecard_4.insertScorecard(mContext));
 
@@ -187,12 +187,27 @@ public class TestScorecard extends AndroidTestCase {
         assertEquals("All Scorecards qty of records doesn't match",cursor.getCount(),4);
 
         //Check all the scorecards for a particular golf Field
-        cursor=Scorecard.getAllScorecardsByGolfField(mContext,120L);
+        cursor=Scorecard.getAllScorecardsByGolfField(mContext,121L);
         assertEquals("All Scorecards qty of records doesn't match",cursor.getCount(),2);
 
         //Check all the scorecards for a particular golf Field (the golf field has no scorecards)
         cursor=Scorecard.getAllScorecardsByGolfField(mContext,130L);
         assertEquals("All Scorecards qty of records should be 0",cursor.getCount(),0);
+
+
+        //Check the best gross score dif
+        assertEquals("Best gross score doesn´t match",15,Scorecard.getBestGrossScoreDif(mContext));
+
+        //Check the best gross score dif
+        assertEquals("Best gross score by golf field id doesn´t match",18,Scorecard.getBestGrossScoreDif(mContext,121L));
+
+
+        //Check the best Net score dif
+        assertEquals("Best Net score doesn´t match",-4,Scorecard.getBestNetScoreDif(mContext));
+
+        //Check the best gross score dif
+        assertEquals("Best net score by golf field id doesn´t match",-1,Scorecard.getBestNetScoreDif(mContext,121L));
+
 
 
         TestUtils.deleteAllRecords(mContext);

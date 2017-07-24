@@ -212,6 +212,12 @@ public class ScorecardContract {
         public static final String COLUMN_SCORECARD_NET_DIF="scorecard_net_dif";
 
 
+        //Alias
+        public static final String ALIAS_SCORECARD_BEST_GROSS_DIF="scorecard_best_gross_dif";
+        public static final String ALIAS_SCORECARD_BEST_NET_DIF="scorecard_best_net_dif";
+
+
+
 
         // Create content uri for the scorecard
         private static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()

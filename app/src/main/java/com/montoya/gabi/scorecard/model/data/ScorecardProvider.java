@@ -267,6 +267,28 @@ public class ScorecardProvider extends ContentProvider{
 
             }
 
+            case SCORECARD_BEST_GROSS_DIF:
+            {
+                retCursor=queryScorecardBestGrossDif();
+                break;
+            }
+            case SCORECARD_BEST_GROSS_DIF_WITH_GF_ID:
+            {
+                String Scorecard_id= String.valueOf(ContentUris.parseId(uri));
+                retCursor=queryScorecardBestGrossDifByGolfFieldId(Scorecard_id);
+                break;
+            }
+            case SCORECARD_BEST_NET_DIF:
+            {
+                retCursor=queryScorecardBestNetDif();
+                break;
+            }
+            case SCORECARD_BEST_NET_DIF_WITH_GF_ID:
+            {
+                String Scorecard_id= String.valueOf(ContentUris.parseId(uri));
+                retCursor=queryScorecardBestNetDifByGolfFieldId(Scorecard_id);
+                break;
+            }
 
             /*
             Default section
@@ -694,5 +716,90 @@ public class ScorecardProvider extends ContentProvider{
         }
         return cursor;
     }
+
+
+    private Cursor queryScorecardBestGrossDif(){
+
+        Cursor cursor;
+
+        SQLiteDatabase db=mScorecardDbHelper.getReadableDatabase();
+        if (db.isOpen()){
+
+            String SQLStatment="SELECT MIN ("+ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GROSS_DIF+") AS "+ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_GROSS_DIF+" from "+ScorecardContract.ScorecardEntry.TABLE_NAME;
+            cursor=db.rawQuery(SQLStatment,null);
+
+        }else{
+            cursor=null;
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
+        }
+        return cursor;
+
+    }
+
+    private Cursor queryScorecardBestGrossDifByGolfFieldId(String id){
+
+        Cursor cursor;
+
+        SQLiteDatabase db=mScorecardDbHelper.getReadableDatabase();
+        if (db.isOpen()){
+
+            String SQLStatment="SELECT MIN ("+ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GROSS_DIF+") AS "+ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_GROSS_DIF
+                    +" from "+ScorecardContract.ScorecardEntry.TABLE_NAME+
+                    " WHERE "+ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_ID+"="+id;
+
+            cursor=db.rawQuery(SQLStatment,null);
+
+        }else{
+            cursor=null;
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
+        }
+        return cursor;
+
+    }
+
+
+
+    private Cursor queryScorecardBestNetDif(){
+
+        Cursor cursor;
+
+        SQLiteDatabase db=mScorecardDbHelper.getReadableDatabase();
+        if (db.isOpen()){
+
+            String SQLStatment="SELECT MIN ("+ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_NET_DIF+") AS "+ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_NET_DIF+" from "+ScorecardContract.ScorecardEntry.TABLE_NAME;
+            cursor=db.rawQuery(SQLStatment,null);
+
+        }else{
+            cursor=null;
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
+        }
+        return cursor;
+
+    }
+
+
+
+    private Cursor queryScorecardBestNetDifByGolfFieldId(String id){
+
+        Cursor cursor;
+
+        SQLiteDatabase db=mScorecardDbHelper.getReadableDatabase();
+        if (db.isOpen()){
+
+            String SQLStatment="SELECT MIN ("+ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_NET_DIF+") AS "+ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_NET_DIF
+                    +" from "+ScorecardContract.ScorecardEntry.TABLE_NAME+
+                    " WHERE "+ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_ID+"="+id;
+
+            cursor=db.rawQuery(SQLStatment,null);
+
+        }else{
+            cursor=null;
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
+        }
+        return cursor;
+
+    }
+
+
 
 }
