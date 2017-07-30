@@ -48,6 +48,11 @@ public class ScorecardProvider extends ContentProvider{
     public static final int SCORECARD_BEST_NET_DIF=520;  //Retrieve the best NET Dif Score
     public static final int SCORECARD_BEST_NET_DIF_WITH_GF_ID=530; //Retrieve the best NET Dif Score for a particular Golf Field
 
+    public static final int SCORECARD_HOLE=600;
+    public static final int SCORECARD_HOLE_WITH_ID=610;
+    public static final int SCORECARD_HOLE_WITH_GF=620;
+
+
 
 
     public static UriMatcher buildUriMatcher() {
@@ -73,6 +78,10 @@ public class ScorecardProvider extends ContentProvider{
         matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_BEST_GROSS_DIF+"/#", SCORECARD_BEST_GROSS_DIF_WITH_GF_ID);
         matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_BEST_NET_DIF, SCORECARD_BEST_NET_DIF);
         matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_BEST_NET_DIF+"/#", SCORECARD_BEST_NET_DIF_WITH_GF_ID);
+
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_HOLE, SCORECARD_HOLE);
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_HOLE + "/#", SCORECARD_HOLE_WITH_ID);
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_HOLE_FIELD + "/#", GOLF_FIELD_HOLE_WITH_GF);
 
         return matcher;
 
@@ -135,7 +144,14 @@ public class ScorecardProvider extends ContentProvider{
             case SCORECARD_BEST_NET_DIF_WITH_GF_ID:
                 return ScorecardContract.ScorecardEntry.CONTENT_ITEM_TYPE_BEST_NET_DIF_GOLF_FIELD;
 
+            case SCORECARD_HOLE:
+                return ScorecardContract.ScorecardHoleEntry.CONTENT_DIR_TYPE;
 
+            case SCORECARD_HOLE_WITH_ID:
+                return ScorecardContract.ScorecardHoleEntry.CONTENT_ITEM_TYPE;
+
+            case SCORECARD_HOLE_WITH_GF:
+                return ScorecardContract.ScorecardHoleEntry.CONTENT_DIR_TYPE_FIELD;
 
             default:
                 throw new UnsupportedOperationException(getContext().getString(R.string.provider_error_unknow_uri) + uri);
@@ -317,6 +333,10 @@ public class ScorecardProvider extends ContentProvider{
             case SCORECARD:
                 insertedUri=insertScorecard(values);
                 break;
+            case SCORECARD_HOLE:
+                insertedUri=insertScorecardHole(values);
+
+
 
 
             default:
@@ -798,6 +818,34 @@ public class ScorecardProvider extends ContentProvider{
         }
         return cursor;
 
+    }
+
+
+    //Helper Method to insert a new Scorecard hole in the database
+    private Uri insertScorecardHole(ContentValues values) {
+        Uri insertedScorecardHoleUri=null;
+        Long insertedScorecardHoleId;
+
+        final SQLiteDatabase db = mScorecardDbHelper.getWritableDatabase();
+        if (db.isOpen()){
+            insertedScorecardHoleId=db.insert(ScorecardContract.ScorecardHoleEntry.TABLE_NAME,null,values);
+            if(insertedScorecardHoleId!=-1){
+
+                insertedScorecardHoleUri=ScorecardContract.GolfFieldHoleEntry.buildGolfFieldHoleByIdUri(insertedScorecardHoleId);
+
+            }else{
+                insertedScorecardHoleUri=null;
+                Log.e(LOG_TAG,getContext().getString(R.string.provider_scorecard_hole_not_inserted));
+            }
+
+
+        }else{
+            insertedScorecardHoleUri=null;
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
+        }
+
+
+        return insertedScorecardHoleUri;
     }
 
 

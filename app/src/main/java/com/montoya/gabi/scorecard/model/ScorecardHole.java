@@ -59,7 +59,7 @@ public class ScorecardHole extends Hole {
 
 
     //Get the content values without the _ID
-    public ContentValues getGolfFieldHoleValues (){
+    public ContentValues getScorecardHoleValues (){
 
         ContentValues values=new ContentValues();
         values.put(ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_SC_ID,this.getScorecard_Id());

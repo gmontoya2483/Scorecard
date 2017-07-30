@@ -57,6 +57,7 @@ public class ScorecardContract {
     public static final String PATH_SCORECARD_BEST_NET_DIF = "scorecard_best_net_dif";
 
     public static final String PATH_SCORECARD_HOLE = "scorecard_hole";
+    public static final String PATH_SCORECARD_HOLE_FIELD = "scorecard_hole_field";
 
 
 
@@ -311,6 +312,50 @@ public class ScorecardContract {
         public static final String COLUMN_SCORECARD_HOLE_PAR = "scorecard_hole_par";
         public static final String COLUMN_SCORECARD_HOLE_SCORE = "scorecard_hole_score";
         public static final String COLUMN_SCORECARD_HOLE_DIF = "scorecard_hole_dif";
+
+
+        // Create content uri for the scorecard holes
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_SCORECARD_HOLE)
+                .build();
+
+        // Create content uri for the scorecards holes by golf field
+        public static final Uri CONTENT_URI_FIELD = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_SCORECARD_HOLE_FIELD)
+                .build();
+
+
+        // create cursor of base type directory for multiples entries (Golf fields holes)
+        public static final String CONTENT_DIR_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_HOLE;
+
+        // create cursor of base type item for single entry (single hole)
+        public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_HOLE;
+
+
+        // create cursor of base type directory for multiple entry (holes for an specific field)
+        public static final String CONTENT_DIR_TYPE_FIELD = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_HOLE_FIELD;
+
+
+
+        //for building URIs on insertion
+        public static Uri buildScorecardHoleByIdUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+
+        public static Uri buildAllScorecardHoleUri() {
+            return CONTENT_URI;
+        }
+
+
+        public static Uri buildAllScorecardHolesByGolfFieldUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI_FIELD, id);
+        }
+
+
+
+
+
 
 
     }

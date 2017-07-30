@@ -571,7 +571,7 @@ public class TestDb extends AndroidTestCase {
         assertEquals("Par 4 value doesnßt match",4, Hole.Par.PAR_4.getValue());
 
 
-        SCHRowId=db.insert(ScorecardContract.ScorecardHoleEntry.TABLE_NAME,null,scorecardHole.getGolfFieldHoleValues());
+        SCHRowId=db.insert(ScorecardContract.ScorecardHoleEntry.TABLE_NAME,null,scorecardHole.getScorecardHoleValues());
 
         //Verify that the Inserted ScorecardHole has a correct ID
         assertTrue("Error: Expected Scorecard Hole ID doesn´t match: ", SCHRowId>0);
