@@ -57,7 +57,7 @@ public class ScorecardContract {
     public static final String PATH_SCORECARD_BEST_NET_DIF = "scorecard_best_net_dif";
 
     public static final String PATH_SCORECARD_HOLE = "scorecard_hole";
-    public static final String PATH_SCORECARD_HOLE_FIELD = "scorecard_hole_field";
+    public static final String PATH_SCORECARD_HOLE_SCORECARD = "scorecard_hole_scorecard";
 
 
 
@@ -320,8 +320,8 @@ public class ScorecardContract {
                 .build();
 
         // Create content uri for the scorecards holes by golf field
-        public static final Uri CONTENT_URI_FIELD = BASE_CONTENT_URI.buildUpon()
-                .appendPath(PATH_SCORECARD_HOLE_FIELD)
+        public static final Uri CONTENT_URI_SCORECARD = BASE_CONTENT_URI.buildUpon()
+                .appendPath(PATH_SCORECARD_HOLE_SCORECARD)
                 .build();
 
 
@@ -332,8 +332,8 @@ public class ScorecardContract {
         public static final String CONTENT_ITEM_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_HOLE;
 
 
-        // create cursor of base type directory for multiple entry (holes for an specific field)
-        public static final String CONTENT_DIR_TYPE_FIELD = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_HOLE_FIELD;
+        // create cursor of base type directory for multiple entry (holes for an specific scorecard)
+        public static final String CONTENT_DIR_TYPE_SCORECARD = ContentResolver.CURSOR_DIR_BASE_TYPE + "/" + CONTENT_AUTHORITY + "/" + PATH_SCORECARD_HOLE_SCORECARD;
 
 
 
@@ -348,8 +348,8 @@ public class ScorecardContract {
         }
 
 
-        public static Uri buildAllScorecardHolesByGolfFieldUri(long id) {
-            return ContentUris.withAppendedId(CONTENT_URI_FIELD, id);
+        public static Uri buildAllScorecardHolesByScorecardUri(long id) {
+            return ContentUris.withAppendedId(CONTENT_URI_SCORECARD, id);
         }
 
 

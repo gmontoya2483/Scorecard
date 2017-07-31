@@ -50,7 +50,7 @@ public class ScorecardProvider extends ContentProvider{
 
     public static final int SCORECARD_HOLE=600;
     public static final int SCORECARD_HOLE_WITH_ID=610;
-    public static final int SCORECARD_HOLE_WITH_GF=620;
+    public static final int SCORECARD_HOLE_WITH_SC=620;
 
 
 
@@ -81,7 +81,7 @@ public class ScorecardProvider extends ContentProvider{
 
         matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_HOLE, SCORECARD_HOLE);
         matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_HOLE + "/#", SCORECARD_HOLE_WITH_ID);
-        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_HOLE_FIELD + "/#", GOLF_FIELD_HOLE_WITH_GF);
+        matcher.addURI(authority, ScorecardContract.PATH_SCORECARD_HOLE_SCORECARD + "/#", SCORECARD_HOLE_WITH_SC);
 
         return matcher;
 
@@ -150,8 +150,8 @@ public class ScorecardProvider extends ContentProvider{
             case SCORECARD_HOLE_WITH_ID:
                 return ScorecardContract.ScorecardHoleEntry.CONTENT_ITEM_TYPE;
 
-            case SCORECARD_HOLE_WITH_GF:
-                return ScorecardContract.ScorecardHoleEntry.CONTENT_DIR_TYPE_FIELD;
+            case SCORECARD_HOLE_WITH_SC:
+                return ScorecardContract.ScorecardHoleEntry.CONTENT_DIR_TYPE_SCORECARD;
 
             default:
                 throw new UnsupportedOperationException(getContext().getString(R.string.provider_error_unknow_uri) + uri);
@@ -305,6 +305,25 @@ public class ScorecardProvider extends ContentProvider{
                 retCursor=queryScorecardBestNetDifByGolfFieldId(Scorecard_id);
                 break;
             }
+
+            /*
+            Scorecard hole section
+             */
+            case SCORECARD_HOLE_WITH_ID:
+            {
+                String SCH_id= String.valueOf(ContentUris.parseId(uri));
+                retCursor=queryScorecardHoleById(SCH_id);
+                break;
+            }
+
+            case SCORECARD_HOLE_WITH_SC:
+            {
+                String SCH_SC_id= String.valueOf(ContentUris.parseId(uri));
+                retCursor=queryScoreHoleByScorecardId(SCH_SC_id);
+                break;
+            }
+            /*
+
 
             /*
             Default section
@@ -846,6 +865,46 @@ public class ScorecardProvider extends ContentProvider{
 
 
         return insertedScorecardHoleUri;
+    }
+
+
+
+    private Cursor queryScorecardHoleById(String id){
+        Cursor cursor;
+
+        SQLiteDatabase db=mScorecardDbHelper.getReadableDatabase();
+        if (db.isOpen()){
+
+            String SQLStatment="SELECT * from "+ScorecardContract.ScorecardHoleEntry.TABLE_NAME+
+                    " WHERE "+ScorecardContract.ScorecardHoleEntry._ID + "=?";
+
+            cursor=db.rawQuery(SQLStatment,new String[]{id});
+
+        }else{
+            cursor=null;
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
+        }
+        return cursor;
+
+    }
+
+
+    private Cursor queryScoreHoleByScorecardId (String id){
+        Cursor cursor;
+
+        SQLiteDatabase db=mScorecardDbHelper.getReadableDatabase();
+        if (db.isOpen()){
+
+            String SQLStatment="SELECT * from "+ScorecardContract.ScorecardHoleEntry.TABLE_NAME+" WHERE "+
+                    ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_SC_ID+"=?";
+            cursor=db.rawQuery(SQLStatment,new String[]{id});
+
+        }else{
+            cursor=null;
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
+        }
+        return cursor;
+
     }
 
 

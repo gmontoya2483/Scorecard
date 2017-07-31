@@ -188,4 +188,44 @@ public class TestUriMatcher extends AndroidTestCase {
     }
 
 
+
+    public void testScorecardHolesUriMatcherAndTypes(){
+
+        String type;
+
+        final Uri TEST_SCORECARD_HOLE= ScorecardContract.ScorecardHoleEntry.buildAllScorecardHoleUri();
+        final Uri TEST_SCORECARD_HOLE_WITH_ID= ScorecardContract.ScorecardHoleEntry.buildScorecardHoleByIdUri(456L);
+        final Uri TEST_SCORECARD_HOLE_WITH_SC_ID= ScorecardContract.ScorecardHoleEntry.buildAllScorecardHolesByScorecardUri(5L);
+
+
+        UriMatcher testMatcher = ScorecardProvider.buildUriMatcher();
+
+        //Test all Scorecards
+        assertEquals("Error: The ScoreCard HOLE URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_HOLE), ScorecardProvider.SCORECARD_HOLE);
+        Log.i("SCORECARD URI ",TEST_SCORECARD_HOLE.toString());
+
+        type = mContext.getContentResolver().getType(TEST_SCORECARD_HOLE);
+        assertEquals("Error: the SCORECARD HOLE CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardHoleEntry.CONTENT_DIR_TYPE, type);
+        Log.i("CONTENT_DIR_TYPE",type);
+
+
+
+        assertEquals("Error: The ScoreCard HOLE with ID URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_HOLE_WITH_ID), ScorecardProvider.SCORECARD_HOLE_WITH_ID);
+        Log.i("SCORECARD_WITH_ID URI ",TEST_SCORECARD_HOLE_WITH_ID.toString());
+
+        type = mContext.getContentResolver().getType(TEST_SCORECARD_HOLE_WITH_ID);
+        assertEquals("Error: the SCORECARD HOLE WITH ID CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardHoleEntry.CONTENT_ITEM_TYPE, type);
+        Log.i("CONTENT_ITEM_TYPE",type);
+
+
+        assertEquals("Error: The ScoreCard HOLE WITH SC ID URI was matched incorrectly.",testMatcher.match(TEST_SCORECARD_HOLE_WITH_SC_ID), ScorecardProvider.SCORECARD_HOLE_WITH_SC);
+        Log.i("SCORECARDURI ",TEST_SCORECARD_HOLE_WITH_SC_ID.toString());
+
+        type = mContext.getContentResolver().getType(TEST_SCORECARD_HOLE_WITH_SC_ID);
+        assertEquals("Error: the SCORECARD HOLE WITH SC CONTENT_URI was matched incorrectly.", ScorecardContract.ScorecardHoleEntry.CONTENT_DIR_TYPE_SCORECARD, type);
+        Log.i("CONTENT_DIR_TYPE",type);
+
+    }
+
+
 }
