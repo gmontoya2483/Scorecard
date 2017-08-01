@@ -8,7 +8,7 @@ import android.net.Uri;
 
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 
-import java.util.Date;
+import static com.montoya.gabi.scorecard.model.GolfField.QUANTITY_OF_HOLES;
 
 /**
  * Created by montoya on 10.04.2017.
@@ -17,6 +17,7 @@ import java.util.Date;
 public class Scorecard {
 
     public static final long SCORECARD_INVALID_ID=-1L;
+    public static final long SCORECARD_NOT_SAVED_ID=0L;
     public static final long SCORECARD_INVALID_DATE=-1L;
     public static final int SCORECARD_INVALID_HANDICAP=Player.INVALID_HANDICAP;
     public static final long SCORECARD_INVALID_GOLF_FIELD_ID=-GolfField.INVALID_GOLF_FIELD_ID;
@@ -25,6 +26,8 @@ public class Scorecard {
     public static final int SCORECARD_INVALID_PAR=GolfField.INVALID_TOTAL_PAR;
     public static final int SCORECARD_INVALID_SCORE=-1;
     public static final int SCORECARD_INVALID_DIF=-99;
+
+
 
 
     private long _id;
@@ -50,7 +53,11 @@ public class Scorecard {
     private int netDif=SCORECARD_INVALID_DIF;
 
 
+    private ScorecardHole holes []=new ScorecardHole[QUANTITY_OF_HOLES];
+
+
     public Scorecard(long date, int handicap, long golfField_id, String golfFieldName, int golfFieldTotalLength, int golfFieldTotalPar, int golfFieldOutLength, int golfFieldOutPar, int golfFieldInLength, int golfFieldInPar, int outScore, int outDif, int inScore, int inDif, int grossScore, int grossDif, int netScore, int netDif) {
+        this._id=SCORECARD_NOT_SAVED_ID;
         this.date = date;
         this.handicap = handicap;
         this.golfField_id = golfField_id;
@@ -235,6 +242,98 @@ public class Scorecard {
         this.netDif = netDif;
     }
 
+    public ScorecardHole[] getHoles() {
+        return holes;
+    }
+
+    public ScorecardHole getHole(int index){
+        return holes[index];
+    }
+
+
+    public ScorecardHole getHole (Hole.HoleNumber holeNumber){
+        ScorecardHole hole;
+        switch (holeNumber){
+            case HOLE_1:
+                hole=this.holes[0];
+                break;
+
+            case HOLE_2:
+                hole=this.holes[1];
+                break;
+
+            case HOLE_3:
+                hole=this.holes[2];
+                break;
+
+            case HOLE_4:
+                hole=this.holes[3];
+                break;
+
+            case HOLE_5:
+                hole=this.holes[4];
+                break;
+
+            case HOLE_6:
+                hole=this.holes[5];
+                break;
+
+            case HOLE_7:
+                hole=this.holes[6];
+                break;
+
+            case HOLE_8:
+                hole=this.holes[7];
+                break;
+
+            case HOLE_9:
+                hole=this.holes[8];
+                break;
+
+            case HOLE_10:
+                hole=this.holes[9];
+                break;
+
+            case HOLE_11:
+                hole=this.holes[10];
+                break;
+
+            case HOLE_12:
+                hole=this.holes[11];
+                break;
+
+            case HOLE_13:
+                hole=this.holes[12];
+                break;
+
+            case HOLE_14:
+                hole=this.holes[13];
+                break;
+
+            case HOLE_15:
+                hole=this.holes[14];
+                break;
+
+            case HOLE_16:
+                hole=this.holes[15];
+                break;
+
+            case HOLE_17:
+                hole=this.holes[16];
+                break;
+
+            case HOLE_18:
+                hole=this.holes[17];
+                break;
+            default:
+                hole=null;
+                break;
+        }
+
+        return hole;
+    }
+
+
 
 
     private void setScorecardValuesFromCursor(Cursor scorecardCursor){
@@ -351,6 +450,8 @@ public class Scorecard {
             scorecardUri=insertScorecardHeader(context);
             if (scorecardUri!=null){
                 this._id= ContentUris.parseId(scorecardUri);
+                setNewScorecardIdToTheHoles();
+
 
             }else{
 
@@ -437,16 +538,26 @@ public class Scorecard {
 
 
     private boolean validateScorecardHoles(){
+
         return true; //TODO hacer la validacion
     }
 
 
-    private Uri insertScorecardHeader(Context context){
+    private void setNewScorecardIdToTheHoles(){
+        //TODO hacer la funcion
+    }
 
+
+    private Uri insertScorecardHeader(Context context){
         Uri allScorecardUri=ScorecardContract.ScorecardEntry.buildAllScoreCardUri();
         return context.getContentResolver().insert(allScorecardUri,getScorecardValues());
-
     }
+
+
+    private void insertScorecardHoles (Context context){
+        //TODO hacer el insert llamar al bulkinsert de ScorecardHoles
+    }
+
 
     public static Cursor getAllScorecards(Context context){
         Uri allScorecardsUri=ScorecardContract.ScorecardEntry.buildAllScoreCardUri();
@@ -527,6 +638,17 @@ public class Scorecard {
         return bestNetDif;
 
     }
+
+
+    public int AddHole (ScorecardHole hole){
+        int index=Hole.convertHoleNumberToArrayIndex(hole.getNumber());
+        if (index!=Hole.INVALID_HOLE_ARRAY_INDEX){
+            this.holes[index]=hole;
+        }
+
+        return index;
+    }
+
 
 
 

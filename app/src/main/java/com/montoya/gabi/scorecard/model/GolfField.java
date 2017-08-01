@@ -403,7 +403,7 @@ public class GolfField {
    }
 
 
-    public int AddHole (GolfFieldHole hole){
+    public int AddHole (GolfFieldHole hole){ //TODO  remplazar esta función por la que se puso en Scorecard
         int index;
 
         //Ensure the golffield ID will be the one for this field

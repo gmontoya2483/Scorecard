@@ -13,7 +13,6 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 
 import com.montoya.gabi.scorecard.R;
-import com.montoya.gabi.scorecard.model.Scorecard;
 
 /**
  * Created by montoya on 10.04.2017.
@@ -460,6 +459,9 @@ public class ScorecardProvider extends ContentProvider{
             case GOLF_FIELD_HOLE:
                 rowsInserted=bulkInsertGolfFieldHoles(values);
                 break;
+            case SCORECARD_HOLE:
+                rowsInserted=bulkInsertScoredHoles(values);
+                break;
             default:
                 throw new UnsupportedOperationException(getContext().getString(R.string.provider_error_unknow_uri) + uri);
         }
@@ -904,6 +906,31 @@ public class ScorecardProvider extends ContentProvider{
             Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
         }
         return cursor;
+
+    }
+
+
+    //Helper method to bulkinsert the Golf field Holes Records
+    private int bulkInsertScoredHoles(ContentValues[] values){
+
+        int rowsInserted = 0;
+        final SQLiteDatabase db = mScorecardDbHelper.getWritableDatabase();
+        db.beginTransaction();
+        try{
+            for (ContentValues value : values) {
+
+                long _id=db.insert(ScorecardContract.ScorecardHoleEntry.TABLE_NAME,null,value);
+                if (_id!=-1){
+                    rowsInserted++;
+                }
+            }
+            db.setTransactionSuccessful();
+
+        }finally {
+            db.endTransaction();
+        }
+
+        return rowsInserted;
 
     }
 

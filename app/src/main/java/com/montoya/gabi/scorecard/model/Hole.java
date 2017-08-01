@@ -1,5 +1,19 @@
 package com.montoya.gabi.scorecard.model;
 
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_1;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_12;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_13;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_16;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_17;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_18;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_2;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_3;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_4;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_5;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_6;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_7;
+import static com.montoya.gabi.scorecard.model.Hole.HoleNumber.HOLE_9;
+
 /**
  * Created by Gabriel on 15/04/2017.
  */
@@ -61,6 +75,7 @@ public abstract class Hole {
     public static int MIN_HOLE_LENGTH=10;
     public static int INVALID_HOLE_LENGTH=-1;
     public static int NOT_DEFINED_HOLE_LENGTH=0;
+    public static int INVALID_HOLE_ARRAY_INDEX=-1;
 
 
 
@@ -152,31 +167,31 @@ public abstract class Hole {
                 holeNumber=HoleNumber.HOLE_NOT_DEFINED;
                 break;
             case 1:
-                holeNumber=HoleNumber.HOLE_1;
+                holeNumber= HOLE_1;
                 break;
             case 2:
-                holeNumber=HoleNumber.HOLE_2;
+                holeNumber= HOLE_2;
                 break;
             case 3:
-                holeNumber=HoleNumber.HOLE_3;
+                holeNumber= HOLE_3;
                 break;
             case 4:
-                holeNumber=HoleNumber.HOLE_4;
+                holeNumber= HOLE_4;
                 break;
             case 5:
-                holeNumber=HoleNumber.HOLE_5;
+                holeNumber= HOLE_5;
                 break;
             case 6:
-                holeNumber=HoleNumber.HOLE_6;
+                holeNumber= HOLE_6;
                 break;
             case 7:
-                holeNumber=HoleNumber.HOLE_7;
+                holeNumber= HOLE_7;
                 break;
             case 8:
                 holeNumber=HoleNumber.HOLE_8;
                 break;
             case 9:
-                holeNumber=HoleNumber.HOLE_9;
+                holeNumber= HOLE_9;
                 break;
             case 10:
                 holeNumber=HoleNumber.HOLE_10;
@@ -185,10 +200,10 @@ public abstract class Hole {
                 holeNumber=HoleNumber.HOLE_11;
                 break;
             case 12:
-                holeNumber=HoleNumber.HOLE_12;
+                holeNumber= HOLE_12;
                 break;
             case 13:
-                holeNumber=HoleNumber.HOLE_13;
+                holeNumber= HOLE_13;
                 break;
             case 14:
                 holeNumber=HoleNumber.HOLE_14;
@@ -197,13 +212,13 @@ public abstract class Hole {
                 holeNumber=HoleNumber.HOLE_15;
                 break;
             case 16:
-                holeNumber=HoleNumber.HOLE_16;
+                holeNumber= HOLE_16;
                 break;
             case 17:
-                holeNumber=HoleNumber.HOLE_17;
+                holeNumber= HOLE_17;
                 break;
             case 18:
-                holeNumber=HoleNumber.HOLE_18;
+                holeNumber= HOLE_18;
                 break;
             default:
                 holeNumber=HoleNumber.HOLE_INVALID;
@@ -213,6 +228,75 @@ public abstract class Hole {
         return holeNumber;
 
 
+    }
+
+
+    public static int convertHoleNumberToArrayIndex(HoleNumber holeNumber){
+
+        int index;
+
+        switch (holeNumber){
+            case HOLE_1:
+                index=0;
+                break;
+            case HOLE_2:
+                index=1;
+                break;
+            case HOLE_3:
+                index=2;
+                break;
+            case HOLE_4:
+                index=3;
+                break;
+            case HOLE_5:
+                index=4;
+                break;
+            case HOLE_6:
+                index=5;
+                break;
+            case HOLE_7:
+                index=6;
+                break;
+            case HOLE_8:
+                index=7;
+                break;
+            case HOLE_9:
+                index=8;
+                break;
+            case HOLE_10:
+                index=9;
+                break;
+            case HOLE_11:
+                index=10;
+                break;
+            case HOLE_12:
+                index=11;
+                break;
+            case HOLE_13:
+                index=12;
+                break;
+            case HOLE_14:
+                index=13;
+                break;
+            case HOLE_15:
+                index=14;
+                break;
+            case HOLE_16:
+                index=15;
+                break;
+            case HOLE_17:
+                index=16;
+                break;
+            case HOLE_18:
+                index=17;
+                break;
+            default:
+                index=INVALID_HOLE_ARRAY_INDEX;
+                break;
+        }
+
+
+        return index;
     }
 
 
