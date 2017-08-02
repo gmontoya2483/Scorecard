@@ -5,8 +5,10 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
+import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 import static com.montoya.gabi.scorecard.model.GolfField.QUANTITY_OF_HOLES;
 
@@ -25,35 +27,45 @@ public class Scorecard {
     public static final int SCORECARD_INVALID_LENGTH=GolfField.INVALID_TOTAL_LENGTH;
     public static final int SCORECARD_INVALID_PAR=GolfField.INVALID_TOTAL_PAR;
     public static final int SCORECARD_INVALID_SCORE=-1;
+    public static final int SCORECARD_NOT_DEFINED_SCORE=0;
     public static final int SCORECARD_INVALID_DIF=-99;
-
+    public static final int SCORECARD_QUANTITY_OF_HOLES=GolfField.QUANTITY_OF_HOLES;
+    public static final int SCORECARD_INVALID_QUANTITY_OF_HOLES=GolfField.INVALID_QUANTITY_OF_HOLES;
 
 
 
     private long _id;
-    private long date=SCORECARD_INVALID_DATE;
-    private int handicap=SCORECARD_INVALID_HANDICAP;
+    private long date;
+    private int handicap;
 
-    private long golfField_id=SCORECARD_INVALID_GOLF_FIELD_ID;
-    private String golfFieldName=SCORECARD_INVALID_GOLF_FILED_NAME;
-    private int golfFieldTotalLength=SCORECARD_INVALID_LENGTH;
-    private int golfFieldTotalPar=SCORECARD_INVALID_PAR;
-    private int golfFieldOutLength=SCORECARD_INVALID_LENGTH;
-    private int golfFieldOutPar=SCORECARD_INVALID_PAR;
-    private int golfFieldInLength=SCORECARD_INVALID_LENGTH;
-    private int golfFieldInPar=SCORECARD_INVALID_PAR;
+    private long golfField_id;
+    private String golfFieldName;
+    private int golfFieldTotalLength;
+    private int golfFieldTotalPar;
+    private int golfFieldOutLength;
+    private int golfFieldOutPar;
+    private int golfFieldInLength;
+    private int golfFieldInPar;
 
-    private int outScore=SCORECARD_INVALID_SCORE;
-    private int outDif=SCORECARD_INVALID_DIF;
-    private int inScore=SCORECARD_INVALID_SCORE;
-    private int inDif=SCORECARD_INVALID_DIF;
-    private int grossScore=SCORECARD_INVALID_SCORE;
-    private int grossDif=SCORECARD_INVALID_DIF;
-    private int netScore=SCORECARD_INVALID_SCORE;
-    private int netDif=SCORECARD_INVALID_DIF;
+    private int outScore;
+    private int outDif;
+    private int inScore;
+    private int inDif;
+    private int grossScore;
+    private int grossDif;
+    private int netScore;
+    private int netDif;
 
 
-    private ScorecardHole holes []=new ScorecardHole[QUANTITY_OF_HOLES];
+    private ScorecardHole holes [];
+
+
+    public Scorecard(){
+        setDefaultValues();
+    }
+
+
+
 
 
     public Scorecard(long date, int handicap, long golfField_id, String golfFieldName, int golfFieldTotalLength, int golfFieldTotalPar, int golfFieldOutLength, int golfFieldOutPar, int golfFieldInLength, int golfFieldInPar, int outScore, int outDif, int inScore, int inDif, int grossScore, int grossDif, int netScore, int netDif) {
@@ -76,6 +88,8 @@ public class Scorecard {
         this.grossDif = grossDif;
         this.netScore = netScore;
         this.netDif = netDif;
+        this.holes =new ScorecardHole[SCORECARD_QUANTITY_OF_HOLES];
+
     }
 
 
@@ -84,7 +98,14 @@ public class Scorecard {
         Uri scorecardByIdUri=ScorecardContract.ScorecardEntry.buildScoreCardByIdUri(scorecardId);
         Cursor cursor=context.getContentResolver().query(scorecardByIdUri,null,null,null,null);
         setScorecardValuesFromCursor(cursor);
-        cursor.close();;
+
+        if (loadHolesFromDB(context)!=SCORECARD_QUANTITY_OF_HOLES){
+            holes=null;
+        }
+
+        if (cursor!=null){
+            cursor.close();
+        }
 
     }
 
@@ -446,17 +467,22 @@ public class Scorecard {
         boolean insertedScorecardOK=true;
         Uri scorecardUri;
 
-        if (validateScorecard() && validateScorecardHoles()){
+        if (validateScorecard() && validateScorecardHolesWithOutScorecardId()){
             scorecardUri=insertScorecardHeader(context);
             if (scorecardUri!=null){
                 this._id= ContentUris.parseId(scorecardUri);
                 setNewScorecardIdToTheHoles();
+                if (insertScorecardHoles(context)!=SCORECARD_QUANTITY_OF_HOLES){
 
+                    deleteScorecard(context);
+                    setDefaultValues();
+                    this._id=SCORECARD_INVALID_ID;
+                    insertedScorecardOK=false;
 
+                }
             }else{
-
                 this._id=SCORECARD_INVALID_ID;
-
+                insertedScorecardOK=false;
             }
 
         }else{
@@ -468,7 +494,7 @@ public class Scorecard {
     }
 
 
-    private boolean validateScorecard(){
+    public boolean validateScorecard(){
 
         boolean validationOK=true;
 
@@ -485,7 +511,7 @@ public class Scorecard {
             validationOK=false;
         }
 
-        if (this.golfFieldName == SCORECARD_INVALID_GOLF_FILED_NAME){
+        if (this.golfFieldName.equals(SCORECARD_INVALID_GOLF_FILED_NAME)){
             validationOK=false;
         }
 
@@ -537,14 +563,59 @@ public class Scorecard {
     }
 
 
-    private boolean validateScorecardHoles(){
+    public boolean validateScorecardHolesWithOutScorecardId(){
 
-        return true; //TODO hacer la validacion
+        boolean validated=true;
+
+        //Validate the quantity of holes
+        if (holes.length!=SCORECARD_QUANTITY_OF_HOLES){
+            validated=false;
+        }
+
+        //long scorecardId, HoleNumber number, int length, Par par, int score, int dif
+
+        for (ScorecardHole hole:holes){
+
+            //Verify Hole Number
+            if ((hole.getNumber()== Hole.HoleNumber.HOLE_INVALID) || (hole.getNumber()== Hole.HoleNumber.HOLE_NOT_DEFINED)){
+                validated=false;
+            }
+
+            //Verify the length
+            if ((hole.getLength()==Hole.INVALID_HOLE_LENGTH) || (hole.getLength()<=Hole.NOT_DEFINED_HOLE_LENGTH)){
+                validated=false;
+
+            }
+
+            //Verify the PAR
+            if ((hole.getPar()==Hole.Par.PAR_INVALID) || (hole.getPar()== Hole.Par.PAR_NOT_DEFINED)){
+                validated=false;
+            }
+
+            //Verify the Score
+            if ((hole.getScore()==SCORECARD_INVALID_SCORE) || (hole.getScore()<=SCORECARD_NOT_DEFINED_SCORE)){
+                validated=false;
+
+            }
+
+            //Verify Dif
+            if (hole.getDif()==SCORECARD_INVALID_DIF){
+                validated=false;
+
+            }
+
+
+        }
+
+        return validated;
     }
 
 
     private void setNewScorecardIdToTheHoles(){
-        //TODO hacer la funcion
+
+        for (ScorecardHole hole : holes) {
+            hole.setScorecard_Id(this._id);
+        }
     }
 
 
@@ -554,8 +625,10 @@ public class Scorecard {
     }
 
 
-    private void insertScorecardHoles (Context context){
-        //TODO hacer el insert llamar al bulkinsert de ScorecardHoles
+    private int insertScorecardHoles (Context context){
+
+        return ScorecardHole.bulkInsertScorecardHoles(context,this.holes);
+
     }
 
 
@@ -570,72 +643,70 @@ public class Scorecard {
     }
 
     public static int getBestGrossScoreDif(Context context){
-        int bestGrossDif;
+        int bestGrossDif=SCORECARD_INVALID_DIF;
         Uri ScorecardBestGrossDifUri=ScorecardContract.ScorecardEntry.buildScoreCardBestGrossDifUri();
         Cursor cursor= context.getContentResolver().query(ScorecardBestGrossDifUri,null,null,null,null);
-        if (cursor.getCount()==1){
-            cursor.moveToFirst();
-            bestGrossDif=cursor.getInt(cursor.getColumnIndex(ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_GROSS_DIF));
+        if (cursor != null) {
+            if (cursor.getCount()==1){
+                cursor.moveToFirst();
+                bestGrossDif=cursor.getInt(cursor.getColumnIndex(ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_GROSS_DIF));
 
-        }else{
-            bestGrossDif=SCORECARD_INVALID_DIF;
+            }
+            cursor.close();
         }
 
-        cursor.close();
+
         return bestGrossDif;
 
     }
 
 
     public static int getBestGrossScoreDif(Context context, long golfField_id){
-        int bestGrossDif;
+        int bestGrossDif=SCORECARD_INVALID_DIF;
         Uri ScorecardBestGrossDifByGolfFieldIdUri=ScorecardContract.ScorecardEntry.buildScoreCardBestGrossDifByGolfFieldIdUri(golfField_id);
         Cursor cursor= context.getContentResolver().query(ScorecardBestGrossDifByGolfFieldIdUri,null,null,null,null);
-        if (cursor.getCount()==1){
-            cursor.moveToFirst();
-            bestGrossDif=cursor.getInt(cursor.getColumnIndex(ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_GROSS_DIF));
+        if (cursor != null) {
+            if (cursor.getCount()==1){
+                cursor.moveToFirst();
+                bestGrossDif=cursor.getInt(cursor.getColumnIndex(ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_GROSS_DIF));
 
-        }else{
-            bestGrossDif=SCORECARD_INVALID_DIF;
+            }
+
+            cursor.close();
         }
-
-        cursor.close();
         return bestGrossDif;
 
     }
 
 
     public static int getBestNetScoreDif(Context context){
-        int bestNetDif;
+        int bestNetDif=SCORECARD_INVALID_DIF;
         Uri ScorecardBestNetDifUri=ScorecardContract.ScorecardEntry.buildScoreCardBestNetDifUri();
         Cursor cursor= context.getContentResolver().query(ScorecardBestNetDifUri,null,null,null,null);
-        if (cursor.getCount()==1){
-            cursor.moveToFirst();
-            bestNetDif=cursor.getInt(cursor.getColumnIndex(ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_NET_DIF));
+        if (cursor != null) {
+            if (cursor.getCount()==1){
+                cursor.moveToFirst();
+                bestNetDif=cursor.getInt(cursor.getColumnIndex(ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_NET_DIF));
 
-        }else{
-            bestNetDif=SCORECARD_INVALID_DIF;
+            }
+            cursor.close();
         }
-
-        cursor.close();
-        return bestNetDif;
-
+       return bestNetDif;
     }
 
     public static int getBestNetScoreDif(Context context, long golfField_id){
-        int bestNetDif;
+        int bestNetDif=SCORECARD_INVALID_DIF;
         Uri ScorecardBestNetDifByGolfFieldIdUri=ScorecardContract.ScorecardEntry.buildScoreCardBestNetDifByGolfFieldIdUri(golfField_id);
         Cursor cursor= context.getContentResolver().query(ScorecardBestNetDifByGolfFieldIdUri,null,null,null,null);
-        if (cursor.getCount()==1){
-            cursor.moveToFirst();
-            bestNetDif=cursor.getInt(cursor.getColumnIndex(ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_NET_DIF));
+        if (cursor != null) {
+            if (cursor.getCount()==1){
+                cursor.moveToFirst();
+                bestNetDif=cursor.getInt(cursor.getColumnIndex(ScorecardContract.ScorecardEntry.ALIAS_SCORECARD_BEST_NET_DIF));
 
-        }else{
-            bestNetDif=SCORECARD_INVALID_DIF;
+            }
+            cursor.close();
         }
-
-        cursor.close();
-        return bestNetDif;
+      return bestNetDif;
 
     }
 
@@ -650,7 +721,101 @@ public class Scorecard {
     }
 
 
+    private int loadHolesFromDB(Context context){
 
+        int result=SCORECARD_INVALID_QUANTITY_OF_HOLES;
+
+        Uri holesByScorecardIdUri=ScorecardContract.ScorecardHoleEntry.buildAllScorecardHolesByScorecardUri(this._id);
+        Cursor cursor=context.getContentResolver().query(holesByScorecardIdUri,null,null,null,null);
+
+        //long scorecardId, HoleNumber number, int length, Par par, int score, int dif
+
+        if (cursor!=null){
+
+            int index_Id=cursor.getColumnIndex(ScorecardContract.ScorecardHoleEntry._ID);
+            int index_SC_Id=cursor.getColumnIndex(ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_SC_ID);
+            int indexNumber=cursor.getColumnIndex(ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_NUMBER);
+            int indexLength=cursor.getColumnIndex(ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_LENGTH);
+            int indexPar=cursor.getColumnIndex(ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_PAR);
+            int indexScore=cursor.getColumnIndex(ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_SCORE);
+            int indexDif=cursor.getColumnIndex(ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_DIF);
+
+
+
+            long id;
+            long SC_Id;
+            Hole.HoleNumber number;
+            int length;
+            Hole.Par par;
+            int score;
+            int dif;
+
+            if (cursor.getCount()==SCORECARD_QUANTITY_OF_HOLES){
+
+                this.holes= new ScorecardHole[SCORECARD_QUANTITY_OF_HOLES];//Remove old data from holes to begin from scratch
+
+                while (cursor.moveToNext()){
+
+                    id=cursor.getLong(index_Id);
+                    SC_Id=cursor.getLong(index_SC_Id);
+                    number=Hole.convertIntToHoleNumber(cursor.getInt(indexNumber));
+                    length=cursor.getInt(indexLength);
+                    par=Hole.convertIntToPar(cursor.getInt(indexPar));
+                    score=cursor.getInt(indexScore);
+                    dif=cursor.getInt(indexDif);
+
+                    this.AddHole(new ScorecardHole(id,SC_Id,number,length,par,score,dif));
+
+                }
+
+                result=this.getHoles().length;
+
+            }
+
+        }
+
+        return result;
+    }
+
+
+    private int deleteScorecardHeader(Context context){
+        return context.getContentResolver().delete(ScorecardContract.ScorecardEntry.buildScoreCardByIdUri(this._id),null,null);
+    }
+
+    private int deleteScorecardHoles (Context context){
+        return context.getContentResolver().delete(ScorecardContract.ScorecardHoleEntry.buildAllScorecardHolesByScorecardUri(this._id),null,null);
+    }
+
+    public void deleteScorecard (Context context){
+        deleteScorecardHoles(context);
+        deleteScorecardHeader(context);
+
+    }
+
+    private void setDefaultValues(){
+        this._id=SCORECARD_NOT_SAVED_ID;
+        this.date = SCORECARD_INVALID_DATE;
+        this.handicap = SCORECARD_INVALID_HANDICAP;
+        this.golfField_id = SCORECARD_INVALID_GOLF_FIELD_ID;
+        this.golfFieldName = SCORECARD_INVALID_GOLF_FILED_NAME;
+        this.golfFieldTotalLength = SCORECARD_INVALID_LENGTH;
+        this.golfFieldTotalPar = SCORECARD_INVALID_PAR;
+        this.golfFieldOutLength = SCORECARD_INVALID_LENGTH;
+        this.golfFieldOutPar = SCORECARD_INVALID_PAR;
+        this.golfFieldInLength = SCORECARD_INVALID_LENGTH;
+        this.golfFieldInPar = SCORECARD_INVALID_PAR;
+        this.outScore = SCORECARD_INVALID_SCORE;
+        this.outDif = SCORECARD_INVALID_DIF;
+        this.inScore = SCORECARD_INVALID_SCORE;
+        this.inDif = SCORECARD_INVALID_DIF;
+        this.grossScore = SCORECARD_INVALID_SCORE;
+        this.grossDif = SCORECARD_INVALID_DIF;
+        this.netScore = SCORECARD_INVALID_SCORE;
+        this.netDif = SCORECARD_INVALID_DIF;
+
+        holes=new ScorecardHole[SCORECARD_QUANTITY_OF_HOLES];
+
+    }
 
 
 }

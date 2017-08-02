@@ -1,6 +1,9 @@
 package com.montoya.gabi.scorecard.model;
 
 import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.net.Uri;
 
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 
@@ -22,6 +25,15 @@ public class ScorecardHole extends Hole {
         this.score = score;
         this.dif = dif;
         this._id=NOT_SAVED_HOLE_ID;
+    }
+
+    public ScorecardHole(long _id, long scorecardId, HoleNumber number, int length, Par par, int score, int dif) {
+        super(number, length, par);
+        this.scorecard_Id = scorecardId;
+        this.score = score;
+        this.dif = dif;
+        this._id=_id;
+
     }
 
     public long get_id() {
@@ -73,6 +85,38 @@ public class ScorecardHole extends Hole {
         return values;
 
     }
+
+
+    //Bulk insert GolfFieldHoles usually  called from the GolfField
+    public static int bulkInsertScorecardHoles(Context context, ScorecardHole[] holes){
+
+        int quantityOfInsertedHoles=0;
+        Uri allScorecardHolesUri=ScorecardContract.ScorecardHoleEntry.buildAllScorecardHoleUri();
+        ContentValues[] holesContentValues=getHolesContentValues(holes);
+
+        quantityOfInsertedHoles=context.getContentResolver().bulkInsert(allScorecardHolesUri,holesContentValues);
+
+        return quantityOfInsertedHoles;
+
+    }
+
+
+    private static ContentValues[] getHolesContentValues(ScorecardHole[] holes){
+
+        ContentValues[] holesValues;
+        int size=holes.length;
+        holesValues=new ContentValues[size];
+
+        for (int i=0; i<size;i++){
+            holesValues[i]=holes[i].getScorecardHoleValues();
+
+        }
+        return holesValues;
+
+    }
+
+
+
 
 
 

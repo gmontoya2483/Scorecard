@@ -3,7 +3,9 @@ package com.montoya.gabi.scorecard;
 import android.database.Cursor;
 import android.test.AndroidTestCase;
 
+import com.montoya.gabi.scorecard.model.Hole;
 import com.montoya.gabi.scorecard.model.Scorecard;
+import com.montoya.gabi.scorecard.model.ScorecardHole;
 
 /**
  * Created by Gabriel on 23/07/2017.
@@ -71,6 +73,29 @@ public class TestScorecard extends AndroidTestCase {
                 netScore,
                 netDif);
 
+        //long scorecardId, HoleNumber number, int length, Par par, int score, int dif
+
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_1,153, Hole.Par.PAR_3,4,1));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_2,453, Hole.Par.PAR_5,7,2));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_3,353, Hole.Par.PAR_4,7,3));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_4,463, Hole.Par.PAR_5,6,1));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_5,157, Hole.Par.PAR_3,6,3));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_6,453, Hole.Par.PAR_5,4,-1));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_7,253, Hole.Par.PAR_4,2,-2));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_8,85, Hole.Par.PAR_3,3,0));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_9,125, Hole.Par.PAR_3,2,-1));
+
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_10,153, Hole.Par.PAR_3,4,1));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_11,453, Hole.Par.PAR_5,7,2));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_12,353, Hole.Par.PAR_4,7,3));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_13,463, Hole.Par.PAR_5,6,1));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_14,157, Hole.Par.PAR_3,6,3));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_15,453, Hole.Par.PAR_5,4,-1));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_16,253, Hole.Par.PAR_4,2,-2));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_17,85, Hole.Par.PAR_3,3,0));
+        scorecard_1.AddHole(new ScorecardHole(Scorecard.SCORECARD_NOT_SAVED_ID, Hole.HoleNumber.HOLE_18,125, Hole.Par.PAR_3,2,-1));
+
+
 
         //Verify the scorecard was inserted correctly
         assertTrue("The scorecard was not inserted correctly",scorecard_1.insertScorecard(mContext));
@@ -137,6 +162,17 @@ public class TestScorecard extends AndroidTestCase {
         assertEquals("Golf field Net Dif are not equal",scorecard_1.getNetDif(),scorecard_2.getNetDif());
 
 
+        //long scorecardId, HoleNumber number, int length, Par par, int score, int dif
+
+        for (int i=0;i<Scorecard.SCORECARD_QUANTITY_OF_HOLES;i++){
+            assertEquals("Scorecard ids are not the same",scorecard_1.getHole(i).getScorecard_Id(),scorecard_2.getHole(i).getScorecard_Id());
+            assertEquals("Hole Numbers are not the same",scorecard_1.getHole(i).getNumber().getValue(),scorecard_2.getHole(i).getNumber().getValue());
+            assertEquals("Lengths are not the same",scorecard_1.getHole(i).getLength(),scorecard_2.getHole(i).getLength());
+            assertEquals("Hole Pars are not the same",scorecard_1.getHole(i).getPar().getValue(),scorecard_2.getHole(i).getPar().getValue());
+            assertEquals("Scores are not the same",scorecard_1.getHole(i).getScore(),scorecard_2.getHole(i).getScore());
+            assertEquals("Difs are not the same",scorecard_1.getHole(i).getDif(),scorecard_2.getHole(i).getDif());
+        }
+
         TestUtils.deleteAllRecords(mContext);
 
     }
@@ -156,6 +192,8 @@ public class TestScorecard extends AndroidTestCase {
         cursor.close();
 
     }
+
+    /*
 
     public void testScorecardsNotEmptyTable(){
 
@@ -215,7 +253,7 @@ public class TestScorecard extends AndroidTestCase {
 
 
 
-    }
+    }*/
 
 
 

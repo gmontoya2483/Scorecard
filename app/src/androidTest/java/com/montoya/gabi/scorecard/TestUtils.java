@@ -115,10 +115,28 @@ public class TestUtils {
 
 
 
+    public static int deleteAllScorecardHoleRecords(Context context){
+
+        Cursor cursor;
+        SQLiteDatabase db=new ScorecardDbHelper(context).getWritableDatabase();
+        int qtyOfDeletedRecords=db.delete(ScorecardContract.ScorecardHoleEntry.TABLE_NAME,null,null);
+
+        cursor=db.rawQuery("SELECT "+ScorecardContract.ScorecardHoleEntry._ID+" FROM "+ScorecardContract.ScorecardHoleEntry.TABLE_NAME,null);
+        assertFalse("Error: deleteAllScorecards - Not all records were deleted",cursor.moveToFirst());
+
+        db.close();
+        cursor.close();
+
+        return qtyOfDeletedRecords;
+    }
+
+
+
     public static void deleteAllRecords (Context context){
 
         TestUtils.deleteAllGolfFieldHoleRecords(context);
         TestUtils.deleteAllGolfFieldrecords(context);
+        TestUtils.deleteAllScorecardHoleRecords(context);
         TestUtils.deleteAllScorecardRecords(context);
 
     }

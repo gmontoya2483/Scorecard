@@ -197,5 +197,7 @@
     <string name="provider_log_golf_field_hole_delete_problem">There was a problem deleting the Golf Field Holes.</string>
     <string name="provider_log_scorecard_not_inserted">Scorecard could not be inserted</string>
     <string name="provider_scorecard_hole_not_inserted">Scorecarsd Hole could not be inserted</string>
+    <string name="provider_log_scorecard_delete_problem">There was a problem deleting the Scorecard.</string>
+    <string name="provider_log_scorecard_hole_delete_problem">There was a problem deleting the Scorecard Holes.</string>
 
 </resources>

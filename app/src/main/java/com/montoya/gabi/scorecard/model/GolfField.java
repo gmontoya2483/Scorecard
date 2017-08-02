@@ -23,6 +23,7 @@ public class GolfField {
     public static final int INVALID_TOTAL_LENGTH=-1;
     public static final int INVALID_TOTAL_PAR=-1;
     public static final int QUANTITY_OF_HOLES=18;
+    public static final int INVALID_QUANTITY_OF_HOLES=-1;
 
     private long _id;
     private String name;
@@ -643,10 +644,6 @@ public class GolfField {
                         //The golffield id is set as invalid
                         this._id=INVALID_GOLF_FIELD_ID;
 
-
-                    }else{
-
-                        // OK!!! DO NOTHING....
 
                     }
 

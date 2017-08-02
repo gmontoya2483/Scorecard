@@ -367,7 +367,6 @@ public class ScorecardProvider extends ContentProvider{
             getContext().getContentResolver().notifyChange(uri, null);
         }
 
-
        return insertedUri;
     }
 
@@ -394,8 +393,15 @@ public class ScorecardProvider extends ContentProvider{
                 rowsDeleted=deleteGolfFieldHoles(GFH_GF_id);
                 break;
 
+            case SCORECARD_WITH_ID:
+                String SC_id= String.valueOf(ContentUris.parseId(uri));
+                rowsDeleted=deleteScorecard(SC_id);
+                break;
 
-
+            case SCORECARD_HOLE_WITH_SC:
+                String SCH_SC_id= String.valueOf(ContentUris.parseId(uri));
+                rowsDeleted=deleteScorecardHoles(SCH_SC_id);
+                break;
 
             default:
                 throw new UnsupportedOperationException(getContext().getString(R.string.provider_error_unknow_uri) + uri);
@@ -460,7 +466,7 @@ public class ScorecardProvider extends ContentProvider{
                 rowsInserted=bulkInsertGolfFieldHoles(values);
                 break;
             case SCORECARD_HOLE:
-                rowsInserted=bulkInsertScoredHoles(values);
+                rowsInserted=bulkInsertScorecardHoles(values);
                 break;
             default:
                 throw new UnsupportedOperationException(getContext().getString(R.string.provider_error_unknow_uri) + uri);
@@ -658,6 +664,26 @@ public class ScorecardProvider extends ContentProvider{
 
 
 
+    //Delete Scorecards
+    private int deleteScorecard(String id){
+        int deletedRecords=-1;
+
+        final SQLiteDatabase db = mScorecardDbHelper.getWritableDatabase();
+        if (db.isOpen()){
+            deletedRecords=db.delete(ScorecardContract.ScorecardEntry.TABLE_NAME, ScorecardContract.ScorecardEntry._ID+"=?",new String[]{id});
+            if(deletedRecords!=1){
+                Log.e(LOG_TAG,getContext().getString(R.string.provider_log_scorecard_delete_problem));
+            }
+        }else{
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
+        }
+
+        return  deletedRecords;
+
+    }
+
+
+
     //Delete GOlf Fields
     private int deleteGolfFieldHoles(String id){
         int deletedRecords=-1;
@@ -667,18 +693,33 @@ public class ScorecardProvider extends ContentProvider{
 
             deletedRecords=db.delete(ScorecardContract.GolfFieldHoleEntry.TABLE_NAME, ScorecardContract.GolfFieldHoleEntry.COLUMN_GOLF_FIELD_HOLE_GF_ID+"=?",new String[]{id});
 
-
             if(deletedRecords!=1){
-
                 Log.e(LOG_TAG,getContext().getString(R.string.provider_log_golf_field_hole_delete_problem));
-
-
             }
         }else{
             Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
         }
 
+        return  deletedRecords;
 
+    }
+
+
+    //Delete GOlf Fields
+    private int deleteScorecardHoles(String scorecardId){
+        int deletedRecords=-1;
+
+        final SQLiteDatabase db = mScorecardDbHelper.getWritableDatabase();
+        if (db.isOpen()){
+
+            deletedRecords=db.delete(ScorecardContract.ScorecardHoleEntry.TABLE_NAME, ScorecardContract.ScorecardHoleEntry.COLUMN_SCORECARD_HOLE_SC_ID+"=?",new String[]{scorecardId});
+
+            if(deletedRecords!=1){
+                Log.e(LOG_TAG,getContext().getString(R.string.provider_log_scorecard_hole_delete_problem));
+            }
+        }else{
+            Log.e(LOG_TAG,getContext().getString(R.string.provider_log_database_not_opnened));
+        }
 
         return  deletedRecords;
 
@@ -911,7 +952,7 @@ public class ScorecardProvider extends ContentProvider{
 
 
     //Helper method to bulkinsert the Golf field Holes Records
-    private int bulkInsertScoredHoles(ContentValues[] values){
+    private int bulkInsertScorecardHoles(ContentValues[] values){
 
         int rowsInserted = 0;
         final SQLiteDatabase db = mScorecardDbHelper.getWritableDatabase();
