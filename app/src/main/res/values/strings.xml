@@ -199,5 +199,6 @@
     <string name="provider_scorecard_hole_not_inserted">Scorecarsd Hole could not be inserted</string>
     <string name="provider_log_scorecard_delete_problem">There was a problem deleting the Scorecard.</string>
     <string name="provider_log_scorecard_hole_delete_problem">There was a problem deleting the Scorecard Holes.</string>
+    <string name="current_scorecard_error_save">There was a problem while trying to confirm and save the current scorecard. Please verify that you have set the score in all the holes</string>
 
 </resources>

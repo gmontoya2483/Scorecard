@@ -411,10 +411,38 @@ public class CurrentScorecard {
 
 
     public Boolean confirmCurrentScorecard(){
+        boolean result = true;
 
-        //TODO Guardar la info de current SCORECARD
+        Scorecard scorecard=CreateScorecard();
+        if (scorecard!=null){
 
-        return true;
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_1));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_2));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_3));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_4));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_5));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_6));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_7));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_8));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_9));
+
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_10));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_11));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_12));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_13));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_14));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_15));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_16));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_17));
+            scorecard.AddHole(CreateScorecardHole(Hole.HoleNumber.HOLE_18));
+
+            result=scorecard.insertScorecard(mContext);
+
+       }else{
+            result=false;
+        }
+
+        return result;
     }
 
 
@@ -485,6 +513,50 @@ public class CurrentScorecard {
 
         return holePrefixKey;
 
+    }
+
+
+    public Scorecard CreateScorecard(){
+
+        Scorecard scorecard=new Scorecard(this.getDate(),
+                this.getCurrentHandicap(),
+                this.getGolfFieldId(),
+                this.getGolfFieldName(),
+                this.getGolfFieldTotalLength(),
+                this.getGolfFieldTotalPar(),
+                this.getGolfFieldOutLength(),
+                this.getGolfFieldOutPar(),
+                this.getGolfFieldInLength(),
+                this.getGolfFieldInPar(),
+                this.getOutScore(),
+                this.getOutDif(),
+                this.getInScore(),
+                this.getInDif(),
+                this.getGrossScore(),
+                this.getGrossDif(),
+                this.getNetScore(),
+                this.getNetDif());
+
+        if (scorecard.validateScorecard()){
+
+        }else{
+            scorecard=null;
+        }
+
+        return scorecard;
+    }
+
+
+    private ScorecardHole CreateScorecardHole(Hole.HoleNumber number){
+
+        ScorecardHole scorecardHole= new ScorecardHole (ScorecardHole.NOT_SAVED_HOLE_ID,
+        number,
+        getHoleLength(number),
+        getHolePar(number),
+        getHoleScore(number),
+        getHoleScoreDif(number));
+
+        return scorecardHole;
     }
 
 

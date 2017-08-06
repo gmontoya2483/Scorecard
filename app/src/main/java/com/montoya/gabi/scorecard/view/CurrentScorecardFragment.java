@@ -61,6 +61,7 @@ public class CurrentScorecardFragment extends Fragment {
     View mRootView;
     CurrentScorecard mCurrentScorecard;
     private MainActivity.CurrentScorecardInterface mCurrentScorecardInterface;
+    Scorecard mScorecard;
 
 
     private final String TAB_GENERAL_SPEC="general_tab";
@@ -435,7 +436,7 @@ public class CurrentScorecardFragment extends Fragment {
                             removeCurrentScorecard();
 
                         }else {
-                            Toast.makeText(getContext(),"There was a problem while trying to confirm and save the current scorecard. Please verify that you have set the score in all the holes",Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), R.string.current_scorecard_error_save,Toast.LENGTH_LONG).show();
 
                         }
 
@@ -1051,6 +1052,8 @@ public class CurrentScorecardFragment extends Fragment {
          mCurrentScorecardInterface.setDefaultMenuItem();
 
      }
+
+
 
      //Interface to return a value to the main activity
     public void setCurrentScorecardInterface(MainActivity.CurrentScorecardInterface mInterface) {

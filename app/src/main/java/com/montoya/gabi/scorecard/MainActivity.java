@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,11 +15,10 @@ import android.view.MenuItem;
 import com.montoya.gabi.scorecard.firebase.UserAuthentication;
 import com.montoya.gabi.scorecard.model.CurrentScorecard;
 import com.montoya.gabi.scorecard.model.GolfField;
-import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 import com.montoya.gabi.scorecard.view.CurrentScorecardEmptyFragment;
 import com.montoya.gabi.scorecard.view.CurrentScorecardFragment;
-import com.montoya.gabi.scorecard.view.FragmentGaleria;
+import com.montoya.gabi.scorecard.view.ScorecardsFragment;
 import com.montoya.gabi.scorecard.view.GolfFieldsFragment;
 import com.montoya.gabi.scorecard.view.PlayerFragment;
 import com.montoya.gabi.scorecard.view.SettingsFragment;
@@ -33,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         GolfFieldsFragment.OnFragmentInteractionListener,
         PlayerFragment.OnFragmentInteractionListener,
         CurrentScorecardFragment.OnFragmentInteractionListener,
-        FragmentGaleria.OnFragmentInteractionListener,
+        ScorecardsFragment.OnFragmentInteractionListener,
         CurrentScorecardEmptyFragment.OnFragmentInteractionListener {
 
 
@@ -232,7 +230,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
         } else if (id == R.id.nav_scorecards) {
-            FragmentGaleria fragment=new FragmentGaleria();
+            ScorecardsFragment fragment=new ScorecardsFragment();
             fragmentTransaction=true;
 
             getSupportFragmentManager().beginTransaction()
