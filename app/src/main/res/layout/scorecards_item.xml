@@ -4,7 +4,7 @@
 <android.support.v7.widget.CardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/card_golf_field"
+    android:id="@+id/card_scorecard"
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     android:elevation="8dp"
@@ -97,7 +97,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txt_golf_field_out"
+                    android:id="@+id/txt_score_gross"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -105,7 +105,7 @@
                     android:text="80" />
 
                 <TextView
-                    android:id="@+id/txt_golf_field_label_out"
+                    android:id="@+id/txt_label_gross"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -123,7 +123,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txt_golf_field_in"
+                    android:id="@+id/txt_handicap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -131,7 +131,7 @@
                     android:text="24" />
 
                 <TextView
-                    android:id="@+id/txt_golf_field_label_in"
+                    android:id="@+id/txt_label_handicap"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -149,7 +149,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txt_golf_field_par"
+                    android:id="@+id/txt_score_net"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -157,7 +157,7 @@
                     android:text="62" />
 
                 <TextView
-                    android:id="@+id/txt_golf_field_label_par"
+                    android:id="@+id/txt_label_net"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
