@@ -37,6 +37,7 @@
 
     <!--Error Messages -->
     <string name="err_no_golf_fields">There are no Golf Fields to display.</string>
+    <string name="err_no_scorecards">There are no Scorecards to display.</string>
 
 
     <!-- Golf fields item -->

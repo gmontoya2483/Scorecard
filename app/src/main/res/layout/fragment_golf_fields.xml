@@ -26,7 +26,7 @@
                 tools:text="@string/err_no_golf_fields" />
 
 
-            <!-- A RecyclerView with some commonly used attributes -->
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_view_golf_fields"
                 android:scrollbars="vertical"

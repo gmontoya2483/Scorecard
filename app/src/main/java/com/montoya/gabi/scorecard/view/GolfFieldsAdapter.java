@@ -65,7 +65,7 @@ public class GolfFieldsAdapter extends RecyclerView.Adapter<GolfFieldsAdapter.Go
     public void onBindViewHolder(GolfFieldViewHolder holder, int position) {
 
         mCursor.moveToPosition(position);
-        String contentDescription;
+
 
         int indexGFId=mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID);
         int indexName=mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry.COLUMN_GOLF_FIELD_NAME);

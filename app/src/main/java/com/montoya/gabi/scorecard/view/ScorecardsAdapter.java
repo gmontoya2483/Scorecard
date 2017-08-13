@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
+import com.montoya.gabi.scorecard.utils.CalendarUtils;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 import butterknife.BindView;
@@ -58,12 +59,50 @@ public class ScorecardsAdapter extends RecyclerView.Adapter<ScorecardsAdapter.Sc
 
         mCursor.moveToPosition(position);
 
+        int index_Id=mCursor.getColumnIndex(ScorecardContract.ScorecardEntry._ID);
+
+        int index_date=mCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_DATE);
+        int index_Name=mCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GF_NAME);
+        int index_NetDif=mCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_NET_DIF);
+        int index_Gross=mCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_GROSS_SCORE);
+        int index_Handicap=mCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_HANDICAP);
+        int index_Net=mCursor.getColumnIndex(ScorecardContract.ScorecardEntry.COLUMN_SCORECARD_NET_SCORE);
+
+        long _id=mCursor.getLong(index_Id);
+        String date= CalendarUtils.getFormattedDate(mCursor.getLong(index_date),mContext.getString(R.string.date_format));
+        String name=mCursor.getString(index_Name);
+        String netDif=ScorecardUtils.getFormattedScoreDif(mCursor.getInt(index_NetDif));
+        String grossScore=ScorecardUtils.getFormattedScore(mCursor.getInt(index_Gross));
+        String handicap=ScorecardUtils.getFormattedHandicap(mCursor.getInt(index_Handicap));
+        String netScore=ScorecardUtils.getFormattedScore(mCursor.getInt(index_Net));
+
+        holder.mScorecardDate.setText(date);
+        holder.mScorecardGolfFieldName.setText(name);
+        holder.mScorecardScoreDif.setText(netDif);
+        holder.mScorecardScoreGross.setText(grossScore);
+        holder.mScorecardHandicap.setText(handicap);
+        holder.mScorecardScoreNET.setText(netScore);
+
+
+        holder.mScorecardCard.setContentDescription("");//TODO hacer el content description para el card
+
+
+
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        int count= 0;
+        if (mCursor != null) {
+            count = mCursor.getCount();
+        }
+        return count;
+
+
     }
+
+
+
 
     class ScorecardViewHolder extends RecyclerView.ViewHolder{
 
