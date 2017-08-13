@@ -11,8 +11,7 @@
     android:layout_marginTop="4dp"
     android:layout_marginStart="4dp"
     android:layout_marginEnd="4dp"
-    android:paddingBottom="16dp"
-    >
+    android:paddingBottom="16dp">
 
 
     <LinearLayout
@@ -65,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_columnWeight="0"
                 android:layout_gravity="center_vertical|end"
-                android:layout_weight="0.24"
+                android:layout_weight="0"
                 android:text="+ 2"
                 android:textAlignment="center"
                 android:textSize="28sp"
@@ -73,9 +72,7 @@
 
 
         </LinearLayout>
-
-
-        <View
+       <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginEnd="16dp"

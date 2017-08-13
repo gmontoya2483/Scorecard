@@ -261,14 +261,7 @@ public class GolfFieldsFragment extends Fragment implements LoaderManager.Loader
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
 
-        if (data.getCount() > 0) {
-            mError.setVisibility(View.GONE);
-            mRecyclerViewGolfFields.setVisibility(View.VISIBLE);
-        }else{
-            mError.setVisibility(View.VISIBLE);
-            mRecyclerViewGolfFields.setVisibility(View.GONE);
 
-        }
         mAdapter.setCursor(data);
 
 

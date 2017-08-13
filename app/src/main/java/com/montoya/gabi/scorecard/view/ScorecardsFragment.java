@@ -13,6 +13,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.montoya.gabi.scorecard.R;
@@ -37,10 +38,6 @@ public class ScorecardsFragment extends Fragment implements LoaderManager.Loader
 
     @BindView(R.id.recycler_view_scorecards)
     RecyclerView mRecyclerViewScorecards;
-
-    @BindView(R.id.error_no_scorecards)
-    TextView mError;
-
 
 
     public ScorecardsFragment() {
@@ -71,7 +68,6 @@ public class ScorecardsFragment extends Fragment implements LoaderManager.Loader
         return mRootView;
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
@@ -101,7 +97,7 @@ public class ScorecardsFragment extends Fragment implements LoaderManager.Loader
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
+
         void onFragmentInteraction(Uri uri);
     }
 
@@ -113,9 +109,6 @@ public class ScorecardsFragment extends Fragment implements LoaderManager.Loader
     }
 
 
-
-
-
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         CursorLoader loader=new CursorLoader(getActivity(), ScorecardContract.ScorecardEntry.buildAllScoreCardUri(),null,null,null,null);
@@ -125,17 +118,7 @@ public class ScorecardsFragment extends Fragment implements LoaderManager.Loader
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data.getCount() > 0) {
-            mError.setVisibility(View.GONE);
-            mRecyclerViewScorecards.setVisibility(View.VISIBLE);
-        }else{
-            mError.setVisibility(View.VISIBLE);
-            mRecyclerViewScorecards.setVisibility(View.GONE);
-
-        }
         mAdapter.setCursor(data);
-
-
     }
 
     @Override
