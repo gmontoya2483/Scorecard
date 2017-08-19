@@ -35,8 +35,6 @@
     <string name="formatted_hole">Hole %1$d</string>
 
 
-
-
     <!-- Golf fields item -->
     <string name="golf_field_fake_name" translatable="false">Aranzazú country Club</string>
     <string name="golf_field_fake_out_value" translatable="false">1234 m</string>
@@ -183,9 +181,6 @@
     <string name="current_scorecard_a11y_score_card">Out score %1$s %2$s, In Score %3$s %4$s, Gross score %5$s %6$s, Handicap %7$s, Net score %8$s %9$s </string>
 
 
-
-
-
     <!-- ScorecardProvider -->
     <string name="provider_log_database_not_opnened">database could not be opened</string>
     <string name="provider_error_unknow_uri">Unknown uri:</string>
@@ -198,5 +193,12 @@
     <string name="provider_log_scorecard_delete_problem">There was a problem deleting the Scorecard.</string>
     <string name="provider_log_scorecard_hole_delete_problem">There was a problem deleting the Scorecard Holes.</string>
     <string name="current_scorecard_error_save">There was a problem while trying to confirm and save the current scorecard. Please verify that you have set the score in all the holes</string>
+    <string name="title_activity_view_scorecard">Scorecard</string>
+
+
+
+
+    <!--Scorecard View mode -->
+    <string name="view_scorecard_invalid_id">Invalid scorecard was selected</string>
 
 </resources>

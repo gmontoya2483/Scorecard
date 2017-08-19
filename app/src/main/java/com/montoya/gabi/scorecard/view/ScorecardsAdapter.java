@@ -147,22 +147,17 @@ public class ScorecardsAdapter extends RecyclerView.Adapter<ScorecardsAdapter.Sc
                 @Override
                 public void onClick(View v) {
 
-                    //TODO HACER EL LISTENER
 
-                    /*
                     mCursor.moveToPosition(getAdapterPosition());
-                    long id=mCursor.getLong(mCursor.getColumnIndex(ScorecardContract.GolfFieldEntry._ID));
+                    long id=mCursor.getLong(mCursor.getColumnIndex(ScorecardContract.ScorecardEntry._ID));
 
                     Bundle args=new Bundle();
-                    args.putLong(ViewGolfFieldActivityFragment.GOLF_FIELD_ID_LABEL,id);
+                    args.putLong(ViewScorecardActivityFragment.SCORECARD_ID_LABEL,id);
 
-                    Intent viewGolfFieldIntent=new Intent(mContext,ViewGolfFieldActivity.class);
-                    viewGolfFieldIntent.putExtras(args);
-                    ScorecardUtils.AddStringToSharedPreferences(mContext,ViewGolfFieldActivityFragment.CURRENT_MODE_KEY,ViewGolfFieldActivityFragment.CURRENT_MODE_VIEW);
+                    Intent viewScorecardIntent=new Intent(mContext,ViewScorecardActivity.class);
+                    viewScorecardIntent.putExtras(args);
 
-                    mContext.startActivity(viewGolfFieldIntent);
-
-                    */
+                    mContext.startActivity(viewScorecardIntent);
 
                 }
             });
