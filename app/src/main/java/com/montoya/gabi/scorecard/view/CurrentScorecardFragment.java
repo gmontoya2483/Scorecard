@@ -489,7 +489,7 @@ public class CurrentScorecardFragment extends Fragment {
         mTabHost.addTab(spec);
 
         //Tab 4
-        spec = mTabHost.newTabSpec(TAB_IN_SPEC);
+        spec = mTabHost.newTabSpec(TAB_SCORE_SPEC);
         spec.setContent(R.id.tab_current_scorecard_score);
         spec.setIndicator(getString(R.string.tab_score));
         mTabHost.addTab(spec);
