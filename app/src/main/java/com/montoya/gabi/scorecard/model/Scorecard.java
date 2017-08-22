@@ -462,9 +462,9 @@ public class Scorecard {
     }
 
 
-    public boolean insertScorecard(Context context){
+    public long insertScorecard(Context context){
 
-        boolean insertedScorecardOK=true;
+        this._id=SCORECARD_INVALID_ID;
         Uri scorecardUri;
 
         if (validateScorecard() && validateScorecardHolesWithOutScorecardId()){
@@ -477,20 +477,19 @@ public class Scorecard {
                     deleteScorecard(context);
                     setDefaultValues();
                     this._id=SCORECARD_INVALID_ID;
-                    insertedScorecardOK=false;
 
                 }
             }else{
                 this._id=SCORECARD_INVALID_ID;
-                insertedScorecardOK=false;
+
             }
 
         }else{
-            insertedScorecardOK=false;
+            this._id=SCORECARD_INVALID_ID;
         }
 
 
-        return insertedScorecardOK;
+        return this._id;
     }
 
 

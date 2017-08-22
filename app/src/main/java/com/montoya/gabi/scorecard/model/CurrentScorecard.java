@@ -410,8 +410,8 @@ public class CurrentScorecard {
     }
 
 
-    public Boolean confirmCurrentScorecard(){
-        boolean result = true;
+    public long confirmCurrentScorecard(){
+        long result;
 
         Scorecard scorecard=CreateScorecard();
         if (scorecard!=null){
@@ -439,7 +439,7 @@ public class CurrentScorecard {
             result=scorecard.insertScorecard(mContext);
 
        }else{
-            result=false;
+            result=Scorecard.SCORECARD_INVALID_ID;;
         }
 
         return result;

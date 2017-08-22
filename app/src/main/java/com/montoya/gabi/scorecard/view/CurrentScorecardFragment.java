@@ -430,9 +430,16 @@ public class CurrentScorecardFragment extends Fragment {
                         break;
 
                     case R.id.item_current_scorecard_confirm:
-                        if (mCurrentScorecard.confirmCurrentScorecard()){
+                        long newScorecardId=mCurrentScorecard.confirmCurrentScorecard();
 
-                            Toast.makeText(getContext(),"Confirm",Toast.LENGTH_LONG).show(); //TODO REMOVE THIS LINE when the save functionallity is finished
+
+                        if (newScorecardId!=Scorecard.SCORECARD_INVALID_ID){
+
+                            Toast.makeText(getContext(),"Confirm",Toast.LENGTH_LONG).show();
+                            //TODO REMOVE THIS LINE when the save functionallity is finished y llamar el servicio para las notificacions asegurarse de comàrar por menor igual
+
+
+
                             removeCurrentScorecard();
 
                         }else {
