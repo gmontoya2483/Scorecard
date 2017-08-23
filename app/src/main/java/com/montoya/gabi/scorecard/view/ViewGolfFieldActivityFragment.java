@@ -1042,6 +1042,7 @@ public class ViewGolfFieldActivityFragment extends Fragment {
 
         //send resume part
         currentScorecard.setGolfFieldName(mViewGolfField.getName());
+        currentScorecard.setGolfFieldId(mGolfField_id);
         currentScorecard.setGolfFieldOutLength(mViewGolfField.getOut_length());
         currentScorecard.setGolfFieldInLength(mViewGolfField.getIn_length());
         currentScorecard.setGolfFieldOutPar(mViewGolfField.getOut_par());

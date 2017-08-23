@@ -95,7 +95,7 @@ public class CurrentScorecard {
         ScorecardUtils.AddLongToSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_ID_KEY,golfFieldID);
     }
 
-    public Long getGolfFieldId(){
+    public long getGolfFieldId(){
         return ScorecardUtils.RetrieveLongFromSharedPreferences(mContext,CURRENT_SCORECARD_GOLF_FIELD_ID_KEY,CURRENT_SCORECARD_INVALID_GOLF_FIELD_ID);
     }
 
