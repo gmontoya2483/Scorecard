@@ -1,12 +1,23 @@
 package com.montoya.gabi.scorecard.service;
 
 import android.app.IntentService;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.montoya.gabi.scorecard.MainActivity;
+import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.Scorecard;
+import com.montoya.gabi.scorecard.utils.ScorecardUtils;
+import com.montoya.gabi.scorecard.view.ViewScorecardActivity;
+import com.montoya.gabi.scorecard.view.ViewScorecardActivityFragment;
 
 /**
  * Created by Gabriel on 22/08/2017.
@@ -16,6 +27,12 @@ public class BestScoresServices  extends IntentService{
 
     public static final String SERVICE_SCORECARD_ID_LABEL="service_scorecard_id";
     Scorecard mScorecard;
+    long mScorecard_id;
+
+    public static final int BEST_GROSS_NOTIFICATION_ID=100;
+    public static final int BEST_GROSS_BY_GF_NOTIFICATION_ID=110;
+    public static final int BEST_NET_NOTIFICATION_ID=200;
+    public static final int BEST_NET_BY_GF_NOTIFICATION_ID=210;
 
 
     /**
@@ -35,10 +52,10 @@ public class BestScoresServices  extends IntentService{
     protected void onHandleIntent(@Nullable Intent intent) {
 
         //Get the parameter
-        long scorecard_id=intent.getLongExtra(SERVICE_SCORECARD_ID_LABEL, Scorecard.SCORECARD_INVALID_ID);
-        if (scorecard_id!=Scorecard.SCORECARD_INVALID_ID){
+        mScorecard_id=intent.getLongExtra(SERVICE_SCORECARD_ID_LABEL, Scorecard.SCORECARD_INVALID_ID);
+        if (mScorecard_id!=Scorecard.SCORECARD_INVALID_ID){
 
-            mScorecard=new Scorecard(getApplicationContext(),scorecard_id);
+            mScorecard=new Scorecard(getApplicationContext(),mScorecard_id);
             int bestGrossDif=Scorecard.getBestGrossScoreDif(getApplicationContext());
             int bestGrossDifByGolfField=Scorecard.getBestGrossScoreDif(getApplicationContext(),mScorecard.getGolfField_id());
             int bestNetDif=Scorecard.getBestNetScoreDif(getApplicationContext());
@@ -56,7 +73,7 @@ public class BestScoresServices  extends IntentService{
 
             //Verify best Net dif General
             if (mScorecard.getNetDif()<=bestNetDif){
-                notifyBestGrossGeneral();
+                notifyBestNetGeneral();
             }
 
             //Verify best gross dif by GolfField
@@ -80,26 +97,69 @@ public class BestScoresServices  extends IntentService{
 
 
     private void notifyBestGrossGeneral(){
-        //TODO send the notification
-        Log.e("SERVICE", "Best Gross");
+
+        String title=getString(R.string.not_best_gross_title);
+        String contextText= getString(R.string.not_best_gross_context);
+        String subText=String.format(getApplicationContext().getString(R.string.not_best_gross_subtext),mScorecard.getGolfFieldName(),
+                ScorecardUtils.getFormattedScore(mScorecard.getGrossScore()),
+                ScorecardUtils.getFormattedScoreDif(mScorecard.getGrossDif()));
+
+        sendNotification(title,contextText,subText,BEST_GROSS_NOTIFICATION_ID);
 
     }
 
     private void notifyBestGrossByGolfField(){
-        //TODO send the notification
-        Log.e("SERVICE", "Best Gross by golf field");
+
+        String title=getString(R.string.not_best_gross_title);
+        String contextText= String.format(getApplicationContext().getString(R.string.not_best_gross_by_golf_context),mScorecard.getGolfFieldName());
+        String subText=String.format(getApplicationContext().getString(R.string.not_best_gross_by_golf_subtext),
+                ScorecardUtils.getFormattedScore(mScorecard.getGrossScore()),
+                ScorecardUtils.getFormattedScoreDif(mScorecard.getGrossDif()));
+
+        sendNotification(title,contextText,subText,BEST_GROSS_BY_GF_NOTIFICATION_ID);
 
     }
 
     private void notifyBestNetGeneral(){
-        //TODO send the notification
-        Log.e("SERVICE", "Best Net");
+        String title=getString(R.string.not_best_net_title);
+        String contextText= getString(R.string.not_best_net_context);
+        String subText=String.format(getApplicationContext().getString(R.string.not_best_net_subtext),mScorecard.getGolfFieldName(),
+                ScorecardUtils.getFormattedScore(mScorecard.getNetScore()),
+                ScorecardUtils.getFormattedScoreDif(mScorecard.getNetDif()));
+
+        sendNotification(title,contextText,subText,BEST_NET_NOTIFICATION_ID);
 
     }
 
     private void notifyBestNetByGolfField(){
-        //TODO send the notification
-        Log.e("SERVICE", "Best net by Golf Field");
+        String title=getString(R.string.not_best_net_title);
+        String contextText= String.format(getApplicationContext().getString(R.string.not_best_net_by_golf_context),mScorecard.getGolfFieldName());
+        String subText=String.format(getApplicationContext().getString(R.string.not_best_net_by_golf_subtext),
+                ScorecardUtils.getFormattedScore(mScorecard.getNetScore()),
+                ScorecardUtils.getFormattedScoreDif(mScorecard.getNetDif()));
+
+        sendNotification(title,contextText,subText,BEST_NET_BY_GF_NOTIFICATION_ID);
+
+    }
+
+
+    private void sendNotification(String title, String contextText, String subText, int notificationID){
+
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
+
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this);
+        builder.setSmallIcon(R.drawable.ic_action_golf_fields);
+        builder.setContentIntent(pendingIntent);
+        builder.setAutoCancel(true);
+
+        builder.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.ic_action_golf_fields));
+        builder.setContentTitle(title);
+        builder.setContentText(contextText);
+        builder.setSubText(subText);
+
+        NotificationManagerCompat notificationManager= NotificationManagerCompat.from(getApplicationContext());
+        notificationManager.notify(notificationID, builder.build());
 
     }
 

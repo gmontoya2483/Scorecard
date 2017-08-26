@@ -201,4 +201,20 @@
     <!--Scorecard View mode -->
     <string name="view_scorecard_invalid_id">Invalid scorecard was selected</string>
 
+    <!-- Notifications -->
+    <string name="not_best_gross_title">Best Gross Score</string>
+    <string name="not_best_gross_context">You have made your best gross score</string>
+    <string name="not_best_gross_subtext">%1$s - Gross score %2$s  %3$s</string>
+
+    <string name="not_best_gross_by_golf_context">You have made your best gross score in %1$s</string>
+    <string name="not_best_gross_by_golf_subtext">Gross score %1$s  %2$s</string>
+
+
+    <string name="not_best_net_title">Best Net Score</string>
+    <string name="not_best_net_context">You have made your best net score</string>
+    <string name="not_best_net_subtext">%1$s - Net score %2$s  %3$s</string>
+
+    <string name="not_best_net_by_golf_context">You have made your best net score in %1$s</string>
+    <string name="not_best_net_by_golf_subtext">Net score %1$s  %2$s</string>
+
 </resources>
