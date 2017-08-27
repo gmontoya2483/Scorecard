@@ -217,4 +217,8 @@
     <string name="not_best_net_by_golf_context">You have made your best net score in %1$s</string>
     <string name="not_best_net_by_golf_subtext">Net score %1$s  %2$s</string>
 
+
+    <!--Widget -->
+    <string name="widget_error_empty_list">No scorecard infoartion available</string>
+
 </resources>
