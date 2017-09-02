@@ -78,7 +78,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service
-            android:name=".service.BestScoresServices"
+            android:name=".service.NotifyServices"
             android:exported="false" />
 
         <!-- Widget -->
@@ -86,6 +86,7 @@
         <receiver android:name=".widget.ScorecardWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.montoya.action.ACTION_DATA_UPDATED" />
             </intent-filter>
 
             <meta-data

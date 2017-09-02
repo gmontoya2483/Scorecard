@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -19,6 +20,9 @@ import com.montoya.gabi.scorecard.view.ViewScorecardActivity;
  * Implementation of App Widget functionality.
  */
 public class ScorecardWidget extends AppWidgetProvider {
+
+
+    public static final String ACTION_DATA_UPDATED="com.montoya.action.ACTION_DATA_UPDATED";
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId) {
@@ -100,6 +104,21 @@ public class ScorecardWidget extends AppWidgetProvider {
     private static void setRemoteAdapterV11(Context context, @NonNull final RemoteViews views) {
         views.setRemoteAdapter(0, R.id.widget_list,
                 new Intent(context, ScorecardWidgetService.class));
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        super.onReceive(context, intent);
+
+        //This method receives the broadcast signal and trigger the modification of the widgets
+
+        if (ACTION_DATA_UPDATED.equals(intent.getAction())) {
+            AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+            int[] appWidgetIds = appWidgetManager.getAppWidgetIds(
+                    new ComponentName(context, getClass()));
+            appWidgetManager.notifyAppWidgetViewDataChanged(appWidgetIds, R.id.widget_list);
+        }
+
     }
 }
 

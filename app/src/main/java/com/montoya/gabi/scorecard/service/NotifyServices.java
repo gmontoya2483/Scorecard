@@ -4,26 +4,21 @@ import android.app.IntentService;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.montoya.gabi.scorecard.MainActivity;
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.Scorecard;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
-import com.montoya.gabi.scorecard.view.ViewScorecardActivity;
-import com.montoya.gabi.scorecard.view.ViewScorecardActivityFragment;
+import com.montoya.gabi.scorecard.widget.ScorecardWidget;
 
 /**
  * Created by Gabriel on 22/08/2017.
  */
 
-public class BestScoresServices  extends IntentService{
+public class NotifyServices extends IntentService{
 
     public static final String SERVICE_SCORECARD_ID_LABEL="service_scorecard_id";
     Scorecard mScorecard;
@@ -40,12 +35,12 @@ public class BestScoresServices  extends IntentService{
      *
      * @param name Used to name the worker thread, important only for debugging.
      */
-    public BestScoresServices(String name) {
+    public NotifyServices(String name) {
         super(name);
     }
 
-    public BestScoresServices() {
-        super(BestScoresServices.class.getSimpleName());
+    public NotifyServices() {
+        super(NotifyServices.class.getSimpleName());
     }
 
     @Override
@@ -80,6 +75,11 @@ public class BestScoresServices  extends IntentService{
             if (mScorecard.getNetDif()<=bestNetDifByGolfField){
                 notifyBestNetByGolfField();
             }
+
+
+            //Send the broacast notification to the widgets
+            sendBroadcastToWidgets();
+
 
         }
 
@@ -161,6 +161,13 @@ public class BestScoresServices  extends IntentService{
         NotificationManagerCompat notificationManager= NotificationManagerCompat.from(getApplicationContext());
         notificationManager.notify(notificationID, builder.build());
 
+    }
+
+
+    private void sendBroadcastToWidgets(){
+
+        Intent dataUpdatedIntent = new Intent(ScorecardWidget.ACTION_DATA_UPDATED);
+        getApplicationContext().sendBroadcast(dataUpdatedIntent);
     }
 
 }

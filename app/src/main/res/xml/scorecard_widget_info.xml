@@ -4,9 +4,9 @@
     android:initialLayout="@layout/scorecard_widget"
     android:minHeight="180dp"
     android:minWidth="180dp"
-    android:previewImage="@drawable/example_appwidget_preview"
+    android:previewImage="@drawable/scorecard_widget_preview"
     android:resizeMode="horizontal|vertical"
-    android:updatePeriodMillis="1800000"
+    android:updatePeriodMillis="0"
     android:widgetCategory="home_screen">
 
 </appwidget-provider>

@@ -20,11 +20,9 @@ import android.widget.Toast;
 import com.montoya.gabi.scorecard.MainActivity;
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.model.CurrentScorecard;
-import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.model.Hole;
 import com.montoya.gabi.scorecard.model.Scorecard;
-import com.montoya.gabi.scorecard.model.data.ScorecardContract;
-import com.montoya.gabi.scorecard.service.BestScoresServices;
+import com.montoya.gabi.scorecard.service.NotifyServices;
 import com.montoya.gabi.scorecard.utils.CalendarUtils;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
@@ -436,8 +434,8 @@ public class CurrentScorecardFragment extends Fragment {
 
                         if (newScorecardId!=Scorecard.SCORECARD_INVALID_ID){
 
-                            Intent intent=new Intent(getContext(), BestScoresServices.class);
-                            intent.putExtra(BestScoresServices.SERVICE_SCORECARD_ID_LABEL,newScorecardId);
+                            Intent intent=new Intent(getContext(), NotifyServices.class);
+                            intent.putExtra(NotifyServices.SERVICE_SCORECARD_ID_LABEL,newScorecardId);
                             getContext().startService(intent);
 
 
