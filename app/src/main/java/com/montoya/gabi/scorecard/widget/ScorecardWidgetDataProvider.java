@@ -1,6 +1,5 @@
 package com.montoya.gabi.scorecard.widget;
 
-import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -14,58 +13,38 @@ import com.montoya.gabi.scorecard.model.Scorecard;
 import com.montoya.gabi.scorecard.model.data.ScorecardContract;
 import com.montoya.gabi.scorecard.utils.CalendarUtils;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
-import com.montoya.gabi.scorecard.view.ViewScorecardActivity;
 import com.montoya.gabi.scorecard.view.ViewScorecardActivityFragment;
 
 /**
- * Created by Gabriel on 27/08/2017.
+ * Created by Gabriel on 02/09/2017.
  */
 
-public class DetailedWidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory{
+public class ScorecardWidgetDataProvider implements RemoteViewsService.RemoteViewsFactory {
 
 
-    private final String LOG_TAG = DetailedWidgetRemoteViewsFactory.class.getSimpleName();
-    private Context mContext;
-    private int mAppWidgetId;
-    private Cursor mCursor;
+    Cursor mCursor;
+    Context mContext=null;
+    Intent mIntent;
 
-    public DetailedWidgetRemoteViewsFactory(Context context, Intent intent){
-        mContext=context;
-        mAppWidgetId=intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+    public ScorecardWidgetDataProvider(Context mContext, Intent mIntent) {
+        this.mContext = mContext;
+        this.mIntent = mIntent;
     }
 
     @Override
     public void onCreate() {
+        initData();
 
     }
 
     @Override
     public void onDataSetChanged() {
-
-        if (mCursor != null) {
-            mCursor.close();
-        }
-
-        // This method is called by the app hosting the widget (e.g., the launcher)
-        // However, our ContentProvider is not exported so it doesn't have access to the
-        // data. Therefore we need to clear (and finally restore) the calling identity so
-        // that calls use our process and permission
-        final long identityToken = Binder.clearCallingIdentity();
-
-        mCursor= Scorecard.getAllScorecards(mContext);
-
-        Binder.restoreCallingIdentity(identityToken);
+        initData();
 
     }
 
     @Override
     public void onDestroy() {
-
-        if (mCursor != null) {
-            mCursor.close();
-            mCursor = null;
-        }
-
 
     }
 
@@ -76,12 +55,12 @@ public class DetailedWidgetRemoteViewsFactory implements RemoteViewsService.Remo
 
     @Override
     public RemoteViews getViewAt(int position) {
-        if (position == AdapterView.INVALID_POSITION ||
-                mCursor == null || !mCursor.moveToPosition(position)) {
+
+        if (position == AdapterView.INVALID_POSITION || mCursor == null || !mCursor.moveToPosition(position)) {
             return null;
         }
 
-        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.scorecards_item);
+        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.scorecard_widget_item);
 
 
         int index_Id=mCursor.getColumnIndex(ScorecardContract.ScorecardEntry._ID);
@@ -110,15 +89,16 @@ public class DetailedWidgetRemoteViewsFactory implements RemoteViewsService.Remo
 
         final Intent fillInIntent = new Intent();
         fillInIntent.putExtra(ViewScorecardActivityFragment.SCORECARD_ID_LABEL, _id);
-        views.setOnClickFillInIntent(R.layout.scorecards_item, fillInIntent);
+        views.setOnClickFillInIntent(R.id.widget_list_item, fillInIntent);
 
         return views;
+
 
     }
 
     @Override
     public RemoteViews getLoadingView() {
-        return new RemoteViews(mContext.getPackageName(), R.layout.scorecards_item);
+        return null;
     }
 
     @Override
@@ -128,14 +108,35 @@ public class DetailedWidgetRemoteViewsFactory implements RemoteViewsService.Remo
 
     @Override
     public long getItemId(int position) {
+        long id=Scorecard.SCORECARD_INVALID_ID;
         if (mCursor.moveToPosition(position)) {
-            return mCursor.getLong(mCursor.getColumnIndex(ScorecardContract.ScorecardEntry._ID));
+            id= mCursor.getLong(mCursor.getColumnIndex(ScorecardContract.ScorecardEntry._ID));
         }
-        return position;
+        return id;
     }
 
     @Override
     public boolean hasStableIds() {
-        return true;
+        return false;
     }
+
+    private void initData(){
+
+        if (mCursor != null) {
+            mCursor.close();
+        }
+
+        // This method is called by the app hosting the widget (e.g., the launcher)
+        // However, our ContentProvider is not exported so it doesn't have access to the
+        // data. Therefore we need to clear (and finally restore) the calling identity so
+        // that calls use our process and permission
+        final long identityToken = Binder.clearCallingIdentity();
+
+        mCursor= Scorecard.getAllScorecards(mContext);
+
+        Binder.restoreCallingIdentity(identityToken);
+
+
+    }
+
 }

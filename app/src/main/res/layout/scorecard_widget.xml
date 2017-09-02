@@ -30,9 +30,9 @@
             android:id="@+id/widget_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            tools:listitem="@layout/scorecards_item"/>
+            android:divider="@color/font_SecondaryText_54"
+            android:dividerHeight="1dp"
+            tools:listitem="@layout/scorecard_widget_item"/>
         <TextView
             android:id="@+id/widget_empty"
             android:layout_width="match_parent"
