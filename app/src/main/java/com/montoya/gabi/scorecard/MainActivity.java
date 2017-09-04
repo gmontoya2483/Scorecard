@@ -18,9 +18,9 @@ import com.montoya.gabi.scorecard.model.GolfField;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 import com.montoya.gabi.scorecard.view.CurrentScorecardEmptyFragment;
 import com.montoya.gabi.scorecard.view.CurrentScorecardFragment;
-import com.montoya.gabi.scorecard.view.ScorecardsFragment;
 import com.montoya.gabi.scorecard.view.GolfFieldsFragment;
 import com.montoya.gabi.scorecard.view.PlayerFragment;
+import com.montoya.gabi.scorecard.view.ScorecardsFragment;
 import com.montoya.gabi.scorecard.view.SettingsFragment;
 
 import butterknife.BindView;
@@ -91,10 +91,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+
         //Verific si hay campos de golf cargados y los carga...//TODO borrar cuando se haya terminado de probsar
         if (GolfField.getQuantityOfGolfFields(getApplicationContext())==0){
        ScorecardUtils.generatePreLoadedGolfFields(getApplicationContext());
         }
+
 
         //Initialize the UserAuthentication class and the listener for log in
         mUserAuthentication=new UserAuthentication(this);

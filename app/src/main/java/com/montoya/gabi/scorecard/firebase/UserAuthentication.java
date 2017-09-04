@@ -3,7 +3,6 @@ package com.montoya.gabi.scorecard.firebase;
 import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
-import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
@@ -134,8 +133,7 @@ public class UserAuthentication {
     /*Actions that are performed if the user is logged in*/
     private void onSignedIn(){
 
-        //TODO remove this toast after verifying that everithing works fine
-        Toast.makeText(mContext, "You are now signed in ... Welcome",Toast.LENGTH_SHORT).show();
+
     }
 
 
@@ -143,7 +141,6 @@ public class UserAuthentication {
     * It triggers a log in screen by using the FirebaseUI library*/
     private void onSignedOut(){
 
-        //TODO add the style once the color and fonts are defined
 
         mActivity.startActivityForResult(
                 AuthUI.getInstance()

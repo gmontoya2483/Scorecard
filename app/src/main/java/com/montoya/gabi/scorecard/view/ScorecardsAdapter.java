@@ -55,7 +55,6 @@ public class ScorecardsAdapter extends RecyclerView.Adapter<ScorecardsAdapter.Sc
     @Override
     public void onBindViewHolder(ScorecardViewHolder holder, int position) {
 
-        //TODO hacer el Bind y desde aca!!!
 
         mCursor.moveToPosition(position);
 
