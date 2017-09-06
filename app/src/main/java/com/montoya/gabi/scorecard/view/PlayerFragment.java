@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.montoya.gabi.scorecard.MainActivity;
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.firebase.AdMobListener;
 import com.montoya.gabi.scorecard.model.Player;
@@ -33,6 +34,7 @@ public class PlayerFragment extends Fragment {
 
     Player mPlayer;
     View mRootView;
+    private MainActivity.PlayerInterface mPlayerInterface;
 
     @BindView(R.id.player_handicap_Edit_text)
     EditText mPlayerHandicapTextView;
@@ -57,6 +59,7 @@ public class PlayerFragment extends Fragment {
             if(mPlayer.SetHandicap(getContext(),entered_handicap)!=Player.INVALID_HANDICAP){
 
                 Toast.makeText(getContext(),String.format(getString(R.string.player_save_confirmation),entered_handicap),Toast.LENGTH_LONG).show();
+                mPlayerInterface.setDefaultMenuItem();
          }else{
                 Toast.makeText(getContext(),R.string.player_err_saving_handicap,Toast.LENGTH_LONG).show();
             }
@@ -181,6 +184,12 @@ public class PlayerFragment extends Fragment {
         mAdView.loadAd(adRequest);
 
 
+    }
+
+
+    //Interface to return a value to the main activity
+    public void setPlayerInterface(MainActivity.PlayerInterface mInterface) {
+        this.mPlayerInterface = mInterface;
     }
 
 

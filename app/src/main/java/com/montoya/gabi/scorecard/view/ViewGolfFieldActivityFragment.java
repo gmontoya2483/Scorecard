@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
+import com.montoya.gabi.scorecard.MainActivity;
 import com.montoya.gabi.scorecard.R;
 import com.montoya.gabi.scorecard.firebase.AdMobListener;
 import com.montoya.gabi.scorecard.model.CurrentScorecard;
@@ -604,11 +605,19 @@ public class ViewGolfFieldActivityFragment extends Fragment {
 
                     case item_view_golf_field_new_scorecard:
 
-                        if (mAdLoaded){
-                            mInterstitial.show();
-                        }else{
-                            GenerateNewScorecard();
-                         }
+                        Player player=new Player();
+
+                        if (player.getHandicap(getContext())!=Player.INVALID_HANDICAP){
+                            if (mAdLoaded){
+                                mInterstitial.show();
+                            }else{
+                                GenerateNewScorecard();
+                            }
+                        }else {
+                            Toast.makeText(getContext(), R.string.view_golf_field_no_handicap_defined,Toast.LENGTH_LONG).show();
+                            ScorecardUtils.AddIntToSharedPreferences(getContext(),SELECTED_MENU_ITEM_LABEL, MainActivity.NAV_PLAYER_HANDICAP);
+                            getActivity().finish();
+                        }
 
                         break;
 

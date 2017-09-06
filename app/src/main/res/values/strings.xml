@@ -102,6 +102,7 @@
 
 
     <string name="view_golf_field_invalid_id">Invalid golf field was selected</string>
+    <string name="view_golf_field_no_handicap_defined">Current handicap hasn\'t been defined yet. Please enter your current handicap before creating a new Scorecard</string>
 
 
     <!-- Title Strings -->
@@ -222,5 +223,6 @@
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
     <string name="err_no_golf_fields">There are no golf fields to display</string>
+
 
 </resources>

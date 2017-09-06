@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.montoya.gabi.scorecard.firebase.UserAuthentication;
 import com.montoya.gabi.scorecard.model.CurrentScorecard;
 import com.montoya.gabi.scorecard.model.GolfField;
+import com.montoya.gabi.scorecard.model.Player;
 import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 import com.montoya.gabi.scorecard.view.CurrentScorecardEmptyFragment;
 import com.montoya.gabi.scorecard.view.CurrentScorecardFragment;
@@ -49,12 +50,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public static final String SELECTED_MENU_ITEM_LABEL="selected_menu_item_label";
     public static final int SELECTED_MENU_ITEM_DEFAULT=R.id.nav_scorecards;
+    public static final int NAV_PLAYER_HANDICAP=R.id.nav_player_handicap;
 
     private int mSelectedItemMenu;
 
     private DrawerLayout drawer;
     private ActionBarDrawerToggle toggle;
     NavigationView navigationView;
+
+
+
+
+
 
     private CurrentScorecardInterface mCurrentScorecardInterface=new CurrentScorecardInterface() {
         @Override
@@ -63,6 +70,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 int id=SELECTED_MENU_ITEM_DEFAULT;
                 navigationView.setCheckedItem(id);
                 navigationView.getMenu().performIdentifierAction(id,0);
+
+        }
+    };
+
+    private PlayerInterface mPlayerInterface=new PlayerInterface() {
+        @Override
+        public void setDefaultMenuItem() {
+
+            int id=SELECTED_MENU_ITEM_DEFAULT;
+            navigationView.setCheckedItem(id);
+            navigationView.getMenu().performIdentifierAction(id,0);
 
         }
     };
@@ -83,8 +101,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setSupportActionBar(toolbar);
 
 
-
-
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -100,13 +116,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        ScorecardUtils.generatePreLoadedGolfFields(getApplicationContext());
         }
 
-
         //Initialize the UserAuthentication class and the listener for log in
         mUserAuthentication=new UserAuthentication(this);
         mUserAuthentication.initializeAuthenticationStateListener();
-
-
-
 
 
         //set the navigation to the last selected option  when comming back
@@ -231,6 +243,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (id == R.id.nav_player_handicap) {
             // Handle the camera action
             PlayerFragment fragment=new PlayerFragment();
+            fragment.setPlayerInterface(mPlayerInterface);
             fragmentTransaction=true;
 
             getSupportFragmentManager().beginTransaction()
@@ -364,6 +377,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     public interface CurrentScorecardInterface{
+        void setDefaultMenuItem();
+    }
+
+
+    public interface PlayerInterface{
         void setDefaultMenuItem();
     }
 
