@@ -14,10 +14,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-
-
+    
     <!-- navigation Menu string -->
     <string name="nav_player_handicap">Player handicap</string>
     <string name="nav_scorecards">Scorecards</string>
@@ -25,6 +22,7 @@
     <string name="nav_golf_fields">Golf fields</string>
     <string name="nav_favorite_golf_fields">Favorite golf fields</string>
     <string name="nav_settings">Settings</string>
+    <string name="nav_sign_out">Sign out</string>
 
 
     <!-- Formated general string -->
@@ -180,6 +178,9 @@
     <string name="current_scorecard_a11y_hole_card">%1$s, length %2$s, %3$s, score %4$s %5$s</string>
     <string name="current_scorecard_a11y_score_card">Out score %1$s %2$s, In Score %3$s %4$s, Gross score %5$s %6$s, Handicap %7$s, Net score %8$s %9$s </string>
 
+    <!--A11Y Scorecard item -->
+    <string name="scorecard_item_a11y_card">Golf field %1$s, date %2$s, gross score %3$s, handicap %4$s, net score %5$s, net Difference %6$s</string>
+
 
     <!-- ScorecardProvider -->
     <string name="provider_log_database_not_opnened">database could not be opened</string>
@@ -220,5 +221,6 @@
     <string name="widget_error_empty_list">No scorecard information available</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="add_widget">Add widget</string>
+    <string name="err_no_golf_fields">There are no golf fields to display</string>
 
 </resources>

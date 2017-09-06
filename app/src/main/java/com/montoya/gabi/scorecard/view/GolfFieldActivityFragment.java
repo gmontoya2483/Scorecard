@@ -592,7 +592,7 @@ public class GolfFieldActivityFragment extends Fragment {
     private void setupFragment(){
 
         createNavigationTabs();
-        createBottomNavigationViewListener();//TODO Different mehtods (new, view, Edit,etc)
+        createBottomNavigationViewListener();
         setParSpinners();
 
         switch (mAction){
@@ -616,21 +616,13 @@ public class GolfFieldActivityFragment extends Fragment {
 
     private void setupNewGolfField(){
 
-        Log.e("NEW","Entro el new golf field");
-
         getActivity().setTitle(R.string.golf_field_title_new);
 
         //Enable the name field and disable the resume card
         mGolfFieldNameCardView.setVisibility(View.VISIBLE);
         mGolfFieldResumeCardView.setVisibility(View.GONE);
 
-
-
         mGolfFieldNameEditTextView.setEnabled(true);
-
-
-
-
     }
 
 

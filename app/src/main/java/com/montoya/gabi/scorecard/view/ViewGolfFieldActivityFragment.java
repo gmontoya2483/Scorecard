@@ -613,9 +613,8 @@ public class ViewGolfFieldActivityFragment extends Fragment {
                         break;
 
                     case R.id.item_view_golf_field_delete:
-                        //TODO CHANGE TO THE CORRECT FUNCTIONALITY
-                        Toast.makeText(getContext(),"Selected: delete",Toast.LENGTH_LONG).show();
-                        //getActivity().finish();
+                        mViewGolfField.DeleteGolfField(getContext());
+                        getActivity().finish();
                         break;
 
                     case R.id.item_view_golf_field_favorite:

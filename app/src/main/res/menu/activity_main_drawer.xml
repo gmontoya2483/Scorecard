@@ -28,7 +28,14 @@
             android:title="@string/nav_favorite_golf_fields" />
     </group>
 
+
+
     <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_sign_out"
+            android:icon="@drawable/ic_action_sign_out"
+            android:title="@string/nav_sign_out" />
+
         <item
             android:id="@+id/nav_settings"
             android:icon="@drawable/ic_action_settings"

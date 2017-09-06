@@ -9,7 +9,7 @@
     <item
         android:id="@+id/item_current_scorecard_confirm"
         android:icon="@drawable/ic_action_scorecards"
-        android:title="@string/current_scorecard_item_confirm"/>
+        android:title="@string/current_scorecard_item_confirm" />
 
 
 </menu>

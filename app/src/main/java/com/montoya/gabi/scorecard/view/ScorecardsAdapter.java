@@ -82,11 +82,24 @@ public class ScorecardsAdapter extends RecyclerView.Adapter<ScorecardsAdapter.Sc
         holder.mScorecardHandicap.setText(handicap);
         holder.mScorecardScoreNET.setText(netScore);
 
+        holder.mScorecardCard.setContentDescription(buildContentDescription(name,date,grossScore,handicap,netScore,netDif));
 
-        holder.mScorecardCard.setContentDescription("");//TODO hacer el content description para el card
+    }
+
+
+    private String buildContentDescription(String golfField, String date, String gross, String handicap, String net, String netDif){
+
+        String description=String.format(mContext.getString(R.string.scorecard_item_a11y_card),
+                golfField,
+                date,
+                gross,
+                handicap,
+                net,
+                netDif);
 
 
 
+        return description;
     }
 
     @Override

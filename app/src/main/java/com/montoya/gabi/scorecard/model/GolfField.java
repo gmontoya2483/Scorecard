@@ -404,109 +404,15 @@ public class GolfField {
    }
 
 
-    public int AddHole (GolfFieldHole hole){ //TODO  remplazar esta función por la que se puso en Scorecard
-        int index;
+    public int AddHole (GolfFieldHole hole){
 
-        //Ensure the golffield ID will be the one for this field
-        hole.setGolfField_id(this._id);
-
-        switch (hole.getNumber()){
-            case HOLE_1:
-                index=0;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_2:
-                index=1;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_3:
-                index=2;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_4:
-                index=3;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_5:
-                index=4;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_6:
-                index=5;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_7:
-                index=6;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_8:
-                index=7;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_9:
-                index=8;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_10:
-                index=9;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_11:
-                index=10;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_12:
-                index=11;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_13:
-                index=12;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_14:
-                index=13;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_15:
-                index=14;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_16:
-                index=15;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_17:
-                index=16;
-                this.holes[index]=hole;
-                break;
-
-            case HOLE_18:
-                index=17;
-                this.holes[index]=hole;
-                break;
-            default:
-                index=-1;
-                break;
+        int index=Hole.convertHoleNumberToArrayIndex(hole.getNumber());
+        if (index!=Hole.INVALID_HOLE_ARRAY_INDEX){
+            this.holes[index]=hole;
         }
 
-
         return index;
+
     }
 
 
@@ -886,17 +792,9 @@ public class GolfField {
 
 
 
-
-    //TODO hacer este metodo
-    public void DeleteGolfField(){
-
-        //Chequear si existen ScoreCards para este Golfield o si hay una current tarjeta
-
-        //Si hay algo marcarlos como inactivo
-
-
-        //Si no hay nada borrarlo (GolfField holes y el golfField)
-
+    public void DeleteGolfField(Context context){
+        GolfFieldHole.deleteGolfFieldHolesByGolfFieldId(context,this._id);
+        deleteGolfField(context,this._id);
     }
 
 

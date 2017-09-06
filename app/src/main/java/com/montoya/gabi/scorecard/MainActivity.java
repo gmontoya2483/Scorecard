@@ -9,9 +9,11 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseUser;
 import com.montoya.gabi.scorecard.firebase.UserAuthentication;
 import com.montoya.gabi.scorecard.model.CurrentScorecard;
 import com.montoya.gabi.scorecard.model.GolfField;
@@ -25,6 +27,7 @@ import com.montoya.gabi.scorecard.view.SettingsFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.http.Url;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,
         SettingsFragment.OnFragmentInteractionListener,
@@ -118,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -133,11 +136,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+       /* int id = item.getItemId();
 
         switch (id){
-            case R.id.action_settings:
-                return true;
             case R.id.action_sign_out:
                 //sign out
                 mUserAuthentication.signOut();
@@ -145,7 +146,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             default:
                 return super.onOptionsItemSelected(item);
 
-        }
+        }*/
+        return true;
 
     }
 
@@ -158,11 +160,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
                 onSignedIn();
 
-
-
             }else if (resultCode==RESULT_CANCELED){
-
-
                 finish();
 
             }
@@ -187,7 +185,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void onSignedIn(){
 
-        //TODO add functionality what to do if the user is logged (for example get the user name, show the log out action, etc.... TBD)
+
+        Log.e("USER!!!", mUserAuthentication.getFirebaseAuth().getCurrentUser().getDisplayName());
+        Log.e("EMAIL!!!", mUserAuthentication.getUserEmail());
+        Log.e ("Url!!!",mUserAuthentication.getFirebaseAuth().getCurrentUser().getPhotoUrl().toString());
+
+
+
+        //TODO add functionality what to do if the user is logged (get the user name, image, and email)
+
+
 
     }
 
@@ -230,6 +237,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .replace(R.id.content_main,fragment)
                     .commit();
 
+            mSelectedItemMenu=id;
+
 
         } else if (id == R.id.nav_scorecards) {
             ScorecardsFragment fragment=new ScorecardsFragment();
@@ -238,6 +247,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.content_main,fragment)
                     .commit();
+
+            mSelectedItemMenu=id;
 
 
         } else if (id == R.id.nav_current_scorecards) {
@@ -260,6 +271,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
 
             fragmentTransaction=true;
+            mSelectedItemMenu=id;
 
         } else if (id == R.id.nav_golf_fields) {
 
@@ -271,6 +283,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .commit();
 
             fragmentTransaction=true;
+            mSelectedItemMenu=id;
 
         } else if (id == R.id.nav_favorite_golf_fields) {
             GolfFieldsFragment fragment=new GolfFieldsFragment();
@@ -289,12 +302,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     .commit();
 
             fragmentTransaction=true;
+            mSelectedItemMenu=id;
 
+        } else if (id==R.id.nav_sign_out){
+            mUserAuthentication.signOut();
+            fragmentTransaction=false;
         }
-
-
-        mSelectedItemMenu=id;
-
 
         //manejador de fragment
 
@@ -324,9 +337,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-
-
-
 
     }
 
