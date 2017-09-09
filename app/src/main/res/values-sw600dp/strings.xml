@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="golf_field_text_hole_1">1</string>
+    <string name="golf_field_text_hole_2">2</string>
+    <string name="golf_field_text_hole_3">3</string>
+    <string name="golf_field_text_hole_4">4</string>
+    <string name="golf_field_text_hole_5">5</string>
+    <string name="golf_field_text_hole_6">6</string>
+    <string name="golf_field_text_hole_7">7</string>
+    <string name="golf_field_text_hole_8">8</string>
+    <string name="golf_field_text_hole_9">9</string>
+    <string name="golf_field_text_hole_10">10</string>
+    <string name="golf_field_text_hole_11">11</string>
+    <string name="golf_field_text_hole_12">12</string>
+    <string name="golf_field_text_hole_13">13</string>
+    <string name="golf_field_text_hole_14">14</string>
+    <string name="golf_field_text_hole_15">15</string>
+    <string name="golf_field_text_hole_16">16</string>
+    <string name="golf_field_text_hole_17">17</string>
+    <string name="golf_field_text_hole_18">18</string>
+
+
+
+</resources>

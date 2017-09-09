@@ -476,25 +476,33 @@ public class CurrentScorecardFragment extends Fragment {
 
         mTabHost.setup();
 
-        //Tab 1
+        //Tab General
         TabHost.TabSpec spec = mTabHost.newTabSpec(TAB_GENERAL_SPEC);
         spec.setContent(R.id.tab_current_scorecard_general);
         spec.setIndicator(getString(R.string.tab_general));
         mTabHost.addTab(spec);
 
-        //Tab 2
-        spec = mTabHost.newTabSpec(TAB_OUT_SPEC);
-        spec.setContent(R.id.tab_current_scorecard_out);
-        spec.setIndicator(getString(R.string.tab_out));
-        mTabHost.addTab(spec);
 
-        //Tab 3
-        spec = mTabHost.newTabSpec(TAB_IN_SPEC);
-        spec.setContent(R.id.tab_current_scorecard_in);
-        spec.setIndicator(getString(R.string.tab_in));
-        mTabHost.addTab(spec);
+        //Tab out
+        if (mRootView.findViewById(R.id.tab_current_scorecard_out)!=null){
+            spec = mTabHost.newTabSpec(TAB_OUT_SPEC);
+            spec.setContent(R.id.tab_current_scorecard_out);
+            spec.setIndicator(getString(R.string.tab_out));
+            mTabHost.addTab(spec);
+       }
 
-        //Tab 4
+
+        //Tab in
+        if (mRootView.findViewById(R.id.tab_current_scorecard_in)!=null){
+            spec = mTabHost.newTabSpec(TAB_IN_SPEC);
+            spec.setContent(R.id.tab_current_scorecard_in);
+            spec.setIndicator(getString(R.string.tab_in));
+            mTabHost.addTab(spec);
+
+        }
+
+
+        //Tab score
         spec = mTabHost.newTabSpec(TAB_SCORE_SPEC);
         spec.setContent(R.id.tab_current_scorecard_score);
         spec.setIndicator(getString(R.string.tab_score));

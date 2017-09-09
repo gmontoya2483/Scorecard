@@ -98,7 +98,7 @@ public class TestScorecard extends AndroidTestCase {
 
 
         //Verify the scorecard was inserted correctly
-        assertTrue("The scorecard was not inserted correctly",scorecard_1.insertScorecard(mContext));
+        assertTrue("The scorecard was not inserted correctly",scorecard_1.insertScorecard(mContext)!=Scorecard.SCORECARD_INVALID_ID);
 
         // Verify the the inserted scorecard stored correctly
         Scorecard scorecard_2=new Scorecard(mContext,scorecard_1.get_id());
