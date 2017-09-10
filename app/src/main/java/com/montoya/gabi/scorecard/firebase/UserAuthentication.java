@@ -2,6 +2,7 @@ package com.montoya.gabi.scorecard.firebase;
 
 import android.app.Activity;
 import android.content.Context;
+import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -9,8 +10,11 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.montoya.gabi.scorecard.R;
+import com.montoya.gabi.scorecard.utils.ScorecardUtils;
 
 import java.util.Arrays;
+
+import retrofit2.http.Url;
 
 /**
  * Created by montoya on 06.04.2017.
@@ -23,11 +27,21 @@ public class UserAuthentication {
     public static final String NO_EMAIL = "no_email";
 
 
+
+
+
+
+
     //FireBaseUI Member Variables
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private Context mContext;
     private final Activity mActivity;
+
+
+    private String mUserDisplayName;
+    private String mUserEmail;
+    private Uri mUserPhotoUri;
 
 
 
@@ -37,6 +51,11 @@ public class UserAuthentication {
 
         //Initialize Firebase components
         mFirebaseAuth=FirebaseAuth.getInstance();
+        if (mFirebaseAuth.getCurrentUser()!=null){
+            this.mUserDisplayName=mFirebaseAuth.getCurrentUser().getDisplayName();
+            this.mUserEmail=mFirebaseAuth.getCurrentUser().getEmail();
+            this.mUserPhotoUri=mFirebaseAuth.getCurrentUser().getPhotoUrl();
+        }
 
     }
 
@@ -52,8 +71,8 @@ public class UserAuthentication {
                 @Override
                 public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
 
-                    FirebaseUser user=firebaseAuth.getCurrentUser();
-                    if (user!=null){
+                    mFirebaseAuth=firebaseAuth;
+                    if (mFirebaseAuth.getCurrentUser()!=null){
                         //user is signed in
                         onSignedIn();
 
@@ -168,6 +187,7 @@ public class UserAuthentication {
         AuthUI.getInstance().signOut(mActivity);
 
     }
+
 
 
 

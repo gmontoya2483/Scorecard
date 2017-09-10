@@ -12,6 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseUser;
 import com.montoya.gabi.scorecard.firebase.UserAuthentication;
@@ -41,9 +44,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
 
     //Bind Views
-    @BindView(R.id.toolbar) Toolbar toolbar;
-
-
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
 
     private UserAuthentication mUserAuthentication;
@@ -58,8 +60,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private ActionBarDrawerToggle toggle;
     NavigationView navigationView;
 
-
-
+    private TextView mUserDisplayName;
+    private TextView mUserEmail;
 
 
 
@@ -100,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        //Initialize the UserAuthentication class
+        mUserAuthentication=new UserAuthentication(this);
+
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         toggle = new ActionBarDrawerToggle(
@@ -107,8 +112,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
+        //set the nav
         navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View hView=navigationView.getHeaderView(0);
+        mUserDisplayName=(TextView) hView.findViewById(R.id.nav_header_user);
+        mUserEmail=(TextView) hView.findViewById(R.id.nav_header_email);
+        mUserDisplayName.setText(mUserAuthentication.getFirebaseAuth().getCurrentUser().getDisplayName());
+        mUserEmail.setText(mUserAuthentication.getFirebaseAuth().getCurrentUser().getEmail());
+
         navigationView.setNavigationItemSelectedListener(this);
+
 
 
         //Verific si hay campos de golf cargados y los carga...//TODO borrar cuando se haya terminado de probsar
@@ -116,13 +129,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
        ScorecardUtils.generatePreLoadedGolfFields(getApplicationContext());
         }
 
-        //Initialize the UserAuthentication class and the listener for log in
+        //Initialize the authenticationlistener for log in
         mUserAuthentication=new UserAuthentication(this);
         mUserAuthentication.initializeAuthenticationStateListener();
 
 
         //set the navigation to the last selected option  when comming back
         setNavigationInPreviousStatus();
+
+
 
 
     }
@@ -140,26 +155,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //ScorecardUtils.RemoveKeyFromSharedPreferences(this,SELECTED_MENU_ITEM_LABEL);
   }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-       /* int id = item.getItemId();
-
-        switch (id){
-            case R.id.action_sign_out:
-                //sign out
-                mUserAuthentication.signOut();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }*/
-        return true;
+          return true;
 
     }
 
@@ -177,6 +177,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             }
         }
+
+
     }
 
     @Override
@@ -197,26 +199,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private void onSignedIn(){
 
-
-        Log.e("USER!!!", mUserAuthentication.getFirebaseAuth().getCurrentUser().getDisplayName());
-        Log.e("EMAIL!!!", mUserAuthentication.getUserEmail());
-        Log.e ("Url!!!",mUserAuthentication.getFirebaseAuth().getCurrentUser().getPhotoUrl().toString());
-
-
-
-        //TODO add functionality what to do if the user is logged (get the user name, image, and email)
-
+        mUserDisplayName.setText(mUserAuthentication.getFirebaseAuth().getCurrentUser().getDisplayName());
+        mUserEmail.setText(mUserAuthentication.getFirebaseAuth().getCurrentUser().getEmail());
 
 
     }
 
-
-
-    //Navigation Bar interfase Methods
-    //@Override
-    //public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-    //    return false;
-    //}
 
 
     @Override
@@ -364,6 +352,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
        navigationView.setCheckedItem(id);
        navigationView.getMenu().performIdentifierAction(id,0);
+
 
     }
 
