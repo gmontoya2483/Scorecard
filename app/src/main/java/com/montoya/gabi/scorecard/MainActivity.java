@@ -117,27 +117,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         View hView=navigationView.getHeaderView(0);
         mUserDisplayName=(TextView) hView.findViewById(R.id.nav_header_user);
         mUserEmail=(TextView) hView.findViewById(R.id.nav_header_email);
-        mUserDisplayName.setText(mUserAuthentication.getFirebaseAuth().getCurrentUser().getDisplayName());
-        mUserEmail.setText(mUserAuthentication.getFirebaseAuth().getCurrentUser().getEmail());
+        mUserDisplayName.setText(mUserAuthentication.getUserDisplayName());
+        mUserEmail.setText(mUserAuthentication.getUserEmail());
 
         navigationView.setNavigationItemSelectedListener(this);
 
 
-
-        //Verific si hay campos de golf cargados y los carga...//TODO borrar cuando se haya terminado de probsar
-        if (GolfField.getQuantityOfGolfFields(getApplicationContext())==0){
-       ScorecardUtils.generatePreLoadedGolfFields(getApplicationContext());
-        }
-
-        //Initialize the authenticationlistener for log in
+        //Initialize the authenticationlistener for login
         mUserAuthentication=new UserAuthentication(this);
         mUserAuthentication.initializeAuthenticationStateListener();
 
 
         //set the navigation to the last selected option  when comming back
         setNavigationInPreviousStatus();
-
-
 
 
     }
@@ -331,9 +323,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onSaveInstanceState(outState);
 
     }
-
-
-
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
