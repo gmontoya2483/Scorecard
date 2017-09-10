@@ -8,7 +8,7 @@ android {
         config {
             keyAlias 'myandroidkey'
             keyPassword 'GHM24838707ghm'
-            storeFile file('C:/Users/Gabriel/OneDrive/KeyStore/androidKeyStore.jks')
+            storeFile file('androidKeyStore.jks')
             storePassword 'GHM24838707ghm'
         }
     }
