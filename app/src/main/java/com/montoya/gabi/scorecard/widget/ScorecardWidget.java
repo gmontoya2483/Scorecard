@@ -43,22 +43,11 @@ public class ScorecardWidget extends AppWidgetProvider {
             setRemoteAdapterV11(context, views);
         }
 
-        /*Intent clickIntentTemplate=new Intent(context,ViewScorecardActivity.class);
-        PendingIntent clickPendingIntentTemplate = TaskStackBuilder.create(context)
-                .addNextIntentWithParentStack(clickIntentTemplate)
-                .getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setPendingIntentTemplate(R.id.widget_list, clickPendingIntentTemplate);
-        views.setEmptyView(R.id.widget_list, R.id.widget_empty);
-        */
 
         Intent clickIntentTemplate=new Intent(context,ViewScorecardActivity.class);
         PendingIntent clickPendingIntentTemplate = PendingIntent.getActivity(context,0, clickIntentTemplate, PendingIntent.FLAG_UPDATE_CURRENT);
         views.setPendingIntentTemplate(R.id.widget_list, clickPendingIntentTemplate);
         views.setEmptyView(R.id.widget_list, R.id.widget_empty);
-
-
-
-
 
 
         // Instruct the widget manager to update the widget
