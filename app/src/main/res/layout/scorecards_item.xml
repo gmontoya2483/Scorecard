@@ -65,7 +65,7 @@
                 android:layout_columnWeight="0"
                 android:layout_gravity="center_vertical|end"
                 android:layout_weight="0"
-                android:text="+ 2"
+                android:text="@string/item_fake_dif"
                 android:textAlignment="center"
                 android:textSize="28sp"
                />
@@ -99,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical|center"
-                    android:text="80" />
+                    android:text="@string/item_fake_gross_value" />
 
                 <TextView
                     android:id="@+id/txt_label_gross"
@@ -107,7 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical|center"
-                    android:text="GROSS"
+                    android:text="@string/item_gross_label"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
 
@@ -125,7 +125,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical|center"
-                    android:text="24" />
+                    android:text="@string/item_fake_handicap_value" />
 
                 <TextView
                     android:id="@+id/txt_label_handicap"
@@ -133,7 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical|center"
-                    android:text="HANDICAP"
+                    android:text="@string/item_handicap_label"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
 
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical|center"
-                    android:text="62" />
+                    android:text="@string/item_fake_net_value" />
 
                 <TextView
                     android:id="@+id/txt_label_net"
@@ -159,7 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical|center"
-                    android:text="NET"
+                    android:text="@string/item_net_label"
                     android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
 
 

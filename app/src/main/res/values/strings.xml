@@ -225,4 +225,16 @@
     <string name="err_no_golf_fields">There are no golf fields to display</string>
 
 
+    <!--fixes after review -->
+    <string name="nav_header_fake_user_name">User name</string>
+    <string name="nav_header_fake_email">android.studio@android.com</string>
+    <string name="item_fake_dif">+ 2</string>
+    <string name="item_fake_gross_value">80</string>
+    <string name="item_gross_label">GROSS</string>
+    <string name="item_fake_handicap_value">24</string>
+    <string name="item_handicap_label">HANDICAP</string>
+    <string name="item_fake_net_value">62</string>
+    <string name="item_net_label">NET</string>
+
+
 </resources>
